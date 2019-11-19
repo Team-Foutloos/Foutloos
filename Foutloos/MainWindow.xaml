@@ -10,7 +10,8 @@
       Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
       Width="{x:Static SystemParameters.PrimaryScreenWidth}"
     WindowStyle="None" ResizeMode="NoResize"  
-    WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowState="Maximized"
+    WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

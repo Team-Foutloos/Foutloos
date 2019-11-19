@@ -21,7 +21,7 @@
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="498,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="123"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="655,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="817,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-        <Button Content="See All Exercises" HorizontalAlignment="Left" Margin="590,528,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.48,-1.323"/>
+        <Button Content="See All Exercises" HorizontalAlignment="Left" Margin="590,528,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.48,-1.323" Click="Button_Click"/>
         <Button Content="Login" HorizontalAlignment="Left" Margin="498,662,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="or" HorizontalAlignment="Left" Margin="600,659,0,0" VerticalAlignment="Top"/>
         <Button Content="Create An Account" HorizontalAlignment="Left" Margin="642,663,0,0" VerticalAlignment="Top" Width="120"/>

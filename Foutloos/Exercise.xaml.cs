@@ -16,21 +16,13 @@ using System.Windows.Shapes;
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for HomeScreen.xaml
+    /// Interaction logic for Exercise.xaml
     /// </summary>
-    public partial class HomeScreen : Page
+    public partial class Exercise : Page
     {
-        MainWindow owner;
-        public HomeScreen(MainWindow owner)
+        public Exercise()
         {
-            this.owner = owner;
             InitializeComponent();
-            
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            owner.Content = new Exercise();
         }
     }
 }
