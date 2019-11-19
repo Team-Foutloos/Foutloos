@@ -16,14 +16,14 @@ using System.Windows.Shapes;
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HomeScreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomeScreen : Page
     {
-        public MainWindow()
+        public HomeScreen()
         {
             InitializeComponent();
-            this.Content = new HomeScreen();
+            
         }
     }
 }

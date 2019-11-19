@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Foutloos"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow"
+        
+      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
     WindowStyle="None" ResizeMode="NoResize"  
     WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
     </Grid>
 </Window>
