@@ -16,21 +16,29 @@ using System.Windows.Shapes;
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for HomeScreen.xaml
+    /// Interaction logic for ExercisesPage.xaml
     /// </summary>
-    public partial class HomeScreen : Page
+    public partial class ExercisesPage : Page
     {
-        MainWindow owner;
-        public HomeScreen(MainWindow owner)
+      
+        public ExercisesPage()
         {
-            this.owner = owner;
             InitializeComponent();
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            owner.Content = new ExercisesPage();
+            
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
