@@ -1,16 +1,12 @@
-﻿<Window x:Class="Project_Foutloos.MainWindow"
+﻿<Window x:Class="Project_Foutloos.HomeScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_Foutloos"
         mc:Ignorable="d"
-        Title="Foutloos" Height="1080" Width="1920"
-        WindowStyle="None" ResizeMode="NoResize"  
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
-
+        Title="HomeScreen" Height="450" Width="800" SizeToContent="WidthAndHeight" Icon="assets/logoBlack.png">
     <Grid>
-        <Image Source="assets/logoBlack.png" HorizontalAlignment="Left"  Margin="695,154,0,0" VerticalAlignment="Top" Width="400"/>
-
+        
     </Grid>
 </Window>
