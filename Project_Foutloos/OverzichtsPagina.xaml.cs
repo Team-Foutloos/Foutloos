@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project_Foutloos
@@ -17,7 +18,7 @@ namespace Project_Foutloos
     /// <summary>
     /// Interaction logic for OverzichtsPagina.xaml
     /// </summary>
-    public partial class OverzichtsPagina : Window
+    public partial class OverzichtsPagina : Page
     {
         public OverzichtsPagina()
         {
