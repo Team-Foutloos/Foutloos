@@ -5,46 +5,31 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Foutloos"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ExercisesPage">
+      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+      Title="ExercisesPage" Background="White">
 
-    <Grid HorizontalAlignment="Right" Width="800" Background="White">
-        <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="65" Height="22" Click="Button_Click" FontFamily="Arial Rounded MT Bold"/>
-        <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="65" Margin="95,8,0,0" VerticalAlignment="Top" Width="80"/>
-        <TextBlock HorizontalAlignment="Left" Margin="208,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="50" FontFamily="Arial Rounded MT Bold"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
-        <TabControl HorizontalAlignment="Left" Height="345" Margin="10,85,0,0" VerticalAlignment="Top" Width="570">
-            <TabItem Header="All" Margin="13,0,-17,0" FontFamily="Arial Rounded MT Bold">
-                <Label >
-                    <ScrollViewer Height="307" Width="554"/>
-                </Label>
-            </TabItem>
-            <TabItem Header="Selected for you" Margin="15,0,-15,0" FontFamily="Arial Rounded MT Bold">
-                <Label >
-                    <ScrollViewer Height="307" Width="554"/>
-                </Label>
-            </TabItem>
-
-            <TabItem Header="Amature" Margin="15,0,-15,0" FontFamily="Arial Rounded MT Bold" />
-            <TabItem Header="Normal" Margin="15,0,-15,0" FontFamily="Arial Rounded MT Bold" />
-            <TabItem Header="Expert" Margin="15,0,-15,0" FontFamily="Arial Rounded MT Bold" />
-            <TabItem Header="Finished" Margin="15,0,-15,0" FontFamily="Arial Rounded MT Bold" />
-        </TabControl>
-        <Button Content="Start selected exercise" HorizontalAlignment="Left" Margin="620,390,0,0" VerticalAlignment="Top" Width="145" FontFamily="Arial Rounded MT Bold"/>
-        <RadioButton Content="Text (Speech optional)" HorizontalAlignment="Left" Margin="620,350,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Left" Margin="620,370,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="620,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold"><Run FontSize="14" Text="Description"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="620,170,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="14" FontFamily="Arial Rounded MT Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="620,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="15"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="63" Margin="575,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215"/>
-        <TextBlock HorizontalAlignment="Left" Margin="620,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="15" Text="Type #"/>
-        <TextBlock HorizontalAlignment="Left" Margin="620,270,0,0" TextWrapping="Wrap" Text="orem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio turpis, volutpat tempor gravida at, tincidunt et est. Suspendisse euismod placer" VerticalAlignment="Top" RenderTransformOrigin="0.51,-1.25" Height="50" Width="160"/>
-        <Label Content="WPM:" HorizontalAlignment="Left" Margin="582,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="CPM:" HorizontalAlignment="Left" Margin="582,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT"/>
-        <Label Content="Total Errors:" HorizontalAlignment="Left" Margin="582,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="69" HorizontalAlignment="Left" Margin="715,19,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="200" HorizontalAlignment="Left" Margin="715,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="4" HorizontalAlignment="Left" Margin="715,59,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="589,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
+    <Grid HorizontalAlignment="Right" Width="1910" Background="White">
+        <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="Button_Click" FontFamily="Arial Rounded MT Bold" FontSize="30"/>
+        <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="161" Margin="325,18,0,0" VerticalAlignment="Top" Width="275"/>
+        <TextBlock HorizontalAlignment="Left" Margin="645,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="100" FontFamily="Arial Rounded MT Bold"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
+        <Button Content="Start selected exercise" HorizontalAlignment="Left" Margin="1516,820,0,0" VerticalAlignment="Top" Width="344" FontFamily="Arial Rounded MT Bold" Height="60" FontSize="30"/>
+        <RadioButton x:Name="Text" Content="Text (Speech optional)" HorizontalAlignment="Left" Margin="1516,674,0,0" VerticalAlignment="Top" FontSize="20" Height="71" Width="319"/>
+        <RadioButton x:Name="Spoken" Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Left" Margin="1516,745,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="191"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1516,425,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="25" Text="Description" Height="80" Width="210"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1521,271,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontFamily="Arial Rounded MT Bold" Height="81" Width="187"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1521,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="20" Width="93"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="110" Margin="1516,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1521,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Text="Type #" FontSize="20" Width="87"/>
+        <Label x:Name="WPM" Content="WPM:" HorizontalAlignment="Left" Margin="1521,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="69" FontSize="20"/>
+        <Label Content="CPM:" HorizontalAlignment="Left" Margin="1521,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT" Height="42" Width="69" FontSize="20"/>
+        <Label Content="Total Errors:" HorizontalAlignment="Left" Margin="1521,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="154" FontSize="20"/>
+        <Label x:Name="wpm_number" Content="69" HorizontalAlignment="Left" Margin="1747,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="33" FontSize="20"/>
+        <Label Content="200" HorizontalAlignment="Left" Margin="1747,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="51" FontSize="20"/>
+        <Label Content="4" HorizontalAlignment="Left" Margin="1747,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="23" FontSize="20"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1516,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" Height="27" Width="197" FontSize="25"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
+        <Viewbox HorizontalAlignment="Left" Height="100" Margin="1530,655,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="Description" Content="" HorizontalAlignment="Left" Margin="1521,479,0,0" VerticalAlignment="Top" Height="171" Width="314" FontSize="20"/>
 
     </Grid>
 </Page>

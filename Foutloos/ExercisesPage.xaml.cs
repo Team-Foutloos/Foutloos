@@ -20,10 +20,15 @@ namespace Foutloos
     /// </summary>
     public partial class ExercisesPage : Page
     {
+
+        private bool text = false;
+        private bool spoken = false;
       
         public ExercisesPage()
         {
             InitializeComponent();
+            Description.Content = "jkdsklfjdsfjdsjkfjsl";
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,9 +41,20 @@ namespace Foutloos
 
         }
 
-        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void check_radio()
         {
+            if (Text.IsChecked == true)
+            {
+                this.text = true;
+            }
+            if (Spoken.IsChecked == true)
+            {
+                this.spoken = true;
+            }            
+        } 
 
-        }
+
+
+        
     }
 }

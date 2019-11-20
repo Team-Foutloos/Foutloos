@@ -32,5 +32,7 @@ namespace Foutloos
         {
             owner.Content = new ExercisesPage();
         }
+
+        
     }
 }
