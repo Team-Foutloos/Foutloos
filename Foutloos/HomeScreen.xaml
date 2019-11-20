@@ -28,8 +28,10 @@
             </Grid.RowDefinitions>
 
             <Button Content="Settings" HorizontalAlignment="Left" Margin="1311,10,0,0" VerticalAlignment="Top" Width="99" Height="35"/>
-            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" Margin="253,67,0,0" VerticalAlignment="Top" Width="100" Grid.Row="1" Grid.Column="1"/>
-            <Label Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="417,67,0,0" VerticalAlignment="Top" Height="90" Width="341" Grid.Row="1" Grid.Column="1"/>
+            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
+                <Label Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Top" Height="90" Width="341"/>
+            </Grid>
             <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,78,350.5,0"/>
             <Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179,137,178.5,82">
                 <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Stroke="Black" VerticalAlignment="Top" Width="122"/>
