@@ -25,6 +25,12 @@ namespace Foutloos
 
             InitializeComponent();
             this.Content = new HomeScreen(this);
+
+            //Prohibit window from being rescaled
+            MouseDoubleClick += (sender, args) =>
+            {
+                args.Handled = true;
+            };
         }
     }
 }
