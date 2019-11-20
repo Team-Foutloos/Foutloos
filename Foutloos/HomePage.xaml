@@ -1,4 +1,4 @@
-﻿<Page x:Class="Foutloos.ExcersisesPage"
+﻿<Page x:Class="Foutloos.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,10 @@
       xmlns:local="clr-namespace:Foutloos"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ExcersisesPage">
+      Title="HomePage">
 
-    <Grid Background="White"/>
+    <Grid Background="White">
+        <Button Content="ExcersisesPage" HorizontalAlignment="Left" Margin="345,170,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
+
+    </Grid>
 </Page>

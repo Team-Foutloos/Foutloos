@@ -16,21 +16,18 @@ using System.Windows.Shapes;
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for HomeScreen.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomeScreen : Page
+    public partial class HomePage : Page
     {
-        MainWindow owner;
-        public HomeScreen(MainWindow owner)
+        public HomePage()
         {
-            this.owner = owner;
             InitializeComponent();
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            owner.Content = new ExercisesPage();
+            this.Content = ExcersisesPage.excercises;
         }
     }
 }

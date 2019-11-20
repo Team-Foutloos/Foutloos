@@ -16,13 +16,29 @@ using System.Windows.Shapes;
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for ExcersisesPage.xaml
+    /// Interaction logic for ExercisesPage.xaml
     /// </summary>
-    public partial class ExcersisesPage : Page
+    public partial class ExercisesPage : Page
     {
-        public ExcersisesPage()
+      
+        public ExercisesPage()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
