@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Foutloos"
         WindowState="Maximized"
-   WindowStartupLocation="CenterScreen">
+   WindowStartupLocation="CenterScreen"
+        MinWidth="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
+        MinHeight="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Left="0" Top="0">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
