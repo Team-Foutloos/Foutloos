@@ -37,7 +37,7 @@
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
                 </Grid>
                 <Button Content="See All Exercises" Width="168" RenderTransformOrigin="0.48,-1.323" Click="Button_Click" Height="64" Grid.Row="3" Grid.Column="1" Margin="389.333,21,389.333,189"/>
-                <Button Content="Login" HorizontalAlignment="Left" Margin="314.333,144,0,0" VerticalAlignment="Top" Width="75" Height="40" Grid.Row="3" Grid.Column="1"/>
+                <Button Content="Login" HorizontalAlignment="Left" Margin="314.333,144,0,0" VerticalAlignment="Top" Width="75" Height="40" Grid.Row="3" Grid.Column="1" Click="Button_Click_1"/>
                 <Label Content="or" HorizontalAlignment="Left" Margin="417.333,144,0,0" VerticalAlignment="Top" Height="39" Width="35" Grid.Row="3" Grid.Column="1" FontSize="20"/>
                 <Button Content="Create An Account" HorizontalAlignment="Left" Margin="483.333,143,0,0" VerticalAlignment="Top" Width="167" Height="40" Grid.Row="3" Grid.Column="1"/>
 
