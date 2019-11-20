@@ -10,46 +10,38 @@
       Title="HomeScreen" Background="white" ShowsNavigationUI="False" HorizontalAlignment="Center" VerticalAlignment="Center">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Viewbox StretchDirection="Both" Stretch="Uniform">
+            <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="187*"/>
+                    <RowDefinition Height="339*"/>
+                    <RowDefinition Height="274*"/>
+                </Grid.RowDefinitions>
 
-        <Grid Margin="10" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80*"/>
-                <RowDefinition Height="187*"/>
-                <RowDefinition Height="339*"/>
-                <RowDefinition Height="187*"/>
-                <RowDefinition Height="88*"/>
-            </Grid.RowDefinitions>
-
-            <Button Content="Settings" Margin="32.5,34,32,2" Width="172" Height="44" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Margin="221,43,220.5,44" Width="505">
-                <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
-                <Label Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Top" Height="90" Width="341"/>
-            </Grid>
-            <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,77,350.5,0"/>
-            <Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179,137,178.5,81.5" Height="120" Width="589">
-                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="148,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="123"/>
-                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-            </Grid>
-            <Button Content="See All Exercises" RenderTransformOrigin="0.48,-1.323" Click="Button_Click" Grid.Row="3" Grid.Column="1" Margin="410,12.5,410.5,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="126"/>
-            <Grid Grid.Column="1" Grid.Row="3" Margin="301,84.5,300.5,36.5" Height="66" Width="345" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Content="Login" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Width="75" Height="40"/>
-                <Label Content="or" HorizontalAlignment="Left" Margin="103,1,0,0" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
-                <Button Content="Create An Account" HorizontalAlignment="Left" Margin="169,0,0,0" VerticalAlignment="Top" Width="167" Height="40"/>
+                <Button Content="Settings" HorizontalAlignment="Left" Margin="100,15,0,0" VerticalAlignment="Top" Width="99" Height="36" Grid.Column="2"/>
+                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
+                    <Label Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Top" Height="90" Width="341"/>
+                </Grid>
+                <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,78,350.5,0"/>
+                <Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179,137,178.5,82">
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Stroke="Black" VerticalAlignment="Top" Width="122"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="148,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="123"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
+                </Grid>
+                <Button Content="See All Exercises" Width="168" RenderTransformOrigin="0.48,-1.323" Click="Button_Click" Height="64" Grid.Row="3" Grid.Column="1" Margin="389.333,21,389.333,189"/>
+                <Button Content="Login" HorizontalAlignment="Left" Margin="314.333,144,0,0" VerticalAlignment="Top" Width="75" Height="40" Grid.Row="3" Grid.Column="1"/>
+                <Label Content="or" HorizontalAlignment="Left" Margin="417.333,144,0,0" VerticalAlignment="Top" Height="39" Width="35" Grid.Row="3" Grid.Column="1" FontSize="20"/>
+                <Button Content="Create An Account" HorizontalAlignment="Left" Margin="483.333,143,0,0" VerticalAlignment="Top" Width="167" Height="40" Grid.Row="3" Grid.Column="1"/>
 
             </Grid>
-
-        </Grid>
-
+        </Viewbox>
     </Grid>
 </Page>
