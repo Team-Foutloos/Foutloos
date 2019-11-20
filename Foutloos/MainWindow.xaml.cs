@@ -22,6 +22,7 @@ namespace Foutloos
     {
         public MainWindow()
         {
+
             InitializeComponent();
             this.Content = new HomeScreen(this);
         }
