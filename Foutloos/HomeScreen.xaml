@@ -47,7 +47,7 @@
             </Grid>
             <Button Content="See All Exercises" RenderTransformOrigin="0.48,-1.323" Click="Button_Click" Grid.Row="3" Grid.Column="1" Margin="410,12.5,410.5,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="126"/>
             <Grid Grid.Column="1" Grid.Row="3" Margin="301,84.5,300.5,36.5" Height="66" Width="345" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Content="Login" HorizontalAlignment="Left" Margin="0,1,0,0" Click="Button_Click_1" VerticalAlignment="Top" Width="75" Height="40"/>
+                    <Button Content="Login" Click="Button_Click_1" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Width="75" Height="40"/>
                 <Label Content="or" HorizontalAlignment="Left" Margin="103,1,0,0" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
                 <Button Content="Create An Account" HorizontalAlignment="Left" Margin="169,0,0,0" VerticalAlignment="Top" Width="167" Height="40"/>
 
