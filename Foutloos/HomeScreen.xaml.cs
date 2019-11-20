@@ -20,10 +20,10 @@ namespace Foutloos
     /// </summary>
     public partial class HomeScreen : Page
     {
-        MainWindow owner;
-        public HomeScreen(MainWindow owner)
+        public static MainWindow owner;
+        public HomeScreen(MainWindow Owner)
         {
-            this.owner = owner;
+            owner = Owner;
             InitializeComponent();
             
         }
