@@ -50,26 +50,34 @@ namespace Foutloos
         }
 
 
+        //Boolean that becomes true in case an animation is still going on.
+        //This prevents bugging because of overlapping elements.
         bool disableResize = false;
 
 
-        //Start of mouse hover
+        //When the mouse enters an Exercise box this happens
         private void OnBoxEnter(object sender, EventArgs e)
         {
+            //Only if no other animation is going on this will be true
             if (!disableResize)
             {
+                //Set the disableResize so that no other animations can start while this one is going on
                 disableResize = true;
+
+                //Declaring the different animation objects
                 DoubleAnimation animation = new DoubleAnimation();
                 DoubleAnimation fadeAnimation = new DoubleAnimation();
                 ThicknessAnimation marginAnimation = new ThicknessAnimation();
 
                 //Get the TextBlock that was hovered over.
                 TextBlock hoveredBox = ((TextBlock)sender);
+                
                 //Every other TextBlock in the grid will be hidden
                 foreach (TextBlock x in BoxGrid.Children)
                 {
                     if (x != hoveredBox)
                     {
+                        //Changing the opacity of the non-selected boxes to zero with an fading animation
                         fadeAnimation.From = x.Opacity;
                         fadeAnimation.To = 0;
                         fadeAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
@@ -77,15 +85,16 @@ namespace Foutloos
                     }
                 }
 
+                //Adding extra information to the exercise box (Here will the level and the discription be shown)
                 hoveredBox.Text += "\nTest tekst";
 
-                //The margin of the current TextBlock will be set to 0
+                //The margin of the current TextBlock will be set to 0 with an animation
                 marginAnimation.From = hoveredBox.Margin;
                 marginAnimation.To = new Thickness(0, 0, 0, 0);
                 marginAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
                 hoveredBox.BeginAnimation(MarginProperty, marginAnimation);
 
-                //The width of the TextBlock will be set to the same width of the GridBox
+                //The width of the TextBlock will be set to the same width of the GridBox with an animation
                 animation.From = hoveredBox.Width;
                 animation.To = BoxGrid.Width;
                 animation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
@@ -99,29 +108,32 @@ namespace Foutloos
         //End of mouse hover (Reset to begin values)
         private void OnBoxLeave(object sender, EventArgs e)
         {
+            //Declare all the animation types
             DoubleAnimation animation = new DoubleAnimation();
             DoubleAnimation fadeAnimation = new DoubleAnimation();
             ThicknessAnimation marginAnimation = new ThicknessAnimation();
 
+            //Add Animation_Completed to animation to run it when the animation is completed
             animation.Completed += Animation_Completed;
 
             //Get the TextBlock that was hovered over.
             TextBlock hoveredBox = ((TextBlock)sender);
 
 
-            //Setting the hovered TextBlock back to its origional value
+            //Setting the hovered TextBlock back to its origional value with an animation
             animation.From = hoveredBox.Width;
             animation.To = 122;
             animation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
             hoveredBox.BeginAnimation(WidthProperty, animation);
 
 
-            //Setting the margin of the hovered TextBlock back to the origional value
+            //Setting the margin of the hovered TextBlock back to the origional value with an animation
             marginAnimation.From = hoveredBox.Margin;
             marginAnimation.To = new Thickness((BoxGrid.Children.IndexOf(hoveredBox)) * 26 + (BoxGrid.Children.IndexOf(hoveredBox) * 122), 0, 0, 0); ;
             marginAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
             hoveredBox.BeginAnimation(MarginProperty, marginAnimation);
 
+            //Set the text of the ExerciseBox back to its origional value
             hoveredBox.Text = $"Exercise {hoveredBox.Name}";
 
             //Make all other TextBlock visible again.
@@ -129,6 +141,7 @@ namespace Foutloos
             {
                 if (x != hoveredBox)
                 {
+                    //Animate the visibility to be visible again
                     fadeAnimation.From = x.Opacity;
                     fadeAnimation.To = 1;
                     fadeAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
@@ -142,6 +155,7 @@ namespace Foutloos
 
         private void Animation_Completed(object sender, EventArgs e)
         {
+            //Set the disableResize to false so other animations can start again
             disableResize = false;
         }
 
