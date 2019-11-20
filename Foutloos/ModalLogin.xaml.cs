@@ -10,28 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ModalLogin.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ModalLogin : Window
     {
-        
-        public MainWindow()
+        public ModalLogin()
         {
-
             InitializeComponent();
-            this.Content = new HomeScreen(this);
+        }
 
-            //Prohibit window from being rescaled
-            MouseDoubleClick += (sender, args) =>
-            {
-                args.Handled = true;
-            };
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
