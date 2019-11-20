@@ -13,18 +13,36 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" Margin="394,89,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="558,89,0,0" VerticalAlignment="Top"/>
-        <Button Content="Settings" HorizontalAlignment="Left" Margin="1151,29,0,0" VerticalAlignment="Top" Width="99" Height="35"/>
-        <Label Content="Start Typing Now!" FontSize="30" HorizontalAlignment="Left" Margin="515,266,0,0" VerticalAlignment="Top"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="350,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="498,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="123"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="655,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="817,338,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
-        <Button Content="See All Exercises" HorizontalAlignment="Left" Margin="590,528,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.48,-1.323" Click="Button_Click"/>
-        <Button Content="Login" HorizontalAlignment="Left" Margin="498,662,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="or" HorizontalAlignment="Left" Margin="600,659,0,0" VerticalAlignment="Top"/>
-        <Button Content="Create An Account" HorizontalAlignment="Left" Margin="642,663,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="187*"/>
+                <RowDefinition Height="339*"/>
+                <RowDefinition Height="274*"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Settings" HorizontalAlignment="Left" Margin="1311,10,0,0" VerticalAlignment="Top" Width="99" Height="35"/>
+            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" Margin="253,67,0,0" VerticalAlignment="Top" Width="100" Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="417,67,0,0" VerticalAlignment="Top" Height="90" Width="341" Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,78,350.5,0"/>
+            <Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179,137,178.5,82">
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Stroke="Black" VerticalAlignment="Top" Width="122"/>
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="148,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="123"/>
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="122"/>
+            </Grid>
+            <Button Content="See All Exercises" Width="168" RenderTransformOrigin="0.48,-1.323" Click="Button_Click" Height="64" Grid.Row="3" Grid.Column="1" Margin="389,55,389.5,155"/>
+            <Button Content="Login" HorizontalAlignment="Left" Margin="314,178,0,0" VerticalAlignment="Top" Width="75" Height="40" Grid.Row="3" Grid.Column="1"/>
+            <Label Content="or" HorizontalAlignment="Left" Margin="417,178,0,0" VerticalAlignment="Top" Height="39" Width="35" Grid.Row="3" Grid.Column="1" FontSize="20"/>
+            <Button Content="Create An Account" HorizontalAlignment="Left" Margin="483,177,0,0" VerticalAlignment="Top" Width="167" Height="40" Grid.Row="3" Grid.Column="1"/>
+
+        </Grid>
 
     </Grid>
 </Page>
