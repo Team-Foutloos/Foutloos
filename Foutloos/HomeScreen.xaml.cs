@@ -168,7 +168,7 @@ namespace Foutloos
             {
                 DarkenAdorner darkenAdorner = new DarkenAdorner(rootVisual);
                 adornerLayer.Add(darkenAdorner);
-                ModalLogin modal = new ModalLogin { Owner = this.owner };
+                ModalLogin modal = new ModalLogin { Owner = HomeScreen.owner };
                 modal.ShowDialog();
                 adornerLayer.Remove(darkenAdorner);
             }
