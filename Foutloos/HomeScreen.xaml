@@ -18,6 +18,10 @@
     </Page.RenderTransform>
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
         <Viewbox StretchDirection="Both" Stretch="Uniform">
             <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
                 <Grid.ColumnDefinitions>
@@ -33,18 +37,31 @@
                 </Grid.RowDefinitions>
 
 
-            <Button Content="Settings" Margin="32.5,34,32,2" Width="172" Height="44" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Margin="221,43,220.5,44" Width="505">
+                <Button Margin="32.5,34,32,2" Padding="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Width="25" Source="assets/settings.jpg" />
+                        <TextBlock FontSize="20" >Settings</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Margin="221,43,220.5,44" Width="505">
                 <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
                 <Label Name="Title" Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Top" Height="90" Width="341"/>
             </Grid>
             <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,77,350.5,0"/>
-            <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179,137,178.5,81.5" Height="120" Width="589">
-                <TextBlock Name="Box1" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122" Background="#FFD1D1D1"/>
-                <TextBlock Name="Box2" HorizontalAlignment="Left" Height="120" Margin="148,0,0,0" Background="#FFD1D1D1" VerticalAlignment="Top" Width="122"/>
-                <TextBlock Name="Box3" HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" Background="#FFD1D1D1" VerticalAlignment="Top" Width="122"/>
-                <TextBlock Name="Box4" HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" Background="#FFD1D1D1" VerticalAlignment="Top" Width="122"/>
-            </Grid>
+                <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179.333,136.667,178.333,82" Height="120" Width="589">
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="DarkGreen" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122">
+                        <TextBlock Name="Box1" Background="LightGreen"/>
+                    </Border>
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="DarkBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122">
+                        <TextBlock Name="Box2" Background="Aqua"/>
+                    </Border>
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="Red"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122">
+                        <TextBlock Name="Box3" Background="LightSalmon"/>
+                    </Border>
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="Red"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122">
+                        <TextBlock Name="Box4" Background="LightPink"/>
+                    </Border>
+                </Grid>
             <Button Content="See All Exercises" RenderTransformOrigin="0.48,-1.323" Click="Button_Click" Grid.Row="3" Grid.Column="1" Margin="410,12.5,410.5,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="126"/>
             <Grid Grid.Column="1" Grid.Row="3" Margin="301,84.5,300.5,36.5" Height="66" Width="345" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Content="Login" Click="Button_Click_1" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Width="75" Height="40"/>
