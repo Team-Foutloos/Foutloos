@@ -1,0 +1,59 @@
+﻿<Page x:Class="Foutloos.VoiceExercise"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Foutloos"
+      mc:Ignorable="d" 
+      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+      Title="VoiceExercise" Background="white" ShowsNavigationUI="False" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+    <Page.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Page.RenderTransform>
+
+
+
+    <Grid>
+        <UserControl Loaded="UserControl_Loaded">
+            <Viewbox StretchDirection="Both" Stretch="Uniform">
+                <Grid  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
+
+                    <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,420,55,0" Background="#FFE8E8E8" />
+                    <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1200,33,0,0" VerticalAlignment="Top" Width="190"/>
+
+                    <Label Height="28" HorizontalAlignment="Left"
+                        x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,367,0,0"/>
+                    <Slider Ticks="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
+                        Value="10"
+                        Delay="100"
+                        Interval="5"
+                        TickPlacement="BottomRight"
+                        Minimum="1"
+                        Maximum="10"
+                        Height="28" 
+                        HorizontalAlignment="Left" 
+                        Margin="130,367,0,0"
+                        x:Name="sliderVolume"
+                        VerticalAlignment="Top"
+                        Width="157"
+                        AutoToolTipPlacement="BottomRight"
+                        ValueChanged="sliderVolume_ValueChanged"/>
+                    <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,725,0,0" VerticalAlignment="Top" Width="165" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
+                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="310" FontSize="36" Margin="557,230,0,0"/>
+                    <ProgressBar Name="progressBar" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="556" Margin="432,368,432,0"/>
+                    <Label x:Name="label" Content="WPM" HorizontalAlignment="Left" Margin="1200,805,0,0" VerticalAlignment="Top" BorderBrush="Black" Height="40" Width="175" FontSize="20"/>
+
+                </Grid>
+            </Viewbox>
+        </UserControl>
+
+    </Grid>
+
+
+</Page>
