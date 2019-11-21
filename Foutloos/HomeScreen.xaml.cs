@@ -39,6 +39,7 @@ namespace Foutloos
                 //Adding the events
                 x.MouseEnter += OnBoxEnter;
                 x.MouseLeave += OnBoxLeave;
+                x.MouseDown += Exercise;
             }
             
 
@@ -54,6 +55,12 @@ namespace Foutloos
         //This prevents bugging because of overlapping elements.
         bool disableResize = false;
 
+
+        //When a user clicks on the box, the exercise starts.
+        private void Exercise(object sender, EventArgs e)
+        {
+            owner.Content = new Exercise();
+        }
 
         //When the mouse enters an Exercise box this happens
         private void OnBoxEnter(object sender, EventArgs e)
