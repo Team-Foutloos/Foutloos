@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterOwner"
         Title="Login" Height="380" Width="300">
     <Grid>
-        <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="86,58,86,0"/>
+        <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="86,53,86,0"/>
         <Button Content="Close" HorizontalAlignment="Left" Margin="155,334,0,0" VerticalAlignment="Top" Width="135" Click="Button_Click" Height="36"/>
         <Grid Margin="38,192,38,106" HorizontalAlignment="Center" VerticalAlignment="Center" Width="224" Height="82">
             <Grid.RowDefinitions>
@@ -25,6 +25,7 @@
             <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="1,10,0,0"/>
             <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="6,4.667,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28"/>
             <PasswordBox HorizontalAlignment="Left" Height="23" Margin="83,9.667,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,-1,0,0" Stroke="Black" VerticalAlignment="Top" Width="193" Grid.ColumnSpan="2"/>
 
         </Grid>
         <Button Content="Login" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Click="Button_Click" Height="36"/>

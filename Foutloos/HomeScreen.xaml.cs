@@ -43,7 +43,10 @@ namespace Foutloos
                 x.MouseLeave += OnBoxLeave;
                 x.MouseDown += Exercise;
             }
-            
+            //Add a listener to all the 'Buttons' (All exercises, login and register)
+            allExercisess.MouseDown += Button_Click;
+            login.MouseDown += Button_Click_1;
+            register.MouseDown += Button_Click_2;
 
         }
 
@@ -173,13 +176,24 @@ namespace Foutloos
         //This function handles the clicking of the 'login' button.
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            ShowModal(new ModalLogin { Owner = HomeScreen.owner });
+        }
+
+        //This function handles the clicking of the 'register' button
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ShowModal(new ModalRegister { Owner = HomeScreen.owner });
+        }
+
+        //This function shows the modal, login or register modal with generic types.
+        private void ShowModal<T>(T modal) where T : Window
+        {
             UIElement rootVisual = this.Content as UIElement;
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
             if (rootVisual != null && adornerLayer != null)
             {
                 DarkenAdorner darkenAdorner = new DarkenAdorner(rootVisual);
                 adornerLayer.Add(darkenAdorner);
-                ModalLogin modal = new ModalLogin { Owner = HomeScreen.owner };
                 modal.ShowDialog();
                 adornerLayer.Remove(darkenAdorner);
             }
