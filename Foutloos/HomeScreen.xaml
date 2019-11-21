@@ -63,16 +63,16 @@
                 <!-- In this block code all the recommended exercises are shown -->
                 <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,77,350.5,0"/>
                 <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179.333,136.667,178.333,82" Height="120" Width="589">
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="LightGreen" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122">
+                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="Green" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122">
                         <TextBlock Name="Box1" Background="LightGreen"/>
                     </Border>
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="Aqua" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122">
+                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="DeepSkyBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122">
                         <TextBlock Name="Box2" Background="Aqua"/>
                     </Border>
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="LightSalmon"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122">
+                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122">
                         <TextBlock Name="Box3" Background="LightSalmon"/>
                     </Border>
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="LightPink"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122">
+                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122">
                         <TextBlock Name="Box4" Background="LightPink"/>
                     </Border>
                 </Grid>
@@ -106,12 +106,12 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <TextBlock FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="login" Text="Login"/>
+                        <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="login" Text="Login"/>
                     </Border>
 
                     <Label Content="or" HorizontalAlignment="Left" Margin="103,1,0,0" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="169,0,0,0" VerticalAlignment="Top" Width="167" Height="40">
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="169,0,0,0" VerticalAlignment="Top" Width="176" Height="40">
                         <Border.Style>
                             <Style>
                                 <Setter Property="Border.Background" Value="DeepSkyBlue"/>
@@ -122,7 +122,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <TextBlock FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Create an account"/>
+                        <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Create an account"/>
                     </Border>
 
                 </Grid>
