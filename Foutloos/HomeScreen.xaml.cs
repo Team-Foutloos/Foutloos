@@ -30,11 +30,13 @@ namespace Foutloos
             InitializeComponent();
 
             //Going thru all the TextBlocs in the grid to add the hover events.
-            foreach(TextBlock x in BoxGrid.Children)
+            foreach(Border x in BoxGrid.Children)
             {
                 //Setting a standard text to each TextBlock
                 //Here will the random exercises from the database come.
-                x.Text = $"Exercise {x.Name}";
+                TextBlock textBlock = ((TextBlock)x.Child);
+                textBlock.Text += "\nTest tekst";
+                textBlock.Text = $"Exercise {x.Name}";
 
                 //Adding the events
                 x.MouseEnter += OnBoxEnter;
@@ -70,10 +72,10 @@ namespace Foutloos
                 ThicknessAnimation marginAnimation = new ThicknessAnimation();
 
                 //Get the TextBlock that was hovered over.
-                TextBlock hoveredBox = ((TextBlock)sender);
+                Border hoveredBox = ((Border)sender);
                 
                 //Every other TextBlock in the grid will be hidden
-                foreach (TextBlock x in BoxGrid.Children)
+                foreach (Border x in BoxGrid.Children)
                 {
                     if (x != hoveredBox)
                     {
@@ -86,7 +88,8 @@ namespace Foutloos
                 }
 
                 //Adding extra information to the exercise box (Here will the level and the discription be shown)
-                hoveredBox.Text += "\nTest tekst";
+                TextBlock textBlock = ((TextBlock)hoveredBox.Child);  
+                textBlock.Text += "\nTest tekst";
 
                 //The margin of the current TextBlock will be set to 0 with an animation
                 marginAnimation.From = hoveredBox.Margin;
@@ -117,7 +120,7 @@ namespace Foutloos
             animation.Completed += Animation_Completed;
 
             //Get the TextBlock that was hovered over.
-            TextBlock hoveredBox = ((TextBlock)sender);
+            Border hoveredBox = ((Border)sender);
 
 
             //Setting the hovered TextBlock back to its origional value with an animation
@@ -134,10 +137,11 @@ namespace Foutloos
             hoveredBox.BeginAnimation(MarginProperty, marginAnimation);
 
             //Set the text of the ExerciseBox back to its origional value
-            hoveredBox.Text = $"Exercise {hoveredBox.Name}";
+            TextBlock textBlock = ((TextBlock)hoveredBox.Child);
+            textBlock.Text = $"Exercise {hoveredBox.Name}";
 
             //Make all other TextBlock visible again.
-            foreach (TextBlock x in BoxGrid.Children)
+            foreach (Border x in BoxGrid.Children)
             {
                 if (x != hoveredBox)
                 {
