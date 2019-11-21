@@ -9,12 +9,10 @@
       Title="Exercise" Background="white"
       
       Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
-      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
-      >
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}">
 
     <Grid>
-        <TextBlock FontSize="20" Margin="183,90,182,0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque." VerticalAlignment="Top" Height="180"/>
-        <TextBox HorizontalAlignment="Left" Height="218" Margin="183,352,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="915"/>
-
+        <TextBlock FontSize="20" Margin="183,90,182,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="Exercise_TextBlock"/>
+        <TextBox HorizontalAlignment="Left" Height="218" Margin="183,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="915" Name="User_TextBox" KeyUp="User_TextBox_KeyUp"/>
     </Grid>
 </Page>
