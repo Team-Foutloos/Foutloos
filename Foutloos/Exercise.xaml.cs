@@ -91,7 +91,7 @@ namespace Foutloos
                         //User's input is incorrect
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseNextChar.ToString()) { Background = Brushes.Red });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseNextChar.ToString()) { Foreground = Brushes.Red, Background = Brushes.AliceBlue });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseNextString + exerciseStringLeft));
                     }
                 }
@@ -146,6 +146,17 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseNextChar.ToString()) { Foreground = Brushes.Red, Background = Brushes.AliceBlue });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseNextString + exerciseStringLeft));
                     }
+                }
+                else
+                {
+                    //Disable incorrect input to be shown in user's inputbox
+                    e.Handled = true;
+
+                    //User's input is incorrect and next char is a space
+                    Exercise_TextBlock.Text = "";
+                    Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                    Exercise_TextBlock.Inlines.Add(new Run(" ") { Foreground = Brushes.Red, Background = Brushes.Red });
+                    Exercise_TextBlock.Inlines.Add(new Run(exerciseNextString + exerciseStringLeft));
                 }
             }
             else
