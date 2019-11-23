@@ -100,7 +100,7 @@ namespace Foutloos
             {
                 //Exercise is finished
                 Exercise_TextBlock.Text = "";
-                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                Exercise_TextBlock.Inlines.Add(new Run(exerciseText) { Foreground = Brushes.LightGreen });
                 UserInput_TextBox.Text = exerciseText;
                 UserInput_TextBox.CaretIndex = exerciseText.Length;
                 e.Handled = true;
@@ -163,7 +163,7 @@ namespace Foutloos
             {
                 //Exercise is finished
                 Exercise_TextBlock.Text = "";
-                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                Exercise_TextBlock.Inlines.Add(new Run(exerciseText) { Foreground = Brushes.LightGreen });
                 UserInput_TextBox.Text = exerciseText;
                 UserInput_TextBox.CaretIndex = exerciseText.Length;
                 e.Handled = true;
