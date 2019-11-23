@@ -161,5 +161,14 @@ namespace Foutloos
                 e.Handled = true;
             }
         }
+
+        private void UserInput_TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            //Disable copy/cut/paste commands in user's textbox
+            if(e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }      
