@@ -21,6 +21,8 @@ namespace Foutloos
         private string exerciseStringLeft;
         private string userInputCorrect = "";
         private bool exerciseFinished = false;
+        private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
+        private bool mistake = false;
 
         public Exercise()
         {
@@ -52,6 +54,9 @@ namespace Foutloos
                     //Check if the next character of the exercise is spacebar
                     if (exerciseStringLeft.First() == 32)
                     {
+                        //Used for saving user's mistakes
+                        mistake = false;
+
                         //Visualize correct input
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
@@ -82,6 +87,21 @@ namespace Foutloos
                         //Disable incorrect input to be shown in user's inputbox
                         e.Handled = true;
 
+                        //Check if the next character of the exercise was a mistake, by the user, before
+                        if(!mistake)
+                        {
+                            //Update dictionary containing user's mistakes
+                            try
+                            {
+                                userMistakes.Add((char)32, 1);
+                            }
+                            catch(Exception)
+                            {
+                                userMistakes[(char)32] += 1;
+                            }
+                            mistake = true;
+                        }                     
+
                         //Visualize incorrect input
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
@@ -107,6 +127,9 @@ namespace Foutloos
                 //Check if the user's input is correct
                 if (e.Text == exerciseStringLeft.First().ToString())
                 {
+                    //Used for saving user's mistakes
+                    mistake = false;
+
                     //Visualize correct input
                     Exercise_TextBlock.Text = "";
                     Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
@@ -137,6 +160,21 @@ namespace Foutloos
                     //Disable incorrect input to be shown in user's inputbox
                     e.Handled = true;
 
+                    //Check if the next character of the exercise was a mistake, by the user, before
+                    if (!mistake)
+                    {
+                        //Update dictionary containing user's mistakes
+                        try
+                        {
+                            userMistakes.Add(exerciseStringLeft.First(), 1);
+                        }
+                        catch(Exception)
+                        {
+                            userMistakes[exerciseStringLeft.First()] += 1;
+                        }
+                        mistake = true;
+                    }
+
                     //Check if the next character in the exercise is a space
                     if (exerciseStringLeft.First() == 32)
                     {
@@ -155,10 +193,6 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
                 }
-            }
-            else
-            {
-                e.Handled = true;
             }
         }
 
