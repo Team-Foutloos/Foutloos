@@ -13,6 +13,6 @@
 
     <Grid>
         <TextBlock FontSize="20" Margin="183,90,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="Exercise_TextBlock"/>
-        <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="UserInput_TextBox" PreviewKeyUp="UserInput_TextBox_KeyUp" KeyDown="UserInput_TextBox_KeyDown" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown"/>
+        <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput"/>
     </Grid>
 </Page>
