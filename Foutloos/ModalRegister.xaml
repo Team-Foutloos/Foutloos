@@ -6,30 +6,66 @@
         xmlns:local="clr-namespace:Foutloos"
         mc:Ignorable="d"
         ResizeMode="NoResize"
+        AllowsTransparency="True"
         WindowStyle="None"
+        Background="Transparent"
         WindowStartupLocation="CenterOwner"
         Title="Login" Height="380" Width="300">
-    <Grid>
-        <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="86,58,86,0"/>
-        <Button Content="Close" HorizontalAlignment="Left" Margin="155,334,0,0" VerticalAlignment="Top" Width="135" Click="Button_Click" Height="36"/>
-        <Grid Margin="5,192,0,63" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="125">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="121*"/>
-                <ColumnDefinition Width="131*"/>
-            </Grid.ColumnDefinitions>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="2.667,17,0,0" TextWrapping="Wrap" Text="Enter..." VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-            <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="62,10,0,0"/>
-            <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="67,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
-            <PasswordBox HorizontalAlignment="Left" Height="23" Margin="2.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1"/>
-            <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="6,2.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
-            <PasswordBox HorizontalAlignment="Left" Height="23" Margin="2.667,9.667,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1"/>
+    <!--Wrap het entire grid inside of a border so that the corners are rounded. -->
+    <Border CornerRadius="10" BorderThickness="2" Background="White" BorderBrush="MidnightBlue">
+        <Grid>
+            <!--Logo -->
+            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="86,30,86,0"/>
+            <Grid Margin="5,175,0,60" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="145">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="121*"/>
+                    <ColumnDefinition Width="131*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox  MaxLength="12" HorizontalAlignment="Left" Height="23" Margin="2.667,10,0,0" TextWrapping="Wrap" Text="Enter..." VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="62,7,0,0"/>
+                <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="67,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
+                <PasswordBox  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="2.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1"/>
+                <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="6,2.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
+                <PasswordBox  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="2.667,9.667,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1"/>
+                <Label Content="License" FontSize="15" HorizontalAlignment="Left" Margin="79,0.667,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62"/>
+                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="2.667,7.667,0,0" Grid.Row="3" TextWrapping="Wrap" MaxLength="5" VerticalAlignment="Top" Width="120"/>
 
+            </Grid>
+
+            <!-- The register and cancel button, they are not actually buttons but textblocks wrapped in a border to give more freedom to styling. -->
+            <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36">
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="DeepSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="LightSkyBlue" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Name="cancelRegister" Text="Cancel" Margin="35,3,0,3"/>
+            </Border>
+            <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36">
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="DeepSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="LightSkyBlue" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Register"/>
+            </Border>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="51,160,51,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
         </Grid>
-        <Button Content="Register" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Click="Button_Click" Height="36"/>
-    </Grid>
+    </Border>
 </Window>
