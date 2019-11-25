@@ -58,6 +58,8 @@ namespace Foutloos
 
         private void FillDataGrid()
         {
+
+            //query that is being executed and being shows in a Table in the application.
             string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
             string CmdString = string.Empty;
             using (SqlConnection con = new SqlConnection(connectionstring))
