@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +30,7 @@ namespace Foutloos
         public ExercisesPage()
         {
             InitializeComponent();
-            Description.Content = "jkdsklfjdsfjdsjkfjsl";
+            FillDataGrid();
             
         }
 
@@ -51,10 +54,25 @@ namespace Foutloos
             {
                 this.spoken = true;
             }            
-        } 
+        }
+
+        private void FillDataGrid()
+        {
+            string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
+            string CmdString = string.Empty;
+            using (SqlConnection con = new SqlConnection(connectionstring))
+            {
+                CmdString = "SELECT * FROM Usertable";
+                SqlCommand cmd = new SqlCommand(CmdString, con);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable("SQLdata");
+                sda.Fill(dt);
+                SQLdata.ItemsSource = dt.DefaultView;
+            }
+        }
 
 
 
-        
+
     }
 }

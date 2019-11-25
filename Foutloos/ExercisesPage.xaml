@@ -31,6 +31,7 @@
         <Viewbox HorizontalAlignment="Left" Height="100" Margin="1530,655,0,0" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="Description" Content="" HorizontalAlignment="Left" Margin="1521,479,0,0" VerticalAlignment="Top" Height="171" Width="314" FontSize="20"/>
         <Button Content="See all previous results" HorizontalAlignment="Left" Margin="1516,960,0,0" VerticalAlignment="Top" Width="344" FontFamily="Arial Rounded MT Bold" Height="60" FontSize="30"/>
+        <DataGrid x:Name="SQLdata" HorizontalAlignment="Left" Height="775" Margin="70,210,0,0" VerticalAlignment="Top" Width="1310"/>
 
     </Grid>
 </Page>
