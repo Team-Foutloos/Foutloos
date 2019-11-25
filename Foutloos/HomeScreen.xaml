@@ -48,13 +48,24 @@
                     <RowDefinition Height="274*"/>
                 </Grid.RowDefinitions>
 
-
-                <Button Margin="32.5,34,32,2" Padding="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!--The settings button, it is a textblock wrapped inside of a border-->
+                <Border Padding="5" CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Margin="68.667,61,18,152.333" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="54" Grid.RowSpan="2">
+                    <Border.Style>
+                        <Style>
+                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
+                            <Style.Triggers>
+                                <Trigger Property="Border.IsMouseOver" Value="True">
+                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                     <StackPanel Orientation="Horizontal" >
-                        <Image Width="25" Source="assets/settings.jpg" />
-                        <TextBlock FontSize="20" >Settings</TextBlock>
+                        <Image Width="25" Source="assets/settingsWhite.png" />
+                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="settings" Text="Settings"/>
                     </StackPanel>
-                </Button>
+                </Border>
+
                 <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Margin="221,43,220.5,44" Width="505">
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
                     <Label Name="Title" Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Top" Height="90" Width="341"/>
@@ -63,17 +74,17 @@
                 <!-- In this block code all the recommended exercises are shown -->
                 <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,77,350.5,0"/>
                 <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179.333,136.667,178.333,82" Height="120" Width="589">
-                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="Green" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122">
-                        <TextBlock Name="Box1" Background="LightGreen"/>
+                    <Border Background="LightGreen" CornerRadius="5" BorderThickness="3" BorderBrush="Green" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122">
+                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="Green" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box1"/>
                     </Border>
-                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="DeepSkyBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122">
-                        <TextBlock Name="Box2" Background="Aqua"/>
+                    <Border Background="Aqua" CornerRadius="5" BorderThickness="3" BorderBrush="DeepSkyBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122">
+                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="DeepSkyBlue" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box2"/>
                     </Border>
-                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122">
-                        <TextBlock Name="Box3" Background="LightSalmon"/>
+                    <Border Background="LightSalmon" CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122">
+                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="IndianRed" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box3"/>
                     </Border>
-                    <Border CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122">
-                        <TextBlock Name="Box4" Background="LightPink"/>
+                    <Border Background="LightPink" CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122">
+                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="HotPink" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box4"/>
                     </Border>
                 </Grid>
 
