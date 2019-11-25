@@ -17,9 +17,49 @@ namespace Foutloos
 {
     public partial class ToggleButton : UserControl
     {
+        private Thickness leftSide = new Thickness(-39, 0, 0, 0);
+        private Thickness rightSide = new Thickness(0, 0, -39, 0);
+        private SolidColorBrush off = new SolidColorBrush(Color.FromRgb(160, 160, 160));
+        private SolidColorBrush on = new SolidColorBrush(Color.FromRgb(130, 190, 125));
+        public bool Toggled { get; set; }
+
         public ToggleButton()
         {
             InitializeComponent();
+            Back.Fill = off;
+            Dot.Margin = leftSide;
+        }
+
+        private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if(Toggled)
+            {
+                Back.Fill = off;
+                Toggled = false;
+                Dot.Margin = leftSide;
+            }
+            else
+            {
+                Back.Fill = on;
+                Toggled = true;
+                Dot.Margin = rightSide;
+            }
+        }
+
+        private void Back_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Toggled)
+            {
+                Back.Fill = off;
+                Toggled = false;
+                Dot.Margin = leftSide;
+            }
+            else
+            {
+                Back.Fill = on;
+                Toggled = true;
+                Dot.Margin = rightSide;
+            }
         }
     }
 }
