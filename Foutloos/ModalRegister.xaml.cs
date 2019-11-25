@@ -22,6 +22,10 @@ namespace Foutloos
         public ModalRegister()
         {
             InitializeComponent();
+
+            //Add the events to the mousedown, both being to cancel the modal at this time.
+            register.MouseDown += Button_Click;
+            cancelRegister.MouseDown += Button_Click;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
