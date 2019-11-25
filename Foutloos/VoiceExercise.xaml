@@ -24,11 +24,11 @@
             <Viewbox StretchDirection="Both" Stretch="Uniform">
                 <Grid  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
 
-                    <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,420,55,0" Background="#FFE8E8E8" />
+                    <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
                     <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1200,33,0,0" VerticalAlignment="Top" Width="190"/>
 
                     <Label Height="28" HorizontalAlignment="Left"
-                        x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,367,0,0"/>
+                        x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,285,0,0"/>
                     <Slider Ticks="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
                         Value="10"
                         Delay="100"
@@ -38,17 +38,18 @@
                         Maximum="10"
                         Height="28" 
                         HorizontalAlignment="Left" 
-                        Margin="130,367,0,0"
+                        Margin="130,285,0,0"
                         x:Name="sliderVolume"
                         VerticalAlignment="Top"
                         Width="157"
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
-                    <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,725,0,0" VerticalAlignment="Top" Width="165" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
-                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="632" FontSize="36" Margin="394,250,394,574"/>
-                    <Label x:Name="label" Content="WPM" HorizontalAlignment="Left" Margin="1200,805,0,0" VerticalAlignment="Top" BorderBrush="Black" Height="40" Width="175" FontSize="20"/>
+                    <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,633,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
+                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="632" FontSize="36" Margin="394,214,394,610"/>
                     <Label x:Name="label2" Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="lable3" Content="CPM:" HorizontalAlignment="Left" Margin="1181,827,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="1273,827,0,0" VerticalAlignment="Top" Width="92"/>
 
                 </Grid>
             </Viewbox>
