@@ -32,8 +32,6 @@ namespace Foutloos
             {
                 args.Handled = true;
             };
-
-
         }
     }
 }
