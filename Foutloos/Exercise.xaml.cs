@@ -204,5 +204,10 @@ namespace Foutloos
                 e.Handled = true;
             }
         }
+
+        private void Home_Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }      
