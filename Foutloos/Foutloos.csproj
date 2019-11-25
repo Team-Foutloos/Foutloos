@@ -153,5 +153,8 @@
   <ItemGroup>
     <Resource Include="assets\settings.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\settingsWhite.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
