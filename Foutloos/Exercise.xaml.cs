@@ -18,111 +18,191 @@ namespace Foutloos
     public partial class Exercise : Page
     {
         private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
+        private string exerciseStringLeft;
+        private string userInputCorrect = "";
+        private bool exerciseFinished = false;
+        private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
+        private bool mistake = false;
 
         public Exercise()
         {
             InitializeComponent();
 
+            //Save remaining exercise text into variable
+            exerciseStringLeft = exerciseText;
+            //Visualize exercise text
             Exercise_TextBlock.Text = exerciseText;
         }
 
-        private void User_TextBox_KeyUp(object sender, KeyEventArgs e)
+        private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //Make textblock empty
-            Exercise_TextBlock.Text = "";
+            //Set user's cursor to the end of line
+            UserInput_TextBox.CaretIndex = UserInput_TextBox.Text.Length;
 
-            //create queue with chars of exercise 
-            Queue<char> exerciseChars = new Queue<char>();
-            foreach(char c in exerciseText)
+            //Disable the use of backspace
+            if (e.Key == Key.Back)
             {
-                exerciseChars.Enqueue(c);
+                e.Handled = true;
             }
 
-            //Get user input and save into queue
-            Queue<char> userInput = new Queue<char>();
-            foreach(char c in User_TextBox.Text)
+            //Check if the exercise is finished
+            if (!exerciseFinished)
             {
-                userInput.Enqueue(c);
-            }
-
-            //Counter for amount of wrong chars
-            int wrongCounter = 0;
-
-            //Check for correct input user and sort chars into string for representation
-            while(userInput.Count > 0)
-            {
-                char nextUserChar = userInput.Dequeue();
-                char nextExerciseChar = exerciseChars.Dequeue();
-
-                if(nextUserChar == nextExerciseChar)
+                //Check if the user pressed the spacebar
+                if (e.Key == Key.Space)
                 {
-                    //If there is a mistake you're not allowed to type the next correct char
-                    if(wrongCounter > 0)
+                    //Check if the next character of the exercise is spacebar
+                    if (exerciseStringLeft.First() == 32)
                     {
-                        var items = exerciseChars.ToArray();
-                        exerciseChars.Clear();
-                        exerciseChars.Enqueue(nextExerciseChar);
-                        foreach(var item in items)
+                        //Used for saving user's mistakes
+                        mistake = false;
+
+                        //Visualize correct input
+                        Exercise_TextBlock.Text = "";
+                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
+
+                        //Update variables
+                        userInputCorrect += exerciseStringLeft.First().ToString();
+                        exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
+
+                        //Add remaining exercise text if there is any
+                        if (exerciseStringLeft.Length > 0)
                         {
-                            exerciseChars.Enqueue(item);
+                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.AliceBlue });
+                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                         }
-                        User_TextBox.Text = User_TextBox.Text.Remove(User_TextBox.Text.Length - 1);
-                        User_TextBox.CaretIndex = User_TextBox.Text.Length;
+
+                        //Check if the exercise is finished
+                        if (exerciseStringLeft.Length == 0)
+                        {
+                            //Change exercise text when exercise is finished
+                            exerciseFinished = true;
+                            Exercise_TextBlock.Text = "";
+                            Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                        }
                     }
                     else
                     {
-                        if (userInput.Count > 0)
+                        //Disable incorrect input to be shown in user's inputbox
+                        e.Handled = true;
+
+                        //Check if the next character of the exercise was a mistake, by the user, before
+                        if(!mistake)
                         {
-                            Exercise_TextBlock.Inlines.Add(new Run(nextExerciseChar.ToString()) { Foreground = Brushes.LightGray });
-                        }
-                        else
-                        {
-                            Exercise_TextBlock.Inlines.Add(new Run(nextExerciseChar.ToString()) { Foreground = Brushes.LightGreen });
-                        }
-                    }           
+                            //Update dictionary containing user's mistakes
+                            try
+                            {
+                                userMistakes.Add((char)32, 1);
+                            }
+                            catch(Exception)
+                            {
+                                userMistakes[(char)32] += 1;
+                            }
+                            mistake = true;
+                        }                     
+
+                        //Visualize incorrect input
+                        Exercise_TextBlock.Text = "";
+                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.AliceBlue });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
+                    }
+                }
+            }
+            else
+            {
+                //Show exercise in light green when it's finished
+                Exercise_TextBlock.Text = "";
+                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                e.Handled = true;
+            }
+        }
+
+        private void UserInput_TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //Check if exercise is finished
+            if (!exerciseFinished)
+            {
+                //Check if the user's input is correct
+                if (e.Text == exerciseStringLeft.First().ToString())
+                {
+                    //Used for saving user's mistakes
+                    mistake = false;
+
+                    //Visualize correct input
+                    Exercise_TextBlock.Text = "";
+                    Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                    Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
+
+                    //Update variables
+                    userInputCorrect += exerciseStringLeft.First().ToString();
+                    exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
+
+                    //Add remaining exercise text if there is any
+                    if (exerciseStringLeft.Length > 0)
+                    {
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.AliceBlue });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
+                    }
+
+                    //Check if the exercise is finished
+                    if (exerciseStringLeft.Length == 0)
+                    {
+                        //Change exercise text when exercise is finished
+                        exerciseFinished = true;
+                        Exercise_TextBlock.Text = "";
+                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                    }
                 }
                 else
                 {
-                    wrongCounter++;
+                    //Disable incorrect input to be shown in user's inputbox
+                    e.Handled = true;
 
-                    //After 10 mistakes the user is not allowed to type anymore
-                    if(wrongCounter == 10)
+                    //Check if the next character of the exercise was a mistake, by the user, before
+                    if (!mistake)
                     {
-                        var items = exerciseChars.ToArray();
-                        exerciseChars.Clear();
-                        exerciseChars.Enqueue(nextExerciseChar);
-                        foreach (var item in items)
+                        //Update dictionary containing user's mistakes
+                        try
                         {
-                            exerciseChars.Enqueue(item);
+                            userMistakes.Add(exerciseStringLeft.First(), 1);
                         }
-                        User_TextBox.Text = User_TextBox.Text.Remove(User_TextBox.Text.Length - 1);
-                        User_TextBox.CaretIndex = User_TextBox.Text.Length;
+                        catch(Exception)
+                        {
+                            userMistakes[exerciseStringLeft.First()] += 1;
+                        }
+                        mistake = true;
+                    }
+
+                    //Check if the next character in the exercise is a space
+                    if (exerciseStringLeft.First() == 32)
+                    {
+                        //Visualize incorrect input (spacebar)
+                        Exercise_TextBlock.Text = "";
+                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Red });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
                     else
                     {
-                        if (nextExerciseChar == 32)
-                        {
-                            Exercise_TextBlock.Inlines.Add(new Run("_") { Foreground = Brushes.Red });
-                        }
-                        else
-                        {
-                            Exercise_TextBlock.Inlines.Add(new Run(nextExerciseChar.ToString()) { Foreground = Brushes.Red });
-                        }
+                        //Visualize incorrect input (non-spacebar)
+                        Exercise_TextBlock.Text = "";
+                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.AliceBlue });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
                 }
             }
+        }
 
-            //Check for left over chars and add them to text
-            string charsLeft = "";
-            if (exerciseChars.Count > 0)
+        private void UserInput_TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            //Disable copy/cut/paste commands in user's textbox
+            if(e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
             {
-                Exercise_TextBlock.Inlines.Add(new Run(exerciseChars.Dequeue().ToString()) { Background = Brushes.LightGoldenrodYellow });
-                while (exerciseChars.Count > 0)
-                {
-                    charsLeft += exerciseChars.Dequeue();
-                }
+                e.Handled = true;
             }
-            Exercise_TextBlock.Inlines.Add(new Run(charsLeft));
         }
     }
-}
+}      

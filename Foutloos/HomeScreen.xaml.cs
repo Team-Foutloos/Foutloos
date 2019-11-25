@@ -36,14 +36,17 @@ namespace Foutloos
                 //Here will the random exercises from the database come.
                 TextBlock textBlock = ((TextBlock)x.Child);
                 textBlock.Text += "\nTest tekst";
-                textBlock.Text = $"Exercise {x.Name}";
+                textBlock.Text = $"{BoxGrid.Children.IndexOf(x)+1}";
 
                 //Adding the events
                 x.MouseEnter += OnBoxEnter;
                 x.MouseLeave += OnBoxLeave;
                 x.MouseDown += Exercise;
             }
-            
+            //Add a listener to all the 'Buttons' (All exercises, login and register)
+            allExercisess.MouseDown += Button_Click;
+            login.MouseDown += Button_Click_1;
+            register.MouseDown += Button_Click_2;
 
         }
 
@@ -96,7 +99,7 @@ namespace Foutloos
 
                 //Adding extra information to the exercise box (Here will the level and the discription be shown)
                 TextBlock textBlock = ((TextBlock)hoveredBox.Child);  
-                textBlock.Text += "\nTest tekst";
+                textBlock.Text += " - This exercise is amazing!!!!!!1!";
 
                 //The margin of the current TextBlock will be set to 0 with an animation
                 marginAnimation.From = hoveredBox.Margin;
@@ -145,7 +148,7 @@ namespace Foutloos
 
             //Set the text of the ExerciseBox back to its origional value
             TextBlock textBlock = ((TextBlock)hoveredBox.Child);
-            textBlock.Text = $"Exercise {hoveredBox.Name}";
+            textBlock.Text = $"{BoxGrid.Children.IndexOf(hoveredBox)+1}";
 
             //Make all other TextBlock visible again.
             foreach (Border x in BoxGrid.Children)
@@ -173,13 +176,24 @@ namespace Foutloos
         //This function handles the clicking of the 'login' button.
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            ShowModal(new ModalLogin { Owner = HomeScreen.owner });
+        }
+
+        //This function handles the clicking of the 'register' button
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ShowModal(new ModalRegister { Owner = HomeScreen.owner });
+        }
+
+        //This function shows the modal, login or register modal with generic types.
+        private void ShowModal<T>(T modal) where T : Window
+        {
             UIElement rootVisual = this.Content as UIElement;
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
             if (rootVisual != null && adornerLayer != null)
             {
                 DarkenAdorner darkenAdorner = new DarkenAdorner(rootVisual);
                 adornerLayer.Add(darkenAdorner);
-                ModalLogin modal = new ModalLogin { Owner = HomeScreen.owner };
                 modal.ShowDialog();
                 adornerLayer.Remove(darkenAdorner);
             }
