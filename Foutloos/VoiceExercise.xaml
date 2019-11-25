@@ -45,13 +45,15 @@
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
                     <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,725,0,0" VerticalAlignment="Top" Width="165" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
-                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="310" FontSize="36" Margin="557,230,0,0"/>
-                    <ProgressBar Name="progressBar" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="556" Margin="432,368,432,0"/>
+                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="632" FontSize="36" Margin="394,250,394,574"/>
                     <Label x:Name="label" Content="WPM" HorizontalAlignment="Left" Margin="1200,805,0,0" VerticalAlignment="Top" BorderBrush="Black" Height="40" Width="175" FontSize="20"/>
+                    <Label x:Name="label2" Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
 
                 </Grid>
             </Viewbox>
         </UserControl>
+        <Image x:Name="image" HorizontalAlignment="Center" Height="145" VerticalAlignment="Top" Width="170" Source="assets/LogoFoutloosPNG.png" Margin="635,64,635,0"/>
 
     </Grid>
 

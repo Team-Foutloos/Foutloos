@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Speech.Synthesis;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -14,9 +16,13 @@ namespace Foutloos
     public partial class VoiceExercise : Page
     {
         SpeechSynthesizer synthesizer;
+        Stopwatch stopwatch = new Stopwatch();
+        Timer timer = new Timer();
         string testString = "This is the end. Hold your breath and count to ten.";
         string typedText = "";
         bool running = false;
+        bool exercisStarted = false;
+
 
         public VoiceExercise()
         {
@@ -24,6 +30,8 @@ namespace Foutloos
 
             synthesizer = new SpeechSynthesizer();
             synthesizer.SpeakCompleted += new EventHandler<SpeakCompletedEventArgs>(synthesizer_SpeakCompleted);
+            timer.Interval = 1000;
+            timer.Elapsed += Timer_Elapsed;
 
             foreach (InstalledVoice v in synthesizer.GetInstalledVoices())
             {
@@ -37,6 +45,12 @@ namespace Foutloos
 
             
         }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            timeLable.Content = stopwatch.Elapsed.ToString();
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
@@ -110,10 +124,22 @@ namespace Foutloos
         private void synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             running = false;
+            comboVoice.IsEnabled = true;
+            comboRate.IsEnabled = true;
         }
 
         private void startSpeaking()
         {
+            if (!exercisStarted)
+            {
+                timer.Start();
+                stopwatch.Start();
+                exercisStarted = true;
+            }
+                
+
+            comboVoice.IsEnabled = false;
+            comboRate.IsEnabled = false;
             if (comboVoice.SelectedItem != null)
                 synthesizer.SelectVoice(comboVoice.SelectedItem.ToString().Split('.')[0]);
             synthesizer.Volume = Convert.ToInt32(sliderVolume.Value * 10);
@@ -151,6 +177,8 @@ namespace Foutloos
             {
                 Console.WriteLine("Something went wrong setting the rate");
             }
+
+            
         }
 
     }
