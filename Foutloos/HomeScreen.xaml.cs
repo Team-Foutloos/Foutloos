@@ -36,7 +36,7 @@ namespace Foutloos
                 //Here will the random exercises from the database come.
                 TextBlock textBlock = ((TextBlock)x.Child);
                 textBlock.Text += "\nTest tekst";
-                textBlock.Text = $"Exercise {x.Name}";
+                textBlock.Text = $"{BoxGrid.Children.IndexOf(x)+1}";
 
                 //Adding the events
                 x.MouseEnter += OnBoxEnter;
@@ -99,7 +99,7 @@ namespace Foutloos
 
                 //Adding extra information to the exercise box (Here will the level and the discription be shown)
                 TextBlock textBlock = ((TextBlock)hoveredBox.Child);  
-                textBlock.Text += "\nTest tekst";
+                textBlock.Text += " - This exercise is amazing!!!!!!1!";
 
                 //The margin of the current TextBlock will be set to 0 with an animation
                 marginAnimation.From = hoveredBox.Margin;
@@ -148,7 +148,7 @@ namespace Foutloos
 
             //Set the text of the ExerciseBox back to its origional value
             TextBlock textBlock = ((TextBlock)hoveredBox.Child);
-            textBlock.Text = $"Exercise {hoveredBox.Name}";
+            textBlock.Text = $"{BoxGrid.Children.IndexOf(hoveredBox)+1}";
 
             //Make all other TextBlock visible again.
             foreach (Border x in BoxGrid.Children)

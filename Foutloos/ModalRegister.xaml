@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterOwner"
         Title="Login" Height="380" Width="300">
     <!--Wrap het entire grid inside of a border so that the corners are rounded. -->
-    <Border CornerRadius="10" BorderThickness="2" Background="White" BorderBrush="MidnightBlue">
+    <Border CornerRadius="10" BorderThickness="2" Background="White">
         <Grid>
             <!--Logo -->
             <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="86,30,86,0"/>
