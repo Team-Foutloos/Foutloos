@@ -24,8 +24,8 @@ namespace Foutloos
     public partial class ExercisesPage : Page
     {
 
-        private bool text = false;
-        private bool spoken = false;
+        //private bool text = false;
+        //private bool spoken = false;
       
         public ExercisesPage()
         {
@@ -44,17 +44,17 @@ namespace Foutloos
 
         }
 
-        private void check_radio()
-        {
-            if (Text.IsChecked == true)
-            {
-                this.text = true;
-            }
-            if (Spoken.IsChecked == true)
-            {
-                this.spoken = true;
-            }            
-        }
+        //private void check_radio()
+        //{
+        //    if (Text.IsChecked == true)
+        //    {
+        //        this.text = true;
+        //    }
+        //    if (Spoken.IsChecked == true)
+        //    {
+        //        this.spoken = true;
+        //    }            
+        //}
 
         private void FillDataGrid()
         {
