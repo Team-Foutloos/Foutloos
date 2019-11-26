@@ -14,7 +14,10 @@
     <Grid>
         <TextBlock FontSize="20" Margin="183,90,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="Exercise_TextBlock"/>
         <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted"/>
-        <local:ToggleButton x:Name="Toggle" HorizontalAlignment="Left" Height="93" Margin="997,586,0,0" VerticalAlignment="Top" Width="93"/>
+        <local:ToggleButton x:Name="Toggle" HorizontalAlignment="Left" Height="54" Margin="1046,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="Toggle_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
         <Button Name="Home_Button" Content="Home" Click="Home_Button_Click" Margin="13,13,1191,751"/>
+        <Grid Margin="373,285,395,348" Name="Test" Visibility="Visible">
+            <Rectangle Height="20" Width="20" Fill="LightGray" VerticalAlignment="Top" HorizontalAlignment="Left" RadiusY="5.333" RadiusX="5.333"/>
+        </Grid>
     </Grid>
 </Page>

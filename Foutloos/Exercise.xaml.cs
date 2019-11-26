@@ -25,6 +25,8 @@ namespace Foutloos
         private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
         private bool mistake = false;
         private MainWindow owner;
+        private Thickness userInput_WithoutKeyboard = new Thickness(183, 352, 183, 0);
+        private Thickness userInput_WithKeyboard = new Thickness(183, 452, 183, 0);
 
         public Exercise(MainWindow o)
         {
@@ -90,7 +92,7 @@ namespace Foutloos
                         //Add remaining exercise text if there is any
                         if (exerciseStringLeft.Length > 0)
                         {
-                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.AliceBlue });
+                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Yellow });
                             Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                         }
 
@@ -126,7 +128,7 @@ namespace Foutloos
                         //Visualize incorrect input
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.AliceBlue });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.Yellow });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
                 }
@@ -163,7 +165,7 @@ namespace Foutloos
                     //Add remaining exercise text if there is any
                     if (exerciseStringLeft.Length > 0)
                     {
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.AliceBlue });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Yellow });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
 
@@ -210,7 +212,7 @@ namespace Foutloos
                         //Visualize incorrect input (non-spacebar)
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.AliceBlue });
+                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.Yellow });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
                 }
@@ -229,6 +231,20 @@ namespace Foutloos
         private void Home_Button_Click(object sender, RoutedEventArgs e)
         {
             owner.Content = new HomeScreen(owner);
+        }
+
+        private void Toggle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if(Toggle.Toggled)
+            {
+                UserInput_TextBox.Margin = userInput_WithKeyboard;
+                Test.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                UserInput_TextBox.Margin = userInput_WithoutKeyboard;
+                Test.Visibility = Visibility.Hidden;
+            }
         }
     }
 }      
