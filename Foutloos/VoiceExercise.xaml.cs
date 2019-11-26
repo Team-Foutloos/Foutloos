@@ -324,10 +324,10 @@ namespace Foutloos
         }
 
         //Homebutton
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        private void HomeButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //If the speech is still playing, stopping the speech.
-            if(synthesizer.State == SynthesizerState.Speaking)
+            if (synthesizer.State == SynthesizerState.Speaking)
             {
                 synthesizer.Pause();
             }

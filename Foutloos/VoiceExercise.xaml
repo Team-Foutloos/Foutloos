@@ -23,7 +23,6 @@
         <UserControl Loaded="UserControl_Loaded">
             <Viewbox StretchDirection="Both" Stretch="Uniform">
                 <Grid  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
-                    <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="HomeButton_Click" FontFamily="Arial Rounded MT Bold" FontSize="30"/>
 
                     <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
                     <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1175,291,0,0" VerticalAlignment="Top" Width="190"/>
@@ -58,11 +57,13 @@
                         <Label x:Name="errorLable" Content="0" HorizontalAlignment="Left" Margin="92,0,0,0" VerticalAlignment="Top" Width="92"/>
 
                     </Grid>
-
+                    <!-- Custom foutloos button made as a toolboxcontrol -->
+                    <local:FoutloosButton x:Name="HomeButton" HorizontalAlignment="Left" Height="66" Margin="29,71,0,0" VerticalAlignment="Top" Width="258" MouseDown="HomeButton_MouseDown" Text="Home" ForceCursor="True" HomeButton="True" Icon="assets/homeIcon.png" />
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1279,10,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
                 </Grid>
             </Viewbox>
         </UserControl>
-        <Image x:Name="image" HorizontalAlignment="Center" Height="107" VerticalAlignment="Top" Width="125" Source="assets/LogoFoutloosPNG.png" Margin="1275,43,40,0"/>
+
 
     </Grid>
 
