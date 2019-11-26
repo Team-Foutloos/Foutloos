@@ -97,6 +97,7 @@ namespace Foutloos
             {
                 ErrorMessage.Foreground = new SolidColorBrush(Colors.Green);
                 errorMessage = "This account has succesfully been made!";
+                this.Close();
             }
 
             ErrorMessage.Content = errorMessage;

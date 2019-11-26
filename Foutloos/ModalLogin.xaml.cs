@@ -40,6 +40,7 @@ namespace Foutloos
                 //The check with the database has to be implemented here.
                 error = "Succesfull!";
                 errorMessage.Foreground = new SolidColorBrush(Colors.Green);
+                this.Close();
             }
             errorMessage.Content = error;
         }
