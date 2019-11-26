@@ -24,10 +24,13 @@ namespace Foutloos
         private bool exerciseFinished = false;
         private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
         private bool mistake = false;
+        private MainWindow owner;
 
-        public Exercise()
+        public Exercise(MainWindow o)
         {
             InitializeComponent();
+
+            owner = o;
 
             //Save remaining exercise text into variable
             exerciseStringLeft = exerciseText;
@@ -225,7 +228,7 @@ namespace Foutloos
 
         private void Home_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            owner.Content = new HomeScreen(owner);
         }
     }
 }      
