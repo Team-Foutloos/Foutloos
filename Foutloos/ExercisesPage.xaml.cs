@@ -24,6 +24,7 @@ namespace Foutloos
     public partial class ExercisesPage : Page
     {
 
+        Connection c = new Connection();
         //private bool text = false;
         //private bool spoken = false;
       
@@ -58,19 +59,27 @@ namespace Foutloos
 
         private void FillDataGrid()
         {
-
+            
             //query that is being executed and being shows in a Table in the application.
-            string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
-            string CmdString = string.Empty;
-            using (SqlConnection con = new SqlConnection(connectionstring))
+            List<List<object>> result = c.QueryDataExercisesTable("SELECT * FROM Exercises");
+            string waardes = "";
+
+            for (int i = 0; i < result.Count; i++)
             {
-                CmdString = "SELECT * FROM Usertable";
-                SqlCommand cmd = new SqlCommand(CmdString, con);
-                SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable("SQLdata");
-                sda.Fill(dt);
-                SQLdata.ItemsSource = dt.DefaultView;
+                for (int x = 0; x < result[i].Count; x++)
+                {
+                    waardes += result[i][x] + " ";
+                }
             }
+
+            test.Content = waardes;
+
+            
+
+
+
+
+
         }
 
 

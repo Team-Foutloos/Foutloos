@@ -202,7 +202,7 @@ namespace Foutloos
         private void settings_Click(object sender, RoutedEventArgs e)
         {
             Connection c = new Connection();
-            c.Show();
+           
         }
     }
 

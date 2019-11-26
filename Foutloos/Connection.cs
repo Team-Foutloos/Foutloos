@@ -1,90 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using MySql.Data;
-using MySql.Data.MySqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Foutloos
-{     
-
-    public partial class Connection : Form
+{
+    public class Connection
     {
+        string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
+        string CmdString = string.Empty;
+        
 
-      
 
-        public Connection()
+        public List<List<object>> QueryDataExercisesTable(string query)
         {
-            InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            runQuery();
-        }
-
-        private void runQuery()
-        {
-
-
-            string server = "127.0.0.1,1433";
-            string username = "sa";
-            string password = "Foutloos!";
-            string database = "foutloos_db"; 
-                       
-            string myConnectionString = "Data Source=" + server + ";" +
-                                        "Initial Catalog=" + database + ";" +
-                                        "User ID=" + username + ";" +
-                                        "Password=" + password + ";";
-
-            string query = textBox1.Text;
-
-            if (query == "")
-            {
-                MessageBox.Show("Please insert a sql query");
-                return;
-            }
-
-
-
-
-            SqlConnection databaseConnection = new SqlConnection(myConnectionString);
-            SqlCommand commandDatabase = new SqlCommand(query, databaseConnection);
-
-            commandDatabase.CommandTimeout = 60;
+        List<List<object>> value = new List<List<object>>();
+        
 
             try
             {
-                databaseConnection.Open();
-                MessageBox.Show("Connection Open ! ");
-                SqlDataReader myReader = commandDatabase.ExecuteReader();
-
-                if (myReader.HasRows)
+                using (SqlConnection con = new SqlConnection(connectionstring))
                 {
+                    SqlCommand cmd = new SqlCommand(query, con);
 
-                    MessageBox.Show("Your query generated results");
+                    con.Open();
 
-                    while (myReader.Read())
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
                     {
-                        Console.WriteLine(myReader.GetString(0));
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Query succecsfully executed");
-                }
+                        while (dr.Read())
+                        {
+                            List<object> oneRow = new List<object>();
 
+                            oneRow.Add(dr.GetInt32(0));
+                            oneRow.Add(dr.GetString(1));
+                            oneRow.Add(dr.GetString(2));
+                            oneRow.Add(dr.GetInt32(3));
+
+                            value.Add(oneRow);
+                        }
+                    }
+                }                
             }
+
+            
             catch (Exception e)
             {
-                MessageBox.Show("Failed: " + e.Message);
+                Console.WriteLine("NO CONNECTION");
             }
-        }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            return value;
 
         }
+
     }
 }
-
