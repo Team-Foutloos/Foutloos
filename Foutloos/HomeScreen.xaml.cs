@@ -198,6 +198,12 @@ namespace Foutloos
                 adornerLayer.Remove(darkenAdorner);
             }
         }
+
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+            Connection c = new Connection();
+            c.Show();
+        }
     }
 
     //Create this class to give the 'Darken effect' used while your inside of the modal.
