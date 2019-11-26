@@ -76,8 +76,8 @@ namespace Foutloos
         //When a user clicks on the box, the exercise starts.
         private void Exercise(object sender, MouseButtonEventArgs e)
         {
-            var clickedElement = e.Source as FrameworkElement;
-            if (clickedElement == BoxBorder1)
+            FrameworkElement clickedElement = e.Source as FrameworkElement;
+            if (clickedElement == BoxBorder1 || clickedElement == Box1)
             {
                 owner.Content = new VoiceExercise();
             }
