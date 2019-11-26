@@ -19,13 +19,13 @@ namespace Foutloos
             set
             {
                 FoutloosButtonName.Text = value;
-                SetIcon();
+                //SetIcon();
             }
         }
 
         public bool HomeButton { get; set; }
 
-        public BitmapImage Icon { get; set; }
+        //public BitmapImage Icon { get; set; }
 
         public FoutloosButton()
         {
@@ -33,7 +33,7 @@ namespace Foutloos
 
         }
 
-        public void SetIcon()
+        /*public void SetIcon()
         {
             Image iconImage = new Image();
             iconImage.Source = Icon;
@@ -41,7 +41,7 @@ namespace Foutloos
             iconImage.Width = 25;
 
             stackPanel.Children.Add(iconImage);
-        }
+        }*/
 
 
     }
