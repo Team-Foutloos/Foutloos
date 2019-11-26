@@ -16,8 +16,6 @@ namespace Foutloos
     /// </summary>
     public partial class VoiceExercise : Page
     {
-        //Makin a variable for the MainWindow
-        ExercisesPage ep;
 
         //Setting some variables that are used for the application.
         //Timer for displaying elapsed time and calculating the WPM/CPM
@@ -46,12 +44,9 @@ namespace Foutloos
         double[] rateValues = { 0.5, 1, 1.25 };
 
 
-        public VoiceExercise(ExercisesPage exercisesPage)
+        public VoiceExercise()
         {
             InitializeComponent();
-
-            //Saving the given mainWindow to the variable mw
-            ep = exercisesPage;
 
             //Setting the speech synthesizer (system default text to speech object).
             synthesizer = new SpeechSynthesizer();
@@ -270,10 +265,10 @@ namespace Foutloos
             return result.ToString("mm':'ss");
         }
 
-        //Homebutton
+        //Homebutton (Kan pas na verwijzing via exercises)
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeScreen.owner.Content = ep;
+            //HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
         }
     }
 }

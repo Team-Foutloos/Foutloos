@@ -25,7 +25,7 @@ namespace Foutloos
         {
 
             InitializeComponent();
-            this.Content = new VoiceExercise(new ExercisesPage());
+            this.Content = new VoiceExercise();
 
             //Prohibit window from being rescaled
             MouseDoubleClick += (sender, args) =>
