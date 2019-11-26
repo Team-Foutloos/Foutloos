@@ -31,7 +31,7 @@ namespace Foutloos
             InitializeComponent();
 
            
-            if(!string.IsNullOrEmpty(ConfigurationSettings.AppSettings["username"]))
+            if(!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
                 settings.Text = "Account";
             }
