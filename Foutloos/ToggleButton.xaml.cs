@@ -21,13 +21,13 @@ namespace Foutloos
         private Thickness rightSide = new Thickness(0, 0, -39, 0);
         private SolidColorBrush off = new SolidColorBrush(Color.FromRgb(160, 160, 160));
         private SolidColorBrush on = new SolidColorBrush(Color.FromRgb(130, 190, 125));
-        public bool Toggled { get; set; }
+        public bool Toggled { get; set; } = true;
 
         public ToggleButton()
         {
             InitializeComponent();
-            Back.Fill = off;
-            Dot.Margin = leftSide;
+            Back.Fill = on;
+            Dot.Margin = rightSide;
         }
 
         private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
