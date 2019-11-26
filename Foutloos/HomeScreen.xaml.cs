@@ -206,7 +206,7 @@ namespace Foutloos
         }
     }
 
-    //Create this class to give the 'Darken effect' used while your inside of the modal.
+    //Create this class to give the 'Darken effect' used while the modal is opened.
     public class DarkenAdorner : Adorner
     {
         public Brush DarkenBrush { get; set; }
