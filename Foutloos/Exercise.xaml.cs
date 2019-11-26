@@ -17,6 +17,7 @@ namespace Foutloos
 {
     public partial class Exercise : Page
     {
+        private string exerciseSpecialText = "Néqué pôrrô quïsquam èst quï dôlörem ïpsum quïa dôlör sit amet, consëctétur, adïpisci velit...";
         private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
         private string exerciseStringLeft;
         private string userInputCorrect = "";
@@ -34,6 +35,23 @@ namespace Foutloos
             Exercise_TextBlock.Text = exerciseText;
         }
 
+        //Constructor for special characters excersice
+        public Exercise(bool special)
+        {
+            InitializeComponent();
+            if (special)
+            {
+                //Save remaining exercise text into variable
+                exerciseStringLeft = exerciseSpecialText;
+                //Visualize exercise text
+                Exercise_TextBlock.Text = exerciseSpecialText;
+            } else {
+                //Save remaining exercise text into variable
+                exerciseStringLeft = exerciseText;
+                //Visualize exercise text
+                Exercise_TextBlock.Text = exerciseText;
+            }
+        }
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //Set user's cursor to the end of line
