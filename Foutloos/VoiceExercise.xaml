@@ -23,6 +23,7 @@
         <UserControl Loaded="UserControl_Loaded">
             <Viewbox StretchDirection="Both" Stretch="Uniform">
                 <Grid  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
+                    <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="HomeButton_Click" FontFamily="Arial Rounded MT Bold" FontSize="30"/>
 
                     <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
                     <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1200,33,0,0" VerticalAlignment="Top" Width="190"/>

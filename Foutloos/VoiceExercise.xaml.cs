@@ -16,6 +16,9 @@ namespace Foutloos
     /// </summary>
     public partial class VoiceExercise : Page
     {
+        //Makin a variable for the MainWindow
+        ExercisesPage ep;
+
         //Setting some variables that are used for the application.
         //Timer for displaying elapsed time and calculating the WPM/CPM
         DispatcherTimer timer = new DispatcherTimer();
@@ -43,9 +46,12 @@ namespace Foutloos
         double[] rateValues = { 0.5, 1, 1.25 };
 
 
-        public VoiceExercise()
+        public VoiceExercise(ExercisesPage exercisesPage)
         {
             InitializeComponent();
+
+            //Saving the given mainWindow to the variable mw
+            ep = exercisesPage;
 
             //Setting the speech synthesizer (system default text to speech object).
             synthesizer = new SpeechSynthesizer();
@@ -262,6 +268,12 @@ namespace Foutloos
             TimeSpan result = TimeSpan.FromSeconds(seconds);
             //Writing the text to the users screen in the correct time notation
             return result.ToString("mm':'ss");
+        }
+
+        //Homebutton
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeScreen.owner.Content = ep;
         }
     }
 }
