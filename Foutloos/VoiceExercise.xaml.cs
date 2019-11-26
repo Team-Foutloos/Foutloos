@@ -257,6 +257,7 @@ namespace Foutloos
             sliderVolume.Focus();
         }
 
+
         private string SecondsToTime(int seconds)
         {
             //Converting the int seconds to a correct time notation

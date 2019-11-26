@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,8 +30,18 @@ namespace Foutloos
             owner = Owner;
             InitializeComponent();
 
+           
+            if(!string.IsNullOrEmpty(ConfigurationSettings.AppSettings["username"]))
+            {
+                settings.Text = "Account";
+            }
+            else
+            {
+                settings.Text = "Settings";
+            }
+
             //Going thru all the TextBlocs in the grid to add the hover events.
-            foreach(Border x in BoxGrid.Children)
+            foreach (Border x in BoxGrid.Children)
             {
                 //Setting a standard text to each TextBlock
                 //Here will the random exercises from the database come.

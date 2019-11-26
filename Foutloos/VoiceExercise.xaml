@@ -26,7 +26,7 @@
                     <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="HomeButton_Click" FontFamily="Arial Rounded MT Bold" FontSize="30"/>
 
                     <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
-                    <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1200,33,0,0" VerticalAlignment="Top" Width="190"/>
+                    <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1175,291,0,0" VerticalAlignment="Top" Width="190"/>
 
                     <Label Height="28" HorizontalAlignment="Left"
                         x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,285,0,0"/>
@@ -46,7 +46,7 @@
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
                     <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,633,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
-                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="632" FontSize="36" Margin="394,214,394,610"/>
+                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610"/>
                     <Label x:Name="label2" Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="lable3" Content="CPM:" HorizontalAlignment="Left" Margin="1181,827,0,0" VerticalAlignment="Top" Width="92"/>
@@ -55,7 +55,7 @@
                 </Grid>
             </Viewbox>
         </UserControl>
-        <Image x:Name="image" HorizontalAlignment="Center" Height="145" VerticalAlignment="Top" Width="170" Source="assets/LogoFoutloosPNG.png" Margin="635,64,635,0"/>
+        <Image x:Name="image" HorizontalAlignment="Center" Height="107" VerticalAlignment="Top" Width="125" Source="assets/LogoFoutloosPNG.png" Margin="1275,43,40,0"/>
 
     </Grid>
 
