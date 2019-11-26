@@ -172,6 +172,8 @@ namespace Foutloos
                         }
                     }
 
+
+
                     //If the sentence is completed
                     if (typedText.Length == testString.Length && !wrong)
                     {
@@ -193,7 +195,10 @@ namespace Foutloos
             timeLable.Content = SecondsToTime(second);
 
             //Calculating the typed keys per minute
-            cpmLable.Content = (typedKeys / second) * 60;
+            cpmLable.Content = Math.Round((typedKeys / (double)second) * 60);
+
+            string[] woorden = typedText.Split(' ');
+            wpmLable.Content = Math.Round((woorden.Length / (double)second) * 60);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

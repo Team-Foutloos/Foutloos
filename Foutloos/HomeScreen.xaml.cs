@@ -75,7 +75,7 @@ namespace Foutloos
         //When a user clicks on the box, the exercise starts.
         private void Exercise(object sender, EventArgs e)
         {
-            owner.Content = new Exercise();
+            owner.Content = new VoiceExercise();
         }
 
         //When the mouse enters an Exercise box this happens
