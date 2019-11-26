@@ -64,6 +64,7 @@ namespace Foutloos
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             owner.Content = new ExercisesPage();
+            
         }
 
 
@@ -73,9 +74,18 @@ namespace Foutloos
 
 
         //When a user clicks on the box, the exercise starts.
-        private void Exercise(object sender, EventArgs e)
+        private void Exercise(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new Exercise(owner);
+            var clickedElement = e.Source as FrameworkElement;
+            if (clickedElement == BoxBorder1)
+            {
+                owner.Content = new VoiceExercise();
+            }
+            else
+            {
+                owner.Content = new Exercise(owner);
+            }
+            
         }
 
         //When the mouse enters an Exercise box this happens

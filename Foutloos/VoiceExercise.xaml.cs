@@ -274,7 +274,7 @@ namespace Foutloos
         //Homebutton (Kan pas na verwijzing via exercises)
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            //HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+            HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
         }
     }
 }
