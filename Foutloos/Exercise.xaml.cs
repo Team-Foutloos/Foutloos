@@ -200,6 +200,22 @@ namespace Foutloos
                 else if (e.Key == Key.LeftShift)
                 {
                     KeyShift_Back.Fill = Brushes.Black;
+                    Key1_Text.Text = "!";
+                    Key2_Text.Text = "@";
+                    Key3_Text.Text = "#";
+                    Key4_Text.Text = "$";
+                    Key5_Text.Text = "%";
+                    Key6_Text.Text = "^";
+                    Key7_Text.Text = "&";
+                    Key8_Text.Text = "*";
+                    Key9_Text.Text = "(";
+                    Key0_Text.Text = ")";
+                    KeyDash_Text.Text = "_";
+                    KeyColon_Text.Text = ":";
+                    KeyAccolade_Text.Text = "\"";
+                    KeyComma_Text.Text = "<";
+                    KeyDot_Text.Text = ">";
+                    KeySlash_Text.Text = "?";
                 }
                 else if (e.Key == Key.Z)
                 {
@@ -585,6 +601,22 @@ namespace Foutloos
                 else if (e.Key == Key.LeftShift)
                 {
                     KeyShift_Back.Fill = Brushes.LightGray;
+                    Key1_Text.Text = "1";
+                    Key2_Text.Text = "2";
+                    Key3_Text.Text = "3";
+                    Key4_Text.Text = "4";
+                    Key5_Text.Text = "5";
+                    Key6_Text.Text = "6";
+                    Key7_Text.Text = "7";
+                    Key8_Text.Text = "8";
+                    Key9_Text.Text = "9";
+                    Key0_Text.Text = "0";
+                    KeyDash_Text.Text = "-";
+                    KeyColon_Text.Text = ";";
+                    KeyAccolade_Text.Text = "\'";
+                    KeyComma_Text.Text = ",";
+                    KeyDot_Text.Text = ".";
+                    KeySlash_Text.Text = "/";
                 }
                 else if (e.Key == Key.Z)
                 {

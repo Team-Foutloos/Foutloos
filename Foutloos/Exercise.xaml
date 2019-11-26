@@ -20,47 +20,47 @@
         <Grid Margin="485,291,283,342" Name="Test" Visibility="Hidden">
             <!-- 1 -->
             <Rectangle Name="Key1_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="0,0,492,147"/>
-            <TextBlock Height="20" Width="20" Text="1" Foreground="White" TextAlignment="Center" Margin="0,1,492,146"/>
+            <TextBlock Name="Key1_Text" Height="20" Width="20" Text="1" Foreground="White" TextAlignment="Center" Margin="0,1,492,146"/>
 
             <!-- 2 -->
             <Rectangle Name="Key2_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="25,0,467,147"/>
-            <TextBlock Height="20" Width="20" Text="2" Foreground="White" TextAlignment="Center" Margin="25,1,467,146"/>
+            <TextBlock Name="Key2_Text" Height="20" Width="20" Text="2" Foreground="White" TextAlignment="Center" Margin="25,1,467,146"/>
 
             <!-- 3 -->
             <Rectangle Name="Key3_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="50,0,442,147"/>
-            <TextBlock Height="20" Width="20" Text="3" Foreground="White" TextAlignment="Center" Margin="50,1,442,146"/>
+            <TextBlock Name="Key3_Text" Height="20" Width="20" Text="3" Foreground="White" TextAlignment="Center" Margin="50,1,442,146"/>
 
             <!-- 4 -->
             <Rectangle Name="Key4_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="75,0,417,147"/>
-            <TextBlock Height="20" Width="20" Text="4" Foreground="White" TextAlignment="Center" Margin="75,1,417,146"/>
+            <TextBlock Name="Key4_Text" Height="20" Width="20" Text="4" Foreground="White" TextAlignment="Center" Margin="75,1,417,146"/>
 
             <!-- 5 -->
             <Rectangle Name="Key5_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="100,0,392,147"/>
-            <TextBlock Height="20" Width="20" Text="5" Foreground="White" TextAlignment="Center" Margin="100,1,392,146"/>
+            <TextBlock Name="Key5_Text" Height="20" Width="20" Text="5" Foreground="White" TextAlignment="Center" Margin="100,1,392,146"/>
 
             <!-- 6 -->
             <Rectangle Name="Key6_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="125,0,367,147"/>
-            <TextBlock Height="20" Width="20" Text="6" Foreground="White" TextAlignment="Center" Margin="125,1,367,146"/>
+            <TextBlock Name="Key6_Text" Height="20" Width="20" Text="6" Foreground="White" TextAlignment="Center" Margin="125,1,367,146"/>
 
             <!-- 7 -->
             <Rectangle Name="Key7_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "150,0,342,147"/>
-            <TextBlock Height="20" Width="20" Text="7" Foreground="White" TextAlignment="Center" Margin="150,1,342,146"/>
+            <TextBlock Name="Key7_Text" Height="20" Width="20" Text="7" Foreground="White" TextAlignment="Center" Margin="150,1,342,146"/>
 
             <!-- 8 -->
             <Rectangle Name="Key8_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "175,0,317,147"/>
-            <TextBlock Height="20" Width="20" Text="8" Foreground="White" TextAlignment="Center" Margin="175,1,317,146"/>
+            <TextBlock Name="Key8_Text" Height="20" Width="20" Text="8" Foreground="White" TextAlignment="Center" Margin="175,1,317,146"/>
 
             <!-- 9 -->
             <Rectangle Name="Key9_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "200,0,292,147"/>
-            <TextBlock Height="20" Width="20" Text="9" Foreground="White" TextAlignment="Center" Margin="200,1,292,146"/>
+            <TextBlock Name="Key9_Text" Height="20" Width="20" Text="9" Foreground="White" TextAlignment="Center" Margin="200,1,292,146"/>
 
             <!-- 0 -->
             <Rectangle Name="Key0_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,0,267,147"/>
-            <TextBlock Height="20" Width="20" Text="0" Foreground="White" TextAlignment="Center" Margin="225,1,267,146"/>
+            <TextBlock Name="Key0_Text" Height="20" Width="20" Text="0" Foreground="White" TextAlignment="Center" Margin="225,1,267,146"/>
 
             <!-- - -->
             <Rectangle Name="KeyDash_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "250,0,242,147"/>
-            <TextBlock Height="20" Width="20" Text="-" Foreground="White" TextAlignment="Center" Margin="250,1,242,146"/>
+            <TextBlock Name="KeyDash_Text" Height="20" Width="20" Text="-" Foreground="White" TextAlignment="Center" Margin="250,1,242,146"/>
 
             <!-- q -->
             <Rectangle Name="Keyq_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "0,25,492,122"/>
@@ -140,11 +140,11 @@
 
             <!-- ; -->
             <Rectangle Name="KeyColon_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,50,267,97"/>
-            <TextBlock Height="20" Width="20" Text=";" Foreground="White" TextAlignment="Center" Margin="225,51,267,96"/>
+            <TextBlock Name="KeyColon_Text" Height="20" Width="20" Text=";" Foreground="White" TextAlignment="Center" Margin="225,51,267,96"/>
 
             <!-- ' -->
             <Rectangle Name="KeyAccolade_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "250,50,242,97"/>
-            <TextBlock Height="20" Width="20" Text="&#39;" Foreground="White" TextAlignment="Center" Margin="250,51,242,96"/>
+            <TextBlock Name="KeyAccolade_Text" Height="20" Width="20" Text="&#39;" Foreground="White" TextAlignment="Center" Margin="250,51,242,96"/>
 
             <!-- shift -->
             <Rectangle Name="KeyShift_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "0,75,492,72"/>
@@ -180,15 +180,15 @@
 
             <!-- , -->
             <Rectangle Name="KeyComma_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "200,75,292,72"/>
-            <TextBlock Height="20" Width="20" Text="," Foreground="White" TextAlignment="Center" Margin="200,76,292,71"/>
+            <TextBlock Name="KeyComma_Text" Height="20" Width="20" Text="," Foreground="White" TextAlignment="Center" Margin="200,76,292,71"/>
 
             <!-- . -->
             <Rectangle Name="KeyDot_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,75,267,72"/>
-            <TextBlock Height="20" Width="20" Text="." Foreground="White" TextAlignment="Center" Margin="225,76,267,71"/>
+            <TextBlock Name="KeyDot_Text" Height="20" Width="20" Text="." Foreground="White" TextAlignment="Center" Margin="225,76,267,71"/>
 
             <!-- / -->
             <Rectangle Name="KeySlash_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "250,75,242,72"/>
-            <TextBlock Height="20" Width="20" Text="/" Foreground="White" TextAlignment="Center" Margin="250,76,242,71"/>
+            <TextBlock Name="KeySlash_Text" Height="20" Width="20" Text="/" Foreground="White" TextAlignment="Center" Margin="250,76,242,71"/>
 
             <!-- control -->
             <Rectangle Name="KeyControl_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "25,100,467,47"/>
