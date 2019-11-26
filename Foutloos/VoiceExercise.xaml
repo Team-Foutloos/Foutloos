@@ -49,10 +49,15 @@
                     <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610"/>
                     <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label Content="CPM:" HorizontalAlignment="Left" Margin="1181,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="1273,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label Content="WPM:" HorizontalAlignment="Left" Margin="1181,796,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="wpmLable" Content="0" HorizontalAlignment="Left" Margin="1273,796,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Grid Margin="1223,749,61,26">
+                        <Label Content="CPM:" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="92,62,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label Content="WPM:" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label x:Name="wpmLable" Content="0" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label Content="Errors:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92"/>
+                        <Label x:Name="errorLable" Content="0" HorizontalAlignment="Left" Margin="92,0,0,0" VerticalAlignment="Top" Width="92"/>
+
+                    </Grid>
 
                 </Grid>
             </Viewbox>
