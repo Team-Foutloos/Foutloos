@@ -30,7 +30,66 @@
             <TextBlock HorizontalAlignment="Left" Margin="1516,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" Height="27" Width="197" FontSize="25"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
             <Viewbox HorizontalAlignment="Left" Height="100" Margin="1530,655,0,0" VerticalAlignment="Top" Width="100"/>
             <Label x:Name="Description" Content="" HorizontalAlignment="Left" Margin="1521,479,0,0" VerticalAlignment="Top" Height="171" Width="314" FontSize="20"/>
-            <DataGrid x:Name="SQLdata" HorizontalAlignment="Left" Height="792" Margin="40,208,0,0" VerticalAlignment="Top" Width="1415"/>
+            <TabControl HorizontalAlignment="Left" Height="771" Margin="91,184,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
+                <TabItem Header="All">
+                    <Grid ShowGridLines="True" Margin="10" Background="Beige">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+
+
+
+
+                    </Grid>
+                    
+                    
+                </TabItem>
+                <TabItem Header="Selected for you">
+                    <Grid ShowGridLines="True" Margin="10" Background="Beige">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+
+
+
+
+                    </Grid>
+                </TabItem>
+            </TabControl>
 
         </Grid>
     </Viewbox>

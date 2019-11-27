@@ -69,12 +69,13 @@ namespace Foutloos
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable("SQLdata");
                 sda.Fill(dt);
-                SQLdata.ItemsSource = dt.DefaultView;
+                //SQLdata.ItemsSource = dt.DefaultView;
             }
         }
 
+        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
 
-
-
+        }
     }
 }
