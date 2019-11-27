@@ -96,6 +96,10 @@ namespace Foutloos
             }
             else
             {
+
+                //First hash the password, this happens in the securepasswordhasher class.
+                string hashedPassword = SecurePasswordHasher.Hash(password.Password);
+
                 //query that is being executed and being shows in a Table in the application.
                 string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
                 string CmdString = $"INSERT INTO Usertable VALUES (@username, @password, @license)";
@@ -105,7 +109,7 @@ namespace Foutloos
                     SqlCommand insCmd = new SqlCommand(CmdString, con);
                     // use sqlParameters to prevent sql injection!
                     insCmd.Parameters.AddWithValue("@username", username.Text);
-                    insCmd.Parameters.AddWithValue("@password", password.Password);
+                    insCmd.Parameters.AddWithValue("@password", hashedPassword);
                     insCmd.Parameters.AddWithValue("@license", license.Text);
                     int affectedRows = insCmd.ExecuteNonQuery();
                     MessageBox.Show(affectedRows + " rows inserted!");
