@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,6 +96,20 @@ namespace Foutloos
             }
             else
             {
+                //query that is being executed and being shows in a Table in the application.
+                string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
+                string CmdString = $"INSERT INTO Usertable VALUES (@username, @password, @license)";
+                using (SqlConnection con = new SqlConnection(connectionstring))
+                {
+                    con.Open();
+                    SqlCommand insCmd = new SqlCommand(CmdString, con);
+                    // use sqlParameters to prevent sql injection!
+                    insCmd.Parameters.AddWithValue("@username", username.Text);
+                    insCmd.Parameters.AddWithValue("@password", password.Password);
+                    insCmd.Parameters.AddWithValue("@license", license.Text);
+                    int affectedRows = insCmd.ExecuteNonQuery();
+                    MessageBox.Show(affectedRows + " rows inserted!");
+                }
                 ErrorMessage.Foreground = new SolidColorBrush(Colors.Green);
                 errorMessage = "This account has succesfully been made!";
                 this.Close();
