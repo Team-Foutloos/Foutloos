@@ -58,8 +58,9 @@
 
                     </Grid>
                     <!-- Custom foutloos button made as a toolboxcontrol -->
-                    <local:FoutloosButton x:Name="HomeButton" HorizontalAlignment="Left" Height="70" Margin="29,71,0,0" VerticalAlignment="Top" Width="221" MouseDown="HomeButton_MouseDown" Text="Home" ForceCursor="True" HasIcon="True" Icon="assets/homeIconWhite.png" />
                     <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1279,10,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
+                    <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,28,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicText="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
+
                 </Grid>
             </Viewbox>
         </UserControl>
