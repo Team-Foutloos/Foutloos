@@ -31,7 +31,7 @@
             <Viewbox HorizontalAlignment="Left" Height="100" Margin="1530,655,0,0" VerticalAlignment="Top" Width="100"/>
             <Label x:Name="Description" Content="" HorizontalAlignment="Left" Margin="1521,479,0,0" VerticalAlignment="Top" Height="171" Width="314" FontSize="20"/>
             <TabControl HorizontalAlignment="Left" Height="771" Margin="91,184,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
-                <TabItem Header="All" Height="22" VerticalAlignment="Top">
+                <TabItem Header="All">
                     <Grid ShowGridLines="True" Margin="10" Background="Beige">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -45,10 +45,14 @@
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
                         </Grid.RowDefinitions>
 
 
@@ -60,6 +64,126 @@
 
                 </TabItem>
                 <TabItem Header="Selected for you">
+                    <Grid ShowGridLines="True" Margin="10" Background="Beige">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+
+
+
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Amature">
+                    <Grid ShowGridLines="True" Margin="10" Background="Beige">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+
+
+
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Normal">
+                    <Grid ShowGridLines="True" Margin="10" Background="Beige">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+
+
+
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Expert">
+                    <Grid ShowGridLines="True" Margin="10" Background="Beige">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+
+
+
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Finished">
                     <Grid ShowGridLines="True" Margin="10" Background="Beige">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
