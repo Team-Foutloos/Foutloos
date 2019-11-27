@@ -75,6 +75,13 @@
       <DependentUpon>FoutloosButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connection.cs" />
+    <Compile Include="SecurePasswordHasher.cs" />
+    <Compile Include="ThemedIconButton.xaml.cs">
+      <DependentUpon>ThemedIconButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThemedButton.xaml.cs">
+      <DependentUpon>ThemedButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
@@ -123,6 +130,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ModalLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThemedIconButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemedButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\homeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\homeIconWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

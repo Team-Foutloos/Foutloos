@@ -66,24 +66,24 @@
                     </StackPanel>
                 </Border>
 
-                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Margin="221,43,220.5,44" Width="505">
-                    <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
-                    <Label Name="Title" Content="Start Typing!" FontSize="60" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Top" Height="90" Width="341"/>
+                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="100" Margin="0,52,10.333,35.333" Width="926">
+                    <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="107" Margin="42,0,777,0"/>
+                    <Label Padding="0" Name="Title" Content="Start Typing!" FontSize="60" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" />
                 </Grid>
 
                 <!-- In this block code all the recommended exercises are shown -->
                 <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,77,350.5,0"/>
-                <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="179.333,136.667,178.333,82" Height="120" Width="589">
+                <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="186.333,136.667,171.333,82" Height="120" Width="589">
                     <Border Background="LightGreen" CornerRadius="5" BorderThickness="3" BorderBrush="Green" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122" Name="BoxBorder1">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="Green" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box1"/>
                     </Border>
                     <Border Background="Aqua" CornerRadius="5" BorderThickness="3" BorderBrush="DeepSkyBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122" Name="BoxBorder2">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="DeepSkyBlue" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box2"/>
                     </Border>
-                    <Border Background="LightSalmon" CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder3">
+                    <Border Background="LightSalmon" CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="304,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder3">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="IndianRed" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box3"/>
                     </Border>
-                    <Border Background="LightPink" CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder4">
+                    <Border Background="LightPink" CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder4">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="HotPink" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box4"/>
                     </Border>
                 </Grid>
@@ -104,9 +104,9 @@
                 </Border>
 
                 <!-- In this grid all of the buttons that you see in the bottom are located, they arent actually buttons, but textblocks wrapped inside of borders.-->
-                <Grid Grid.Column="1" Grid.Row="3" Margin="301,84.5,300.5,36.5" Height="66" Width="345" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Name="ButtonRowAccount" Grid.Column="1" Grid.Row="3" Margin="300.333,0,304.333,88" Height="41" Width="342" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Width="75" Height="40">
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="25,1,0,0" VerticalAlignment="Top" Width="75" Height="40">
                         <Border.Style>
                             <Style>
                                 <Setter Property="Border.Background" Value="DeepSkyBlue"/>
@@ -120,9 +120,9 @@
                         <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="login" Text="Login"/>
                     </Border>
 
-                    <Label Content="or" HorizontalAlignment="Left" Margin="103,1,0,0" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
+                    <Label Content="or" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="105,1,0,0" VerticalAlignment="Top" Height="39" FontSize="20"/>
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="169,0,0,0" VerticalAlignment="Top" Width="176" Height="40">
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="144,0,0,0" VerticalAlignment="Top" Width="176" Height="40">
                         <Border.Style>
                             <Style>
                                 <Setter Property="Border.Background" Value="DeepSkyBlue"/>
@@ -133,10 +133,22 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Create an account"/>
+                        <Grid Margin="6,5,6,4">
+                            <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="register" Text="Create an account"/>
+                        </Grid>
                     </Border>
 
                 </Grid>
+                <local:FoutloosButton x:Name="seeProgress" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328.333,114,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" Text="See your progress">
+                    <local:FoutloosButton.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.298"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="0.828"/>
+                        </TransformGroup>
+                    </local:FoutloosButton.RenderTransform>
+                </local:FoutloosButton>
 
             </Grid>
         </Viewbox>

@@ -12,21 +12,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Foutloos
 {
     public partial class Exercise : Page
     {
-        private string exerciseSpecialText = "Néqué pôrrô quïsquam èst quï dôlörem ïpsum quïa dôlör sit amet, consëctétur, adïpisci velit...";
+        //Exercise text
         private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
+        //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
+        //String used to save users correct input
         private string userInputCorrect = "";
+        //Boolen to determine if exercise is finished
         private bool exerciseFinished = false;
+        //Dictionary used to save mistakes made by the user
         private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
+        //Boolen used to make sure a mistake isn't added multiples times in a row
         private bool mistake = false;
+        //Save the mainwindow in a variable for switching pages
         private MainWindow owner;
+        //Marges used for the users input textbox
         private Thickness userInput_WithoutKeyboard = new Thickness(183, 352, 183, 0);
         private Thickness userInput_WithKeyboard = new Thickness(183, 452, 183, 0);
+        //Timer for displaying elapsed time and calculating the WPM/CPM
+        DispatcherTimer timer = new DispatcherTimer();
+        //Variable for the total amount of seconds that have elapsed
+        private int seconds = 0;
+        //Boolean used to determine if the timer is running
+        private bool timerStarted = false;
 
         public Exercise(MainWindow o)
         {
@@ -43,27 +57,21 @@ namespace Foutloos
             exerciseStringLeft = exerciseText;
             //Visualize exercise text
             Exercise_TextBlock.Text = exerciseText;
+
+            //Configuring the timer and adding an event
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
         }
 
-        //Constructor for special characters excersice
-        public Exercise(bool special)
-        {
-            InitializeComponent();
-            if (special)
-            {
-                //Save remaining exercise text into variable
-                exerciseStringLeft = exerciseSpecialText;
-                //Visualize exercise text
-                Exercise_TextBlock.Text = exerciseSpecialText;
-            } else {
-                //Save remaining exercise text into variable
-                exerciseStringLeft = exerciseText;
-                //Visualize exercise text
-                Exercise_TextBlock.Text = exerciseText;
-            }
-        }
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            //Start timer
+            if(!timerStarted)
+            {
+                timer.Start();
+                timerStarted = true;
+            }
+
             //Functionality Toggle
             //Check if toggle is true
             if (Toggle.Toggled)
@@ -312,6 +320,7 @@ namespace Foutloos
                         if (exerciseStringLeft.Length == 0)
                         {
                             //Change exercise text when exercise is finished
+                            timer.Stop();
                             exerciseFinished = true;
                             Exercise_TextBlock.Text = "";
                             Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
@@ -323,19 +332,19 @@ namespace Foutloos
                         e.Handled = true;
 
                         //Check if the next character of the exercise was a mistake, by the user, before
-                        if(!mistake)
+                        if (!mistake)
                         {
                             //Update dictionary containing user's mistakes
                             try
                             {
                                 userMistakes.Add((char)32, 1);
                             }
-                            catch(Exception)
+                            catch (Exception)
                             {
                                 userMistakes[(char)32] += 1;
                             }
                             mistake = true;
-                        }                     
+                        }
 
                         //Visualize incorrect input
                         Exercise_TextBlock.Text = "";
@@ -385,6 +394,7 @@ namespace Foutloos
                     if (exerciseStringLeft.Length == 0)
                     {
                         //Change exercise text when exercise is finished
+                        timer.Stop();
                         exerciseFinished = true;
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
@@ -403,7 +413,7 @@ namespace Foutloos
                         {
                             userMistakes.Add(exerciseStringLeft.First(), 1);
                         }
-                        catch(Exception)
+                        catch (Exception)
                         {
                             userMistakes[exerciseStringLeft.First()] += 1;
                         }
@@ -434,7 +444,7 @@ namespace Foutloos
         private void UserInput_TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             //Disable copy/cut/paste commands in user's textbox
-            if(e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
+            if (e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
             {
                 e.Handled = true;
             }
@@ -443,7 +453,7 @@ namespace Foutloos
         //Toggle button functionality
         private void Toggle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(Toggle.Toggled)
+            if (Toggle.Toggled)
             {
                 //Show keyboard
                 UserInput_TextBox.Margin = userInput_WithKeyboard;
@@ -671,6 +681,17 @@ namespace Foutloos
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             owner.Content = new HomeScreen(owner);
+        }
+
+        //Timer functionality
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //Add one second to the counter
+            seconds++;
+
+            //Change timer
+            TimeSpan time = TimeSpan.FromSeconds(seconds);
+            Time.Content = time.ToString("mm':'ss");
         }
     }
 }      

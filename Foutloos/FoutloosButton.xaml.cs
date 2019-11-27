@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -10,6 +9,9 @@ namespace Foutloos
     /// </summary>
     public partial class FoutloosButton : UserControl
     {
+        private bool hasIcon;
+        private BitmapFrame icon;
+
         //Make setting the text of the button possible
         public string Text
         {
@@ -23,25 +25,37 @@ namespace Foutloos
             }
         }
 
-        public bool HomeButton { get; set; }
+        
+        public bool HasIcon
+        {
+            get { return hasIcon; }
+            set { this.hasIcon = value; }
+        }
 
-        //public BitmapImage Icon { get; set; }
+        public BitmapFrame Icon
+        {
+            get { return this.icon; }
+            set { this.icon = value; }
+        }
 
         public FoutloosButton()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetIcon();
+        }
+
+        public void SetIcon()
+        {
+            iconImage.Source = this.icon;
+            iconImage.Margin = new Thickness(10, 0, 0, 0);
+            iconImage.Visibility = Visibility.Visible;
 
         }
 
-        /*public void SetIcon()
-        {
-            Image iconImage = new Image();
-            iconImage.Source = Icon;
-            iconImage.Margin = new Thickness(0, 0, 0, 0);
-            iconImage.Width = 25;
-
-            stackPanel.Children.Add(iconImage);
-        }*/
 
 
     }
