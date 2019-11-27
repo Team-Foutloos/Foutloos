@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace Foutloos
     /// </summary>
     public partial class ModalLogin : Window
     {
-        public ModalLogin()
+        private HomeScreen owner;
+        public ModalLogin(HomeScreen owner)
         {
+            this.owner = owner;
             InitializeComponent();
         }
 
@@ -53,19 +56,19 @@ namespace Foutloos
                     {
                         if (reader.Read() && SecurePasswordHasher.Verify(password.Password, (string) reader["password"]))
                         {
-                            Console.WriteLine("Succes!");
+                            ConfigurationManager.AppSettings["username"] = (string) reader["username"];
+
+                            //If a user logs in, change the UI of the homePage.
+                            owner.loginUIchange();
+                            this.Close();
                         }
                         else
                         {
-                            Console.WriteLine("Nothing found.");
+                            error = "Username or Password incorrect!";
                         }
                     }
                     con.Close();
                 }
-                //The check with the database has to be implemented here.
-                error = "Succesfull!";
-                errorMessage.Foreground = new SolidColorBrush(Colors.Green);
-                this.Close();
             }
             errorMessage.Content = error;
         }
