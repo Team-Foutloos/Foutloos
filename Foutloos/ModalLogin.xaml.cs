@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +21,10 @@ namespace Foutloos
     /// </summary>
     public partial class ModalLogin : Window
     {
-        public ModalLogin()
+        private HomeScreen owner;
+        public ModalLogin(HomeScreen owner)
         {
+            this.owner = owner;
             InitializeComponent();
         }
 
@@ -37,10 +41,34 @@ namespace Foutloos
             }
             else
             {
-                //The check with the database has to be implemented here.
-                error = "Succesfull!";
-                errorMessage.Foreground = new SolidColorBrush(Colors.Green);
-                this.Close();
+                string hashedPassword = SecurePasswordHasher.Hash(password.Password);
+                //query that is being executed and being shows in a Table in the application.
+                string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
+                string CmdString = $"SELECT * FROM Usertable WHERE username = @username";
+                using (SqlConnection con = new SqlConnection(connectionstring))
+                {
+                    con.Open();
+                    SqlCommand insCmd = new SqlCommand(CmdString, con);
+                    // use sqlParameters to prevent sql injection!
+                    insCmd.Parameters.AddWithValue("@username", username.Text);
+                    insCmd.Parameters.AddWithValue("@password", hashedPassword);
+                    using (SqlDataReader reader = insCmd.ExecuteReader())
+                    {
+                        if (reader.Read() && SecurePasswordHasher.Verify(password.Password, (string) reader["password"]))
+                        {
+                            ConfigurationManager.AppSettings["username"] = (string) reader["username"];
+
+                            //If a user logs in, change the UI of the homePage.
+                            owner.loginUIchange();
+                            this.Close();
+                        }
+                        else
+                        {
+                            error = "Username or Password incorrect!";
+                        }
+                    }
+                    con.Close();
+                }
             }
             errorMessage.Content = error;
         }

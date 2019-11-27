@@ -75,6 +75,7 @@
       <DependentUpon>FoutloosButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connection.cs" />
+    <Compile Include="SecurePasswordHasher.cs" />
     <Compile Include="ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>

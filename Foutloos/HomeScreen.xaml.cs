@@ -30,15 +30,8 @@ namespace Foutloos
             owner = Owner;
             InitializeComponent();
 
-           
-            if(!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
-            {
-                settings.Text = "Account";
-            }
-            else
-            {
-                settings.Text = "Settings";
-            }
+            //Update the UI.
+            this.loginUIchange();
 
             //Going thru all the TextBlocs in the grid to add the hover events.
             foreach (Border x in BoxGrid.Children)
@@ -59,6 +52,23 @@ namespace Foutloos
             login.MouseDown += Button_Click_1;
             register.MouseDown += Button_Click_2;
 
+        }
+
+        //Change things when a user logs in.
+        public void loginUIchange()
+        {
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+            {
+                settings.Text = "Account";
+                Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
+                ButtonRowAccount.Visibility = Visibility.Collapsed;
+                seeProgress.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                settings.Text = "Settings";
+                seeProgress.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -197,7 +207,7 @@ namespace Foutloos
         //This function handles the clicking of the 'login' button.
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ShowModal(new ModalLogin { Owner = HomeScreen.owner });
+            ShowModal(new ModalLogin(this) { Owner = HomeScreen.owner });
         }
 
         //This function handles the clicking of the 'register' button
@@ -225,6 +235,7 @@ namespace Foutloos
             Connection c = new Connection();
            
         }
+
     }
 
     //Create this class to give the 'Darken effect' used while the modal is opened.
