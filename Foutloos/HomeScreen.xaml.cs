@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,8 +30,18 @@ namespace Foutloos
             owner = Owner;
             InitializeComponent();
 
+           
+            if(!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+            {
+                settings.Text = "Account";
+            }
+            else
+            {
+                settings.Text = "Settings";
+            }
+
             //Going thru all the TextBlocs in the grid to add the hover events.
-            foreach(Border x in BoxGrid.Children)
+            foreach (Border x in BoxGrid.Children)
             {
                 //Setting a standard text to each TextBlock
                 //Here will the random exercises from the database come.
@@ -53,6 +64,7 @@ namespace Foutloos
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             owner.Content = new ExercisesPage();
+            
         }
 
 
@@ -62,9 +74,18 @@ namespace Foutloos
 
 
         //When a user clicks on the box, the exercise starts.
-        private void Exercise(object sender, EventArgs e)
+        private void Exercise(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new Exercise();
+            FrameworkElement clickedElement = e.Source as FrameworkElement;
+            if (clickedElement == BoxBorder1 || clickedElement == Box1)
+            {
+                owner.Content = new VoiceExercise();
+            }
+            else
+            {
+                owner.Content = new Exercise(owner);
+            }
+            
         }
 
         //When the mouse enters an Exercise box this happens

@@ -25,7 +25,7 @@
                 <Grid  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
 
                     <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
-                    <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1200,33,0,0" VerticalAlignment="Top" Width="190"/>
+                    <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1175,291,0,0" VerticalAlignment="Top" Width="190"/>
 
                     <Label Height="28" HorizontalAlignment="Left"
                         x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,285,0,0"/>
@@ -45,16 +45,25 @@
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
                     <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,633,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
-                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="632" FontSize="36" Margin="394,214,394,610"/>
-                    <Label x:Name="label2" Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610"/>
+                    <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="lable3" Content="CPM:" HorizontalAlignment="Left" Margin="1181,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="1273,827,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Grid Margin="1223,749,61,26">
+                        <Label Content="CPM:" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="92,62,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label Content="WPM:" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label x:Name="wpmLable" Content="0" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Width="92"/>
+                        <Label Content="Errors:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92"/>
+                        <Label x:Name="errorLable" Content="0" HorizontalAlignment="Left" Margin="92,0,0,0" VerticalAlignment="Top" Width="92"/>
 
+                    </Grid>
+                    <!-- Custom foutloos button made as a toolboxcontrol -->
+                    <local:FoutloosButton x:Name="HomeButton" HorizontalAlignment="Left" Height="66" Margin="29,71,0,0" VerticalAlignment="Top" Width="258" MouseDown="HomeButton_MouseDown" Text="Home" ForceCursor="True" HomeButton="True" Icon="assets/homeIcon.png" />
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1279,10,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
                 </Grid>
             </Viewbox>
         </UserControl>
-        <Image x:Name="image" HorizontalAlignment="Center" Height="145" VerticalAlignment="Top" Width="170" Source="assets/LogoFoutloosPNG.png" Margin="635,64,635,0"/>
+
 
     </Grid>
 
