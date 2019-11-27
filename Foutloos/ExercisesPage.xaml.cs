@@ -72,7 +72,7 @@ namespace Foutloos
                 }
             }
 
-            test.Content = waardes;
+            
 
             
 
@@ -82,8 +82,9 @@ namespace Foutloos
 
         }
 
+        private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
 
-
-
+        }
     }
 }
