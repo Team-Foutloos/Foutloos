@@ -10,8 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Exercise" Background="white" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-
-    <Viewbox Stretch="None">
+    <Viewbox Stretch="Uniform" StretchDirection="Both">
         <Grid>
             <TextBlock FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="Exercise_TextBlock"/>
             <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted" PreviewKeyUp="UserInput_TextBox_PreviewKeyUp"/>
