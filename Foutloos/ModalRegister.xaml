@@ -15,8 +15,8 @@
     <Border CornerRadius="10" BorderThickness="2" Background="White">
         <Grid>
             <!--Logo -->
-            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="86,30,86,0"/>
-            <Grid Margin="5,175,0,60" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="145">
+            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="84,9,84,0"/>
+            <Grid Margin="3,152,-2,79" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="145">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -29,7 +29,7 @@
                     <ColumnDefinition Width="29.333"/>
                 </Grid.ColumnDefinitions>
                 <!--The username textbox -->
-                <TextBox Name="username" MaxLength="12" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="0" Grid.Column="1" PreviewKeyDown="Username_TextChanged_1" TextChanged="Username_TextChanged">
+                <TextBox ToolTip="Between 5 and 12 characters." Name="username" MaxLength="12" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="0" Grid.Column="1" PreviewKeyDown="Username_TextChanged_1" TextChanged="Username_TextChanged">
                     <TextBox.Resources>
                         <Storyboard x:Key="TestStoryboard">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
@@ -45,10 +45,10 @@
                         <TranslateTransform X="0" Y="0" />
                     </TextBox.RenderTransform>
                 </TextBox>
-                <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="62,7,0,0"/>
-                <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="67,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
+                <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="60,5,0,0"/>
+                <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="65,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
                 <!--The password passwordbox-->
-                <PasswordBox Name="password" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1" PasswordChanged="Password_PasswordChanged" PreviewKeyDown="Password_TextChanged">
+                <PasswordBox ToolTip="Between 8 and 20 characters." Name="password" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1" PasswordChanged="Password_PasswordChanged" PreviewKeyDown="Password_TextChanged">
                     <PasswordBox.Resources>
                         <Storyboard x:Key="TestStoryboard">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
@@ -64,9 +64,9 @@
                         <TranslateTransform X="0" Y="0" />
                     </PasswordBox.RenderTransform>
                 </PasswordBox>
-                <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="6,2.333,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
+                <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="5,2.333,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
                 <!--The password repeat passwordbox -->
-                <PasswordBox Name="passwordRepeat"  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9.333,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordRepeat_PasswordChanged" PreviewKeyDown="Password_TextChanged">
+                <PasswordBox ToolTip="Needs to match the password." Name="passwordRepeat"  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9.333,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" PreviewKeyDown="Password_TextChanged">
                     <PasswordBox.Resources>
                         <Storyboard x:Key="TestStoryboard">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
@@ -82,9 +82,9 @@
                         <TranslateTransform X="0" Y="0" />
                     </PasswordBox.RenderTransform>
                 </PasswordBox>
-                <Label Content="License" FontSize="15" HorizontalAlignment="Left" Margin="77,3.667,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62" Height="30"/>
+                <Label Content="License" FontSize="15" HorizontalAlignment="Left" Margin="78,3.667,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62" Height="30" Grid.ColumnSpan="2"/>
                 <!--The license textbox -->
-                <TextBox Name="license" HorizontalAlignment="Left" Height="23" Margin="1.667,8.667,0,0" Grid.Row="3" TextWrapping="Wrap" MaxLength="5" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" Grid.Column="1" TextChanged="TextBox_TextChanged">
+                <TextBox ToolTip="If you don't know your license, ask your teacher." Name="license" HorizontalAlignment="Left" Height="23" Margin="1.667,7.667,0,0" Grid.Row="3" TextWrapping="Wrap" MaxLength="5" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" Grid.Column="1">
                     <TextBox.Resources>
                         <Storyboard x:Key="TestStoryboard">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
@@ -102,13 +102,11 @@
                 </TextBox>
                 <Label Name="usernameLength" Content="12" Grid.Column="1" HorizontalAlignment="Left" Margin="125.667,8,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                 <Label Name="passwordLength" Content="20" Grid.Column="2" HorizontalAlignment="Left" Margin="0.667,5,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-                <Label Name="passwordRepeatLength" Content="20" Grid.Column="1" HorizontalAlignment="Left" Margin="125.667,5.333,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <Label Name="licenseLength" Content="5" Grid.Column="2" HorizontalAlignment="Left" Margin="0.667,6.667,0,0" Grid.Row="3" VerticalAlignment="Top"/>
 
             </Grid>
 
             <!-- The register and cancel button, they are not actually buttons but textblocks wrapped in a border to give more freedom to styling. -->
-            <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36">
+            <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36">
                 <Border.Style>
                     <Style>
                         <Setter Property="Border.Background" Value="DeepSkyBlue"/>
@@ -119,9 +117,9 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Name="cancelRegister" Text="Cancel" Margin="35,3,0,3"/>
+                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Name="cancelRegister" Text="Cancel" Margin="35,3,0,3" MouseDown="CancelRegister_MouseDown"/>
             </Border>
-            <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36">
+            <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36">
                 <Border.Style>
                     <Style>
                         <Setter Property="Border.Background" Value="DeepSkyBlue"/>
@@ -132,9 +130,10 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Register"/>
+                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Register" MouseDown="Register_MouseDown"/>
             </Border>
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="51,160,51,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="49,139,49,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
+            <Label Foreground="Red" Name="ErrorMessage" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
         </Grid>
     </Border>
 </Window>
