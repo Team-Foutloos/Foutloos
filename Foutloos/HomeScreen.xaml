@@ -80,10 +80,10 @@
                     <Border Background="Aqua" CornerRadius="5" BorderThickness="3" BorderBrush="DeepSkyBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122" Name="BoxBorder2">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="DeepSkyBlue" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box2"/>
                     </Border>
-                    <Border Background="LightSalmon" CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="305,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder3">
+                    <Border Background="LightSalmon" CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="304,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder3">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="IndianRed" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box3"/>
                     </Border>
-                    <Border Background="LightPink" CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="453,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder4">
+                    <Border Background="LightPink" CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder4">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="HotPink" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box4"/>
                     </Border>
                 </Grid>
@@ -104,9 +104,9 @@
                 </Border>
 
                 <!-- In this grid all of the buttons that you see in the bottom are located, they arent actually buttons, but textblocks wrapped inside of borders.-->
-                <Grid Name="ButtonRowAccount" Grid.Column="1" Grid.Row="3" Margin="301,84.5,300.5,36.5" Height="66" Width="345" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Name="ButtonRowAccount" Grid.Column="1" Grid.Row="3" Margin="300.333,0,304.333,88" Height="41" Width="342" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Width="75" Height="40">
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="25,1,0,0" VerticalAlignment="Top" Width="75" Height="40">
                         <Border.Style>
                             <Style>
                                 <Setter Property="Border.Background" Value="DeepSkyBlue"/>
@@ -120,9 +120,9 @@
                         <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="login" Text="Login"/>
                     </Border>
 
-                    <Label Content="or" HorizontalAlignment="Left" Margin="103,1,0,0" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
+                    <Label Content="or" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="105,1,0,0" VerticalAlignment="Top" Height="39" FontSize="20"/>
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="169,0,0,0" VerticalAlignment="Top" Width="176" Height="40">
+                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="144,0,0,0" VerticalAlignment="Top" Width="176" Height="40">
                         <Border.Style>
                             <Style>
                                 <Setter Property="Border.Background" Value="DeepSkyBlue"/>
