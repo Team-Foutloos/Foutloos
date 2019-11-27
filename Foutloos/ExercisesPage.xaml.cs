@@ -31,8 +31,31 @@ namespace Foutloos
         public ExercisesPage()
         {
             InitializeComponent();
-            FillDataGrid();
+            AddButton();
             
+        }
+
+        private void AddButton()
+        {
+            int x = 1;
+
+            for (int i = 0; i < 40; i+= 2)
+            {
+                       
+                Button b1 = new Button();
+                Grid.SetColumn(b1, i-1);
+                Grid.SetRow(b1, x-1);
+                b1.Background = Brushes.Gray;
+                b1.Name = $"E{i}";
+                //                    Grid_All.Children.Add(new Button() { Name = $"E{i}", Background = Brushes.Gray });                                
+                Grid_All.Children.Add(b1);
+                             
+                if (i % 4 == 0)
+                {
+                    x+=2;
+                }                                     
+                
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
