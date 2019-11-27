@@ -334,5 +334,6 @@ namespace Foutloos
             //Navigate back to the homescreen.
             HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
         }
+
     }
 }

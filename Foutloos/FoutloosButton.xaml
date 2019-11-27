@@ -5,28 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Foutloos"
              xmlns:xs="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
-             mc:Ignorable="d" d:DesignWidth="300" Height="74.333">
+             mc:Ignorable="d" Loaded="UserControl_Loaded">
 
-    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid Height="93" Width="410">
-            <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Margin="30,10,30,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="69" Width="350">
-                <Border.Style>
-                    <Style>
-                        <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                        <Style.Triggers>
-                            <Trigger Property="Border.IsMouseOver" Value="True">
-                                <Setter Property="Border.Background" Value="LightSkyBlue" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <StackPanel Orientation="Horizontal" Name="stackPanel">
-                    
-                    <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="30" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" x:Name="FoutloosButtonName" Text="FoutloosButton" Margin="8,8,0,0" Height="52" Width="329"/>
-                </StackPanel>
+    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="0">
+        <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10">
+            <Border.Style>
+                <Style>
+                    <Setter Property="Border.Background" Value="DeepSkyBlue"/>
+                    <Style.Triggers>
+                        <Trigger Property="Border.IsMouseOver" Value="True">
+                            <Setter Property="Border.Background" Value="LightSkyBlue" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel Orientation="Horizontal" Name="stackPanel" Margin="5">
+                <Image Visibility="Hidden" Name="iconImage" VerticalAlignment="Center" Width="40"/>
+                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="30" FontStretch="Normal" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left" x:Name="FoutloosButtonName" Text="FoutloosButton" Padding="5"/>
+            </StackPanel>
 
-            </Border>
-        </Grid>
+        </Border>
     </Viewbox>
 
 </UserControl>
