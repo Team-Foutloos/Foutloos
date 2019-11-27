@@ -440,12 +440,6 @@ namespace Foutloos
             }
         }
 
-        //Home button functionality
-        private void Home_Button_Click(object sender, RoutedEventArgs e)
-        {
-            owner.Content = new HomeScreen(owner);
-        }
-
         //Toggle button functionality
         private void Toggle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -671,6 +665,12 @@ namespace Foutloos
                     KeySpace_Back.Fill = Brushes.LightGray;
                 }
             }
+        }
+
+        //Home button functionality
+        private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            owner.Content = new HomeScreen(owner);
         }
     }
 }      

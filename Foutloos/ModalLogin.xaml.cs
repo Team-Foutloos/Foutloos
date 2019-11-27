@@ -24,7 +24,28 @@ namespace Foutloos
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Login_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string error = "";
+            if (username.Text.Length == 0)
+            {
+                error = "Please enter a username.";
+            }
+            else if (password.Password.Length == 0)
+            {
+                error = "Please enter a password.";
+            }
+            else
+            {
+                //The check with the database has to be implemented here.
+                error = "Succesfull!";
+                errorMessage.Foreground = new SolidColorBrush(Colors.Green);
+                this.Close();
+            }
+            errorMessage.Content = error;
+        }
+
+        private void Cancel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
