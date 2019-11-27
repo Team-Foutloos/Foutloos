@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Speech.Synthesis;
 using System.Timers;
 using System.Windows;
@@ -16,6 +18,7 @@ namespace Foutloos
     /// </summary>
     public partial class VoiceExercise : Page
     {
+
         //Setting some variables that are used for the application.
         //Timer for displaying elapsed time and calculating the WPM/CPM
         DispatcherTimer timer = new DispatcherTimer();
@@ -42,6 +45,12 @@ namespace Foutloos
         //Array with all the speech speed levels
         double[] rateValues = { 0.5, 1, 1.25 };
 
+        //Dictionary with all mistakes
+        Dictionary<char, int> mistakes = new Dictionary<char, int>();
+
+        //Making an array that saves the indexes of errors so they wont be counted twice
+        List<int> mistakeIndex = new List<int>();
+        
 
         public VoiceExercise()
         {
@@ -81,6 +90,147 @@ namespace Foutloos
             
         }
 
+
+
+        //This will be executed every time a key is pressed
+        private void HandleTextComposition(object sender, TextCompositionEventArgs e)
+        {
+            //Creating a variable for the typed key
+            Char keyChar;
+            try
+            {
+                //Try getting the typed key into the char variable
+                keyChar = (Char)System.Text.Encoding.ASCII.GetBytes(e.Text)[0];
+            }
+            catch
+            {
+                return;
+            }
+
+            //If enter is pressed while the exercise isn't running yet the exercise will start
+            if (keyChar == '\r' && !running && !exerciseFinished)
+            {
+                startSpeaking();
+                running = true;
+                headLabel.Content = "Press enter to replay";
+            }
+            else if(exerciseStarted && !exerciseFinished && keyChar != '\r')
+            {
+                //Catching the backspace key and make it remove the last char from the variable wich holds the
+                //written text. All other keys will be added to the same variable.
+                if (keyChar.Equals('\b'))
+                {
+                    if (typedText.Length > 0)
+                    {
+                        typedText = typedText.Remove(typedText.Length - 1);
+                    }
+                }
+                else
+                {
+                    if (typedText.Length < testString.Length)
+                    {
+                        typedText += e.Text;
+                        typedKeys++;
+                    }
+                }
+
+                
+                //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
+                if (typedText.Length <= testString.Length)
+                {
+                    //First clearing the textblock
+                    inputText.Text = "";
+                    //Setting a bool witch turns true when a typo was made by the user
+                    bool wrong = false;
+
+                    //Writing the text on the screen of the user char for char
+                    for (int i = 0; i < typedText.Length; i++)
+                    {
+                        //If the text is correct it will be green. If there was a typo all text from
+                        //the typo onwards will be red.
+                        if (typedText[i] == testString[i] && wrong == false)
+                        {
+                            inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
+                        }
+                        else if(keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
+                        {
+
+                            //Make sure a mistake isn't counted multiple times. 
+                            if(!mistakeIndex.Contains(i) && !wrong)
+                            {
+                                //Check if mistake was made earlier (!wrong means it only gets the first char where the user goes wrong)
+                                if (mistakes.ContainsKey(testString[i]))
+                                {
+                                    //If the mistake was already made earlier the mistake will count up to the existing dictionary entry
+                                    mistakes[testString[i]]++;
+                                }
+                                else if (!mistakes.ContainsKey(testString[i]))
+                                {
+                                    //If the mistake wasn't made earlier this wil add the mistake to the list with standard count 1   
+                                    mistakes.Add(testString[i], 1);
+                                }
+                                //Gettin the total amount of mistakes using a LINQ query
+                                int mistakesNumber = mistakes.Values.Sum();
+                                //Displaying the amount of errors on the screen
+                                errorLable.Content = mistakesNumber;
+                                //Adding the mistakes index so it wont be counted up when the text updates
+                                mistakeIndex.Add(i);
+                            }
+                            
+                            //Making spaces in the wrong part of the text red underscores for better visibility
+                            string wrongChar = typedText[i].ToString().Replace(' ', '_');
+                            //Adding the wrong char to the text
+                            inputText.Inlines.Add(new Run(wrongChar) { Foreground = Brushes.Red });
+
+                            //Flipping the wrong variable so all the text after the mistake is also shown in red
+                            if (!wrong)
+                            {
+                                wrong = true;
+                            }
+                        }
+                    }
+
+
+
+                    //If the sentence is completed
+                    if (typedText.Length == testString.Length && !wrong)
+                    {
+                        timer.Stop();
+                        int mistakesNumber = mistakes.Values.Sum();
+                        headLabel.Content = $"Done! Total time: {SecondsToTime(second)}\nNumber of mistakes: {mistakesNumber}";
+                        exerciseFinished = true;
+                    }
+                }
+
+            }
+
+        }
+
+        //Every second that the timer is enabled this will happen.
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //Adding a second every time the timer ticks
+            second++;
+            //Displaying the correct time to the user
+            timeLable.Content = SecondsToTime(second);
+
+            //Calculating the typed keys per minute
+            cpmLable.Content = Math.Round((typedKeys / (double)second) * 60);
+
+            string[] woorden = typedText.Split(' ');
+            wpmLable.Content = Math.Round((woorden.Length / (double)second) * 60);
+            
+        }
+
+        //Adding a TextComposition event to the window.
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Adding the Composition handler to get the users input at all times.
+            var window = Window.GetWindow(this);
+            window.TextInput += HandleTextComposition;
+        }
+
+        //When calling this the speech will start playing and the exercise starts.
         private void startSpeaking()
         {
             //Start the time if the exersice didn't begin yet.
@@ -106,102 +256,7 @@ namespace Foutloos
             }
         }
 
-        private void HandleTextComposition(object sender, TextCompositionEventArgs e)
-        {
-            //Creating a variable for the typed key
-            Char keyChar;
-            try
-            {
-                //Try getting the typed key into the char variable
-                keyChar = (Char)System.Text.Encoding.ASCII.GetBytes(e.Text)[0];
-            }
-            catch
-            {
-                return;
-            }
-
-            //If enter is pressed while the exercise isn't running yet the exercise will start
-            if (keyChar == '\r' && !running && !exerciseFinished)
-            {
-                startSpeaking();
-                running = true;
-                headLabel.Content = "Press enter to replay";
-            }
-            else if(exerciseStarted && !exerciseFinished)
-            {
-                //Catching the backspace key and make it remove the last char from the variable wich holds the
-                //written text. All other keys will be added to the same variable.
-                if (keyChar.Equals('\b'))
-                {
-                    if (typedText.Length > 0)
-                    {
-                        typedText = typedText.Remove(typedText.Length - 1);
-                    }
-                }
-                else
-                {
-                    if (typedText.Length < testString.Length)
-                    {
-                        typedText += e.Text;
-                        typedKeys++;
-                    }
-                }
-
-                //Displayig the typed text on the user's screen
-                if (typedText.Length <= testString.Length)
-                {
-                    //First clearing the textblock
-                    inputText.Text = "";
-                    //Setting a bool witch turns true when a typo was made by the user
-                    bool wrong = false;
-                    //Writing the text on the screen of the user char for char
-                    for (int i = 0; i < typedText.Length; i++)
-                    {
-                        //If the text is correct it will be green. If there was a typo all text from
-                        //the typo onwards will be red.
-                        if (typedText[i] == testString[i] && wrong == false)
-                        {
-                            inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
-                        }
-                        else
-                        {
-                            inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Red });
-                            if(!wrong)
-                                wrong = true;
-                        }
-                    }
-
-                    //If the sentence is completed
-                    if (typedText.Length == testString.Length && !wrong)
-                    {
-                        timer.Stop();
-                        headLabel.Content = $"Done! Total time: {SecondsToTime(second)}";
-                        exerciseFinished = true;
-                    }
-                }
-
-            }
-
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            //Adding a second every time the timer ticks
-            second++;
-            //Displaying the correct time to the user
-            timeLable.Content = SecondsToTime(second);
-
-            //Calculating the typed keys per minute
-            cpmLable.Content = (typedKeys / second) * 60;
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            //Adding the Composition handler to get the users input at all times.
-            var window = Window.GetWindow(this);
-            window.TextInput += HandleTextComposition;
-        }
-
+        //This is executed when the synthesiser is done.
         private void synthesizer_SpeakCompleted(object sender, SpeakCompletedEventArgs e)
         {
             //Speech isn't running anymore so setting it to false
@@ -211,6 +266,7 @@ namespace Foutloos
             comboRate.IsEnabled = true;
         }
 
+        //Every time the volume is changed by the user this method runs.
         public void sliderVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             try
@@ -224,6 +280,7 @@ namespace Foutloos
             }
         }
 
+        //Every time the voice is changed by the user this method runs.
         private void ComboVoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -240,6 +297,7 @@ namespace Foutloos
             sliderVolume.Focus();
         }
 
+        //Everytime the speed is changed by the user this method runs.
         private void ComboRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -256,12 +314,25 @@ namespace Foutloos
             sliderVolume.Focus();
         }
 
+        //This method converts time in seconds to a radable miniute:second format
         private string SecondsToTime(int seconds)
         {
             //Converting the int seconds to a correct time notation
             TimeSpan result = TimeSpan.FromSeconds(seconds);
             //Writing the text to the users screen in the correct time notation
             return result.ToString("mm':'ss");
+        }
+
+        //Homebutton
+        private void HomeButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //If the speech is still playing, stopping the speech.
+            if (synthesizer.State == SynthesizerState.Speaking)
+            {
+                synthesizer.Pause();
+            }
+            //Navigate back to the homescreen.
+            HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
         }
     }
 }
