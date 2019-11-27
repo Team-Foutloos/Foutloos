@@ -13,7 +13,7 @@
     <Viewbox Stretch="Uniform" StretchDirection="Both">
         <Grid>
             <TextBlock FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="Exercise_TextBlock"/>
-            <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted" PreviewKeyUp="UserInput_TextBox_PreviewKeyUp"/>
+            <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted" PreviewKeyUp="UserInput_TextBox_PreviewKeyUp"/>
             <Label Content="Virtual Keyboard:" Margin="932,652,228,76"/>
             <local:ToggleButton x:Name="Toggle" HorizontalAlignment="Left" Height="54" Margin="1046,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="Toggle_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
             <!-- Virtual Keyboard -->
@@ -202,6 +202,8 @@
                 <Rectangle Name="KeySpace_Back" Height="20" Width="120" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "75,100,315.75,47"/>
             </Grid>
             <local:FoutloosButton HorizontalAlignment="Left" Height="184" Margin="11,-41,0,0" VerticalAlignment="Top" Width="184" MouseDown="FoutloosButton_MouseDown" Text="Home"/>
+            <Label Content="Elapsed time:" Height="30" Width="80" Margin="23,759,1263,11"/>
+            <Label Name="Time" Content="00:00" Height="30" Width="40" Margin="108,760,1218,10"/>
         </Grid>
     </Viewbox>
 </Page>
