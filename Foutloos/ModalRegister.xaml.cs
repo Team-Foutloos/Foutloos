@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,16 +24,8 @@ namespace Foutloos
         public ModalRegister()
         {
             InitializeComponent();
-
-            //Add the events to the mousedown, both being to cancel the modal at this time.
-            register.MouseDown += Button_Click;
-            cancelRegister.MouseDown += Button_Click;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
 
         private void Password_TextChanged(object sender, KeyEventArgs e)
         {
@@ -75,19 +68,59 @@ namespace Foutloos
             usernameLength.Content = 12 - username.Text.Length;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            licenseLength.Content = 5 - license.Text.Length;
-        }
-
-        private void PasswordRepeat_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            passwordRepeatLength.Content = 20 - passwordRepeat.Password.Length;
-        }
-
         private void Password_PasswordChanged(object sender, RoutedEventArgs e)
         {
             passwordLength.Content = 20 - password.Password.Length;
+        }
+
+
+        private void Register_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string errorMessage = "";
+
+
+            if (username.Text.Length <= 5)
+            {
+                errorMessage += "Username is too short, ";
+            }
+            else if (password.Password.Length <= 8)
+            {
+                errorMessage += "Password is too short, ";
+            }
+            else if (password.Password.Length > 8 && !(password.Password.Equals(passwordRepeat.Password))){
+                errorMessage += "Passwords don't match";
+            }
+            else if (license.Text.Length < 5)
+            {
+                errorMessage += "This license is not in use";
+            }
+            else
+            {
+                //query that is being executed and being shows in a Table in the application.
+                string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
+                string CmdString = $"INSERT INTO Usertable VALUES (@username, @password, @license)";
+                using (SqlConnection con = new SqlConnection(connectionstring))
+                {
+                    con.Open();
+                    SqlCommand insCmd = new SqlCommand(CmdString, con);
+                    // use sqlParameters to prevent sql injection!
+                    insCmd.Parameters.AddWithValue("@username", username.Text);
+                    insCmd.Parameters.AddWithValue("@password", password.Password);
+                    insCmd.Parameters.AddWithValue("@license", license.Text);
+                    int affectedRows = insCmd.ExecuteNonQuery();
+                    MessageBox.Show(affectedRows + " rows inserted!");
+                }
+                ErrorMessage.Foreground = new SolidColorBrush(Colors.Green);
+                errorMessage = "This account has succesfully been made!";
+                this.Close();
+            }
+
+            ErrorMessage.Content = errorMessage;
+        }
+
+        private void CancelRegister_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
         }
     }
 }
