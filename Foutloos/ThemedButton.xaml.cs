@@ -20,37 +20,24 @@ namespace Foutloos
     /// </summary>
     public partial class ThemedButton : UserControl
     {
-
-        public event RoutedEventHandler Click;
-
         //Creating a dependency property that can be used as regular property for adding text
         public static readonly DependencyProperty DynamicTextProperty =
        DependencyProperty.Register(
-          "DynamicText",
+          "DynamicTextRegular",
           typeof(string),
           typeof(TextBlock),
           new FrameworkPropertyMetadata(null));
 
         //Setting a variable with getter and setter for storing the dynamic text
-        public string DynamicText
+        public string DynamicTextRegular
         {
             get { return (string)GetValue(DynamicTextProperty); }
-            set { SetValue(DynamicTextProperty, value);  }
+            set { SetValue(DynamicTextProperty, value); }
         }
 
-
-        
         public ThemedButton()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.Click != null)
-            {
-                this.Click(this, e);
-            }
         }
     }
 }
