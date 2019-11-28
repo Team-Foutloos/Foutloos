@@ -81,14 +81,14 @@ namespace Foutloos
 
             if (username.Text.Length <= 5)
             {
-                errorMessage += "Username is too short, ";
+                errorMessage += "Username is too short";
             }
             else if (password.Password.Length <= 8)
             {
-                errorMessage += "Password is too short, ";
+                errorMessage += "Password is too short";
             }
             else if (password.Password.Length > 8 && !(password.Password.Equals(passwordRepeat.Password))){
-                errorMessage += "Passwords don't match";
+                errorMessage += "Passwords do not match";
             }
             else if (license.Text.Length < 5)
             {
