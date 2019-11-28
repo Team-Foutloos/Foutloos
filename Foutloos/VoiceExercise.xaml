@@ -45,7 +45,7 @@
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
                     <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,633,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
-                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610"/>
+                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610" BorderBrush="MidnightBlue"/>
                     <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
                     <Grid Margin="1223,749,61,26">
@@ -58,7 +58,7 @@
 
                     </Grid>
                     <!-- Custom foutloos button made as a toolboxcontrol -->
-                    <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1289,35,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
+                    <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1269,35,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
                     <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
 
                 </Grid>

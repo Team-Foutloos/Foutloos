@@ -88,16 +88,8 @@
 
 
                 </Grid>
-                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328,114,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress">
-                    <local:ThemedButton.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleY="0.298"/>
-                            <RotateTransform/>
-                            <TranslateTransform Y="0.828"/>
-                        </TransformGroup>
-                    </local:ThemedButton.RenderTransform>
-                </local:ThemedButton>
+                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328,114,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress"/>
+
 
             </Grid>
         </Viewbox>

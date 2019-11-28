@@ -26,7 +26,7 @@ namespace Foutloos
         //The speech synthesizer for speaking the given sentences
         SpeechSynthesizer synthesizer;
 
-        string testString = "This is the end. Hold your breath and count to ten.";
+        string dbString = "This is the end. Hold your breath and count to ten.";
 
         //The text displayed on the screen
         string typedText = "";
@@ -127,7 +127,7 @@ namespace Foutloos
                 }
                 else
                 {
-                    if (typedText.Length < testString.Length)
+                    if (typedText.Length < dbString.Length)
                     {
                         typedText += e.Text;
                         typedKeys++;
@@ -136,7 +136,7 @@ namespace Foutloos
 
                 
                 //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
-                if (typedText.Length <= testString.Length)
+                if (typedText.Length <= dbString.Length)
                 {
                     //First clearing the textblock
                     inputText.Text = "";
@@ -148,7 +148,7 @@ namespace Foutloos
                     {
                         //If the text is correct it will be green. If there was a typo all text from
                         //the typo onwards will be red.
-                        if (typedText[i] == testString[i] && wrong == false)
+                        if (typedText[i] == dbString[i] && wrong == false)
                         {
                             inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
                         }
@@ -159,15 +159,15 @@ namespace Foutloos
                             if(!mistakeIndex.Contains(i) && !wrong)
                             {
                                 //Check if mistake was made earlier (!wrong means it only gets the first char where the user goes wrong)
-                                if (mistakes.ContainsKey(testString[i]))
+                                if (mistakes.ContainsKey(dbString[i]))
                                 {
                                     //If the mistake was already made earlier the mistake will count up to the existing dictionary entry
-                                    mistakes[testString[i]]++;
+                                    mistakes[dbString[i]]++;
                                 }
-                                else if (!mistakes.ContainsKey(testString[i]))
+                                else if (!mistakes.ContainsKey(dbString[i]))
                                 {
                                     //If the mistake wasn't made earlier this wil add the mistake to the list with standard count 1   
-                                    mistakes.Add(testString[i], 1);
+                                    mistakes.Add(dbString[i], 1);
                                 }
                                 //Gettin the total amount of mistakes using a LINQ query
                                 int mistakesNumber = mistakes.Values.Sum();
@@ -193,7 +193,7 @@ namespace Foutloos
 
 
                     //If the sentence is completed
-                    if (typedText.Length == testString.Length && !wrong)
+                    if (typedText.Length == dbString.Length && !wrong)
                     {
                         timer.Stop();
                         int mistakesNumber = mistakes.Values.Sum();
@@ -250,7 +250,7 @@ namespace Foutloos
             {
                 //if synthesizer is ready
                 case SynthesizerState.Ready:
-                    synthesizer.SpeakAsync(testString);
+                    synthesizer.SpeakAsync(dbString);
                     break;
 
             }
