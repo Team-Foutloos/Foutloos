@@ -60,7 +60,6 @@
                     <!-- Custom foutloos button made as a toolboxcontrol -->
                     <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1289,35,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
                     <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
-
                 </Grid>
             </Viewbox>
         </UserControl>
