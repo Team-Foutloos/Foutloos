@@ -77,9 +77,9 @@
                 
                 <local:ThemedButton x:Name="LoginBtn" HorizontalAlignment="Left" Margin="6,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Login" PreviewMouseDown="Login_MouseDown" />
 
-                <local:ThemedButton x:Name="CancelBtn" HorizontalAlignment="Left" Margin="150,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Close" PreviewMouseDown="Login_MouseDown"/>
+                <local:ThemedButton x:Name="CancelBtn" HorizontalAlignment="Left" Margin="150,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Close" PreviewMouseDown="Cancel_MouseDown"/>
                 
-                <Label FontWeight="DemiBold" Name="errorMessage" Foreground="Red" HorizontalAlignment="Left" Margin="7,258,0,0" VerticalAlignment="Top" Width="280" PreviewMouseDown="Cancel_MouseDown"/>
+                <Label FontWeight="DemiBold" Name="errorMessage" Foreground="Red" HorizontalAlignment="Left" Margin="7,258,0,0" VerticalAlignment="Top" Width="280"/>
             </Grid>
         </Border>
         <Border Name="loadingGrid" Width="0" Height="0" CornerRadius="360" BorderThickness="2" Background="White">
