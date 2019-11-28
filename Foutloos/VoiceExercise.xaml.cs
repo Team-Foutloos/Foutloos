@@ -324,16 +324,16 @@ namespace Foutloos
         }
 
         //Homebutton
-        private void HomeButton_MouseDown(object sender, MouseButtonEventArgs e)
+        private void HomeBTN_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //If the speech is still playing, stopping the speech.
             if (synthesizer.State == SynthesizerState.Speaking)
             {
                 synthesizer.Pause();
             }
+
             //Navigate back to the homescreen.
             HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
         }
-
     }
 }
