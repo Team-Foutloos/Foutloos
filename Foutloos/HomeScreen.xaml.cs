@@ -233,7 +233,7 @@ namespace Foutloos
 
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            settingsBtn.DynamicTextIcon = "Pils";
+            //Here comes the reference to the settings page
         }
     }
 
