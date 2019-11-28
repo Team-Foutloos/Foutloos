@@ -86,8 +86,7 @@ namespace Foutloos
             //Configuring the timer and adding an event
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
-            
-            
+
         }
 
 
@@ -138,6 +137,8 @@ namespace Foutloos
                 //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
                 if (typedText.Length <= dbString.Length)
                 {
+                    ProgressBar.Maximum = dbString.Length;
+                    ProgressBar.Value = 0;
                     //First clearing the textblock
                     inputText.Text = "";
                     //Setting a bool witch turns true when a typo was made by the user
@@ -150,14 +151,17 @@ namespace Foutloos
                         //the typo onwards will be red.
                         if (typedText[i] == dbString[i] && wrong == false)
                         {
+                            ProgressBar.Foreground = Brushes.DeepSkyBlue;
                             inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
+                            ProgressBar.Value++;
                         }
                         else if(keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
                         {
-
+                            ProgressBar.Foreground = Brushes.Red;
                             //Make sure a mistake isn't counted multiple times. 
-                            if(!mistakeIndex.Contains(i) && !wrong)
+                            if (!mistakeIndex.Contains(i) && !wrong)
                             {
+                                
                                 //Check if mistake was made earlier (!wrong means it only gets the first char where the user goes wrong)
                                 if (mistakes.ContainsKey(dbString[i]))
                                 {
@@ -198,6 +202,7 @@ namespace Foutloos
                         timer.Stop();
                         int mistakesNumber = mistakes.Values.Sum();
                         headLabel.Content = $"Done! Total time: {SecondsToTime(second)}\nNumber of mistakes: {mistakesNumber}";
+                        ProgressBar.Foreground = Brushes.Green;
                         exerciseFinished = true;
                     }
                 }
