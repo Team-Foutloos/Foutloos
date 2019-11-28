@@ -41,6 +41,8 @@ namespace Foutloos
         private int seconds = 0;
         //Boolean used to determine if the timer is running
         private bool timerStarted = false;
+        //Int to keep track of characters per minute
+        private int cpm = 0;
 
         public Exercise(MainWindow o)
         {
@@ -294,6 +296,9 @@ namespace Foutloos
                 //Check if the user pressed the spacebar
                 if (e.Key == Key.Space)
                 {
+                    //Update characters per minute
+                    cpm++;
+
                     //Check if the next character of the exercise is spacebar
                     if (exerciseStringLeft.First() == 32)
                     {
@@ -368,6 +373,9 @@ namespace Foutloos
             //Check if exercise is finished
             if (!exerciseFinished)
             {
+                //Update characters per minute
+                cpm++;
+
                 //Check if the user's input is correct
                 if (e.Text == exerciseStringLeft.First().ToString())
                 {
@@ -692,6 +700,9 @@ namespace Foutloos
             //Change timer
             TimeSpan time = TimeSpan.FromSeconds(seconds);
             Time.Content = time.ToString("mm':'ss");
+
+            //Update cpm
+            CPM.Content = Convert.ToString((cpm * 60) / seconds);
         }
     }
 }      
