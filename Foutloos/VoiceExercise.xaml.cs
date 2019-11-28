@@ -26,7 +26,7 @@ namespace Foutloos
         //The speech synthesizer for speaking the given sentences
         SpeechSynthesizer synthesizer;
 
-        string testString = "This is the end. Hold your breath and count to ten.";
+        string dbString = "This is the end. Hold your breath and count to ten.";
 
         //The text displayed on the screen
         string typedText = "";
@@ -86,8 +86,7 @@ namespace Foutloos
             //Configuring the timer and adding an event
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
-            
-            
+
         }
 
 
@@ -127,7 +126,7 @@ namespace Foutloos
                 }
                 else
                 {
-                    if (typedText.Length < testString.Length)
+                    if (typedText.Length < dbString.Length)
                     {
                         typedText += e.Text;
                         typedKeys++;
@@ -136,8 +135,10 @@ namespace Foutloos
 
                 
                 //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
-                if (typedText.Length <= testString.Length)
+                if (typedText.Length <= dbString.Length)
                 {
+                    ProgressBar.Maximum = dbString.Length;
+                    ProgressBar.Value = 0;
                     //First clearing the textblock
                     inputText.Text = "";
                     //Setting a bool witch turns true when a typo was made by the user
@@ -148,26 +149,29 @@ namespace Foutloos
                     {
                         //If the text is correct it will be green. If there was a typo all text from
                         //the typo onwards will be red.
-                        if (typedText[i] == testString[i] && wrong == false)
+                        if (typedText[i] == dbString[i] && wrong == false)
                         {
+                            ProgressBar.Foreground = Brushes.DeepSkyBlue;
                             inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
+                            ProgressBar.Value++;
                         }
                         else if(keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
                         {
-
+                            ProgressBar.Foreground = Brushes.Red;
                             //Make sure a mistake isn't counted multiple times. 
-                            if(!mistakeIndex.Contains(i) && !wrong)
+                            if (!mistakeIndex.Contains(i) && !wrong)
                             {
+                                
                                 //Check if mistake was made earlier (!wrong means it only gets the first char where the user goes wrong)
-                                if (mistakes.ContainsKey(testString[i]))
+                                if (mistakes.ContainsKey(dbString[i]))
                                 {
                                     //If the mistake was already made earlier the mistake will count up to the existing dictionary entry
-                                    mistakes[testString[i]]++;
+                                    mistakes[dbString[i]]++;
                                 }
-                                else if (!mistakes.ContainsKey(testString[i]))
+                                else if (!mistakes.ContainsKey(dbString[i]))
                                 {
                                     //If the mistake wasn't made earlier this wil add the mistake to the list with standard count 1   
-                                    mistakes.Add(testString[i], 1);
+                                    mistakes.Add(dbString[i], 1);
                                 }
                                 //Gettin the total amount of mistakes using a LINQ query
                                 int mistakesNumber = mistakes.Values.Sum();
@@ -193,11 +197,12 @@ namespace Foutloos
 
 
                     //If the sentence is completed
-                    if (typedText.Length == testString.Length && !wrong)
+                    if (typedText.Length == dbString.Length && !wrong)
                     {
                         timer.Stop();
                         int mistakesNumber = mistakes.Values.Sum();
                         headLabel.Content = $"Done! Total time: {SecondsToTime(second)}\nNumber of mistakes: {mistakesNumber}";
+                        ProgressBar.Foreground = Brushes.Green;
                         exerciseFinished = true;
                     }
                 }
@@ -250,7 +255,7 @@ namespace Foutloos
             {
                 //if synthesizer is ready
                 case SynthesizerState.Ready:
-                    synthesizer.SpeakAsync(testString);
+                    synthesizer.SpeakAsync(dbString);
                     break;
 
             }
