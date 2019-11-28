@@ -21,6 +21,8 @@ namespace Foutloos
     public partial class ThemedButton : UserControl
     {
 
+        public event RoutedEventHandler Click;
+
         //Creating a dependency property that can be used as regular property for adding text
         public static readonly DependencyProperty DynamicTextProperty =
        DependencyProperty.Register(
@@ -41,6 +43,14 @@ namespace Foutloos
         public ThemedButton()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Click != null)
+            {
+                this.Click(this, e);
+            }
         }
     }
 }

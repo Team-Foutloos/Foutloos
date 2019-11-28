@@ -36,7 +36,7 @@
         <!-- Creating a viewbox so the content fits well to the buttons size -->
         <Viewbox>
             <!-- Creating the textblock element that gets the text from user input (see ThemedButton.xaml.cs)-->
-            <TextBlock x:Name="ThemedButtonTextBlock" FontWeight="DemiBold" Foreground="White" FontSize="30" FontStretch="Normal" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left" Padding="5" Text="{Binding Path=DynamicText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"  />
+            <TextBlock x:Name="ThemedButtonTextBlock" FontWeight="DemiBold" Foreground="White" FontSize="30" FontStretch="Normal" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left" Padding="5" Text="{Binding Path=DynamicText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" />
         </Viewbox>
     </Button>
 </UserControl>
