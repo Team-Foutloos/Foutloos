@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,6 +42,17 @@ namespace Foutloos
         private int seconds = 0;
         //Boolean used to determine if the timer is running
         private bool timerStarted = false;
+        //Int to keep track of characters per minute
+        private int cpm = 0;
+        //Int to keep track of words per minute
+        private int wpm = 0;
+        //Int to keep track of mistakes made
+        private int mistakes = 0;
+        //Object for text to speech
+        SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+        //Marges for the text to speech
+        Thickness textToSpeechKeyboardOn = new Thickness(812, 395, 184, 355);
+        Thickness textToSpeechKeyboardOff = new Thickness(812, 295, 184, 455);
 
         public Exercise(MainWindow o)
         {
@@ -74,7 +86,7 @@ namespace Foutloos
 
             //Functionality Toggle
             //Check if toggle is true
-            if (Toggle.Toggled)
+            if (ToggleKeyboard.Toggled)
             {
                 //Check which key is pressed
                 if (e.Key == Key.D1)
@@ -288,17 +300,29 @@ namespace Foutloos
                 e.Handled = true;
             }
 
+            //Disable the use of enter
+            if(e.Key == Key.Enter)
+            {
+                e.Handled = true;
+            }
+
             //Check if the exercise is finished
             if (!exerciseFinished)
             {
                 //Check if the user pressed the spacebar
                 if (e.Key == Key.Space)
                 {
+                    //Update characters per minute
+                    cpm++;
+
                     //Check if the next character of the exercise is spacebar
                     if (exerciseStringLeft.First() == 32)
                     {
                         //Used for saving user's mistakes
                         mistake = false;
+
+                        //Update words per minute
+                        wpm++;
 
                         //Visualize correct input
                         Exercise_TextBlock.Text = "";
@@ -334,6 +358,9 @@ namespace Foutloos
                         //Check if the next character of the exercise was a mistake, by the user, before
                         if (!mistake)
                         {
+                            //Update mistakes counter
+                            mistakes++;
+
                             //Update dictionary containing user's mistakes
                             try
                             {
@@ -368,6 +395,9 @@ namespace Foutloos
             //Check if exercise is finished
             if (!exerciseFinished)
             {
+                //Update characters per minute
+                cpm++;
+
                 //Check if the user's input is correct
                 if (e.Text == exerciseStringLeft.First().ToString())
                 {
@@ -393,6 +423,9 @@ namespace Foutloos
                     //Check if the exercise is finished
                     if (exerciseStringLeft.Length == 0)
                     {
+                        //Update words per minute
+                        wpm++;
+
                         //Change exercise text when exercise is finished
                         timer.Stop();
                         exerciseFinished = true;
@@ -408,6 +441,9 @@ namespace Foutloos
                     //Check if the next character of the exercise was a mistake, by the user, before
                     if (!mistake)
                     {
+                        //Update mistake counter
+                        mistakes++;
+
                         //Update dictionary containing user's mistakes
                         try
                         {
@@ -450,20 +486,35 @@ namespace Foutloos
             }
         }
 
-        //Toggle button functionality
-        private void Toggle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //Keyboard toggle functionality
+        private void ToggleKeyboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Toggle.Toggled)
+            if (ToggleKeyboard.Toggled)
             {
-                //Show keyboard
+                //Change user input box margin and text to speech margin
                 UserInput_TextBox.Margin = userInput_WithKeyboard;
+                TextToSpeech.Margin = textToSpeechKeyboardOn;
                 Test.Visibility = Visibility.Visible;
             }
             else
             {
                 //Hide keyboard
                 UserInput_TextBox.Margin = userInput_WithoutKeyboard;
+                TextToSpeech.Margin = textToSpeechKeyboardOff;
                 Test.Visibility = Visibility.Hidden;
+            }
+        }
+
+        //Speech toggle functionality
+        private void ToggleSpeech_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if(ToggleSpeech.Toggled)
+            {
+                TextToSpeech.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TextToSpeech.Visibility = Visibility.Hidden;
             }
         }
 
@@ -471,7 +522,7 @@ namespace Foutloos
         {
             //Functionality Toggle
             //Check if toggle is true
-            if (Toggle.Toggled)
+            if (ToggleKeyboard.Toggled)
             {
                 //Check which key is pressed
                 if (e.Key == Key.D1)
@@ -680,7 +731,19 @@ namespace Foutloos
         //Home button functionality
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new HomeScreen(owner);
+            if(!exerciseFinished)
+            {
+                //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    owner.Content = new HomeScreen(owner);
+                }
+            }
+            else
+            {
+                owner.Content = new HomeScreen(owner);
+            }
         }
 
         //Timer functionality
@@ -692,6 +755,15 @@ namespace Foutloos
             //Change timer
             TimeSpan time = TimeSpan.FromSeconds(seconds);
             Time.Content = time.ToString("mm':'ss");
+
+            //Update cpm
+            CPM.Content = Convert.ToString((cpm * 60) / seconds);
+
+            //Update words per minute
+            WPM.Content = Convert.ToString((wpm * 60) / seconds);
+
+            //Update mistake counter
+            Error.Content = Convert.ToString(mistakes);
         }
     }
 }      

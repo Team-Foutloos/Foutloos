@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Foutloos
 {
@@ -24,16 +14,16 @@ namespace Foutloos
         //Creating a dependency property that can be used as regular property for adding text
         public static readonly DependencyProperty DynamicTextProperty =
        DependencyProperty.Register(
-          "DynamicText",
+          "DynamicTextIcon",
           typeof(string),
           typeof(TextBlock),
           new FrameworkPropertyMetadata(null));
 
         //Setting a variable with getter and setter for storing the dynamic text
-        public string DynamicText
+        public string DynamicTextIcon
         {
             get { return (string)GetValue(DynamicTextProperty); }
-            set { SetValue(DynamicTextProperty, value);  }
+            set { SetValue(DynamicTextProperty, value); ThemedIconButtonTextBlock.Text = DynamicTextIcon; }
         }
 
         //Creating a dependency property that can be used as regular property for adding an icon
@@ -48,13 +38,14 @@ namespace Foutloos
         public BitmapFrame DynamicIcon
         {
             get { return (BitmapFrame)GetValue(DynamicIconProperty); }
-            set { SetValue(DynamicIconProperty, value); }
+            set { SetValue(DynamicIconProperty, value);  }
         }
 
         public ThemedIconButton()
         {
             InitializeComponent();
         }
+
     }
 }
 

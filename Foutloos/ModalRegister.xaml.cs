@@ -73,26 +73,38 @@ namespace Foutloos
             passwordLength.Content = 20 - password.Password.Length;
         }
 
+        //Use this function to shake the entire window
+        private void shakeTheBox()
+        {
+            Storyboard myStoryboard = (Storyboard)modalRegister.Resources["TestStoryboard"];
+            Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, modalRegister);
+            myStoryboard.Begin();
+        }
+
 
         private void Register_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string errorMessage = "";
-
+            Window box = modalRegister;
 
             if (username.Text.Length <= 5)
             {
-                errorMessage += "Username is too short, ";
+                errorMessage += "Username is too short";
+                shakeTheBox();
             }
             else if (password.Password.Length <= 8)
             {
-                errorMessage += "Password is too short, ";
+                errorMessage += "Password is too short";
+                shakeTheBox();
             }
             else if (password.Password.Length > 8 && !(password.Password.Equals(passwordRepeat.Password))){
-                errorMessage += "Passwords don't match";
+                errorMessage += "Passwords do not match";
+                shakeTheBox();
             }
             else if (license.Text.Length < 5)
             {
                 errorMessage += "This license is not in use";
+                shakeTheBox();
             }
             else
             {

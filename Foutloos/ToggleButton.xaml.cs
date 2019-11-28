@@ -30,25 +30,9 @@ namespace Foutloos
             Dot.Margin = rightSide;
         }
 
-        private void Dot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Toggle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if(Toggled)
-            {
-                Back.Fill = off;
-                Toggled = false;
-                Dot.Margin = leftSide;
-            }
-            else
-            {
-                Back.Fill = on;
-                Toggled = true;
-                Dot.Margin = rightSide;
-            }
-        }
-
-        private void Back_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Toggled)
             {
                 Back.Fill = off;
                 Toggled = false;

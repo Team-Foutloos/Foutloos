@@ -10,7 +10,23 @@
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterOwner"
+        Name="modalRegister"
         Title="Register" Height="380" Width="300">
+    <!--Add this so the entire modal can 'shake' -->
+    <Window.Resources>
+        <Storyboard x:Key="TestStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="1x">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.RenderTransform>
+        <TranslateTransform X="0" Y="0" />
+    </Window.RenderTransform>
     <!--Wrap het entire grid inside of a border so that the corners are rounded. -->
     <Border CornerRadius="10" BorderThickness="2" Background="White">
         <Grid>
@@ -133,7 +149,7 @@
                 <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Register" MouseDown="Register_MouseDown"/>
             </Border>
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="49,139,49,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
-            <Label Foreground="Red" Name="ErrorMessage" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
+            <Label Foreground="Red" FontWeight="DemiBold" Name="ErrorMessage" HorizontalAlignment="Center" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
         </Grid>
     </Border>
 </Window>
