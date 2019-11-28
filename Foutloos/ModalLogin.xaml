@@ -74,9 +74,11 @@
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,-14,0,0" Stroke="Black" VerticalAlignment="Top" Width="193" Grid.ColumnSpan="2"/>
 
                 </Grid>
-                <local:ThemedButton HorizontalAlignment="Left" Margin="6,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Login"  />
+                
+                <local:ThemedButton x:Name="LoginBtn" HorizontalAlignment="Left" Margin="6,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Login" PreviewMouseDown="Login_MouseDown" />
 
-                <local:ThemedButton HorizontalAlignment="Left" Margin="150,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Close" PreviewMouseDown="Login_MouseDown"/>
+                <local:ThemedButton x:Name="CancelBtn" HorizontalAlignment="Left" Margin="150,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Close" PreviewMouseDown="Login_MouseDown"/>
+                
                 <Label FontWeight="DemiBold" Name="errorMessage" Foreground="Red" HorizontalAlignment="Left" Margin="7,258,0,0" VerticalAlignment="Top" Width="280" PreviewMouseDown="Cancel_MouseDown"/>
             </Grid>
         </Border>
