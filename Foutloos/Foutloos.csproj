@@ -71,11 +71,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="customRadioButton.xaml.cs">
+      <DependentUpon>customRadioButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FoutloosButton.xaml.cs">
       <DependentUpon>FoutloosButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connection.cs" />
     <Compile Include="SecurePasswordHasher.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ThemedIconButton.xaml.cs">
       <DependentUpon>ThemedIconButton.xaml</DependentUpon>
     </Compile>
@@ -88,6 +94,10 @@
     <Compile Include="VoiceExercise.xaml.cs">
       <DependentUpon>VoiceExercise.xaml</DependentUpon>
     </Compile>
+    <Page Include="customRadioButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Exercise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -130,6 +140,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ModalLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
