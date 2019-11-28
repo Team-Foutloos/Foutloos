@@ -23,7 +23,7 @@ namespace Foutloos
         public string DynamicTextIcon
         {
             get { return (string)GetValue(DynamicTextProperty); }
-            set { SetValue(DynamicTextProperty, value); }
+            set { SetValue(DynamicTextProperty, value); ThemedIconButtonTextBlock.Text = DynamicTextIcon; }
         }
 
         //Creating a dependency property that can be used as regular property for adding an icon
@@ -38,13 +38,14 @@ namespace Foutloos
         public BitmapFrame DynamicIcon
         {
             get { return (BitmapFrame)GetValue(DynamicIconProperty); }
-            set { SetValue(DynamicIconProperty, value); }
+            set { SetValue(DynamicIconProperty, value);  }
         }
 
         public ThemedIconButton()
         {
             InitializeComponent();
         }
+
     }
 }
 
