@@ -224,5 +224,11 @@
   <ItemGroup>
     <Resource Include="assets\testimage.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\accountIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\accountIconWhite.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

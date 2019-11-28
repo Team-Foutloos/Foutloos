@@ -57,7 +57,7 @@ namespace Foutloos
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
                 settingsBtn.DynamicTextIcon = "Account";
-                setButtonIcon("accountIconWhite");
+                setButtonIcon("accountIconWhite.png");
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
                 seeProgressBtn.Visibility = Visibility.Visible;
@@ -65,7 +65,7 @@ namespace Foutloos
             else
             {
                 settingsBtn.DynamicTextIcon = "Settings";
-                setButtonIcon("settingsWhite");
+                setButtonIcon("settingsWhite.png");
                 seeProgressBtn.Visibility = Visibility.Collapsed;
             }
         }
@@ -73,7 +73,7 @@ namespace Foutloos
         public void setButtonIcon(string name)
         {
             //BitmapImage source = new BitmapImage();
-            settingsBtn.DynamicIcon = BitmapFrame.Create(new Uri($"pack://application:,,,/assets/{name}.png"));
+            settingsBtn.DynamicIcon = BitmapFrame.Create(new Uri($"pack://application:,,,/assets/{name}"));
         }
 
         //Boolean that becomes true in case an animation is still going on.
