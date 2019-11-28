@@ -57,7 +57,7 @@ namespace Foutloos
             var base64Hash = hashedPassword;
 
             // Get hash bytes
-            var hashBytes = Convert.FromBase64String(base64Hash);
+            var hashBytes = Convert.FromBase64String(base64Hash.ToString());
 
             // Get salt
             var salt = new byte[SaltSize];

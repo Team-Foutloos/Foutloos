@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -26,6 +28,40 @@ namespace Foutloos
         {
             this.owner = owner;
             InitializeComponent();
+        }
+
+        //Use this function to shake the entire window
+        private void shakeTheBox()
+        {
+
+            Storyboard myStoryboard = (Storyboard)modalLogin.Resources["shaking"];
+            Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, modalLogin);
+            myStoryboard.Begin();
+        }
+
+        //Use this function to turn the entire window into a loading 'screen'
+        private void loadingScreen()
+        {
+            //First shake the entire window
+            shakeTheBox();
+            //The loading progress bar.
+            var storyboard = this.Resources["close"] as Storyboard;
+            storyboard.Begin();
+
+            //Let the loadingscreen load for 1,5 seconds.
+            Timer t = new Timer(closeWindow, null, 1500, 1500);
+
+
+        }
+
+        private void closeWindow(object state)
+        {
+            this.Dispatcher.Invoke(() =>
+            {                            
+                //If a user logs in, change the UI of the homePage.
+                owner.loginUIchange();
+                this.Close();
+            });
         }
 
         private void Login_MouseDown(object sender, MouseButtonEventArgs e)
@@ -58,12 +94,11 @@ namespace Foutloos
                         {
                             ConfigurationManager.AppSettings["username"] = (string) reader["username"];
 
-                            //If a user logs in, change the UI of the homePage.
-                            owner.loginUIchange();
-                            this.Close();
+                            loadingScreen();
                         }
                         else
                         {
+                            shakeTheBox();
                             error = "Username or Password incorrect!";
                         }
                     }
