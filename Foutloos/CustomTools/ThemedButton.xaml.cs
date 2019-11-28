@@ -32,12 +32,13 @@ namespace Foutloos
         public string DynamicTextRegular
         {
             get { return (string)GetValue(DynamicTextProperty); }
-            set { SetValue(DynamicTextProperty, value); }
+            set { SetValue(DynamicTextProperty, value); ThemedButtonTextBlock.Text = DynamicTextRegular; }
         }
 
         public ThemedButton()
         {
             InitializeComponent();
+            
         }
     }
 }
