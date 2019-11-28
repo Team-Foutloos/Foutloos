@@ -23,7 +23,12 @@
 
             <!-- Virtual keyboard toggle -->
             <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="939,652,327,118"/>
-            <local:ToggleButton x:Name="Toggle" HorizontalAlignment="Left" Height="54" Margin="1046,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="Toggle_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
+            <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1046,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
+
+            <!-- Text to speech -->
+            <Label Content="Text to speech:" Height="30" Width="100" Margin="939,695,327,75"/>
+            <local:ToggleButton x:Name="ToggleSpeech" HorizontalAlignment="Left" Height="54" Margin="1046,681,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleSpeech_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
+            <Label Content="Press enter to start speech!" Name="TextToSpeech" Height="50" Width="370" FontSize="30" Margin="812, 395, 184, 355"/>
 
             <!-- Virtual Keyboard -->
             <Grid Margin="485,291,283,342" Name="Test" Visibility="Hidden">
