@@ -59,12 +59,12 @@ namespace Foutloos
                 //settingsBtn.DynamicText = "Account";
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
-                seeProgress.Visibility = Visibility.Visible;
+                seeProgressBtn.Visibility = Visibility.Visible;
             }
             else
             {
                 //settingsBtn.DynamicText = "Settings";
-                seeProgress.Visibility = Visibility.Collapsed;
+                seeProgressBtn.Visibility = Visibility.Collapsed;
             }
         }
 
