@@ -80,9 +80,10 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ThemedIconButton.xaml.cs">
+    <Compile Include="CustomTools\ThemedIconButton.xaml.cs">
       <DependentUpon>ThemedIconButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ThemedButton.xaml.cs">
+    <Compile Include="CustomTools\ThemedButton.xaml.cs">
       <DependentUpon>ThemedButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToggleButton.xaml.cs">
@@ -141,10 +142,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ThemedIconButton.xaml">
+    <Page Include="CustomTools\ThemedIconButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemedButton.xaml">
+    <Page Include="CustomTools\ThemedButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

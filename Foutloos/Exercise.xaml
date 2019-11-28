@@ -13,18 +13,18 @@
     <Viewbox Stretch="Uniform" StretchDirection="Both">
         <Grid>
             <!-- Logo -->
-            <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1204,19,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
+            <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1206,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
 
             <!-- Exercise textblock -->
             <TextBlock FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="Exercise_TextBlock"/>
-            
+
             <!-- User input textbox -->
             <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted" PreviewKeyUp="UserInput_TextBox_PreviewKeyUp"/>
-            
+
             <!-- Virtual keyboard toggle -->
             <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="939,652,327,118"/>
             <local:ToggleButton x:Name="Toggle" HorizontalAlignment="Left" Height="54" Margin="1046,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="Toggle_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
-            
+
             <!-- Virtual Keyboard -->
             <Grid Margin="485,291,283,342" Name="Test" Visibility="Hidden">
                 <!-- 1 -->
@@ -210,16 +210,16 @@
                 <!-- space -->
                 <Rectangle Name="KeySpace_Back" Height="20" Width="120" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "75,100,315.75,47"/>
             </Grid>
-            
+
             <!-- Home Button -->
-            <local:FoutloosButton HorizontalAlignment="Left" Height="184" Margin="11,-41,0,0" VerticalAlignment="Top" Width="184" MouseDown="FoutloosButton_MouseDown" Text="Home"/>
-            
+            <local:FoutloosButton HorizontalAlignment="Left" Height="161" Margin="2,17,0,0" VerticalAlignment="Top" Width="161" MouseDown="FoutloosButton_MouseDown" Text="Home"/>
+
             <!-- Timer -->
-            <Label Content="Elapsed time:" Height="30" Width="80" Margin="23,759,1263,11"/>
-            <Label Name="Time" Content="00:00" Height="30" Width="40" Margin="108,760,1218,10"/>
-            
+            <Label Content="Elapsed time:" Height="30" Width="80" Margin="23,740,1263,30"/>
+            <Label Name="Time" Content="00:00" Height="30" Width="40" Margin="108,741,1218,29"/>
+
             <!-- Exercise statistics -->
-            <Grid Width="150" Height="100" Margin="1203,684,13,16">
+            <Grid Width="150" Height="100" Margin="1201,658,15,42">
                 <Label Content="CPM:" Height="30" Width="43" Margin="0,78,110,-8"/>
                 <Label Content="0" Name="CPM" Height="30" Width="30" Margin="52,78,68,-8"/>
                 <Label Content="WPM:" Height="30" Width="43" Margin="0,55,110,15"/>

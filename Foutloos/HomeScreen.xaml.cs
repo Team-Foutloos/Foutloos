@@ -56,15 +56,15 @@ namespace Foutloos
         {
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
-                //settingsBtn.DynamicText = "Account";
+                settingsBtn.DynamicTextIcon = "Account";
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
-                seeProgress.Visibility = Visibility.Visible;
+                seeProgressBtn.Visibility = Visibility.Visible;
             }
             else
             {
-                //settingsBtn.DynamicText = "Settings";
-                seeProgress.Visibility = Visibility.Collapsed;
+                settingsBtn.DynamicTextIcon = "Settings";
+                seeProgressBtn.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -229,6 +229,11 @@ namespace Foutloos
         private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new ModalRegister { Owner = HomeScreen.owner });
+        }
+
+        private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //Here comes the reference to the settings page
         }
     }
 

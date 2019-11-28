@@ -704,7 +704,19 @@ namespace Foutloos
         //Home button functionality
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new HomeScreen(owner);
+            if(!exerciseFinished)
+            {
+                //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    owner.Content = new HomeScreen(owner);
+                }
+            }
+            else
+            {
+                owner.Content = new HomeScreen(owner);
+            }
         }
 
         //Timer functionality
