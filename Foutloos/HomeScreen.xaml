@@ -80,9 +80,11 @@
                 <!-- In this grid all of the buttons that you see in the bottom are located, they arent actually buttons, but textblocks wrapped inside of borders.-->
                 <Grid Name="ButtonRowAccount" Grid.Column="1" Grid.Row="3" Margin="300.333,0,304.333,88" Height="41" Width="342" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 
-                    <local:ThemedButton x:Name="RegisterBtn" DynamicTextRegular="Register" PreviewMouseDown="RegisterBtn_PreviewMouseDown" Margin="202,0,0,0" />
+                    <local:ThemedButton x:Name="LoginBtn" DynamicTextRegular="Login" PreviewMouseDown="LoginBtn_PreviewMouseDown" Margin="0,0,194,0" />
 
-                    <Label Content="or" HorizontalAlignment="Left" Margin="103,1,0,0" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
+                    <Label Content="or" HorizontalAlignment="Center" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
+
+                    <local:ThemedButton x:Name="RegisterBtn" DynamicTextRegular="Register" PreviewMouseDown="RegisterBtn_PreviewMouseDown" Margin="194,0,0,0" />
 
 
                 </Grid>
