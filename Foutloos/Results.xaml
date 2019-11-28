@@ -16,10 +16,26 @@
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    <chartingToolkit:Chart Name="columnChart" Title="{Binding ElementName=ExerciseList, Path=SelectedItem.Content}" HorizontalAlignment="Left" Margin="366,10,0,0" VerticalAlignment="Top" Height="259" Width="327">
+                    
+                    <ListBox Name="ExerciseList" HorizontalAlignment="Left" Height="211" Margin="44,58,0,0" VerticalAlignment="Top" Width="231">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="90" MaxWidth="90"/>
+                                        <ColumnDefinition MinWidth="60" MaxWidth="60"/>
+                                        <ColumnDefinition MinWidth="70" MaxWidth="70"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Type}"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Difficulty}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <chartingToolkit:Chart Name="columnChart" Title="{Binding ElementName=ExerciseList, Path=SelectedItem.Content}"  HorizontalAlignment="Left" Margin="366,10,0,0" VerticalAlignment="Top" Height="259" Width="327">
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}" />
                     </chartingToolkit:Chart>
-                    <ListBox Name="ExerciseList" HorizontalAlignment="Left" Height="211" Margin="44,58,0,0" VerticalAlignment="Top" Width="231"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -74,6 +74,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomTools\ThemedButton.xaml.cs">
+      <DependentUpon>ThemedButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomTools\ThemedIconButton.xaml.cs">
+      <DependentUpon>ThemedIconButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FoutloosButton.xaml.cs">
       <DependentUpon>FoutloosButton.xaml</DependentUpon>
     </Compile>
@@ -82,18 +88,21 @@
       <DependentUpon>Results.xaml</DependentUpon>
     </Compile>
     <Compile Include="SecurePasswordHasher.cs" />
-    <Compile Include="ThemedIconButton.xaml.cs">
-      <DependentUpon>ThemedIconButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ThemedButton.xaml.cs">
-      <DependentUpon>ThemedButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserExerciseResult.cs" />
     <Compile Include="VoiceExercise.xaml.cs">
       <DependentUpon>VoiceExercise.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomTools\ThemedButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomTools\ThemedIconButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Exercise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,14 +151,6 @@
     <Page Include="Results.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedIconButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ThemedButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ToggleButton.xaml">
       <SubType>Designer</SubType>
