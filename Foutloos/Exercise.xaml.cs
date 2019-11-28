@@ -43,6 +43,10 @@ namespace Foutloos
         private bool timerStarted = false;
         //Int to keep track of characters per minute
         private int cpm = 0;
+        //Int to keep track of words per minute
+        private int wpm = 0;
+        //Int to keep track of mistakes made
+        private int mistakes = 0;
 
         public Exercise(MainWindow o)
         {
@@ -305,6 +309,9 @@ namespace Foutloos
                         //Used for saving user's mistakes
                         mistake = false;
 
+                        //Update words per minute
+                        wpm++;
+
                         //Visualize correct input
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
@@ -339,6 +346,9 @@ namespace Foutloos
                         //Check if the next character of the exercise was a mistake, by the user, before
                         if (!mistake)
                         {
+                            //Update mistakes counter
+                            mistakes++;
+
                             //Update dictionary containing user's mistakes
                             try
                             {
@@ -401,6 +411,9 @@ namespace Foutloos
                     //Check if the exercise is finished
                     if (exerciseStringLeft.Length == 0)
                     {
+                        //Update words per minute
+                        wpm++;
+
                         //Change exercise text when exercise is finished
                         timer.Stop();
                         exerciseFinished = true;
@@ -416,6 +429,9 @@ namespace Foutloos
                     //Check if the next character of the exercise was a mistake, by the user, before
                     if (!mistake)
                     {
+                        //Update mistake counter
+                        mistakes++;
+
                         //Update dictionary containing user's mistakes
                         try
                         {
@@ -688,7 +704,19 @@ namespace Foutloos
         //Home button functionality
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new HomeScreen(owner);
+            if(!exerciseFinished)
+            {
+                //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    owner.Content = new HomeScreen(owner);
+                }
+            }
+            else
+            {
+                owner.Content = new HomeScreen(owner);
+            }
         }
 
         //Timer functionality
@@ -703,6 +731,12 @@ namespace Foutloos
 
             //Update cpm
             CPM.Content = Convert.ToString((cpm * 60) / seconds);
+
+            //Update words per minute
+            WPM.Content = Convert.ToString((wpm * 60) / seconds);
+
+            //Update mistake counter
+            Error.Content = Convert.ToString(mistakes);
         }
     }
 }      
