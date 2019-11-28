@@ -217,6 +217,16 @@
             <!-- Timer -->
             <Label Content="Elapsed time:" Height="30" Width="80" Margin="23,759,1263,11"/>
             <Label Name="Time" Content="00:00" Height="30" Width="40" Margin="108,760,1218,10"/>
+            
+            <!-- Exercise statistics -->
+            <Grid Width="150" Height="100" Margin="1203,684,13,16">
+                <Label Content="CPM:" Height="30" Width="43" Margin="0,78,110,-8"/>
+                <Label Content="0" Name="CPM" Height="30" Width="30" Margin="52,78,68,-8"/>
+                <Label Content="WPM:" Height="30" Width="43" Margin="0,55,110,15"/>
+                <Label Content="0" Name="WPM" Height="30" Width="30" Margin="52,55,68,15"/>
+                <Label Content="Errors:" Height="30" Width="43" Margin="0,32,110,38"/>
+                <Label Content="0" Name="Error" Height="30" Width="30" Margin="52,32,68,38"/>
+            </Grid>
         </Grid>
     </Viewbox>
 </Page>
