@@ -95,7 +95,7 @@ namespace Foutloos
             storyboard.Begin();
 
             //Let the loadingscreen load for 1,5 seconds.
-            Timer t = new Timer(closeWindow, null, 1500, 1500);
+            Timer t = new Timer(closeWindow, null, 1200, 1200);
 
 
         }
@@ -170,16 +170,14 @@ namespace Foutloos
                         insCmd.Parameters.AddWithValue("@username", username.Text);
                         insCmd.Parameters.AddWithValue("@password", hashedPassword);
                         insCmd.Parameters.AddWithValue("@license", license.Text);
-                        int affectedRows = insCmd.ExecuteNonQuery();
-                        MessageBox.Show(affectedRows + " rows inserted!");
+
+                        loadingScreen();
                     }
                 }
                 catch (Exception f)
                 {
-                    bool hasSucces = false;
+                    errorMessage = "Your computer is not connected to the internet.";
                 }
-                ErrorMessage.Foreground = new SolidColorBrush(Colors.Green);
-                loadingScreen();
 
             }
 
