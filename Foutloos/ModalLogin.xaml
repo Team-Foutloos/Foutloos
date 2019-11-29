@@ -74,32 +74,11 @@
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,-14,0,0" Stroke="Black" VerticalAlignment="Top" Width="193" Grid.ColumnSpan="2"/>
 
                 </Grid>
-                <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="6,282,0,0" VerticalAlignment="Top" Width="140" Height="36">
-                    <Border.Style>
-                        <Style>
-                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="Border.IsMouseOver" Value="True">
-                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="login" Text="Login" MouseDown="Login_MouseDown"/>
-                </Border>
-                <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="150,282,0,0" VerticalAlignment="Top" Width="140" Height="36">
-                    <Border.Style>
-                        <Style>
-                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="Border.IsMouseOver" Value="True">
-                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="cancel" Text="Close" MouseDown="Cancel_MouseDown"/>
-                </Border>
+                
+                <local:ThemedButton x:Name="LoginBtn" HorizontalAlignment="Left" Margin="6,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Login" PreviewMouseDown="Login_MouseDown" />
+
+                <local:ThemedButton x:Name="CancelBtn" HorizontalAlignment="Left" Margin="150,282,0,0" VerticalAlignment="Top" Width="140" Height="36" DynamicTextRegular="Close" PreviewMouseDown="Cancel_MouseDown"/>
+                
                 <Label FontWeight="DemiBold" Name="errorMessage" Foreground="Red" HorizontalAlignment="Left" Margin="7,258,0,0" VerticalAlignment="Top" Width="280"/>
             </Grid>
         </Border>

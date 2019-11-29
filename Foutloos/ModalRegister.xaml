@@ -149,32 +149,8 @@
                 </Grid>
 
                 <!-- The register and cancel button, they are not actually buttons but textblocks wrapped in a border to give more freedom to styling. -->
-                <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36">
-                    <Border.Style>
-                        <Style>
-                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="Border.IsMouseOver" Value="True">
-                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Name="cancelRegister" Text="Cancel" Margin="35,3,0,3" MouseDown="CancelRegister_MouseDown"/>
-                </Border>
-                <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36">
-                    <Border.Style>
-                        <Style>
-                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="Border.IsMouseOver" Value="True">
-                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Register" MouseDown="Register_MouseDown"/>
-                </Border>
+                <local:ThemedButton Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36" DynamicTextRegular="Cancel" PreviewMouseDown="CancelRegister_MouseDown" />
+                <local:ThemedButton HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36" DynamicTextRegular="Register" PreviewMouseDown="Register_MouseDown" />
                 <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="49,139,49,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
                 <Label Foreground="Red" FontWeight="DemiBold" Name="ErrorMessage" HorizontalAlignment="Center" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
             </Grid>

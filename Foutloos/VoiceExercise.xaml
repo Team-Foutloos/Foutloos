@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Foutloos"
       mc:Ignorable="d" 
-      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
-      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+      Height="890" 
+      Width="1405"
       Title="VoiceExercise" Background="white" ShowsNavigationUI="False" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
     <Page.RenderTransform>
         <TransformGroup>
@@ -19,17 +19,19 @@
 
 
 
-    <Grid>
-        <UserControl Loaded="UserControl_Loaded">
-            <Viewbox StretchDirection="Both" Stretch="Uniform">
-                <Grid  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
+    <UserControl Loaded="UserControl_Loaded">
+        <Viewbox StretchDirection="Both" Stretch="Uniform">
+            <Grid  HorizontalAlignment="Center" Margin="0,30" VerticalAlignment="Center" Height="896" RenderTransformOrigin="0.5,0.5" Width="1442">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-                    <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
-                    <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1175,291,0,0" VerticalAlignment="Top" Width="190"/>
+                <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
+                <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1175,291,0,0" VerticalAlignment="Top" Width="190"/>
 
-                    <Label Height="28" HorizontalAlignment="Left"
+                <Label Height="28" HorizontalAlignment="Left"
                         x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,285,0,0"/>
-                    <Slider Ticks="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
+                <Slider Ticks="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
                         Value="10"
                         Delay="100"
                         Interval="5"
@@ -44,28 +46,173 @@
                         Width="157"
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
-                    <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="55,633,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
-                    <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610"/>
-                    <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="10,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="102,827,0,0" VerticalAlignment="Top" Width="92"/>
-                    <Grid Margin="1223,749,61,26">
-                        <Label Content="CPM:" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" Width="92"/>
-                        <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="92,62,0,0" VerticalAlignment="Top" Width="92"/>
-                        <Label Content="WPM:" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="92"/>
-                        <Label x:Name="wpmLable" Content="0" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Width="92"/>
-                        <Label Content="Errors:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92"/>
-                        <Label x:Name="errorLable" Content="0" HorizontalAlignment="Left" Margin="92,0,0,0" VerticalAlignment="Top" Width="92"/>
+                <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="40,690,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
+                <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610" BorderBrush="MidnightBlue"/>
+                <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="38,800,0,0" VerticalAlignment="Top" Width="92"/>
+                <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="130,800,0,0" VerticalAlignment="Top" Width="92"/>
+                <Grid Margin="1223,721,61,54">
+                    <Label Content="CPM:" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="cpmLable" Content="0" HorizontalAlignment="Left" Margin="92,62,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label Content="WPM:" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="wpmLable" Content="0" HorizontalAlignment="Left" Margin="92,31,0,0" VerticalAlignment="Top" Width="92"/>
+                    <Label Content="Errors:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92"/>
+                    <Label x:Name="errorLable" Content="0" HorizontalAlignment="Left" Margin="92,0,0,0" VerticalAlignment="Top" Width="92"/>
 
-                    </Grid>
-                    <!-- Custom foutloos button made as a toolboxcontrol -->
-                    <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1289,35,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
-                    <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
                 </Grid>
-            </Viewbox>
-        </UserControl>
+                <!-- Custom foutloos button made as a toolboxcontrol -->
+                <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1269,35,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
+                <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
+                <ProgressBar x:Name="ProgressBar" Foreground="DeepSkyBlue" HorizontalAlignment="Center" Height="13" Margin="66,618,66,0" VerticalAlignment="Top" Width="1310"/>
 
 
-    </Grid>
+                <!-- Virtual Keyboard -->
+
+                <Grid Name="VirtualKeyboard"  Margin="563,674,588,10" >
+                    <Rectangle x:Name="Key1_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="0,0,250,104"/>
+                    <TextBlock x:Name="Key1_Text" Height="20" Width="20" Text="1" Foreground="White" TextAlignment="Center" Margin="0,1,250,103"/>
+
+                    <Rectangle x:Name="Key2_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="25,0,225,104"/>
+                    <TextBlock x:Name="Key2_Text" Height="20" Width="20" Text="2" Foreground="White" TextAlignment="Center" Margin="25,1,225,103"/>
+
+                    <Rectangle x:Name="Key3_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="50,0,200,104"/>
+                    <TextBlock x:Name="Key3_Text" Height="20" Width="20" Text="3" Foreground="White" TextAlignment="Center" Margin="50,1,200,103"/>
+
+                    <Rectangle x:Name="Key4_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="75,0,175,104"/>
+                    <TextBlock x:Name="Key4_Text" Height="20" Width="20" Text="4" Foreground="White" TextAlignment="Center" Margin="75,1,175,103"/>
+
+                    <Rectangle x:Name="Key5_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="100,0,150,104"/>
+                    <TextBlock x:Name="Key5_Text" Height="20" Width="20" Text="5" Foreground="White" TextAlignment="Center" Margin="100,1,150,103"/>
+
+                    <Rectangle x:Name="Key6_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="125,0,125,104"/>
+                    <TextBlock x:Name="Key6_Text" Height="20" Width="20" Text="6" Foreground="White" TextAlignment="Center" Margin="125,1,125,103"/>
+
+                    <Rectangle x:Name="Key7_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "150,0,100,104"/>
+                    <TextBlock x:Name="Key7_Text" Height="20" Width="20" Text="7" Foreground="White" TextAlignment="Center" Margin="150,1,100,103"/>
+
+                    <Rectangle x:Name="Key8_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "175,0,75,104"/>
+                    <TextBlock x:Name="Key8_Text" Height="20" Width="20" Text="8" Foreground="White" TextAlignment="Center" Margin="175,1,75,103"/>
+
+                    <Rectangle x:Name="Key9_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "200,0,50,104"/>
+                    <TextBlock x:Name="Key9_Text" Height="20" Width="20" Text="9" Foreground="White" TextAlignment="Center" Margin="200,1,50,103"/>
+
+                    <Rectangle x:Name="Key0_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,0,25,104"/>
+                    <TextBlock x:Name="Key0_Text" Height="20" Width="20" Text="0" Foreground="White" TextAlignment="Center" Margin="225,1,25,103"/>
+
+                    <Rectangle x:Name="KeyDash_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "250,0,0,104"/>
+                    <TextBlock x:Name="KeyDash_Text" Height="20" Width="20" Text="-" Foreground="White" TextAlignment="Center" Margin="250,1,0,103"/>
+
+                    <Rectangle x:Name="Keyq_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "0,25,250,79"/>
+                    <TextBlock Height="20" Width="20" Text="Q" Foreground="White" TextAlignment="Center" Margin="0,26,250,78"/>
+
+                    <Rectangle x:Name="Keyw_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "25,25,225,79"/>
+                    <TextBlock Height="20" Width="20" Text="W" Foreground="White" TextAlignment="Center" Margin="25,26,225,78"/>
+
+                    <Rectangle x:Name="Keye_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "50,25,200,79"/>
+                    <TextBlock Height="20" Width="20" Text="E" Foreground="White" TextAlignment="Center" Margin="50,26,200,78"/>
+
+                    <Rectangle x:Name="Keyr_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "75,25,175,79"/>
+                    <TextBlock Height="20" Width="20" Text="R" Foreground="White" TextAlignment="Center" Margin="75,26,175,78"/>
+
+                    <Rectangle x:Name="Keyt_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "100,25,150,79"/>
+                    <TextBlock Height="20" Width="20" Text="T" Foreground="White" TextAlignment="Center" Margin="100,26,150,78"/>
+
+                    <Rectangle x:Name="Keyy_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "125,25,125,79"/>
+                    <TextBlock Height="20" Width="20" Text="Y" Foreground="White" TextAlignment="Center" Margin="125,26,125,78"/>
+
+                    <Rectangle x:Name="Keyu_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "150,25,100,79"/>
+                    <TextBlock Height="20" Width="20" Text="U" Foreground="White" TextAlignment="Center" Margin="150,26,100,78"/>
+
+                    <Rectangle x:Name="Keyi_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "175,25,75,79"/>
+                    <TextBlock Height="20" Width="20" Text="I" Foreground="White" TextAlignment="Center" Margin="175,26,75,78"/>
+
+                    <Rectangle x:Name="Keyo_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "200,25,50,79"/>
+                    <TextBlock Height="20" Width="20" Text="O" Foreground="White" TextAlignment="Center" Margin="200,26,50,78"/>
+
+                    <Rectangle x:Name="Keyp_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,25,25,79"/>
+                    <TextBlock Height="20" Width="20" Text="P" Foreground="White" TextAlignment="Center" Margin="225,26,25,78"/>
+
+                    <Rectangle x:Name="Keya_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "0,50,250,54"/>
+                    <TextBlock Height="20" Width="20" Text="A" Foreground="White" TextAlignment="Center" Margin="0,51,250,53"/>
+
+                    <Rectangle x:Name="Keys_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "25,50,225,54"/>
+                    <TextBlock Height="20" Width="20" Text="S" Foreground="White" TextAlignment="Center" Margin="25,51,225,53"/>
+
+                    <Rectangle x:Name="Keyd_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "50,50,200,54"/>
+                    <TextBlock Height="20" Width="20" Text="D" Foreground="White" TextAlignment="Center" Margin="50,51,200,53"/>
+
+                    <Rectangle x:Name="Keyf_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "75,50,175,54"/>
+                    <TextBlock Height="20" Width="20" Text="F" Foreground="White" TextAlignment="Center" Margin="75,51,175,53"/>
+
+                    <Rectangle x:Name="Keyg_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "100,50,150,54"/>
+                    <TextBlock Height="20" Width="20" Text="G" Foreground="White" TextAlignment="Center" Margin="100,51,150,53"/>
+
+                    <Rectangle x:Name="Keyh_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "125,50,125,54"/>
+                    <TextBlock Height="20" Width="20" Text="H" Foreground="White" TextAlignment="Center" Margin="125,51,125,53"/>
+
+                    <Rectangle x:Name="Keyj_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "150,50,100,54"/>
+                    <TextBlock Height="20" Width="20" Text="J" Foreground="White" TextAlignment="Center" Margin="150,51,100,53"/>
+
+                    <Rectangle x:Name="Keyk_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "175,50,75,54"/>
+                    <TextBlock Height="20" Width="20" Text="K" Foreground="White" TextAlignment="Center" Margin="175,51,75,53"/>
+
+                    <Rectangle x:Name="Keyl_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "200,50,50,54"/>
+                    <TextBlock Height="20" Width="20" Text="L" Foreground="White" TextAlignment="Center" Margin="200,51,50,53"/>
+
+                    <Rectangle x:Name="KeyColon_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,50,25,54"/>
+                    <TextBlock x:Name="KeyColon_Text" Height="20" Width="20" Text=";" Foreground="White" TextAlignment="Center" Margin="225,51,25,53"/>
+
+                    <Rectangle x:Name="KeyAccolade_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "250,50,0,54"/>
+                    <TextBlock x:Name="KeyAccolade_Text" Height="20" Width="20" Text="'" Foreground="White" TextAlignment="Center" Margin="250,51,0,53"/>
+
+                    <Rectangle x:Name="KeyShift_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "0,75,250,29"/>
+                    <TextBlock Height="20" Width="20" Text="Shift" FontSize="8" Foreground="White" TextAlignment="Center" Margin="0,78,250,26"/>
+
+                    <Rectangle x:Name="Keyz_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "25,75,225,29"/>
+                    <TextBlock Height="20" Width="20" Text="Z" Foreground="White" TextAlignment="Center" Margin="25,76,225,28"/>
+
+                    <Rectangle x:Name="Keyx_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "50,75,200,29"/>
+                    <TextBlock Height="20" Width="20" Text="X" Foreground="White" TextAlignment="Center" Margin="50,76,200,28"/>
+
+                    <Rectangle x:Name="Keyc_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "75,75,175,29"/>
+                    <TextBlock Height="20" Width="20" Text="C" Foreground="White" TextAlignment="Center" Margin="75,76,175,28"/>
+
+                    <Rectangle x:Name="Keyv_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "100,75,150,29"/>
+                    <TextBlock Height="20" Width="20" Text="V" Foreground="White" TextAlignment="Center" Margin="100,76,150,28"/>
+
+                    <Rectangle x:Name="Keyb_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "125,75,125,29"/>
+                    <TextBlock Height="20" Width="20" Text="B" Foreground="White" TextAlignment="Center" Margin="125,76,125,28"/>
+
+                    <Rectangle x:Name="Keyn_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "150,75,100,29"/>
+                    <TextBlock Height="20" Width="20" Text="N" Foreground="White" TextAlignment="Center" Margin="150,76,100,28"/>
+
+                    <Rectangle x:Name="Keym_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "175,75,75,29"/>
+                    <TextBlock Height="20" Width="20" Text="M" Foreground="White" TextAlignment="Center" Margin="175,76,75,28"/>
+
+                    <Rectangle x:Name="KeyComma_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "200,75,50,29"/>
+                    <TextBlock x:Name="KeyComma_Text" Height="20" Width="20" Text="," Foreground="White" TextAlignment="Center" Margin="200,76,50,28"/>
+
+                    <Rectangle x:Name="KeyDot_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "225,75,25,29"/>
+                    <TextBlock x:Name="KeyDot_Text" Height="20" Width="20" Text="." Foreground="White" TextAlignment="Center" Margin="225,76,25,28"/>
+
+                    <Rectangle x:Name="KeySlash_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "250,75,0,29"/>
+                    <TextBlock x:Name="KeySlash_Text" Height="20" Width="20" Text="/" Foreground="White" TextAlignment="Center" Margin="250,76,0,28"/>
+
+                    <Rectangle x:Name="KeyControl_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "25,100,225,4"/>
+                    <TextBlock Height="20" Width="20" Text="Ctrl" FontSize="8" Foreground="White" TextAlignment="Center" Margin="25,103,225,1"/>
+
+                    <Rectangle x:Name="KeyAlt_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "50,100,200,4"/>
+                    <TextBlock Height="20" Width="20" Text="Alt" FontSize="8" Foreground="White" TextAlignment="Center" Margin="50,103,200,1"/>
+
+                    <Rectangle x:Name="KeySpace_Back" Height="20" Width="120" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "76,100,74,4"/>
+                </Grid>
+                <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="1215,660,127,206"/>
+                <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1322,646,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186" Toggled="True"/>
+
+            </Grid>
+        </Viewbox>
+    </UserControl>
+
+
 
 
 </Page>
