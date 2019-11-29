@@ -74,6 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Modals\Countdown.xaml.cs">
+      <DependentUpon>Countdown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomTools\DarkerBackground.cs" />
     <Compile Include="FoutloosButton.xaml.cs">
       <DependentUpon>FoutloosButton.xaml</DependentUpon>
@@ -98,6 +101,10 @@
     <Compile Include="VoiceExercise.xaml.cs">
       <DependentUpon>VoiceExercise.xaml</DependentUpon>
     </Compile>
+    <Page Include="Modals\Countdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Exercise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
