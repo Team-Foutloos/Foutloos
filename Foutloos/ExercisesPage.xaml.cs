@@ -32,30 +32,65 @@ namespace Foutloos
         {
             InitializeComponent();
             AddButton();
-            
+
+
         }
 
+        
         private void AddButton()
         {
+            int amount = 50;
             int x = 1;
+            int j = 0;
+            int i = 0;
 
-            for (int i = 0; i < 40; i+= 2)
+
+            //The standard left and top margin are added.
+            Grid_All.ShowGridLines = false;
+            Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The amount of columns is always the same. Therefore this piece of code adds them. 
+            for (int h = 0; h < 4; h++)
             {
-                       
-                Button b1 = new Button();
-                Grid.SetColumn(b1, i-1);
-                Grid.SetRow(b1, x-1);
-                b1.Background = Brushes.Gray;
-                b1.Name = $"E{i}";
-                //                    Grid_All.Children.Add(new Button() { Name = $"E{i}", Background = Brushes.Gray });                                
-                Grid_All.Children.Add(b1);
-                             
-                if (i % 4 == 0)
-                {
-                    x+=2;
-                }                                     
-                
+                Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
             }
+
+            //The button gets added as frequently as needed. 
+            for (int z = 0; z < amount; z++)
+            {
+                Button b1 = new Button();
+
+                Grid.SetColumn(b1, j + 1);
+
+                Grid.SetRow(b1, x);
+                b1.Background = Brushes.Gray;
+                b1.Name = $"E{j}";
+                Grid_All.Children.Add(b1);
+
+                //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
+                j += 2;
+                i++;
+
+                //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
+                //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
+                if (i % 4 == 0 && i != 0)
+                {
+                    x += 2;
+                    j = 0;
+                }
+            }
+
+            //Control if the amount of buttons / 4 is equal to 1, 2, 3 etc. This is to indicate how many times more rows have to get added to the software.
+            for (int row = 0; row < Math.Ceiling((double)amount / 4); row++)
+            {
+                Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+            }
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
