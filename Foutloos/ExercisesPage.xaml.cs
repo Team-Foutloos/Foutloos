@@ -39,7 +39,7 @@ namespace Foutloos
         
         private void AddButton()
         {
-            int amount = 50;
+            int amount = 20;
             int x = 1;
             int j = 0;
             int i = 0;
@@ -61,12 +61,16 @@ namespace Foutloos
             for (int z = 0; z < amount; z++)
             {
                 Button b1 = new Button();
+                b1.Click += B1_Click;
 
                 Grid.SetColumn(b1, j + 1);
 
+                
+                //iets met stackpanel
+
                 Grid.SetRow(b1, x);
                 b1.Background = Brushes.Gray;
-                b1.Name = $"E{j}";
+                b1.Name = $"E{i}";
                 Grid_All.Children.Add(b1);
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
@@ -91,6 +95,22 @@ namespace Foutloos
             }
 
 
+        }
+
+        private void B1_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+
+            if (b.Name.Equals("E0"))
+            {
+                System.Windows.Forms.MessageBox.Show("Button 1 works");
+            }
+            
+
+            if (b.Name.Equals("E1"))
+            {
+                System.Windows.Forms.MessageBox.Show("Button 2 works");
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
