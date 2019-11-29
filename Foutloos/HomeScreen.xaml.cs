@@ -48,9 +48,6 @@ namespace Foutloos
                 x.MouseDown += Exercise;
             }
             //Add a listener to all the 'Buttons' (All exercises, login and register)
-            allExercisess.MouseDown += Button_Click;
-            login.MouseDown += Button_Click_1;
-            register.MouseDown += Button_Click_2;
 
         }
 
@@ -59,24 +56,25 @@ namespace Foutloos
         {
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
-                settings.Text = "Account";
+                settingsBtn.DynamicTextIcon = "Account";
+                setButtonIcon("accountIconWhite.png");
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
-                seeProgress.Visibility = Visibility.Visible;
+                seeProgressBtn.Visibility = Visibility.Visible;
             }
             else
             {
-                settings.Text = "Settings";
-                seeProgress.Visibility = Visibility.Collapsed;
+                settingsBtn.DynamicTextIcon = "Settings";
+                setButtonIcon("settingsWhite.png");
+                seeProgressBtn.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void setButtonIcon(string name)
         {
-            owner.Content = new ExercisesPage();
-            
+            //BitmapImage source = new BitmapImage();
+            settingsBtn.DynamicIcon = BitmapFrame.Create(new Uri($"pack://application:,,,/assets/{name}"));
         }
-
 
         //Boolean that becomes true in case an animation is still going on.
         //This prevents bugging because of overlapping elements.
@@ -204,18 +202,6 @@ namespace Foutloos
             disableResize = false;
         }
 
-        //This function handles the clicking of the 'login' button.
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            ShowModal(new ModalLogin(this) { Owner = HomeScreen.owner });
-        }
-
-        //This function handles the clicking of the 'register' button
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            ShowModal(new ModalRegister { Owner = HomeScreen.owner });
-        }
-
         //This function shows the modal, login or register modal with generic types.
         private void ShowModal<T>(T modal) where T : Window
         {
@@ -236,6 +222,25 @@ namespace Foutloos
            
         }
 
+        private void AllExercisesBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            owner.Content = new ExercisesPage();
+        }
+
+        private void LoginBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowModal(new ModalLogin(this) { Owner = HomeScreen.owner });
+        }
+
+        private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowModal(new ModalRegister { Owner = HomeScreen.owner });
+        }
+
+        private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //Here comes the reference to the settings page
+        }
     }
 
     //Create this class to give the 'Darken effect' used while the modal is opened.

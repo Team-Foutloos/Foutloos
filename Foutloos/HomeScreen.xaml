@@ -42,38 +42,23 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80*"/>
-                    <RowDefinition Height="187*"/>
+                    <RowDefinition Height="85*"/>
+                    <RowDefinition Height="182*"/>
                     <RowDefinition Height="339*"/>
                     <RowDefinition Height="274*"/>
                 </Grid.RowDefinitions>
 
                 <!--The settings button, it is a textblock wrapped inside of a border-->
-                <Border Padding="5" CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Margin="68.667,61,18,152.333" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="54" Grid.RowSpan="2">
-                    <Border.Style>
-                        <Style>
-                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="Border.IsMouseOver" Value="True">
-                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <StackPanel Orientation="Horizontal" >
-                        <Image Width="25" Source="assets/settingsWhite.png" />
-                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="settings" Text="Settings"/>
-                    </StackPanel>
-                </Border>
+                <local:ThemedIconButton x:Name="settingsBtn" PreviewMouseDown="SettingsBtn_PreviewMouseDown" DynamicTextIcon="Settings" DynamicIcon="assets/settingsWhite.png" Grid.Column="2" Margin="10.5,44,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="60" Width="216" Grid.RowSpan="2" />
 
-                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="100" Margin="0,52,10.333,35.333" Width="926">
+                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="100" Margin="0,51,10.5,31" Width="926">
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="107" Margin="42,0,777,0"/>
                     <Label Padding="0" Name="Title" Content="Start Typing!" FontSize="60" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" />
                 </Grid>
 
                 <!-- In this block code all the recommended exercises are shown -->
                 <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350,77,350.5,0"/>
-                <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="186.333,136.667,171.333,82" Height="120" Width="589">
+                <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="186,137,171.5,82" Height="120" Width="589">
                     <Border Background="LightGreen" CornerRadius="5" BorderThickness="3" BorderBrush="Green" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122" Name="BoxBorder1">
                         <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="Green" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box1"/>
                     </Border>
@@ -89,66 +74,22 @@
                 </Grid>
 
                 <!-- All exercises button, its not actually a button but a textblock wrapped inside of a border, the click and hover events are given to this button in the class -->
-                <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" Grid.Row="3" Grid.Column="1" Margin="349.333,12,350.333,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247">
-                    <Border.Style>
-                        <Style>
-                            <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="Border.IsMouseOver" Value="True">
-                                    <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="30" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="allExercisess" Text="See All Exercises"/>
-                </Border>
+                <local:ThemedButton x:Name="allExercisesBtn" DynamicTextRegular="See all exercises" Grid.Row="3" Grid.Column="1" Margin="349,12,350.5,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="AllExercisesBtn_PreviewMouseDown" />
+
 
                 <!-- In this grid all of the buttons that you see in the bottom are located, they arent actually buttons, but textblocks wrapped inside of borders.-->
                 <Grid Name="ButtonRowAccount" Grid.Column="1" Grid.Row="3" Margin="300.333,0,304.333,88" Height="41" Width="342" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="25,1,0,0" VerticalAlignment="Top" Width="75" Height="40">
-                        <Border.Style>
-                            <Style>
-                                <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                                <Style.Triggers>
-                                    <Trigger Property="Border.IsMouseOver" Value="True">
-                                        <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="login" Text="Login"/>
-                    </Border>
+                    <local:ThemedButton x:Name="LoginBtn" DynamicTextRegular="Login" PreviewMouseDown="LoginBtn_PreviewMouseDown" Margin="0,0,194,0" />
 
-                    <Label Content="or" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="105,1,0,0" VerticalAlignment="Top" Height="39" FontSize="20"/>
+                    <Label Content="or" HorizontalAlignment="Center" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
 
-                    <Border CornerRadius="5" BorderThickness="2" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="144,0,0,0" VerticalAlignment="Top" Width="176" Height="40">
-                        <Border.Style>
-                            <Style>
-                                <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                                <Style.Triggers>
-                                    <Trigger Property="Border.IsMouseOver" Value="True">
-                                        <Setter Property="Border.Background" Value="LightSkyBlue" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Grid Margin="6,5,6,4">
-                            <TextBlock FontSize="20" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="register" Text="Create an account"/>
-                        </Grid>
-                    </Border>
+                    <local:ThemedButton x:Name="RegisterBtn" DynamicTextRegular="Register" PreviewMouseDown="RegisterBtn_PreviewMouseDown" Margin="194,0,0,0" />
+
 
                 </Grid>
-                <local:FoutloosButton x:Name="seeProgress" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328.333,114,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" Text="See your progress">
-                    <local:FoutloosButton.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleY="0.298"/>
-                            <RotateTransform/>
-                            <TranslateTransform Y="0.828"/>
-                        </TransformGroup>
-                    </local:FoutloosButton.RenderTransform>
-                </local:FoutloosButton>
+                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328,114,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress"/>
+
 
             </Grid>
         </Viewbox>

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:Foutloos"
         mc:Ignorable="d"
         ResizeMode="NoResize"
@@ -10,130 +11,154 @@
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterOwner"
+        Name="modalRegister"
         Title="Register" Height="380" Width="300">
-    <!--Wrap het entire grid inside of a border so that the corners are rounded. -->
-    <Border CornerRadius="10" BorderThickness="2" Background="White">
-        <Grid>
-            <!--Logo -->
-            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="84,9,84,0"/>
-            <Grid Margin="3,152,-2,79" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="145">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="139*"/>
-                    <ColumnDefinition Width="126*"/>
-                    <ColumnDefinition Width="29.333"/>
-                </Grid.ColumnDefinitions>
-                <!--The username textbox -->
-                <TextBox ToolTip="Between 5 and 12 characters." Name="username" MaxLength="12" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="0" Grid.Column="1" PreviewKeyDown="Username_TextChanged_1" TextChanged="Username_TextChanged">
-                    <TextBox.Resources>
-                        <Storyboard x:Key="TestStoryboard">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </TextBox.Resources>
-                    <TextBox.RenderTransform>
-                        <TranslateTransform X="0" Y="0" />
-                    </TextBox.RenderTransform>
-                </TextBox>
-                <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="60,5,0,0"/>
-                <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="65,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
-                <!--The password passwordbox-->
-                <PasswordBox ToolTip="Between 8 and 20 characters." Name="password" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1" PasswordChanged="Password_PasswordChanged" PreviewKeyDown="Password_TextChanged">
-                    <PasswordBox.Resources>
-                        <Storyboard x:Key="TestStoryboard">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </PasswordBox.Resources>
-                    <PasswordBox.RenderTransform>
-                        <TranslateTransform X="0" Y="0" />
-                    </PasswordBox.RenderTransform>
-                </PasswordBox>
-                <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="5,2.333,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
-                <!--The password repeat passwordbox -->
-                <PasswordBox ToolTip="Needs to match the password." Name="passwordRepeat"  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9.333,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" PreviewKeyDown="Password_TextChanged">
-                    <PasswordBox.Resources>
-                        <Storyboard x:Key="TestStoryboard">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </PasswordBox.Resources>
-                    <PasswordBox.RenderTransform>
-                        <TranslateTransform X="0" Y="0" />
-                    </PasswordBox.RenderTransform>
-                </PasswordBox>
-                <Label Content="License" FontSize="15" HorizontalAlignment="Left" Margin="78,3.667,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62" Height="30" Grid.ColumnSpan="2"/>
-                <!--The license textbox -->
-                <TextBox ToolTip="If you don't know your license, ask your teacher." Name="license" HorizontalAlignment="Left" Height="23" Margin="1.667,7.667,0,0" Grid.Row="3" TextWrapping="Wrap" MaxLength="5" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" Grid.Column="1">
-                    <TextBox.Resources>
-                        <Storyboard x:Key="TestStoryboard">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </TextBox.Resources>
-                    <TextBox.RenderTransform>
-                        <TranslateTransform X="0" Y="0" />
-                    </TextBox.RenderTransform>
-                </TextBox>
-                <Label Name="usernameLength" Content="12" Grid.Column="1" HorizontalAlignment="Left" Margin="125.667,8,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <Label Name="passwordLength" Content="20" Grid.Column="2" HorizontalAlignment="Left" Margin="0.667,5,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+    <!--Add this so the entire modal can 'shake' -->
+    <Window.Resources>
+        <Storyboard x:Key="close">
+            <!--All the animations to turn the register form into the loading form. -->
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="registerGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="900"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
 
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="registerGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="900"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="registerGrid">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="loadingGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="150"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="loadingGrid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="150"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <!--This animation handles the shaking of the entire window -->
+        <Storyboard x:Key="shaking">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="1x">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.RenderTransform>
+        <TranslateTransform X="0" Y="0" />
+    </Window.RenderTransform>
+    <Grid>
+        <!--Wrap het entire grid inside of a border so that the corners are rounded. -->
+        <Border Name="registerGrid" CornerRadius="10" BorderThickness="2" Background="White">
+            <Grid>
+                <!--Logo -->
+                <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="84,9,84,0"/>
+                <Grid Margin="3,152,-2,79" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="145">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="139*"/>
+                        <ColumnDefinition Width="126*"/>
+                        <ColumnDefinition Width="29.333"/>
+                    </Grid.ColumnDefinitions>
+                    <!--The username textbox -->
+                    <TextBox ToolTip="Between 5 and 12 characters." Name="username" MaxLength="12" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="0" Grid.Column="1" PreviewKeyDown="Username_TextChanged_1" TextChanged="Username_TextChanged">
+                        <TextBox.Resources>
+                            <Storyboard x:Key="TestStoryboard">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </TextBox.Resources>
+                        <TextBox.RenderTransform>
+                            <TranslateTransform X="0" Y="0" />
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                    <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="60,5,0,0"/>
+                    <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="65,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
+                    <!--The password passwordbox-->
+                    <PasswordBox ToolTip="Between 8 and 20 characters." Name="password" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1" PasswordChanged="Password_PasswordChanged" PreviewKeyDown="Password_TextChanged">
+                        <PasswordBox.Resources>
+                            <Storyboard x:Key="TestStoryboard">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </PasswordBox.Resources>
+                        <PasswordBox.RenderTransform>
+                            <TranslateTransform X="0" Y="0" />
+                        </PasswordBox.RenderTransform>
+                    </PasswordBox>
+                    <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="5,2.333,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
+                    <!--The password repeat passwordbox -->
+                    <PasswordBox ToolTip="Needs to match the password." Name="passwordRepeat"  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9.333,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" PreviewKeyDown="Password_TextChanged">
+                        <PasswordBox.Resources>
+                            <Storyboard x:Key="TestStoryboard">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </PasswordBox.Resources>
+                        <PasswordBox.RenderTransform>
+                            <TranslateTransform X="0" Y="0" />
+                        </PasswordBox.RenderTransform>
+                    </PasswordBox>
+                    <Label Content="License" FontSize="15" HorizontalAlignment="Left" Margin="78,3.667,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62" Height="30" Grid.ColumnSpan="2"/>
+                    <!--The license textbox -->
+                    <TextBox ToolTip="If you don't know your license, ask your teacher." Name="license" HorizontalAlignment="Left" Height="23" Margin="1.667,7.667,0,0" Grid.Row="3" TextWrapping="Wrap" MaxLength="5" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" Grid.Column="1">
+                        <TextBox.Resources>
+                            <Storyboard x:Key="TestStoryboard">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.20" Value="-2"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </TextBox.Resources>
+                        <TextBox.RenderTransform>
+                            <TranslateTransform X="0" Y="0" />
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                    <Label Name="usernameLength" Content="12" Grid.Column="1" HorizontalAlignment="Left" Margin="125.667,8,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Label Name="passwordLength" Content="20" Grid.Column="2" HorizontalAlignment="Left" Margin="0.667,5,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+
+                </Grid>
+
+                <!-- The register and cancel button, they are not actually buttons but textblocks wrapped in a border to give more freedom to styling. -->
+                <local:ThemedButton Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36" DynamicTextRegular="Cancel" PreviewMouseDown="CancelRegister_MouseDown" />
+                <local:ThemedButton HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36" DynamicTextRegular="Register" PreviewMouseDown="Register_MouseDown" />
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="49,139,49,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
+                <Label Foreground="Red" FontWeight="DemiBold" Name="ErrorMessage" HorizontalAlignment="Center" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
             </Grid>
-
-            <!-- The register and cancel button, they are not actually buttons but textblocks wrapped in a border to give more freedom to styling. -->
-            <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" Margin="151,334,10,0" VerticalAlignment="Top" Width="135" Height="36">
-                <Border.Style>
-                    <Style>
-                        <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                        <Style.Triggers>
-                            <Trigger Property="Border.IsMouseOver" Value="True">
-                                <Setter Property="Border.Background" Value="LightSkyBlue" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Name="cancelRegister" Text="Cancel" Margin="35,3,0,3" MouseDown="CancelRegister_MouseDown"/>
+        </Border>
+        <Border Name="loadingGrid" Width="0" Height="0" CornerRadius="360" BorderThickness="2" Background="White">
+                <Grid>
+                    <Image Name="loading" gif:ImageBehavior.AnimatedSource="assets/loadingIndicator.gif" Margin="-36,-50,-36,-10" />
+                </Grid>
             </Border>
-            <Border CornerRadius="5" BorderThickness="1" BorderBrush="MidnightBlue" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="135" Height="36">
-                <Border.Style>
-                    <Style>
-                        <Setter Property="Border.Background" Value="DeepSkyBlue"/>
-                        <Style.Triggers>
-                            <Trigger Property="Border.IsMouseOver" Value="True">
-                                <Setter Property="Border.Background" Value="LightSkyBlue" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <TextBlock FontWeight="DemiBold" Foreground="White" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="register" Text="Register" MouseDown="Register_MouseDown"/>
-            </Border>
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="1" Margin="49,139,49,0" Stroke="Black" VerticalAlignment="Top" Width="198"/>
-            <Label Foreground="Red" Name="ErrorMessage" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
         </Grid>
-    </Border>
 </Window>

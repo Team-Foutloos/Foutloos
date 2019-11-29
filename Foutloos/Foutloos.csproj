@@ -65,6 +65,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.18\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -76,10 +79,13 @@
     </Compile>
     <Compile Include="Connection.cs" />
     <Compile Include="SecurePasswordHasher.cs" />
-    <Compile Include="ThemedIconButton.xaml.cs">
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomTools\ThemedIconButton.xaml.cs">
       <DependentUpon>ThemedIconButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ThemedButton.xaml.cs">
+    <Compile Include="CustomTools\ThemedButton.xaml.cs">
       <DependentUpon>ThemedButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToggleButton.xaml.cs">
@@ -133,11 +139,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ThemedIconButton.xaml">
+    <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomTools\ThemedIconButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemedButton.xaml">
+    <Page Include="CustomTools\ThemedButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,6 +214,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\homeIconWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\loadingIndicator.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\succes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\testimage.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\accountIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\accountIconWhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
