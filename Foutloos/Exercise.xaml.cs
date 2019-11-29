@@ -56,6 +56,8 @@ namespace Foutloos
         Thickness textToSpeechKeyboardOff = new Thickness(812, 295, 184, 455);
         //Next word used for text to speech
         string exerciseNextWord = "";
+        //Boolean for when text to speech is active
+        bool textToSpeechActive = false;
 
         public Exercise(MainWindow o)
         {
@@ -77,10 +79,27 @@ namespace Foutloos
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
 
+            //Change text to speech toggle te be turned off by default
+            ToggleSpeech.Toggled = false;
+            ToggleSpeech.Dot.Margin = new Thickness(-39, 0, 0, 0);
+            ToggleSpeech.Back.Fill = new SolidColorBrush(Color.FromRgb(160, 160, 160));
+
             //Save next word of an exercise
             string[] temp = exerciseStringLeft.Split(' ');
             exerciseNextWord = temp.First();
-            TextToSpeech.Content = exerciseNextWord;
+
+            //Set standard speed of text to speech
+            synthesizer.Rate = 3;
+
+            //Putting each voice/language installed on the users pc in a combobox for the user to select.
+            foreach (InstalledVoice v in synthesizer.GetInstalledVoices())
+            {
+                Voice_ComboBox.Items.Add(v.VoiceInfo.Name + ". " + v.VoiceInfo.Culture);
+            }
+            //Setting the default value of the combobox
+            Voice_ComboBox.SelectedIndex = 0;
+            //Adding an event when a value has been selected in the combobox
+            Voice_ComboBox.SelectionChanged += Voice_ComboBox_SelectionChanged;
         }
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -92,7 +111,7 @@ namespace Foutloos
                 timerStarted = true;
             }
 
-            //Functionality Toggle
+            //Functionality Toggle Keyboard
             //Check if toggle is true
             if (ToggleKeyboard.Toggled)
             {
@@ -311,6 +330,16 @@ namespace Foutloos
             //Disable the use of enter
             if(e.Key == Key.Enter)
             {
+                //Start text to speech
+                if(!textToSpeechActive && !exerciseFinished)
+                {
+                    new Thread(() =>
+                    {
+                        textToSpeechActive = true;
+                        synthesizer.Speak(exerciseNextWord);
+                        textToSpeechActive = false;
+                    }).Start();
+                }
                 e.Handled = true;
             }
 
@@ -334,14 +363,17 @@ namespace Foutloos
 
                         //Update variable with next word of the exercise
                         string[] temp = exerciseStringLeft.Split(' ');
+                        //Remove space as first word in string array
                         temp = temp.Skip(1).ToArray();
                         exerciseNextWord = temp.First();
-                        TextToSpeech.Content = exerciseNextWord;
+                        //Start speech if the toggle is true
                         if(ToggleSpeech.Toggled)
                         {
                             new Thread(() =>
                             {
+                                textToSpeechActive = true;
                                 synthesizer.Speak(exerciseNextWord);
+                                textToSpeechActive = false;
                             }).Start();
                         }
 
@@ -369,6 +401,9 @@ namespace Foutloos
                             exerciseFinished = true;
                             Exercise_TextBlock.Text = "";
                             Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+
+                            //Hide text to speech element
+                            TextToSpeech.Visibility = Visibility.Hidden;
                         }
                     }
                     else
@@ -452,6 +487,9 @@ namespace Foutloos
                         exerciseFinished = true;
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+
+                        //Hide text to speech element
+                        TextToSpeech.Visibility = Visibility.Hidden;
                     }
                 }
                 else
@@ -507,6 +545,31 @@ namespace Foutloos
             }
         }
 
+        //Combobox for voice changing functionality
+        private void Voice_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                //Setting the voice of the speech to the selected system voice. (User input comboVoice)
+                synthesizer.SelectVoice(Voice_ComboBox.SelectedItem.ToString().Split('.')[0]);
+            }
+            catch(Exception) { }
+
+            //Start text to speech
+            if (!textToSpeechActive && !exerciseFinished)
+            {
+                new Thread(() =>
+                {
+                    textToSpeechActive = true;
+                    synthesizer.Speak(exerciseNextWord);
+                    textToSpeechActive = false;
+                }).Start();
+            }
+
+            //Set focus to user textinput box
+            UserInput_TextBox.Focus();
+        }
+
         //Keyboard toggle functionality
         private void ToggleKeyboard_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -524,19 +587,37 @@ namespace Foutloos
                 TextToSpeech.Margin = textToSpeechKeyboardOff;
                 Test.Visibility = Visibility.Hidden;
             }
+
+            //Set focus to user textinput box
+            UserInput_TextBox.Focus();
         }
 
         //Speech toggle functionality
         private void ToggleSpeech_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(ToggleSpeech.Toggled)
+            if(!exerciseFinished)
             {
-                TextToSpeech.Visibility = Visibility.Visible;
+                if (ToggleSpeech.Toggled)
+                {
+                    TextToSpeech.Visibility = Visibility.Visible;
+                    Voice_ComboBox.Visibility = Visibility.Visible;
+                    //Start text to speech
+                    new Thread(() =>
+                    {
+                        textToSpeechActive = true;
+                        synthesizer.Speak(exerciseNextWord);
+                        textToSpeechActive = false;
+                    }).Start();
+                }
+                else
+                {
+                    TextToSpeech.Visibility = Visibility.Hidden;
+                    Voice_ComboBox.Visibility = Visibility.Hidden;
+                }
             }
-            else
-            {
-                TextToSpeech.Visibility = Visibility.Hidden;
-            }
+
+            //Set focus to user textinput box
+            UserInput_TextBox.Focus();
         }
 
         private void UserInput_TextBox_PreviewKeyUp(object sender, KeyEventArgs e)

@@ -27,7 +27,8 @@
             <!-- Text to speech -->
             <Label Content="Text to speech:" Height="30" Width="100" Margin="942,693,380,77" />
             <local:ToggleButton x:Name="ToggleSpeech" HorizontalAlignment="Left" Height="54" Margin="1046,681,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleSpeech_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
-            <Label Content="Press enter to start speech!" Name="TextToSpeech" Height="50" Width="370" FontSize="30" Margin="812, 395, 184, 355"/>
+            <Label Content="Press enter to replay speech!" Name="TextToSpeech" Height="50" Width="390" FontSize="30" Margin="812, 395, 184, 355" Visibility="Hidden"/>
+            <ComboBox Name="Voice_ComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="190" Margin="948,737,0,0" Visibility="Hidden"/>
 
             <!-- Virtual Keyboard -->
             <Grid Margin="485,291,283,342" Name="Test" Visibility="Hidden">
