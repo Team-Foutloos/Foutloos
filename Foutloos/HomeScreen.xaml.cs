@@ -209,7 +209,7 @@ namespace Foutloos
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
             if (rootVisual != null && adornerLayer != null)
             {
-                DarkenAdorner darkenAdorner = new DarkenAdorner(rootVisual);
+                CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
                 adornerLayer.Add(darkenAdorner);
                 modal.ShowDialog();
                 adornerLayer.Remove(darkenAdorner);
@@ -243,22 +243,4 @@ namespace Foutloos
         }
     }
 
-    //Create this class to give the 'Darken effect' used while the modal is opened.
-    public class DarkenAdorner : Adorner
-    {
-        public Brush DarkenBrush { get; set; }
-
-        public DarkenAdorner(UIElement adornedElement)
-          : base(adornedElement)
-        {
-            Brush darkenBrush = new SolidColorBrush(new Color() { R = 0, G = 0, B = 0, A = 140 });
-            darkenBrush.Freeze();
-            DarkenBrush = darkenBrush;
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            drawingContext.DrawRectangle(DarkenBrush, null, new Rect(0, 0, AdornedElement.RenderSize.Width, AdornedElement.RenderSize.Height));
-        }
-    }
 }

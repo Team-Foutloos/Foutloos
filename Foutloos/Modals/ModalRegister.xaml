@@ -58,7 +58,7 @@
         <Border Name="registerGrid" CornerRadius="10" BorderThickness="2" Background="White">
             <Grid>
                 <!--Logo -->
-                <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="84,9,84,0"/>
+                <Image Source="/assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="129" VerticalAlignment="Top" Width="128" Margin="84,9,84,0"/>
                 <Grid Margin="3,152,-2,79" HorizontalAlignment="Center" VerticalAlignment="Center" Width="295" Height="145">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -157,7 +157,7 @@
         </Border>
         <Border Name="loadingGrid" Width="0" Height="0" CornerRadius="360" BorderThickness="2" Background="White">
                 <Grid>
-                    <Image Name="loading" gif:ImageBehavior.AnimatedSource="assets/loadingIndicator.gif" Margin="-36,-50,-36,-10" />
+                    <Image Name="loading" gif:ImageBehavior.AnimatedSource="/assets/loadingIndicator.gif" Margin="-36,-50,-36,-10" />
                 </Grid>
             </Border>
         </Grid>

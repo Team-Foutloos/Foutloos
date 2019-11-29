@@ -7,11 +7,10 @@
       mc:Ignorable="d" 
       Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
       Width="{x:Static SystemParameters.PrimaryScreenWidth}"
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="Exercise" Background="white" HorizontalAlignment="Center" VerticalAlignment="Center">
 
     <Viewbox Stretch="Uniform" StretchDirection="Both">
-        <Grid>
+        <Grid Width="1422">
             <!-- Logo -->
             <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1206,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
 
