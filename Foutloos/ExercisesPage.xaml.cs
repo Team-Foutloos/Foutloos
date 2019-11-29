@@ -33,13 +33,19 @@ namespace Foutloos
             InitializeComponent();
             AddButton();
 
-
         }
 
         
         private void AddButton()
-        {
-            int amount = 50;
+        {           
+
+            Connection con = new Connection();
+            List<List<string>> exercises = new List<List<string>>();
+            exercises = con.QueryDataExercisesTable("SELECT * FROM Exercises");
+            Console.WriteLine(exercises.Count);
+
+            int exnum = 1;
+            int amount = 6;
             int x = 1;
             int j = 0;
             int i = 0;
@@ -61,17 +67,28 @@ namespace Foutloos
             for (int z = 0; z < amount; z++)
             {
                 Button b1 = new Button();
+                Label l1 = new Label();
+                
 
                 Grid.SetColumn(b1, j + 1);
 
                 Grid.SetRow(b1, x);
-                b1.Background = Brushes.Gray;
+                b1.Background = Brushes.White;
                 b1.Name = $"E{j}";
+                b1.Content = $"Excercise: {exnum}";
+                b1.Foreground = Brushes.Black;
+                b1.BorderBrush = Brushes.Black;
+                //b1.BorderThickness
                 Grid_All.Children.Add(b1);
+                l1.Content = "test";
+                
+
+                //< Label Content = "Label" HorizontalAlignment = "Left" Margin = "0,174,0,0" Grid.Row = "1" VerticalAlignment = "Top" Grid.Column = "1" />
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
                 j += 2;
                 i++;
+                exnum++;
 
                 //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
                 //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
@@ -80,6 +97,7 @@ namespace Foutloos
                     x += 2;
                     j = 0;
                 }
+
             }
 
             //Control if the amount of buttons / 4 is equal to 1, 2, 3 etc. This is to indicate how many times more rows have to get added to the software.
@@ -89,6 +107,12 @@ namespace Foutloos
                 Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
             }
+
+            void E1_Click(object sender, RoutedEventArgs e)
+            {
+                
+            }
+            
 
 
         }
@@ -115,30 +139,30 @@ namespace Foutloos
         //    }            
         //}
 
-        private void FillDataGrid()
-        {
+        //private void FillDataGrid()
+        //{
             
-            //query that is being executed and being shows in a Table in the application.
-            List<List<object>> result = c.QueryDataExercisesTable("SELECT * FROM Exercises");
-            string waardes = "";
+        //    //query that is being executed and being shows in a Table in the application.
+        //    List<List<object>> result = c.QueryDataExercisesTable("SELECT * FROM Exercises");
+        //    string waardes = "";
 
-            for (int i = 0; i < result.Count; i++)
-            {
-                for (int x = 0; x < result[i].Count; x++)
-                {
-                    waardes += result[i][x] + " ";
-                }
-            }
-
-            
+        //    for (int i = 0; i < result.Count; i++)
+        //    {
+        //        for (int x = 0; x < result[i].Count; x++)
+        //        {
+        //            waardes += result[i][x] + " ";
+        //        }
+        //    }
 
             
 
+            
 
 
 
 
-        }
+
+        //}
 
         private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {

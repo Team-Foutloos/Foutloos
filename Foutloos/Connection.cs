@@ -14,9 +14,9 @@ namespace Foutloos
         
 
 
-        public List<List<object>> QueryDataExercisesTable(string query)
+        public List<List<string>> QueryDataExercisesTable(string query)
         {
-        List<List<object>> value = new List<List<object>>();
+        List<List<string>> value = new List<List<string>>();
         
 
             try
@@ -33,12 +33,11 @@ namespace Foutloos
                     {
                         while (dr.Read())
                         {
-                            List<object> oneRow = new List<object>();
-
-                            oneRow.Add(dr.GetInt32(0));
+                            List<string> oneRow = new List<string>();
+                                                        
                             oneRow.Add(dr.GetString(1));
                             oneRow.Add(dr.GetString(2));
-                            oneRow.Add(dr.GetInt32(3));
+                            
 
                             value.Add(oneRow);
                         }
