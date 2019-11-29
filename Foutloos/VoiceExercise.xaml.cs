@@ -337,14 +337,29 @@ namespace Foutloos
         //Homebutton
         private void HomeBTN_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //If the speech is still playing, stopping the speech.
-            if (synthesizer.State == SynthesizerState.Speaking)
+            if (!exerciseFinished && exerciseStarted )
             {
-                synthesizer.Pause();
-            }
+                //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
 
-            //Navigate back to the homescreen.
-            HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+                    if (synthesizer.State == SynthesizerState.Speaking)
+                    {
+                        synthesizer.Pause();
+                    }
+                    HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+
+                }
+            }
+            else
+            {
+                if (synthesizer.State == SynthesizerState.Speaking)
+                {
+                    synthesizer.Pause();
+                }
+                HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+            }
         }
 
 
