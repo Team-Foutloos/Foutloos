@@ -348,7 +348,7 @@ namespace Foutloos
                     {
                         synthesizer.Pause();
                     }
-                    HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+                    Application.Current.MainWindow.Content = new HomeScreen();
 
                 }
             }
@@ -358,7 +358,7 @@ namespace Foutloos
                 {
                     synthesizer.Pause();
                 }
-                HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+                Application.Current.MainWindow.Content = new HomeScreen();
             }
         }
 

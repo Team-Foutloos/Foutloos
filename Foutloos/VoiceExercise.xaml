@@ -5,9 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Foutloos"
       mc:Ignorable="d" 
-      Height="890" 
-      Width="1405"
-      Title="VoiceExercise" Background="white" ShowsNavigationUI="False" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+      Title="VoiceExercise" Background="white" ShowsNavigationUI="False" HorizontalAlignment="Center" VerticalAlignment="Center">
     <Page.RenderTransform>
         <TransformGroup>
             <ScaleTransform/>
@@ -18,10 +16,9 @@
     </Page.RenderTransform>
 
 
-
-    <UserControl Loaded="UserControl_Loaded">
-        <Viewbox StretchDirection="Both" Stretch="Uniform">
-            <Grid  HorizontalAlignment="Center" Margin="0,30" VerticalAlignment="Center" Height="896" RenderTransformOrigin="0.5,0.5" Width="1442">
+    <Viewbox StretchDirection="Both" Stretch="Uniform">
+        <UserControl Loaded="UserControl_Loaded">
+            <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
@@ -209,8 +206,8 @@
                 <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1322,646,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186" Toggled="True"/>
 
             </Grid>
-        </Viewbox>
-    </UserControl>
+        </UserControl>
+    </Viewbox>
 
 
 

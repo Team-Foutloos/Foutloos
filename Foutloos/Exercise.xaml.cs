@@ -21,7 +21,7 @@ namespace Foutloos
     public partial class Exercise : Page
     {
         //Exercise text
-        private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
+        private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
         //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
         //String used to save users correct input
@@ -32,8 +32,6 @@ namespace Foutloos
         private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
         //Boolen used to make sure a mistake isn't added multiples times in a row
         private bool mistake = false;
-        //Save the mainwindow in a variable for switching pages
-        private MainWindow owner;
         //Marges used for the users input textbox
         private Thickness userInput_WithoutKeyboard = new Thickness(183, 352, 183, 0);
         private Thickness userInput_WithKeyboard = new Thickness(183, 452, 183, 0);
@@ -59,12 +57,13 @@ namespace Foutloos
         //Boolean for when text to speech is active
         bool textToSpeechActive = false;
 
-        public Exercise(MainWindow o)
+        //Create a bool to see if the exercise is started.
+        bool exerciseStarted = false;
+
+        public Exercise()
         {
             InitializeComponent();
 
-            //Save mainwindow in a variable
-            owner = o;
 
             //Show keyboard
             UserInput_TextBox.Margin = userInput_WithKeyboard;
@@ -104,12 +103,32 @@ namespace Foutloos
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //Start timer
-            if(!timerStarted)
+            //If the exercise is not started yet, show the countdown and start the exercise.
+            if (!exerciseStarted)
             {
-                timer.Start();
-                timerStarted = true;
+                UIElement rootVisual = this.Content as UIElement;
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                if (rootVisual != null && adornerLayer != null)
+                {
+                    CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
+                    adornerLayer.Add(darkenAdorner);
+
+                    //Dialog will be opened when the user enters a key
+                    Modals.Countdown countdown = new Modals.Countdown();
+                    countdown.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
+                }
+                //Turn the exercisStarted to true, so that when the user returns from the modal, the exersice starts.
+                exerciseStarted = true;
             }
+            else
+            {
+                //Start timer
+                if (!timerStarted)
+                {
+                    timer.Start();
+                    timerStarted = true;
+                }
 
             //Functionality Toggle Keyboard
             //Check if toggle is true
@@ -318,14 +337,14 @@ namespace Foutloos
                 }
             }
 
-            //Set user's cursor to the end of line
-            UserInput_TextBox.CaretIndex = UserInput_TextBox.Text.Length;
+                //Set user's cursor to the end of line
+                UserInput_TextBox.CaretIndex = UserInput_TextBox.Text.Length;
 
-            //Disable the use of backspace
-            if (e.Key == Key.Back)
-            {
-                e.Handled = true;
-            }
+                //Disable the use of backspace
+                if (e.Key == Key.Back)
+                {
+                    e.Handled = true;
+                }
 
             //Disable the use of enter
             if(e.Key == Key.Enter)
@@ -343,23 +362,23 @@ namespace Foutloos
                 e.Handled = true;
             }
 
-            //Check if the exercise is finished
-            if (!exerciseFinished)
-            {
-                //Check if the user pressed the spacebar
-                if (e.Key == Key.Space)
+                //Check if the exercise is finished
+                if (!exerciseFinished)
                 {
-                    //Update characters per minute
-                    cpm++;
-
-                    //Check if the next character of the exercise is spacebar
-                    if (exerciseStringLeft.First() == 32)
+                    //Check if the user pressed the spacebar
+                    if (e.Key == Key.Space)
                     {
-                        //Used for saving user's mistakes
-                        mistake = false;
+                        //Update characters per minute
+                        cpm++;
 
-                        //Update words per minute
-                        wpm++;
+                        //Check if the next character of the exercise is spacebar
+                        if (exerciseStringLeft.First() == 32)
+                        {
+                            //Used for saving user's mistakes
+                            mistake = false;
+
+                            //Update words per minute
+                            wpm++;
 
                         //Update variable with next word of the exercise
                         string[] temp = exerciseStringLeft.Split(' ');
@@ -382,16 +401,16 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
 
-                        //Update variables
-                        userInputCorrect += exerciseStringLeft.First().ToString();
-                        exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
+                            //Update variables
+                            userInputCorrect += exerciseStringLeft.First().ToString();
+                            exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
 
-                        //Add remaining exercise text if there is any
-                        if (exerciseStringLeft.Length > 0)
-                        {
-                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Yellow });
-                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
-                        }
+                            //Add remaining exercise text if there is any
+                            if (exerciseStringLeft.Length > 0)
+                            {
+                                Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Yellow });
+                                Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
+                            }
 
                         //Check if the exercise is finished
                         if (exerciseStringLeft.Length == 0)
@@ -411,38 +430,39 @@ namespace Foutloos
                         //Disable incorrect input to be shown in user's inputbox
                         e.Handled = true;
 
-                        //Check if the next character of the exercise was a mistake, by the user, before
-                        if (!mistake)
-                        {
-                            //Update mistakes counter
-                            mistakes++;
+                            //Check if the next character of the exercise was a mistake, by the user, before
+                            if (!mistake)
+                            {
+                                //Update mistakes counter
+                                mistakes++;
 
-                            //Update dictionary containing user's mistakes
-                            try
-                            {
-                                userMistakes.Add((char)32, 1);
+                                //Update dictionary containing user's mistakes
+                                try
+                                {
+                                    userMistakes.Add((char)32, 1);
+                                }
+                                catch (Exception)
+                                {
+                                    userMistakes[(char)32] += 1;
+                                }
+                                mistake = true;
                             }
-                            catch (Exception)
-                            {
-                                userMistakes[(char)32] += 1;
-                            }
-                            mistake = true;
+
+                            //Visualize incorrect input
+                            Exercise_TextBlock.Text = "";
+                            Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.Yellow });
+                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                         }
-
-                        //Visualize incorrect input
-                        Exercise_TextBlock.Text = "";
-                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.Yellow });
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
                 }
-            }
-            else
-            {
-                //Show exercise in light green when it's finished
-                Exercise_TextBlock.Text = "";
-                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
-                e.Handled = true;
+                else
+                {
+                    //Show exercise in light green when it's finished
+                    Exercise_TextBlock.Text = "";
+                    Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                    e.Handled = true;
+                }
             }
         }
 
@@ -833,7 +853,8 @@ namespace Foutloos
         //Home button functionality
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!exerciseFinished)
+            //If the exercise started or isnt finished, the user needs to be sure.
+            if (!exerciseFinished && exerciseStarted)
             {
 
                 UIElement rootVisual = this.Content as UIElement;
@@ -844,16 +865,15 @@ namespace Foutloos
                     adornerLayer.Add(darkenAdorner);
 
                     //Dialog will be opened when the user wan't to exit the exercise when it's not finished
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        owner.Content = new HomeScreen(owner);
-                    }
-                    else
-                    {
-                        owner.Content = new HomeScreen(owner);
-                    }
+                    Modals.YesCancelModal result = new Modals.YesCancelModal();
+                    result.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
                 }
+            }
+            //If the exercise if finished or hasnt started yet, the user can cancel out of it at any time.
+            else
+            {
+                Application.Current.MainWindow.Content = new HomeScreen();
             }
         }
 

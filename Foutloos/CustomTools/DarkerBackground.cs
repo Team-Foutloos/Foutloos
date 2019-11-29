@@ -22,6 +22,14 @@ namespace Foutloos.CustomTools
             DarkenBrush = darkenBrush;
         }
 
+        public DarkenAdorner(UIElement adornedElement, byte oppacity)
+            : base(adornedElement)
+        {
+            Brush darkenBrush = new SolidColorBrush(new Color() { R = 0, G = 0, B = 0, A = oppacity });
+            darkenBrush.Freeze();
+            DarkenBrush = darkenBrush;
+        }
+
         protected override void OnRender(DrawingContext drawingContext)
         {
             drawingContext.DrawRectangle(DarkenBrush, null, new Rect(0, 0, AdornedElement.RenderSize.Width, AdornedElement.RenderSize.Height));
