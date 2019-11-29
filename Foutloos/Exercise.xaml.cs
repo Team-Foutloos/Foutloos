@@ -20,7 +20,7 @@ namespace Foutloos
     public partial class Exercise : Page
     {
         //Exercise text
-        private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
+        private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
         //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
         //String used to save users correct input
@@ -31,8 +31,6 @@ namespace Foutloos
         private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
         //Boolen used to make sure a mistake isn't added multiples times in a row
         private bool mistake = false;
-        //Save the mainwindow in a variable for switching pages
-        private MainWindow owner;
         //Marges used for the users input textbox
         private Thickness userInput_WithoutKeyboard = new Thickness(183, 352, 183, 0);
         private Thickness userInput_WithKeyboard = new Thickness(183, 452, 183, 0);
@@ -54,12 +52,10 @@ namespace Foutloos
         Thickness textToSpeechKeyboardOn = new Thickness(812, 395, 184, 355);
         Thickness textToSpeechKeyboardOff = new Thickness(812, 295, 184, 455);
 
-        public Exercise(MainWindow o)
+        public Exercise()
         {
             InitializeComponent();
 
-            //Save mainwindow in a variable
-            owner = o;
 
             //Show keyboard
             UserInput_TextBox.Margin = userInput_WithKeyboard;
@@ -77,6 +73,7 @@ namespace Foutloos
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+
             //Start timer
             if(!timerStarted)
             {
@@ -742,15 +739,9 @@ namespace Foutloos
                     adornerLayer.Add(darkenAdorner);
 
                     //Dialog will be opened when the user wan't to exit the exercise when it's not finished
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        owner.Content = new HomeScreen(owner);
-                    }
-                    else
-                    {
-                        owner.Content = new HomeScreen(owner);
-                    }
+                    Modals.YesCancelModal result = new Modals.YesCancelModal();
+                    result.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
                 }
             }
         }

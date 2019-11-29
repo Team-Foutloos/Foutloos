@@ -10,7 +10,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         Background="Transparent"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Name="modalRegister"
         Title="Register" Height="380" Width="300">
     <!--Add this so the entire modal can 'shake' -->

@@ -37,7 +37,7 @@ namespace Foutloos
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+            Application.Current.MainWindow.Content = new HomeScreen();
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
