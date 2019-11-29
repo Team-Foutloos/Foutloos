@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +21,7 @@ namespace Foutloos
     public partial class Exercise : Page
     {
         //Exercise text
-        private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
+        private string exerciseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor massa ultricies. Neque volutpat ac tincidunt vitae semper quis. Adipiscing elit pellentesque habitant morbi tristique. Gravida rutrum quisque non tellus. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Viverra nibh cras pulvinar mattis. Urna nunc id cursus metus aliquam eleifend mi in. Netus et malesuada fames ac turpis egestas maecenas pharetra convallis. Malesuada pellentesque elit eget gravida cum. Varius sit amet mattis vulputate enim nulla. Eu mi bibendum neque egestas congue quisque.";
         //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
         //String used to save users correct input
@@ -53,6 +54,8 @@ namespace Foutloos
         //Marges for the text to speech
         Thickness textToSpeechKeyboardOn = new Thickness(812, 395, 184, 355);
         Thickness textToSpeechKeyboardOff = new Thickness(812, 295, 184, 455);
+        //Next word used for text to speech
+        string exerciseNextWord = "";
 
         public Exercise(MainWindow o)
         {
@@ -73,6 +76,11 @@ namespace Foutloos
             //Configuring the timer and adding an event
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+
+            //Save next word of an exercise
+            string[] temp = exerciseStringLeft.Split(' ');
+            exerciseNextWord = temp.First();
+            TextToSpeech.Content = exerciseNextWord;
         }
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -323,6 +331,19 @@ namespace Foutloos
 
                         //Update words per minute
                         wpm++;
+
+                        //Update variable with next word of the exercise
+                        string[] temp = exerciseStringLeft.Split(' ');
+                        temp = temp.Skip(1).ToArray();
+                        exerciseNextWord = temp.First();
+                        TextToSpeech.Content = exerciseNextWord;
+                        if(ToggleSpeech.Toggled)
+                        {
+                            new Thread(() =>
+                            {
+                                synthesizer.Speak(exerciseNextWord);
+                            }).Start();
+                        }
 
                         //Visualize correct input
                         Exercise_TextBlock.Text = "";

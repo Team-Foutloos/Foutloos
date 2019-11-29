@@ -21,11 +21,11 @@
             <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted" PreviewKeyUp="UserInput_TextBox_PreviewKeyUp"/>
 
             <!-- Virtual keyboard toggle -->
-            <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="939,652,327,118"/>
+            <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="942,651,380,119"/>
             <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1046,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
 
             <!-- Text to speech -->
-            <Label Content="Text to speech:" Height="30" Width="100" Margin="939,695,327,75"/>
+            <Label Content="Text to speech:" Height="30" Width="100" Margin="942,693,380,77" />
             <local:ToggleButton x:Name="ToggleSpeech" HorizontalAlignment="Left" Height="54" Margin="1046,681,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleSpeech_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
             <Label Content="Press enter to start speech!" Name="TextToSpeech" Height="50" Width="370" FontSize="30" Margin="812, 395, 184, 355"/>
 
