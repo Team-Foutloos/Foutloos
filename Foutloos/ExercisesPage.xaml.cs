@@ -39,10 +39,10 @@ namespace Foutloos
         private void AddButton()
         {           
 
-            Connection con = new Connection();
-            List<List<string>> exercises = new List<List<string>>();
-            exercises = con.QueryDataExercisesTable("SELECT * FROM Exercises");
-            Console.WriteLine(exercises.Count);
+            //Connection con = new Connection();
+            //List<List<string>> exercises = new List<List<string>>();
+            //exercises = con.QueryDataExercisesTable("SELECT * FROM Exercises");
+            //Console.WriteLine(exercises.Count);
 
             int exnum = 1;
             int amount = 6;
@@ -68,13 +68,17 @@ namespace Foutloos
             {
                 Button b1 = new Button();
                 Label l1 = new Label();
+
+                b1.Click += B1_Click;
+                
                 
 
                 Grid.SetColumn(b1, j + 1);
 
+
                 Grid.SetRow(b1, x);
                 b1.Background = Brushes.White;
-                b1.Name = $"E{j}";
+                b1.Name = $"E{i}";
                 b1.Content = $"Excercise: {exnum}";
                 b1.Foreground = Brushes.Black;
                 b1.BorderBrush = Brushes.Black;
@@ -108,13 +112,52 @@ namespace Foutloos
 
             }
 
-            void E1_Click(object sender, RoutedEventArgs e)
-            {
-                
-            }
+            
             
 
 
+        }
+
+        private void B1_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+
+            if (b.Name.Equals("E0"))
+            {
+                this.Exercise.Text = "Exercise 1";
+            }
+            if (b.Name.Equals("E1"))
+            {
+                this.Exercise.Text = "Exercise 2";
+            }
+            if (b.Name.Equals("E2"))
+            {
+                this.Exercise.Text = "Exercise 3";
+            }
+            if (b.Name.Equals("E3"))
+            {
+                this.Exercise.Text = "Exercise 4";
+            }
+            if (b.Name.Equals("E4"))
+            {
+                this.Exercise.Text = "Exercise 5";
+            }
+            if (b.Name.Equals("E5"))
+            {
+                this.Exercise.Text = "Exercise 6";
+            }
+            if (b.Name.Equals("E6"))
+            {
+                this.Exercise.Text = "Exercise 7";
+            }
+            if (b.Name.Equals("E7"))
+            {
+                this.Exercise.Text = "Exercise 8";
+            }
+            //else
+            //{
+            //    System.Windows.Forms.MessageBox.Show("Button 1 not working");
+            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
