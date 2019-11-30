@@ -42,6 +42,12 @@ namespace Foutloos
                             value.Add(oneRow);
                         }
                     }
+                    else
+                    {
+
+
+                        System.Windows.Forms.MessageBox.Show("No data");
+                    }
                 }                
             }
 

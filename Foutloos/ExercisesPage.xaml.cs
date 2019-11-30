@@ -23,7 +23,7 @@ namespace Foutloos
     /// </summary>
     public partial class ExercisesPage : Page
     {
-
+        
         Connection c = new Connection();
         //private bool text = false;
         //private bool spoken = false;
@@ -33,48 +33,115 @@ namespace Foutloos
             InitializeComponent();
             AddButton();
 
-        }
-
+        } 
         
         private void AddButton()
-        {           
+        {
+            Connection c = new Connection();
+            c.QueryDataExercisesTable("SELECT * FROM Exercises");
 
-            //Connection con = new Connection();
-            //List<List<string>> exercises = new List<List<string>>();
-            //exercises = con.QueryDataExercisesTable("SELECT * FROM Exercises");
-            //Console.WriteLine(exercises.Count);
+            int selected = 2;
+            int amateur = 3;
+            int normal = 5;
+            int expert = 4;
+            int finished = 1;            
+            int amount = amateur + normal + expert + selected;           
+            
+            //The standard left and top margin are added for grid All.
+            Grid_All.ShowGridLines = false;
+            Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid Selected for you.
+            Grid_Selected.ShowGridLines = false;
+            Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid Amateur.
+            Grid_Amateur.ShowGridLines = false;
+            Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid Normal.
+            Grid_Normal.ShowGridLines = false;
+            Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid Expert.
+            Grid_Expert.ShowGridLines = false;
+            Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid Finished.
+            Grid_Finished.ShowGridLines = false;
+            Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            calculate(amount, "Grid_All");
+            calculate(selected, "Grid_Selected");
+            calculate(amateur, "Grid_Amateur");
+            calculate(normal, "Grid_Normal");
+            calculate(expert, "Grid_Expert");
+            calculate(finished, "Grid_Finished");
+
+
+        }
+
+        private void calculate(int amount, string gridName)
+        {
 
             int exnum = 1;
-            int amount = 6;
             int x = 1;
             int j = 0;
             int i = 0;
 
 
-            //The standard left and top margin are added.
-            Grid_All.ShowGridLines = false;
-            Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-            Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-
-            //The amount of columns is always the same. Therefore this piece of code adds them. 
+            // The amount of columns is always the same.Therefore this piece of code adds them.
             for (int h = 0; h < 4; h++)
             {
-                Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                if (gridName == "Grid_All")
+                {
+                    Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_Selected")
+                {
+                    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_Amateur")
+                {
+                    Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_Normal")
+                {
+                    Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_Expert")
+                {
+                    Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_Finished")
+                {
+                    Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+
             }
 
+            
             //The button gets added as frequently as needed. 
             for (int z = 0; z < amount; z++)
             {
                 Button b1 = new Button();
-                Label l1 = new Label();
+                Label l1 = new Label();                                
 
                 b1.Click += B1_Click;
-                
-                
 
                 Grid.SetColumn(b1, j + 1);
-
 
                 Grid.SetRow(b1, x);
                 b1.Background = Brushes.White;
@@ -83,11 +150,31 @@ namespace Foutloos
                 b1.Foreground = Brushes.Black;
                 b1.BorderBrush = Brushes.Black;
                 //b1.BorderThickness
-                Grid_All.Children.Add(b1);
-                l1.Content = "test";
-                
 
-                //< Label Content = "Label" HorizontalAlignment = "Left" Margin = "0,174,0,0" Grid.Row = "1" VerticalAlignment = "Top" Grid.Column = "1" />
+                if (gridName == "Grid_All")
+                {
+                    Grid_All.Children.Add(b1);
+                }
+                if (gridName == "Grid_Selected")
+                {
+                    Grid_Selected.Children.Add(b1);
+                }
+                if (gridName == "Grid_Amateur")
+                {
+                    Grid_Amateur.Children.Add(b1);
+                }
+                if (gridName == "Grid_Normal")
+                {
+                    Grid_Normal.Children.Add(b1);
+                }
+                if (gridName == "Grid_Expert")
+                {
+                    Grid_Expert.Children.Add(b1);
+                }
+                if (gridName == "Grid_Finished")
+                {
+                    Grid_Finished.Children.Add(b1);
+                }
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
                 j += 2;
@@ -107,57 +194,64 @@ namespace Foutloos
             //Control if the amount of buttons / 4 is equal to 1, 2, 3 etc. This is to indicate how many times more rows have to get added to the software.
             for (int row = 0; row < Math.Ceiling((double)amount / 4); row++)
             {
-                Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+                if (gridName == "Grid_All")
+                {
+                    Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_Selected")
+                {
+                    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_Amateur")
+                {
+                    Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_Normal")
+                {
+                    Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_Expert")
+                {
+                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_Finished")
+                {
+                    Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
 
             }
-
-            
-            
-
-
         }
+
+            
 
         private void B1_Click(object sender, RoutedEventArgs e)
         {
-            Button b = (Button)sender;
+            Button b = (Button)sender;            
 
-            if (b.Name.Equals("E0"))
-            {
-                this.Exercise.Text = "Exercise 1";
-            }
-            if (b.Name.Equals("E1"))
-            {
-                this.Exercise.Text = "Exercise 2";
-            }
-            if (b.Name.Equals("E2"))
-            {
-                this.Exercise.Text = "Exercise 3";
-            }
-            if (b.Name.Equals("E3"))
-            {
-                this.Exercise.Text = "Exercise 4";
-            }
-            if (b.Name.Equals("E4"))
-            {
-                this.Exercise.Text = "Exercise 5";
-            }
-            if (b.Name.Equals("E5"))
-            {
-                this.Exercise.Text = "Exercise 6";
-            }
-            if (b.Name.Equals("E6"))
-            {
-                this.Exercise.Text = "Exercise 7";
-            }
-            if (b.Name.Equals("E7"))
-            {
-                this.Exercise.Text = "Exercise 8";
-            }
-            //else
-            //{
-            //    System.Windows.Forms.MessageBox.Show("Button 1 not working");
-            //}
+            for (int i = 0; i <= 50; i++)
+            {              
+                if (b.Name.Equals($"E{i}"))
+                {
+                    this.Exercise.Text = $"Exercise {i+1}";
+                    this.wpm_number.Content = "0";
+                    this.cpm_number.Content = "0";
+                    this.error_number.Content = "0";                    
+
+                }
+            }                     
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -170,21 +264,11 @@ namespace Foutloos
 
         }
 
-        //private void check_radio()
-        //{
-        //    if (Text.IsChecked == true)
-        //    {
-        //        this.text = true;
-        //    }
-        //    if (Spoken.IsChecked == true)
-        //    {
-        //        this.spoken = true;
-        //    }            
-        //}
+       
 
         //private void FillDataGrid()
         //{
-            
+
         //    //query that is being executed and being shows in a Table in the application.
         //    List<List<object>> result = c.QueryDataExercisesTable("SELECT * FROM Exercises");
         //    string waardes = "";
@@ -197,12 +281,6 @@ namespace Foutloos
         //        }
         //    }
 
-            
-
-            
-
-
-
 
 
         //}
@@ -211,5 +289,21 @@ namespace Foutloos
         {
 
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+            if (Text.IsChecked == true)
+            {
+                Application.Current.MainWindow.Content = new Exercise();
+            }
+            else
+            {
+                Application.Current.MainWindow.Content = new VoiceExercise();
+            }
+
+            
+        }
+        
     }
 }
