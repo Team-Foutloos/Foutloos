@@ -52,9 +52,10 @@ namespace Foutloos
         List<int> mistakeIndex = new List<int>();
         
 
-        public VoiceExercise()
+        public VoiceExercise(string text)
         {
             InitializeComponent();
+            this.dbString = text;
 
             //Setting the speech synthesizer (system default text to speech object).
             synthesizer = new SpeechSynthesizer();

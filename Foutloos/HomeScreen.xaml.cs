@@ -85,11 +85,11 @@ namespace Foutloos
             FrameworkElement clickedElement = e.Source as FrameworkElement;
             if (clickedElement == BoxBorder1 || clickedElement == Box1)
             {
-                Application.Current.MainWindow.Content = new VoiceExercise();
+                Application.Current.MainWindow.Content = new VoiceExercise("Random text");
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise();
+                Application.Current.MainWindow.Content = new Exercise("Random text");
             }
             
         }

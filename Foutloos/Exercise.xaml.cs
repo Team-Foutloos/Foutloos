@@ -22,6 +22,8 @@ namespace Foutloos
     {
         //Exercise text
         private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
+                         
+        
         //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
         //String used to save users correct input
@@ -59,11 +61,11 @@ namespace Foutloos
 
         //Create a bool to see if the exercise is started.
         bool exerciseStarted = false;
-
-        public Exercise()
+        
+        public Exercise(string text)
         {
             InitializeComponent();
-
+            this.exerciseText = text;
 
             //Show keyboard
             UserInput_TextBox.Margin = userInput_WithKeyboard;

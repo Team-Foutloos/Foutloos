@@ -26,9 +26,8 @@ namespace Foutloos
 
         private List<string> difficultyData = new List<string>();
         private List<string> textData = new List<string>();
-        //private bool text = false;
-        //private bool spoken = false;
-
+        private string tekst;       
+        
         public ExercisesPage()
         {
             InitializeComponent();
@@ -183,6 +182,8 @@ namespace Foutloos
                 b1.BorderBrush = Brushes.Black;
                 //b1.BorderThickness
 
+
+
                 if (gridName == "Grid_All")
                 {
                     Grid_All.Children.Add(b1);
@@ -211,7 +212,7 @@ namespace Foutloos
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
                 j += 2;
                 i++;
-                exnum++;
+                exnum++;                
 
                 //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
                 //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
@@ -266,24 +267,27 @@ namespace Foutloos
             }
         }
 
-            
-
+        
+        //This checks which buttons has been clicked.
         private void B1_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;            
 
-            for (int i = 0; i <= 50; i++)
+            for (int i = 0; i <= textData.Count; i++)
             {              
                 if (b.Name.Equals($"E{i}"))
                 {
                     this.Exercise.Text = $"Exercise {i+1}";
                     this.wpm_number.Content = "0";
                     this.cpm_number.Content = "0";
-                    this.error_number.Content = "0";                    
+                    this.error_number.Content = "0";
+                    this.Description.Content = textData[i];
+                    this.tekst = textData[i];
+                    this.level.Text = $"Level: {difficultyData[i]}";
 
                 }
-            }                     
-            
+            }           
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -327,11 +331,11 @@ namespace Foutloos
 
             if (Text.IsChecked == true)
             {
-                Application.Current.MainWindow.Content = new Exercise();
+                Application.Current.MainWindow.Content = new Exercise(tekst);                
             }
             else
             {
-                Application.Current.MainWindow.Content = new VoiceExercise();
+                Application.Current.MainWindow.Content = new VoiceExercise(tekst);
             }
 
             
