@@ -232,7 +232,7 @@ namespace Foutloos
             timeLable.Content = SecondsToTime(second);
 
             //Calculating the typed keys per minute
-            cpmLable.Content = Math.Round((typedKeys / (double)second) * 60);
+            cpmLable.Content = Math.Round((typedText.Length / (double)second) * 60);
 
             string[] woorden = typedText.Split(' ');
             wpmLable.Content = Math.Round((woorden.Length / (double)second) * 60);
@@ -348,7 +348,7 @@ namespace Foutloos
                     {
                         synthesizer.Pause();
                     }
-                    HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+                    Application.Current.MainWindow.Content = new HomeScreen();
 
                 }
             }
@@ -358,7 +358,7 @@ namespace Foutloos
                 {
                     synthesizer.Pause();
                 }
-                HomeScreen.owner.Content = new HomeScreen(HomeScreen.owner);
+                Application.Current.MainWindow.Content = new HomeScreen();
             }
         }
 

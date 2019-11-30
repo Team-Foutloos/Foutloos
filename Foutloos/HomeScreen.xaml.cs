@@ -24,10 +24,8 @@ namespace Foutloos
     /// </summary>
     public partial class HomeScreen : Page
     {
-        public static MainWindow owner;
-        public HomeScreen(MainWindow Owner)
+        public HomeScreen()
         {
-            owner = Owner;
             InitializeComponent();
 
             //Update the UI.
@@ -87,11 +85,11 @@ namespace Foutloos
             FrameworkElement clickedElement = e.Source as FrameworkElement;
             if (clickedElement == BoxBorder1 || clickedElement == Box1)
             {
-                owner.Content = new VoiceExercise();
+                Application.Current.MainWindow.Content = new VoiceExercise();
             }
             else
             {
-                owner.Content = new Exercise(owner);
+                Application.Current.MainWindow.Content = new Exercise();
             }
             
         }
@@ -209,7 +207,7 @@ namespace Foutloos
             AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
             if (rootVisual != null && adornerLayer != null)
             {
-                DarkenAdorner darkenAdorner = new DarkenAdorner(rootVisual);
+                CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
                 adornerLayer.Add(darkenAdorner);
                 modal.ShowDialog();
                 adornerLayer.Remove(darkenAdorner);
@@ -224,17 +222,17 @@ namespace Foutloos
 
         private void AllExercisesBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new ExercisesPage();
+            Application.Current.MainWindow.Content = new ExercisesPage();
         }
 
         private void LoginBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ShowModal(new ModalLogin(this) { Owner = HomeScreen.owner });
+            ShowModal(new ModalLogin(this));
         }
 
         private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ShowModal(new ModalRegister { Owner = HomeScreen.owner });
+            ShowModal(new ModalRegister());
         }
 
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -243,22 +241,4 @@ namespace Foutloos
         }
     }
 
-    //Create this class to give the 'Darken effect' used while the modal is opened.
-    public class DarkenAdorner : Adorner
-    {
-        public Brush DarkenBrush { get; set; }
-
-        public DarkenAdorner(UIElement adornedElement)
-          : base(adornedElement)
-        {
-            Brush darkenBrush = new SolidColorBrush(new Color() { R = 0, G = 0, B = 0, A = 140 });
-            darkenBrush.Freeze();
-            DarkenBrush = darkenBrush;
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            drawingContext.DrawRectangle(DarkenBrush, null, new Rect(0, 0, AdornedElement.RenderSize.Width, AdornedElement.RenderSize.Height));
-        }
-    }
 }

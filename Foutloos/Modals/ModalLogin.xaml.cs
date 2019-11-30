@@ -49,7 +49,7 @@ namespace Foutloos
             storyboard.Begin();
 
             //Let the loadingscreen load for 1,5 seconds.
-            Timer t = new Timer(closeWindow, null, 1500, 1500);
+            Timer t = new Timer(closeWindow, null, 1200, 1200);
 
 
         }
@@ -62,6 +62,7 @@ namespace Foutloos
                 owner.loginUIchange();
                 this.Close();
             });
+            
         }
 
         private void Login_MouseDown(object sender, MouseButtonEventArgs e)
@@ -83,24 +84,30 @@ namespace Foutloos
                 string CmdString = $"SELECT * FROM Usertable WHERE username = @username";
                 using (SqlConnection con = new SqlConnection(connectionstring))
                 {
-                    con.Open();
-                    SqlCommand insCmd = new SqlCommand(CmdString, con);
-                    // use sqlParameters to prevent sql injection!
-                    insCmd.Parameters.AddWithValue("@username", username.Text);
-                    insCmd.Parameters.AddWithValue("@password", hashedPassword);
-                    using (SqlDataReader reader = insCmd.ExecuteReader())
+                    try
                     {
-                        if (reader.Read() && SecurePasswordHasher.Verify(password.Password, (string) reader["password"]))
+                        con.Open();
+                        SqlCommand insCmd = new SqlCommand(CmdString, con);
+                        // use sqlParameters to prevent sql injection!
+                        insCmd.Parameters.AddWithValue("@username", username.Text);
+                        insCmd.Parameters.AddWithValue("@password", hashedPassword);
+                        using (SqlDataReader reader = insCmd.ExecuteReader())
                         {
-                            ConfigurationManager.AppSettings["username"] = (string) reader["username"];
+                            if (reader.Read() && SecurePasswordHasher.Verify(password.Password, (string)reader["password"]))
+                            {
+                                ConfigurationManager.AppSettings["username"] = (string)reader["username"];
 
-                            loadingScreen();
+                                loadingScreen();
+                            }
+                            else
+                            {
+                                shakeTheBox();
+                                error = "Username or Password incorrect!";
+                            }
                         }
-                        else
-                        {
-                            shakeTheBox();
-                            error = "Username or Password incorrect!";
-                        }
+                    } catch(Exception f)
+                    {
+                        error = "Your computer is not connected to the internet.";
                     }
                     con.Close();
                 }
