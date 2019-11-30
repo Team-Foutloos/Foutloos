@@ -26,11 +26,11 @@ namespace Foutloos
         private string exerciseStringLeft;
         //String used to save users correct input
         private string userInputCorrect = "";
-        //Boolen to determine if exercise is finished
+        //Boolean to determine if exercise is finished
         private bool exerciseFinished = false;
         //Dictionary used to save mistakes made by the user
         private Dictionary<char, int> userMistakes = new Dictionary<char, int>();
-        //Boolen used to make sure a mistake isn't added multiples times in a row
+        //Boolean used to make sure a mistake isn't added multiples times in a row
         private bool mistake = false;
         //Marges used for the users input textbox
         private Thickness userInput_WithoutKeyboard = new Thickness(183, 352, 183, 0);

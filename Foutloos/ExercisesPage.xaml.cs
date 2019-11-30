@@ -23,11 +23,12 @@ namespace Foutloos
     /// </summary>
     public partial class ExercisesPage : Page
     {
-        
-        Connection c = new Connection();
+
+        private List<string> difficultyData = new List<string>();
+        private List<string> textData = new List<string>();
         //private bool text = false;
         //private bool spoken = false;
-      
+
         public ExercisesPage()
         {
             InitializeComponent();
@@ -38,15 +39,46 @@ namespace Foutloos
         private void AddButton()
         {
             Connection c = new Connection();
-            c.QueryDataExercisesTable("SELECT * FROM Exercises");
-
-            int selected = 2;
-            int amateur = 3;
-            int normal = 5;
-            int expert = 4;
-            int finished = 1;            
-            int amount = amateur + normal + expert + selected;           
+            DataTable dt = new DataTable();
             
+            dt = c.PullData("SELECT * FROM Exercises");
+                       
+
+            int selected = 0;
+            int amateur = 0;
+            int normal = 0;
+            int expert = 0;
+            int finished = 0;            
+            int amount = 0;
+            
+            foreach (DataRow row in dt.Rows)
+            {
+                string ID = row["exerciseID"].ToString();
+                string text = row["text"].ToString();
+                textData.Add(text);
+                string difficulty = row["difficulty"].ToString();
+                difficultyData.Add(difficulty);
+                string done = row["finished"].ToString();
+
+                if (difficulty == "1")
+                {
+                    amateur++;
+                    amount++;
+                }else
+                if (difficulty == "2")
+                {
+                    normal++;
+                    amount++;
+                }
+                else
+                if (difficulty == "3")
+                {
+                    expert++;
+                    amount++;
+                }               
+                
+            }
+
             //The standard left and top margin are added for grid All.
             Grid_All.ShowGridLines = false;
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });

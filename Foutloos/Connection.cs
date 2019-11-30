@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -10,55 +11,33 @@ namespace Foutloos
     public class Connection
     {
         string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
-        string CmdString = string.Empty;
-        
 
-
-        public List<List<string>> QueryDataExercisesTable(string query)
+        public DataTable PullData(string query)
         {
-        List<List<string>> value = new List<List<string>>();
-        
+
+            DataTable dataTable = new DataTable();
 
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionstring))
-                {
-                    SqlCommand cmd = new SqlCommand(query, con);
+                SqlConnection conn = new SqlConnection(connectionstring);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
 
-                    con.Open();
+                // create data adapter
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
 
-                    SqlDataReader dr = cmd.ExecuteReader();
+                // this will query your database and return the result to your datatable
+                da.Fill(dataTable);
+                conn.Close();
+                da.Dispose();
 
-                    if (dr.HasRows)
-                    {
-                        while (dr.Read())
-                        {
-                            List<string> oneRow = new List<string>();
-                                                        
-                            oneRow.Add(dr.GetString(1));
-                            oneRow.Add(dr.GetString(2));
-                            
-
-                            value.Add(oneRow);
-                        }
-                    }
-                    else
-                    {
-
-
-                        System.Windows.Forms.MessageBox.Show("No data");
-                    }
-                }                
             }
-
-            
             catch (Exception e)
             {
-                Console.WriteLine("NO CONNECTION");
+                System.Windows.Forms.MessageBox.Show("No connection");
             }
 
-            return value;
-
+            return dataTable;
         }
 
     }
