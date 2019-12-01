@@ -25,7 +25,7 @@ namespace Foutloos
         {
 
             InitializeComponent();
-            this.Content = new HomeScreen(this);
+            this.Content = new Results();
 
             //Prohibit window from being rescaled
             MouseDoubleClick += (sender, args) =>

@@ -16,8 +16,8 @@
             </TabItem>
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    
-                    <ListBox Name="ExerciseList" HorizontalAlignment="Left" Height="211" Margin="44,58,0,0" VerticalAlignment="Top" Width="231">
+
+                    <ListBox Name="ExerciseList" SelectionChanged="ExerciseList_SelectionChanged" HorizontalAlignment="Left" Height="211" Margin="44,58,0,0" VerticalAlignment="Top" Width="231" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -33,12 +33,14 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <chartingToolkit:Chart Name="columnChart" Title="{Binding ElementName=ExerciseList, Path=SelectedItem.Content}"  HorizontalAlignment="Left" Margin="366,10,0,0" VerticalAlignment="Top" Height="259" Width="327">
-                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}" />
+
+                    <chartingToolkit:Chart Name="columnChart" Title="Exercise_#" HorizontalAlignment="Left" Margin="366,10,0,0" VerticalAlignment="Top" Height="259" Width="327">
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}"/>
                     </chartingToolkit:Chart>
+
                 </Grid>
             </TabItem>
         </TabControl>
-
+        
     </Grid>
 </Page>
