@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfAnimatedGif;
 
 namespace Foutloos
 {
@@ -21,6 +23,7 @@ namespace Foutloos
     /// </summary>
     public partial class ModalRegister : Window
     {
+
         public ModalRegister()
         {
             InitializeComponent();
@@ -76,11 +79,51 @@ namespace Foutloos
         //Use this function to shake the entire window
         private void shakeTheBox()
         {
-            Storyboard myStoryboard = (Storyboard)modalRegister.Resources["TestStoryboard"];
+
+            Storyboard myStoryboard = (Storyboard)modalRegister.Resources["shaking"];
             Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, modalRegister);
             myStoryboard.Begin();
         }
 
+        //Use this function to turn the entire window into a loading 'screen'
+        private void loadingScreen()
+        {
+            //First shake the entire window
+            shakeTheBox();
+            //The loading progress bar.
+            var storyboard = this.Resources["close"] as Storyboard;
+            storyboard.Begin();
+
+            //Let the loadingscreen load for 1,5 seconds.
+            Timer t = new Timer(closeWindow, null, 1200, 1200);
+
+
+        }
+
+        //Close the application
+        /*private void timerC(object state)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+
+                var image = new BitmapImage();
+
+                image.BeginInit();
+                image.UriSource = new Uri(@"assets/testimage.gif", UriKind.Relative);
+                image.EndInit();
+
+                ImageBehavior.SetAnimatedSource(loading, image);
+                ImageBehavior.SetRepeatBehavior(loading, new RepeatBehavior(5));
+                Timer t = new Timer(timerC, null, 1500, 1500);
+            });
+        }*/
+        private void closeWindow(object state)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.Close();
+            });
+        }
 
         private void Register_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -90,7 +133,9 @@ namespace Foutloos
             if (username.Text.Length <= 5)
             {
                 errorMessage += "Username is too short";
+
                 shakeTheBox();
+               
             }
             else if (password.Password.Length <= 8)
             {
@@ -115,20 +160,25 @@ namespace Foutloos
                 //query that is being executed and being shows in a Table in the application.
                 string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
                 string CmdString = $"INSERT INTO Usertable VALUES (@username, @password, @license)";
-                using (SqlConnection con = new SqlConnection(connectionstring))
+                try
                 {
-                    con.Open();
-                    SqlCommand insCmd = new SqlCommand(CmdString, con);
-                    // use sqlParameters to prevent sql injection!
-                    insCmd.Parameters.AddWithValue("@username", username.Text);
-                    insCmd.Parameters.AddWithValue("@password", hashedPassword);
-                    insCmd.Parameters.AddWithValue("@license", license.Text);
-                    int affectedRows = insCmd.ExecuteNonQuery();
-                    MessageBox.Show(affectedRows + " rows inserted!");
+                    using (SqlConnection con = new SqlConnection(connectionstring))
+                    {
+                        con.Open();
+                        SqlCommand insCmd = new SqlCommand(CmdString, con);
+                        // use sqlParameters to prevent sql injection!
+                        insCmd.Parameters.AddWithValue("@username", username.Text);
+                        insCmd.Parameters.AddWithValue("@password", hashedPassword);
+                        insCmd.Parameters.AddWithValue("@license", license.Text);
+
+                        loadingScreen();
+                    }
                 }
-                ErrorMessage.Foreground = new SolidColorBrush(Colors.Green);
-                errorMessage = "This account has succesfully been made!";
-                this.Close();
+                catch (Exception f)
+                {
+                    errorMessage = "Your computer is not connected to the internet.";
+                }
+
             }
 
             ErrorMessage.Content = errorMessage;

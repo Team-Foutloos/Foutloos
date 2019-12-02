@@ -16,22 +16,13 @@ using System.Windows.Shapes;
 namespace Foutloos
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SettingsAndProfilePage : Page
     {
-        
-        public MainWindow()
+        public SettingsAndProfilePage()
         {
-
             InitializeComponent();
-            this.Content = new HomeScreen();
-
-            //Prohibit window from being rescaled
-            MouseDoubleClick += (sender, args) =>
-            {
-                args.Handled = true;
-            };
         }
     }
 }
