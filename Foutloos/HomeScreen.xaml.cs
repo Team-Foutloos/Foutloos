@@ -241,7 +241,7 @@ namespace Foutloos
         }
         private void seeProgressBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            owner.Content = new Results();
+            Application.Current.MainWindow.Content = new Results();
         }
     }
 
