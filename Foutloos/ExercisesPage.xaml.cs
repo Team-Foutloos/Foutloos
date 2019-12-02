@@ -249,7 +249,7 @@ namespace Foutloos
                     this.wpm_number.Content = "0";
                     this.cpm_number.Content = "0";
                     this.error_number.Content = "0";
-                    this.Description.Content = exercise["text"].ToString();
+                    this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
                     this.level.Text = $"Level: {exercise["difficulty"]}";
 
