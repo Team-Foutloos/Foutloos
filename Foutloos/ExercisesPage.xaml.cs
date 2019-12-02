@@ -251,7 +251,7 @@ namespace Foutloos
                     this.error_number.Content = "0";
                     this.Description.Content = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
-                    this.level.Text = $"Level: {difficulty}";
+                    this.level.Text = $"Level: {exercise["difficulty"]}";
 
                 }
             }           
@@ -296,17 +296,23 @@ namespace Foutloos
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
-            if (Text.IsChecked == true)
+            try
             {
-                Application.Current.MainWindow.Content = new Exercise(tekst);                
-            }
-            else
-            {
-                Application.Current.MainWindow.Content = new VoiceExercise(tekst);
-            }
 
-            
+                if (Text.IsChecked == true)
+                {
+                    Application.Current.MainWindow.Content = new Exercise(tekst);
+                }
+                else
+                {
+                    Application.Current.MainWindow.Content = new VoiceExercise(tekst);
+                }
+
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("Please choose an exercise");
+            }
         }
         
     }
