@@ -24,10 +24,11 @@ namespace Foutloos
     public partial class ExercisesPage : Page
     {
 
-        private List<string> difficultyData = new List<string>();
-        private List<string> textData = new List<string>();
-        private string tekst;       
         
+        private string tekst;
+        private int amount;
+        private List<List<DataRow>> exercises = new List<List<DataRow>>();
+
         public ExercisesPage()
         {
             InitializeComponent();
@@ -41,40 +42,37 @@ namespace Foutloos
             DataTable dt = new DataTable();
             
             dt = c.PullData("SELECT * FROM Exercises");
-                       
+
+
+            //Create all the lists of exercises and add them to the main list (exercises)
+            //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
+            List<DataRow> amateurExercises = new List<DataRow>();
+            List<DataRow> normalExercises = new List<DataRow>();
+            List<DataRow> expertExercises = new List<DataRow>();
+            List<DataRow> allExercises = new List<DataRow>();
+
+            exercises.Add(amateurExercises);
+            exercises.Add(normalExercises);
+            exercises.Add(expertExercises);
+            exercises.Add(allExercises);
 
             int selected = 0;
             int amateur = 0;
             int normal = 0;
             int expert = 0;
             int finished = 0;            
-            int amount = 0;
+            amount = 0;
             
             foreach (DataRow row in dt.Rows)
             {
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
-                textData.Add(text);
                 string difficulty = row["difficulty"].ToString();
-                difficultyData.Add(difficulty);
                 string done = row["finished"].ToString();
 
-                if (difficulty == "1")
-                {
-                    amateur++;
-                    amount++;
-                }else
-                if (difficulty == "2")
-                {
-                    normal++;
-                    amount++;
-                }
-                else
-                if (difficulty == "3")
-                {
-                    expert++;
-                    amount++;
-                }               
+                exercises[((int)Int64.Parse(difficulty))-1].Add(row);
+                exercises[3].Add(row);
+                amount++;        
                 
             }
 
@@ -110,9 +108,9 @@ namespace Foutloos
 
             calculate(amount, "Grid_All");
             calculate(selected, "Grid_Selected");
-            calculate(amateur, "Grid_Amateur");
-            calculate(normal, "Grid_Normal");
-            calculate(expert, "Grid_Expert");
+            calculate(exercises[0].Count, "Grid_Amateur");
+            calculate(exercises[1].Count, "Grid_Normal");
+            calculate(exercises[2].Count, "Grid_Expert");
             calculate(finished, "Grid_Finished");
 
 
@@ -170,7 +168,6 @@ namespace Foutloos
                 Button b1 = new Button();
                 Label l1 = new Label();                                
 
-                b1.Click += B1_Click;
 
                 Grid.SetColumn(b1, j + 1);
 
@@ -190,26 +187,35 @@ namespace Foutloos
                 if (gridName == "Grid_All")
                 {
                     Grid_All.Children.Add(b1);
+                    b1.Click += (sender, e ) => B1_Click(sender, e, 3);
                 }
                 if (gridName == "Grid_Selected")
                 {
                     Grid_Selected.Children.Add(b1);
+                    b1.Click += (sender, e) => B1_Click(sender, e, 5);
                 }
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.Children.Add(b1);
+                    b1.Click += (sender, e) => B1_Click(sender, e, 0);
+                    b1.Background = Brushes.LightGreen;
                 }
                 if (gridName == "Grid_Normal")
                 {
                     Grid_Normal.Children.Add(b1);
+                    b1.Click += (sender, e) => B1_Click(sender, e, 1);
+                    b1.Background = Brushes.DarkOrange;
                 }
                 if (gridName == "Grid_Expert")
                 {
                     Grid_Expert.Children.Add(b1);
+                    b1.Click += (sender, e) => B1_Click(sender, e, 2);
+                    b1.Background = Brushes.Red;
                 }
                 if (gridName == "Grid_Finished")
                 {
                     Grid_Finished.Children.Add(b1);
+                    b1.Click += (sender, e) => B1_Click(sender, e, 4);
                 }
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
@@ -272,21 +278,21 @@ namespace Foutloos
 
         
         //This checks which buttons has been clicked.
-        private void B1_Click(object sender, RoutedEventArgs e)
+        private void B1_Click(object sender, RoutedEventArgs e, int difficulty)
         {
-            Button b = (Button)sender;            
-
-            for (int i = 0; i <= textData.Count; i++)
+            Button b = (Button)sender;
+            for (int i = 0; i <= exercises[difficulty].Count; i++)
             {              
                 if (b.Name.Equals($"E{i}"))
                 {
+                    DataRow exercise = exercises[difficulty][i];
                     this.Exercise.Text = $"Exercise {i+1}";
                     this.wpm_number.Content = "0";
                     this.cpm_number.Content = "0";
                     this.error_number.Content = "0";
-                    this.Description.Content = textData[i];
-                    this.tekst = textData[i];
-                    this.level.Text = $"Level: {difficultyData[i]}";
+                    this.Description.Content = exercise["text"].ToString();
+                    this.tekst = exercise["text"].ToString();
+                    this.level.Text = $"Level: {difficulty}";
 
                 }
             }           
