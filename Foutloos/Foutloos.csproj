@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="CustomTools\ThemedIconButton.xaml.cs">
       <DependentUpon>ThemedIconButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Results.xaml.cs">
       <DependentUpon>Results.xaml</DependentUpon>
     </Compile>
