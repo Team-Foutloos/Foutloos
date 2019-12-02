@@ -12,8 +12,7 @@
     <Viewbox Stretch="Uniform" StretchDirection="Both">
         <Grid Width="1422">
             <Grid.Background>
-                <ImageBrush Opacity=".1" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
-                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+                <ImageBrush Opacity=".1" ImageSource="assets/background.png" Stretch="UniformToFill"/>
             </Grid.Background>
             <!-- Logo -->
             <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
