@@ -76,7 +76,7 @@ namespace Foutloos
             //Adding the different speed levels in the app from the rateValues array
             foreach(double speed in rateValues)
             {
-                comboRate.Items.Add(speed);
+                comboRate.Items.Add($"{speed} X");
             }
             //Set the default selected speed
             comboRate.SelectedIndex = 1;

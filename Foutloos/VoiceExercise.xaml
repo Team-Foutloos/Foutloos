@@ -48,7 +48,7 @@
                         Width="157"
                         AutoToolTipPlacement="BottomRight"
                         ValueChanged="sliderVolume_ValueChanged"/>
-                <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="40,690,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
+                <ComboBox x:Name="comboRate" HorizontalAlignment="Left" Margin="218,646,0,0" VerticalAlignment="Top" Width="115" SelectionChanged="ComboRate_SelectionChanged" Height="32" />
                 <Label x:Name="headLabel" Content="Press enter to start" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="114" Width="632" FontSize="36" Margin="394,156,394,610" BorderBrush="MidnightBlue"/>
                 <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="38,800,0,0" VerticalAlignment="Top" Width="92"/>
                 <Label x:Name="timeLable" Content="00:00" HorizontalAlignment="Left" Margin="130,800,0,0" VerticalAlignment="Top" Width="92"/>
@@ -209,6 +209,7 @@
                 </Grid>
                 <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="1215,660,127,206"/>
                 <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1391,646,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186" Toggled="True"/>
+                <Label Content="Elapsed time:" HorizontalAlignment="Left" Margin="137,646,0,0" VerticalAlignment="Top" Width="81" Height="32"/>
 
             </Grid>
         </Viewbox>
