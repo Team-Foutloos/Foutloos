@@ -58,13 +58,13 @@ namespace Foutloos
                 setButtonIcon("accountIconWhite.png");
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
-                seeProgressBtn.Visibility = Visibility.Visible;
+                //seeProgressBtn.Visibility = Visibility.Visible;
             }
             else
             {
                 settingsBtn.DynamicTextIcon = "Settings";
                 setButtonIcon("settingsWhite.png");
-                seeProgressBtn.Visibility = Visibility.Collapsed;
+                //seeProgressBtn.Visibility = Visibility.Collapsed;
             }
         }
 
