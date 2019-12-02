@@ -238,11 +238,13 @@ namespace Foutloos
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Here comes the reference to the settings page
+            Application.Current.MainWindow.Content = new SettingsAndProfilePage();
         }
         private void seeProgressBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.Content = new Results();
         }
+
     }
 
 }
