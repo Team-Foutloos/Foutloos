@@ -239,6 +239,10 @@ namespace Foutloos
         {
             //Here comes the reference to the settings page
         }
+        private void seeProgressBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            owner.Content = new Results();
+        }
     }
 
 }
