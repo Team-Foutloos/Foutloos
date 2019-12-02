@@ -16,10 +16,11 @@
                     ViewportUnits="Absolute" Viewport="0,0,1024,768" />
             </Grid.Background>
             <!-- Logo -->
-            <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1206,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
+            <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
 
             <!-- Exercise textblock -->
-            <TextBlock Padding="2" Background="White" FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="Exercise_TextBlock"/>
+            <TextBlock Padding="2" Background="white" FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="Exercise_TextBlock"/>
+            <ProgressBar x:Name="ProgressBar" Foreground="DeepSkyBlue" HorizontalAlignment="Center" Height="13" Margin="211,270,211,0" VerticalAlignment="Top" Width="1000"/>
 
             <!-- User input textbox -->
             <TextBox FontSize="20" Margin="183,352,183,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="UserInput_TextBox" PreviewKeyDown="UserInput_TextBox_PreviewKeyDown" PreviewTextInput="UserInput_TextBox_PreviewTextInput" CommandManager.PreviewExecuted="UserInput_TextBox_PreviewExecuted" PreviewKeyUp="UserInput_TextBox_PreviewKeyUp"/>
@@ -29,13 +30,13 @@
             <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1066,638,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
 
             <!-- Text to speech -->
-            <Label Content="Text to speech:" Height="30" Width="100" Margin="942,693,380,77" />
-            <local:ToggleButton x:Name="ToggleSpeech" HorizontalAlignment="Left" Height="54" Margin="1046,681,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleSpeech_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
-            <Label Content="Press enter to replay speech!" Name="TextToSpeech" Height="50" Width="390" FontSize="30" Margin="812, 395, 184, 355" Visibility="Hidden"/>
+            <Label Content="Text to speech:" Height="30" Width="100" Margin="939,693,327,77" />
+            <local:ToggleButton x:Name="ToggleSpeech" HorizontalAlignment="Left" Height="54" Margin="1066,681,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleSpeech_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
+            <Label Content="Press enter to replay speech!" Name="TextToSpeech" Height="50" Width="500" FontSize="30" Margin="824,395,148,355" Visibility="Visible"/>
             <ComboBox Name="Voice_ComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="190" Margin="948,737,0,0" Visibility="Hidden"/>
 
             <!-- Virtual Keyboard -->
-            <Grid Margin="485,291,283,342" Name="Test" Visibility="Hidden">
+            <Grid Margin="485,306,283,327" Name="Test" Visibility="Hidden">
                 <!-- 1 -->
                 <Rectangle Name="Key1_Back" Height="20" Width="20" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin="0,0,492,147"/>
                 <TextBlock Name="Key1_Text" Height="20" Width="20" Text="1" Foreground="White" TextAlignment="Center" Margin="0,1,492,146"/>
@@ -221,7 +222,7 @@
             </Grid>
 
             <!-- Home Button -->
-            <local:FoutloosButton HorizontalAlignment="Left" Height="161" Margin="2,17,0,0" VerticalAlignment="Top" Width="161" MouseDown="FoutloosButton_MouseDown" Text="Home"/>
+            <local:ThemedIconButton HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="FoutloosButton_MouseDown"/>
 
             <!-- Timer -->
             <Label Content="Elapsed time:" Height="30" Width="80" Margin="23,740,1263,30"/>

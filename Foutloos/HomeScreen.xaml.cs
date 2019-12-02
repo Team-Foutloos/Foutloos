@@ -227,17 +227,21 @@ namespace Foutloos
 
         private void LoginBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ShowModal(new ModalLogin(this));
+            ShowModal(new Modals.ModalLogin(this));
         }
 
         private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ShowModal(new ModalRegister());
+            ShowModal(new Modals.ModalRegister());
         }
 
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Here comes the reference to the settings page
+        }
+        private void seeProgressBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new Results();
         }
     }
 

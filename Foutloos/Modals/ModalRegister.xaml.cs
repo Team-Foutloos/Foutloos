@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfAnimatedGif;
 
-namespace Foutloos
+namespace Foutloos.Modals
 {
     /// <summary>
     /// Interaction logic for ModalLogin.xaml
@@ -159,7 +159,7 @@ namespace Foutloos
 
                 //query that is being executed and being shows in a Table in the application.
                 string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
-                string CmdString = $"INSERT INTO Usertable VALUES (@username, @password, @license)";
+                string CmdString = $"INSERT INTO usertable VALUES (@username, @password, @license)";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(connectionstring))
@@ -170,8 +170,8 @@ namespace Foutloos
                         insCmd.Parameters.AddWithValue("@username", username.Text);
                         insCmd.Parameters.AddWithValue("@password", hashedPassword);
                         insCmd.Parameters.AddWithValue("@license", license.Text);
-
-                        loadingScreen();
+                        con.Close();
+                        //loadingScreen();
                     }
                 }
                 catch (Exception f)
