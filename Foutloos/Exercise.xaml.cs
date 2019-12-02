@@ -21,9 +21,7 @@ namespace Foutloos
     public partial class Exercise : Page
     {
         //Exercise text
-        private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
-                         
-        
+        private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";       
         //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
         //String used to save users correct input
@@ -58,14 +56,21 @@ namespace Foutloos
         string exerciseNextWord = "";
         //Boolean for when text to speech is active
         bool textToSpeechActive = false;
-
         //Create a bool to see if the exercise is started.
         bool exerciseStarted = false;
         
         public Exercise(string text)
         {
             InitializeComponent();
+
+            //Set users focus on the users inputbox
+            UserInput_TextBox.Focus();
+
+            //Show exercise text on the page
             this.exerciseText = text;
+
+            //Set progressbar maximum value
+            ProgressBar.Maximum = exerciseText.Length;
 
             //Show keyboard
             UserInput_TextBox.Margin = userInput_WithKeyboard;
@@ -101,6 +106,10 @@ namespace Foutloos
             Voice_ComboBox.SelectedIndex = 0;
             //Adding an event when a value has been selected in the combobox
             Voice_ComboBox.SelectionChanged += Voice_ComboBox_SelectionChanged;
+
+            //Change text shown on screen
+            TextToSpeech.Visibility = Visibility.Visible;
+            TextToSpeech.Content = "Press any key to start the exercise";
         }
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -122,6 +131,25 @@ namespace Foutloos
                 }
                 //Turn the exercisStarted to true, so that when the user returns from the modal, the exersice starts.
                 exerciseStarted = true;
+
+                //Disable the key pressed
+                e.Handled = true;
+
+                //Start text to speech if the toggle is enabled
+                if(ToggleSpeech.Toggled)
+                {
+                    //Start text to speech
+                    new Thread(() =>
+                    {
+                        textToSpeechActive = true;
+                        synthesizer.Speak(exerciseNextWord);
+                        textToSpeechActive = false;
+                    }).Start();
+
+                    //Show text to speech label
+                    TextToSpeech.Visibility = Visibility.Visible;
+                    TextToSpeech.Content = "Press enter to replay speech!";
+                }
             }
             else
             {
@@ -382,26 +410,26 @@ namespace Foutloos
                             //Update words per minute
                             wpm++;
 
-                        //Update variable with next word of the exercise
-                        string[] temp = exerciseStringLeft.Split(' ');
-                        //Remove space as first word in string array
-                        temp = temp.Skip(1).ToArray();
-                        exerciseNextWord = temp.First();
-                        //Start speech if the toggle is true
-                        if(ToggleSpeech.Toggled)
-                        {
-                            new Thread(() =>
+                            //Update variable with next word of the exercise
+                            string[] temp = exerciseStringLeft.Split(' ');
+                            //Remove space as first word in string array
+                            temp = temp.Skip(1).ToArray();
+                            exerciseNextWord = temp.First();
+                            //Start speech if the toggle is true
+                            if(ToggleSpeech.Toggled)
                             {
-                                textToSpeechActive = true;
-                                synthesizer.Speak(exerciseNextWord);
-                                textToSpeechActive = false;
-                            }).Start();
-                        }
+                                new Thread(() =>
+                                {
+                                    textToSpeechActive = true;
+                                    synthesizer.Speak(exerciseNextWord);
+                                    textToSpeechActive = false;
+                                }).Start();
+                            }
 
-                        //Visualize correct input
-                        Exercise_TextBlock.Text = "";
-                        Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
-                        Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
+                            //Visualize correct input
+                            Exercise_TextBlock.Text = "";
+                            Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                            Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
 
                             //Update variables
                             userInputCorrect += exerciseStringLeft.First().ToString();
@@ -414,41 +442,47 @@ namespace Foutloos
                                 Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                             }
 
-                        //Check if the exercise is finished
-                        if (exerciseStringLeft.Length == 0)
-                        {
-                            //Change exercise text when exercise is finished
-                            timer.Stop();
-                            exerciseFinished = true;
-                            Exercise_TextBlock.Text = "";
-                            Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                            //Set progressbar value
+                            ProgressBar.Value++;
 
-                            //Hide text to speech element
-                            TextToSpeech.Visibility = Visibility.Hidden;
-                        }
-                    }
-                    else
-                    {
-                        //Disable incorrect input to be shown in user's inputbox
-                        e.Handled = true;
-
-                            //Check if the next character of the exercise was a mistake, by the user, before
-                            if (!mistake)
+                            //Check if the exercise is finished
+                            if (exerciseStringLeft.Length == 0)
                             {
-                                //Update mistakes counter
-                                mistakes++;
+                                //Change exercise text when exercise is finished
+                                timer.Stop();
+                                exerciseFinished = true;
+                                Exercise_TextBlock.Text = "";
+                                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
 
-                                //Update dictionary containing user's mistakes
-                                try
-                                {
-                                    userMistakes.Add((char)32, 1);
-                                }
-                                catch (Exception)
-                                {
-                                    userMistakes[(char)32] += 1;
-                                }
-                                mistake = true;
+                                //Hide text to speech element
+                                TextToSpeech.Visibility = Visibility.Hidden;
+
+                                //Change progressbar when the exercise is finished
+                                ProgressBar.Foreground = Brushes.Green;
                             }
+                        }
+                        else
+                        {
+                            //Disable incorrect input to be shown in user's inputbox
+                            e.Handled = true;
+
+                                //Check if the next character of the exercise was a mistake, by the user, before
+                                if (!mistake)
+                                {
+                                    //Update mistakes counter
+                                    mistakes++;
+
+                                    //Update dictionary containing user's mistakes
+                                    try
+                                    {
+                                        userMistakes.Add((char)32, 1);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        userMistakes[(char)32] += 1;
+                                    }
+                                    mistake = true;
+                                }
 
                             //Visualize incorrect input
                             Exercise_TextBlock.Text = "";
@@ -498,6 +532,9 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
 
+                    //Set progressbar value
+                    ProgressBar.Value++;
+
                     //Check if the exercise is finished
                     if (exerciseStringLeft.Length == 0)
                     {
@@ -512,6 +549,9 @@ namespace Foutloos
 
                         //Hide text to speech element
                         TextToSpeech.Visibility = Visibility.Hidden;
+
+                        //Change progressbar when the exercise is finished
+                        ProgressBar.Foreground = Brushes.Green;
                     }
                 }
                 else
@@ -619,7 +659,7 @@ namespace Foutloos
         {
             if(!exerciseFinished)
             {
-                if (ToggleSpeech.Toggled)
+                if (ToggleSpeech.Toggled && exerciseStarted)
                 {
                     TextToSpeech.Visibility = Visibility.Visible;
                     Voice_ComboBox.Visibility = Visibility.Visible;
@@ -631,7 +671,7 @@ namespace Foutloos
                         textToSpeechActive = false;
                     }).Start();
                 }
-                else
+                else if(exerciseStarted)
                 {
                     TextToSpeech.Visibility = Visibility.Hidden;
                     Voice_ComboBox.Visibility = Visibility.Hidden;
@@ -858,7 +898,6 @@ namespace Foutloos
             //If the exercise started or isnt finished, the user needs to be sure.
             if (!exerciseFinished && exerciseStarted)
             {
-
                 UIElement rootVisual = this.Content as UIElement;
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
                 if (rootVisual != null && adornerLayer != null)
