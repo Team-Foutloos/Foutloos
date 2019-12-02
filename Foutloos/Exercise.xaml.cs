@@ -148,8 +148,12 @@ namespace Foutloos
 
                     //Show text to speech label
                     TextToSpeech.Visibility = Visibility.Visible;
-                    TextToSpeech.Content = "Press enter to replay speech!";
                 }
+                else
+                {
+                    TextToSpeech.Visibility = Visibility.Hidden;
+                }
+                TextToSpeech.Content = "Press enter to replay speech!";
             }
             else
             {
