@@ -24,10 +24,9 @@ namespace Foutloos
     public partial class ExercisesPage : Page
     {
 
-        private List<string> difficultyData = new List<string>();
-        private List<string> textData = new List<string>();
-        private string tekst;       
         
+        private string tekst;
+        private int amount;
         public ExercisesPage()
         {
             InitializeComponent();
@@ -41,40 +40,51 @@ namespace Foutloos
             DataTable dt = new DataTable();
             
             dt = c.PullData("SELECT * FROM Exercises");
-                       
+
+
+            List<List<DataRow>> exercises = new List<List<DataRow>>();
+
+
+            List<DataRow> amateurExercises = new List<DataRow>();
+            List<DataRow> normalExercises = new List<DataRow>();
+            List<DataRow> expertExercises = new List<DataRow>();
+
+            exercises.Add(amateurExercises);
+            exercises.Add(normalExercises);
+            exercises.Add(expertExercises);
 
             int selected = 0;
             int amateur = 0;
             int normal = 0;
             int expert = 0;
             int finished = 0;            
-            int amount = 0;
+            amount = 0;
             
             foreach (DataRow row in dt.Rows)
             {
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
-                textData.Add(text);
                 string difficulty = row["difficulty"].ToString();
-                difficultyData.Add(difficulty);
                 string done = row["finished"].ToString();
 
-                if (difficulty == "1")
-                {
-                    amateur++;
-                    amount++;
-                }else
-                if (difficulty == "2")
-                {
-                    normal++;
-                    amount++;
-                }
-                else
-                if (difficulty == "3")
-                {
-                    expert++;
-                    amount++;
-                }               
+                exercises[((int)Int64.Parse(difficulty))-1].Add(row);
+                amount++;
+                //if (difficulty == "1")
+                //{
+                //    amateur++;
+                //    amount++;
+                //}else
+                //if (difficulty == "2")
+                //{
+                //    normal++;
+                //    amount++;
+                //}
+                //else
+                //if (difficulty == "3")
+                //{
+                //    expert++;
+                //    amount++;
+                //}               
                 
             }
 
@@ -110,9 +120,9 @@ namespace Foutloos
 
             calculate(amount, "Grid_All");
             calculate(selected, "Grid_Selected");
-            calculate(amateur, "Grid_Amateur");
-            calculate(normal, "Grid_Normal");
-            calculate(expert, "Grid_Expert");
+            calculate(exercises[0].Count, "Grid_Amateur");
+            calculate(exercises[1].Count, "Grid_Normal");
+            calculate(exercises[2].Count, "Grid_Expert");
             calculate(finished, "Grid_Finished");
 
 
@@ -276,7 +286,7 @@ namespace Foutloos
         {
             Button b = (Button)sender;            
 
-            for (int i = 0; i <= textData.Count; i++)
+            for (int i = 0; i <= amount; i++)
             {              
                 if (b.Name.Equals($"E{i}"))
                 {
