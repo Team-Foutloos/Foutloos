@@ -23,6 +23,7 @@ namespace Foutloos.Modals
     /// </summary>
     public partial class ModalRegister : Window
     {
+        Connection c = new Connection();
 
         public ModalRegister()
         {
@@ -130,14 +131,14 @@ namespace Foutloos.Modals
             string errorMessage = "";
             Window box = modalRegister;
 
-            if (username.Text.Length <= 5)
+            if (username.Text.Length < 5)
             {
                 errorMessage += "Username is too short";
 
                 shakeTheBox();
                
             }
-            else if (password.Password.Length <= 8)
+            else if (password.Password.Length < 8)
             {
                 errorMessage += "Password is too short";
                 shakeTheBox();
@@ -157,27 +158,10 @@ namespace Foutloos.Modals
                 //First hash the password, this happens in the securepasswordhasher class.
                 string hashedPassword = SecurePasswordHasher.Hash(password.Password);
 
-                //query that is being executed and being shows in a Table in the application.
-                string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
-                string CmdString = $"INSERT INTO usertable VALUES (@username, @password, @license)";
-                try
-                {
-                    using (SqlConnection con = new SqlConnection(connectionstring))
-                    {
-                        con.Open();
-                        SqlCommand insCmd = new SqlCommand(CmdString, con);
-                        // use sqlParameters to prevent sql injection!
-                        insCmd.Parameters.AddWithValue("@username", username.Text);
-                        insCmd.Parameters.AddWithValue("@password", hashedPassword);
-                        insCmd.Parameters.AddWithValue("@license", license.Text);
-                        con.Close();
-                        //loadingScreen();
-                    }
-                }
-                catch (Exception f)
-                {
-                    errorMessage = "Your computer is not connected to the internet.";
-                }
+                //Insert the user into the database.
+                string CmdString = $"INSERT INTO usertable VALUES ({username.Text}, {hashedPassword}, {license.Text})";
+                c.insertInto(CmdString);
+                loadingScreen();
 
             }
 
