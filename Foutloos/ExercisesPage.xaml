@@ -20,7 +20,6 @@
             <TextBlock x:Name="Exercise" HorizontalAlignment="Left" Margin="1521,271,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontFamily="Arial Rounded MT Bold" Height="35" Width="187"/>
             <TextBlock x:Name="level" HorizontalAlignment="Left" Margin="1521,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="20" Width="249"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
             <TextBox HorizontalAlignment="Left" Height="110" Margin="1516,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Visibility="Hidden"/>
-            <TextBlock HorizontalAlignment="Left" Margin="1521,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Text="Type #" FontSize="20" Width="87"/>
             <Label x:Name="WPM" Content="WPM:" HorizontalAlignment="Left" Margin="1521,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="69" FontSize="20" Visibility="Hidden"/>
             <Label Content="CPM:" HorizontalAlignment="Left" Margin="1521,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT" Height="42" Width="69" FontSize="20" Visibility="Hidden"/>
             <Label Content="Total Errors:" HorizontalAlignment="Left" Margin="1521,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="154" FontSize="20" Visibility="Hidden"/>
@@ -43,14 +42,6 @@
                     </ScrollViewer>
 
                 </TabItem>
-                <TabItem Header="Selected for you">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,-1,0,1">
-                        <Grid x:Name="Grid_Selected" ShowGridLines="False" Background="White">
-
-
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
                 <TabItem Header="Amateur">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Amateur" ShowGridLines="False" Background="White">
@@ -69,13 +60,6 @@
                 <TabItem Header="Expert">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Expert" ShowGridLines="False" Background="White">
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem Header="Finished">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="Grid_Finished" ShowGridLines="False" Background="White">
-
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
