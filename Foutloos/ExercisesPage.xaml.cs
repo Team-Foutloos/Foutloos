@@ -79,12 +79,7 @@ namespace Foutloos
             //The standard left and top margin are added for grid All.
             Grid_All.ShowGridLines = false;
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-            Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-
-            //The standard left and top margin are added for grid Selected for you.
-            Grid_Selected.ShowGridLines = false;
-            Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-            Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+            Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });                        
 
             //The standard left and top margin are added for grid Amateur.
             Grid_Amateur.ShowGridLines = false;
@@ -100,11 +95,7 @@ namespace Foutloos
             Grid_Expert.ShowGridLines = false;
             Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-
-            //The standard left and top margin are added for grid Finished.
-            Grid_Finished.ShowGridLines = false;
-            Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-            Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+            
 
             calculate(amount, "Grid_All");
             calculate(selected, "Grid_Selected");
@@ -132,12 +123,7 @@ namespace Foutloos
                 {
                     Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
                     Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_Selected")
-                {
-                    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
+                }                
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
@@ -152,11 +138,6 @@ namespace Foutloos
                 {
                     Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
                     Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_Finished")
-                {
-                    Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
                 }
 
             }
@@ -189,11 +170,6 @@ namespace Foutloos
                     Grid_All.Children.Add(b1);
                     b1.Click += (sender, e ) => B1_Click(sender, e, 3);
                 }
-                if (gridName == "Grid_Selected")
-                {
-                    Grid_Selected.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 5);
-                }
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.Children.Add(b1);
@@ -211,11 +187,6 @@ namespace Foutloos
                     Grid_Expert.Children.Add(b1);
                     b1.Click += (sender, e) => B1_Click(sender, e, 2);
                     b1.Background = Brushes.Red;
-                }
-                if (gridName == "Grid_Finished")
-                {
-                    Grid_Finished.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 4);
                 }
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
@@ -242,12 +213,6 @@ namespace Foutloos
                     Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
-                if (gridName == "Grid_Selected")
-                {
-                    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
@@ -264,12 +229,6 @@ namespace Foutloos
                 {
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_Finished")
-                {
-                    Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
 
