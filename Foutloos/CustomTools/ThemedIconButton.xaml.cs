@@ -38,7 +38,7 @@ namespace Foutloos
         public BitmapFrame DynamicIcon
         {
             get { return (BitmapFrame)GetValue(DynamicIconProperty); }
-            set { SetValue(DynamicIconProperty, value);  }
+            set { SetValue(DynamicIconProperty, value); IconImageDisplay.Source = DynamicIcon; }
         }
 
         public ThemedIconButton()
