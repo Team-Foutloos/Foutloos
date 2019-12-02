@@ -284,7 +284,7 @@ namespace Foutloos
             try
             {
                 //Setting the volume of the speech to the selected value (User input sliderVolume)
-                this.synthesizer.Volume = (int)sliderVolume.Value * 10;
+                this.synthesizer.Volume = (int)sliderVolume.Value;
             }
             catch
             {
