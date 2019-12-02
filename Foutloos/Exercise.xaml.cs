@@ -932,7 +932,7 @@ namespace Foutloos
             TimeSpan time = TimeSpan.FromSeconds(seconds);
             Time.Content = time.ToString("mm':'ss");
 
-            //Update cpm
+            //Update characters per minute
             CPM.Content = Convert.ToString((cpm * 60) / seconds);
 
             //Update words per minute
