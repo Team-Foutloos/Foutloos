@@ -159,7 +159,7 @@ namespace Foutloos.Modals
                 string hashedPassword = SecurePasswordHasher.Hash(password.Password);
 
                 //Insert the user into the database.
-                string CmdString = $"INSERT INTO usertable VALUES ({username.Text}, {hashedPassword}, {license.Text})";
+                string CmdString = $"INSERT INTO usertable VALUES ('{username.Text}', '{hashedPassword}', '{license.Text}')";
                 c.insertInto(CmdString);
                 loadingScreen();
 
