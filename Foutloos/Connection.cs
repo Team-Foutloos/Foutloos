@@ -40,5 +40,25 @@ namespace Foutloos
             return dataTable;
         }
 
+
+        public void insertInto(string query)
+        {
+                        
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionstring);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();                                
+                conn.Close();
+                
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("No connection or wrong query");
+            }
+           
+        }
+
+
     }
 }

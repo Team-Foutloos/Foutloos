@@ -174,6 +174,9 @@ namespace Foutloos
 
                 Grid.SetColumn(b1, j + 1);
 
+                
+                //iets met stackpanel
+
                 Grid.SetRow(b1, x);
                 b1.Background = Brushes.White;
                 b1.Name = $"E{i}";
