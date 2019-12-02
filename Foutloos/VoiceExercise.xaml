@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Foutloos"
       mc:Ignorable="d" 
+      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
       Title="VoiceExercise" Background="white" ShowsNavigationUI="False" HorizontalAlignment="Center" VerticalAlignment="Center">
     <Page.RenderTransform>
         <TransformGroup>
@@ -16,18 +18,21 @@
     </Page.RenderTransform>
 
 
-    <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <UserControl Loaded="UserControl_Loaded">
-            <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+    <UserControl Loaded="UserControl_Loaded">
+        <Viewbox StretchDirection="Both" Stretch="Uniform">
+            <Grid  HorizontalAlignment="Center" VerticalAlignment="Center" Width="1594">
+                <Grid.Background>
+                    <ImageBrush Opacity=".1" ImageSource="assets/background.png" Stretch="UniformToFill"/>
+                </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Name="inputText" FontSize="22" HorizontalAlignment="Center" Height="280" VerticalAlignment="Top" Width="1310" Margin="55,338,55,0" Background="#FFE8E8E8" />
-                <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1175,291,0,0" VerticalAlignment="Top" Width="190"/>
+                <ComboBox x:Name="comboVoice" HorizontalAlignment="Left" Margin="1263,292,0,0" VerticalAlignment="Top" Width="190"/>
 
                 <Label Height="28" HorizontalAlignment="Left"
-                        x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="57,285,0,0"/>
+                        x:Name="label1" VerticalAlignment="Top" Width="68" Content="Volume:" Margin="145,286,0,0"/>
                 <Slider Ticks="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
                         Value="10"
                         Delay="100"
@@ -37,7 +42,7 @@
                         Maximum="10"
                         Height="28" 
                         HorizontalAlignment="Left" 
-                        Margin="130,285,0,0"
+                        Margin="218,286,0,0"
                         x:Name="sliderVolume"
                         VerticalAlignment="Top"
                         Width="157"
@@ -57,8 +62,8 @@
 
                 </Grid>
                 <!-- Custom foutloos button made as a toolboxcontrol -->
-                <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1269,35,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
-                <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
+                <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1363,76,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png" RenderTransformOrigin="0.275,0.405"/>
+                <local:ThemedIconButton x:Name="HomeBTN" HorizontalAlignment="Left" Margin="40,76,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="HomeBTN_MouseDown"/>
                 <ProgressBar x:Name="ProgressBar" Foreground="DeepSkyBlue" HorizontalAlignment="Center" Height="13" Margin="66,618,66,0" VerticalAlignment="Top" Width="1310"/>
 
 
@@ -203,11 +208,12 @@
                     <Rectangle x:Name="KeySpace_Back" Height="20" Width="120" Fill="LightGray" RadiusY="5.333" RadiusX="5.333" Margin= "76,100,74,4"/>
                 </Grid>
                 <Label Content="Virtual Keyboard:" Height="30" Width="100" Margin="1215,660,127,206"/>
-                <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1322,646,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186" Toggled="True"/>
+                <local:ToggleButton x:Name="ToggleKeyboard" HorizontalAlignment="Left" Height="54" Margin="1391,646,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleKeyboard_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186" Toggled="True"/>
 
             </Grid>
-        </UserControl>
-    </Viewbox>
+        </Viewbox>
+    </UserControl>
+
 
 
 

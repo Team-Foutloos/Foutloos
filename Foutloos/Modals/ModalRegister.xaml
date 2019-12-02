@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:Foutloos"
+        xmlns:CustomTools="clr-namespace:Foutloos.CustomTools" 
         mc:Ignorable="d"
         ResizeMode="NoResize"
         AllowsTransparency="True"
@@ -155,10 +156,6 @@
                 <Label Foreground="Red" FontWeight="DemiBold" Name="ErrorMessage" HorizontalAlignment="Center" Margin="10,302,0,0" VerticalAlignment="Top" Width="276"/>
             </Grid>
         </Border>
-        <Border Name="loadingGrid" Width="0" Height="0" CornerRadius="360" BorderThickness="2" Background="White">
-                <Grid>
-                    <Image Name="loading" gif:ImageBehavior.AnimatedSource="/assets/loadingIndicator.gif" Margin="-36,-50,-36,-10" />
-                </Grid>
-            </Border>
+        <CustomTools:loadingIndicator x:Name="loadingGrid"/>
         </Grid>
 </Window>

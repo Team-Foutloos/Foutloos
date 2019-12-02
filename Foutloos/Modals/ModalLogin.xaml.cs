@@ -18,12 +18,10 @@ using System.Windows.Shapes;
 
 namespace Foutloos
 {
-    /// <summary>
-    /// Interaction logic for ModalLogin.xaml
-    /// </summary>
     public partial class ModalLogin : Window
     {
         private HomeScreen owner;
+        private Timer t;
         public ModalLogin(HomeScreen owner)
         {
             this.owner = owner;
@@ -49,7 +47,7 @@ namespace Foutloos
             storyboard.Begin();
 
             //Let the loadingscreen load for 1,5 seconds.
-            Timer t = new Timer(closeWindow, null, 1200, 1200);
+            t = new Timer(closeWindow, null, 1200, 1200);
 
 
         }
@@ -88,6 +86,9 @@ namespace Foutloos
                     {
                         con.Open();
                         SqlCommand insCmd = new SqlCommand(CmdString, con);
+
+                        //Set the max timeout of the sql command to 5.
+                        insCmd.CommandTimeout = 5;
                         // use sqlParameters to prevent sql injection!
                         insCmd.Parameters.AddWithValue("@username", username.Text);
                         insCmd.Parameters.AddWithValue("@password", hashedPassword);
