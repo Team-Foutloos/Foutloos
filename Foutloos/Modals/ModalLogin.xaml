@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:Foutloos"
-        xmlns:CustomTools="clr-namespace:Foutloos.CustomTools" x:Class="Foutloos.ModalLogin"
+        xmlns:CustomTools="clr-namespace:Foutloos.CustomTools"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
