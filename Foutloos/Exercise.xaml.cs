@@ -146,8 +146,9 @@ namespace Foutloos
                         textToSpeechActive = false;
                     }).Start();
 
-                    //Show text to speech label
+                    //Show text to speech label and combobox
                     TextToSpeech.Visibility = Visibility.Visible;
+                    Voice_ComboBox.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -661,12 +662,14 @@ namespace Foutloos
         //Speech toggle functionality
         private void ToggleSpeech_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(!exerciseFinished)
+            //Change label and combobox visibility based on the toggle and exercise progress
+            if(exerciseStarted)
             {
-                if (ToggleSpeech.Toggled && exerciseStarted)
+                if(ToggleSpeech.Toggled)
                 {
                     TextToSpeech.Visibility = Visibility.Visible;
                     Voice_ComboBox.Visibility = Visibility.Visible;
+
                     //Start text to speech
                     new Thread(() =>
                     {
@@ -675,9 +678,20 @@ namespace Foutloos
                         textToSpeechActive = false;
                     }).Start();
                 }
-                else if(exerciseStarted)
+                else
                 {
                     TextToSpeech.Visibility = Visibility.Hidden;
+                    Voice_ComboBox.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                if(ToggleSpeech.Toggled)
+                {
+                    Voice_ComboBox.Visibility = Visibility.Visible;
+                }
+                else
+                {
                     Voice_ComboBox.Visibility = Visibility.Hidden;
                 }
             }
