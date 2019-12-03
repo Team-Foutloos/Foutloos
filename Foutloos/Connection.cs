@@ -48,9 +48,9 @@ namespace Foutloos
             {
                 SqlConnection conn = new SqlConnection(connectionstring);
                 SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();                                
-                conn.Close();
-                
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();                
             }
             catch (Exception e)
             {
