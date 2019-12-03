@@ -102,22 +102,6 @@ namespace Foutloos.Modals
         }
 
         //Close the application
-        /*private void timerC(object state)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-
-                var image = new BitmapImage();
-
-                image.BeginInit();
-                image.UriSource = new Uri(@"assets/testimage.gif", UriKind.Relative);
-                image.EndInit();
-
-                ImageBehavior.SetAnimatedSource(loading, image);
-                ImageBehavior.SetRepeatBehavior(loading, new RepeatBehavior(5));
-                Timer t = new Timer(timerC, null, 1500, 1500);
-            });
-        }*/
         private void closeWindow(object state)
         {
             this.Dispatcher.Invoke(() =>

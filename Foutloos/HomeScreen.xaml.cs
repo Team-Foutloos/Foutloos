@@ -54,24 +54,10 @@ namespace Foutloos
         {
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
-                settingsBtn.DynamicTextIcon = "Account";
-                setButtonIcon("accountIconWhite.png");
+                
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
-                //seeProgressBtn.Visibility = Visibility.Visible;
             }
-            else
-            {
-                settingsBtn.DynamicTextIcon = "Settings";
-                setButtonIcon("settingsWhite.png");
-                //seeProgressBtn.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        public void setButtonIcon(string name)
-        {
-            //BitmapImage source = new BitmapImage();
-            settingsBtn.DynamicIcon = BitmapFrame.Create(new Uri($"pack://application:,,,/assets/{name}"));
         }
 
         //Boolean that becomes true in case an animation is still going on.
