@@ -662,6 +662,7 @@ namespace Foutloos
         //Speech toggle functionality
         private void ToggleSpeech_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //Change label and combobox visibility based on the toggle and exercise progress
             if(exerciseStarted)
             {
                 if(ToggleSpeech.Toggled)
