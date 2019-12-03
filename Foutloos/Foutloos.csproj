@@ -120,14 +120,8 @@
       <DependentUpon>YesCancelModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="SecurePasswordHasher.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CustomTools\ThemedIconButton.xaml.cs">
       <DependentUpon>ThemedIconButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Results.xaml.cs">
-      <DependentUpon>Results.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomTools\ThemedButton.xaml.cs">
       <DependentUpon>ThemedButton.xaml</DependentUpon>
@@ -135,7 +129,6 @@
     <Compile Include="CustomTools\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserExerciseResult.cs" />
     <Compile Include="VoiceExercise.xaml.cs">
       <DependentUpon>VoiceExercise.xaml</DependentUpon>
     </Compile>
@@ -195,14 +188,6 @@
     <Page Include="Modals\YesCancelModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Results.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="CustomTools\ToggleButton.xaml">
       <SubType>Designer</SubType>
