@@ -246,9 +246,6 @@ namespace Foutloos
                 {
                     DataRow exercise = exercises[difficulty][i];
                     this.Exercise.Text = $"Exercise {i+1}";
-                    this.wpm_number.Content = "0";
-                    this.cpm_number.Content = "0";
-                    this.error_number.Content = "0";
                     this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
                     this.level.Text = $"Level: {exercise["difficulty"]}";

@@ -10,6 +10,9 @@
       Title="ExercisesPage" Background="White">
     <Viewbox StretchDirection="Both" Stretch="Uniform">
         <Grid HorizontalAlignment="Right" Width="1900" Background="White" Height="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="Button_Click" FontFamily="Arial Rounded MT Bold" FontSize="30"/>
             <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="138" Margin="287,16,0,0" VerticalAlignment="Top" Width="244"/>
             <TextBlock HorizontalAlignment="Left" Margin="687,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="60" FontFamily="Arial Rounded MT Bold" Height="135" Width="637"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
@@ -20,13 +23,6 @@
             <TextBlock x:Name="Exercise" HorizontalAlignment="Left" Margin="1521,271,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontFamily="Arial Rounded MT Bold" Height="35" Width="187"/>
             <TextBlock x:Name="level" HorizontalAlignment="Left" Margin="1521,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="20" Width="249"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
             <TextBox HorizontalAlignment="Left" Height="110" Margin="1516,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Visibility="Hidden"/>
-            <Label x:Name="WPM" Content="WPM:" HorizontalAlignment="Left" Margin="1521,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="69" FontSize="20" Visibility="Hidden"/>
-            <Label Content="CPM:" HorizontalAlignment="Left" Margin="1521,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT" Height="42" Width="69" FontSize="20" Visibility="Hidden"/>
-            <Label Content="Total Errors:" HorizontalAlignment="Left" Margin="1521,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="154" FontSize="20" Visibility="Hidden"/>
-            <Label x:Name="wpm_number" Content="0" HorizontalAlignment="Left" Margin="1747,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="33" FontSize="20" Visibility="Hidden"/>
-            <Label x:Name="cpm_number" Content="0" HorizontalAlignment="Left" Margin="1747,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="51" FontSize="20" Visibility="Hidden"/>
-            <Label x:Name="error_number" Content="0" HorizontalAlignment="Left" Margin="1747,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="23" FontSize="20" Visibility="Hidden"/>
-            <TextBlock HorizontalAlignment="Left" Margin="1516,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" Height="27" Width="197" FontSize="25" Visibility="Hidden"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
             <Viewbox HorizontalAlignment="Left" Height="100" Margin="1530,655,0,0" VerticalAlignment="Top" Width="100"/>
             <TabControl HorizontalAlignment="Left" Height="771" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
                 <TabItem Header="All" Height="22" VerticalAlignment="Top">

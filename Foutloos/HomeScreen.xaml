@@ -48,9 +48,6 @@
                     <RowDefinition Height="274*"/>
                 </Grid.RowDefinitions>
 
-                <!--The settings button, it is a textblock wrapped inside of a border-->
-                <local:ThemedIconButton Visibility="Hidden" x:Name="settingsBtn" PreviewMouseDown="SettingsBtn_PreviewMouseDown" DynamicTextIcon="Settings" DynamicIcon="assets/settingsWhite.png" Grid.Column="2" Margin="10.5,44,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="60" Width="216" Grid.RowSpan="2" />
-
                 <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="100" Margin="0,51,10.5,31" Width="926">
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="107" Margin="42,0,777,0"/>
                     <Label Padding="0" Name="Title" Content="Start Typing!" FontSize="60" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" />
@@ -88,7 +85,6 @@
 
 
                 </Grid>
-                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328,114,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress" PreviewMouseDown="seeProgressBtn_PreviewMouseDown"/>
                 
 
 
