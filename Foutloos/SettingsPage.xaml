@@ -20,15 +20,15 @@
             <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="125,125,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="25" Foreground="Black"/>
             <Grid x:Name="gridGeneral" Width="1250" Height="300" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="125,170,20,0">
                 <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" />
-                <Grid Name="gridloggedOut" Visibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="1250" Height="300">
-                    <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Stretch" Width="120" Height="40" FontSize="25" Margin="25,125"/>
-                    <Label Content="or" HorizontalAlignment="Stretch" Margin="150, 125" Width="auto" Height="40" FontSize="24" />
-                    <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Stretch" Width="220" Height="40" FontSize="24" Margin="185,125"/>
-                    <Label Content="to see acount details" HorizontalAlignment="Stretch" Margin="410,125" Width="auto" Height="40" FontSize="24" />
+                <Grid Name="gridloggedOut" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="300">
+                    <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="25" Margin="25,125"/>
+                    <Label Content="or" HorizontalAlignment="Left" Margin="150, 125" Width="auto" Height="40" FontSize="24" />
+                    <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="24" Margin="185,125"/>
+                    <Label Content="to see acount details" HorizontalAlignment="Left" Margin="410,125" Width="auto" Height="40" FontSize="24" />
                 </Grid>
-                <Grid Name="gridloggedIn" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="1250" Height="300">
-                    <Label x:Name="lblUsername" Content="Username:" FontSize="25" HorizontalAlignment="Stretch" Margin="25,80,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="lblEmail" Content="Email:" FontSize="25" HorizontalAlignment="Stretch" Margin="25,160,0,0" VerticalAlignment="Top"/>
+                <Grid Name="gridloggedIn" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="300">
+                    <Label x:Name="lblUsername" Content="Username:" FontSize="25" HorizontalAlignment="Left" Margin="25,80,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="lblEmail" Content="Email:" FontSize="25" HorizontalAlignment="Left" Margin="25,160,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="25" Width="450" Margin="175,85,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtEmail" HorizontalAlignment="Left" FontSize="25" Width="450" Margin="175,165,0,0" TextWrapping="Wrap" Text="Placeholder@adress.com" VerticalAlignment="Top"/>
                     <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="220" Height="40" FontSize="25" Margin="20,220,0,0"/>
