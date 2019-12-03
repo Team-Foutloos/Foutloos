@@ -74,6 +74,7 @@ namespace Foutloos
 
             //Show keyboard
             UserInput_TextBox.Margin = userInput_WithKeyboard;
+            overlayTextBox.Margin = userInput_WithKeyboard;
             Test.Visibility = Visibility.Visible;
 
             //Save remaining exercise text into variable
@@ -109,7 +110,7 @@ namespace Foutloos
 
             //Change text shown on screen
             TextToSpeech.Visibility = Visibility.Visible;
-            TextToSpeech.Content = "Press any key to start the exercise";
+            TextToSpeech.Content = "";
         }
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -117,6 +118,7 @@ namespace Foutloos
             //If the exercise is not started yet, show the countdown and start the exercise.
             if (!exerciseStarted)
             {
+                overlayTextBox.Visibility = Visibility.Hidden;
                 UIElement rootVisual = this.Content as UIElement;
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
                 if (rootVisual != null && adornerLayer != null)
@@ -643,6 +645,7 @@ namespace Foutloos
             {
                 //Change user input box margin and text to speech margin
                 UserInput_TextBox.Margin = userInput_WithKeyboard;
+                overlayTextBox.Margin = userInput_WithKeyboard;
                 TextToSpeech.Margin = textToSpeechKeyboardOn;
                 Test.Visibility = Visibility.Visible;
             }
@@ -650,6 +653,7 @@ namespace Foutloos
             {
                 //Hide keyboard
                 UserInput_TextBox.Margin = userInput_WithoutKeyboard;
+                overlayTextBox.Margin = userInput_WithoutKeyboard;
                 TextToSpeech.Margin = textToSpeechKeyboardOff;
                 Test.Visibility = Visibility.Hidden;
             }
