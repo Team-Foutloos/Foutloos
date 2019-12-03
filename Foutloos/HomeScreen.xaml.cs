@@ -200,11 +200,6 @@ namespace Foutloos
             }
         }
 
-        private void settings_Click(object sender, RoutedEventArgs e)
-        {
-            Connection c = new Connection();
-           
-        }
 
         private void AllExercisesBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -219,15 +214,6 @@ namespace Foutloos
         private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new Modals.ModalRegister());
-        }
-
-        private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //Here comes the reference to the settings page
-        }
-        private void seeProgressBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.MainWindow.Content = new Results();
         }
     }
 
