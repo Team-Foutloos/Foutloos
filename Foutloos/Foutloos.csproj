@@ -84,10 +84,10 @@
       <DependentUpon>Countdown.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomTools\DarkerBackground.cs" />
-    <Compile Include="FoutloosButton.xaml.cs">
-      <DependentUpon>FoutloosButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Connection.cs" />
+    <Compile Include="Modals\ResultsAfterExercise.xaml.cs">
+      <DependentUpon>ResultsAfterExercise.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modals\YesCancelModal.xaml.cs">
       <DependentUpon>YesCancelModal.xaml</DependentUpon>
     </Compile>
@@ -127,10 +127,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FoutloosButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="HomeScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +157,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modals\ModalLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modals\ResultsAfterExercise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

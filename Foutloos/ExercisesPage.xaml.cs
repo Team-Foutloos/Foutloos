@@ -299,56 +299,32 @@ namespace Foutloos
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.Content = new HomeScreen();
-        }
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
        
-
-        //private void FillDataGrid()
-        //{
-
-        //    //query that is being executed and being shows in a Table in the application.
-        //    List<List<object>> result = c.QueryDataExercisesTable("SELECT * FROM Exercises");
-        //    string waardes = "";
-
-        //    for (int i = 0; i < result.Count; i++)
-        //    {
-        //        for (int x = 0; x < result[i].Count; x++)
-        //        {
-        //            waardes += result[i][x] + " ";
-        //        }
-        //    }
-
-
-
-        //}
-
         private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Application.Current.MainWindow.Content = new HomeScreen();
+        }
 
+        private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
             if (Text.IsChecked == true)
             {
-                Application.Current.MainWindow.Content = new Exercise(tekst, true);                
+                Application.Current.MainWindow.Content = new Exercise(tekst, true);
             }
             else
             {
                 Application.Current.MainWindow.Content = new VoiceExercise(tekst);
             }
-
-            
         }
-        
     }
 }

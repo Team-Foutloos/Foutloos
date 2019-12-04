@@ -10,49 +10,74 @@
       
       Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
       Width="{x:Static SystemParameters.PrimaryScreenWidth}">
-
+    <Page.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Page.RenderTransform>
     <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <Grid Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="White" Width="650" Height="100" Margin="125,10,0,0">
-                <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Center" Width="100"/>
-                <Label Name="Title" Content="Hello!" FontSize="70" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Top" Height="100" Width="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
-            </Grid>
-            <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="125,125,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="25" Foreground="Black"/>
-            <Grid x:Name="gridGeneral" Width="1250" Height="300" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="125,170,20,0">
-                <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" />
-                <Grid Name="gridloggedOut" Visibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="1250" Height="300">
-                    <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Stretch" Width="120" Height="40" FontSize="25" Margin="25,125"/>
-                    <Label Content="or" HorizontalAlignment="Stretch" Margin="150, 125" Width="auto" Height="40" FontSize="24" />
-                    <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Stretch" Width="220" Height="40" FontSize="24" Margin="185,125"/>
-                    <Label Content="to see acount details" HorizontalAlignment="Stretch" Margin="410,125" Width="auto" Height="40" FontSize="24" />
+        <Grid Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+            <Grid.Background>
+                <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
+                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+            </Grid.Background>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <RectAnimation Storyboard.TargetProperty="Background.Viewport"
+                                   To="-1024,-768,1024,768" Duration="0:0:40" 
+                                   RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+            <Grid>
+                <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="89" Margin="373,21,443.2,0">
+                    <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Center" Width="100"/>
+                    <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Top" Height="100" Width="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
                 </Grid>
-                <Grid Name="gridloggedIn" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="1250" Height="300">
-                    <Label x:Name="lblUsername" Content="Username:" FontSize="25" HorizontalAlignment="Stretch" Margin="25,80,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="lblEmail" Content="Email:" FontSize="25" HorizontalAlignment="Stretch" Margin="25,160,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="25" Width="450" Margin="175,85,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtEmail" HorizontalAlignment="Left" FontSize="25" Width="450" Margin="175,165,0,0" TextWrapping="Wrap" Text="Placeholder@adress.com" VerticalAlignment="Top"/>
-                    <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="220" Height="40" FontSize="25" Margin="20,220,0,0"/>
-                    <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="120" Height="40" FontSize="25" Margin="0,220,20,0"/>
+                <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="20,131,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="Black"/>
+                <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,170,19.6,0">
+                    <Grid Name="gridloggedOut" Background="White" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
+                        <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
+                        <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80"/>
+                        <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
+                        <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80"/>
+                        <Label Content="to see acount details" HorizontalAlignment="Left" Margin="711,70,0,80" Width="auto" Height="40" FontSize="20" />
+                    </Grid>
+                    <Grid Name="gridloggedIn" Background="White" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
+                        <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
+                        <Label x:Name="lblUsername" Content="Username:" FontSize="20" HorizontalAlignment="Left" Margin="25,40,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="lblEmail" Content="Email:" FontSize="20" HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,40,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,100,0,0" TextWrapping="Wrap" Text="Placeholder@adress.com" VerticalAlignment="Top"/>
+                        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0"/>
+                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Label x:Name="lblSettings" Content="General Information" HorizontalAlignment="Left" Margin="125,485,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="25" Foreground="#000000"/>
-            <Grid x:Name="gridSettings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="400" Width="650" Margin="125,520,0,20">
-                <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" />
-                <Label Content="Dyslectic mode" FontSize="25" HorizontalAlignment="Left" Margin="25,50,0,0" VerticalAlignment="Top"/>
-                <local:ToggleButton HorizontalAlignment="Left" Height="75" Margin="350,40,0,0" VerticalAlignment="Top" Width="75"/>
-                <Label Content="Darkmode" FontSize="25" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top"/>
-                <local:ToggleButton HorizontalAlignment="Left" Height="75" Margin="350,115,0,0" VerticalAlignment="Top" Width="75"/>
-                <Label Content="Speed notation" FontSize="25" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top"/>
-                <RadioButton Content="Words per minute" FontSize="25"  HorizontalAlignment="Left" Margin="118,260,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
-                <RadioButton Content="Characters per minute" FontSize="25"  HorizontalAlignment="Left" Margin="118,300,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+                <Label x:Name="lblSettings" Content="General Information" HorizontalAlignment="Left" Margin="20,370,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
+                <Grid x:Name="gridSettings" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="290" Width="475" Margin="25,410,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="13*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Grid.ColumnSpan="3" />
+                    <Label Content="Dyslectic mode" FontSize="20" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <local:ToggleButton HorizontalAlignment="Left" Height="75" Margin="238,0,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
+                    <Label Content="Darkmode" FontSize="20" HorizontalAlignment="Left" Margin="25,72,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <local:ToggleButton HorizontalAlignment="Left" Height="75" Margin="238,56,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
+                    <Label Content="Speed notation" FontSize="20" HorizontalAlignment="Left" Margin="23,146,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <RadioButton Content="Words per minute" FontSize="20"  HorizontalAlignment="Left" Margin="6,188,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0" Grid.Column="2"/>
+                    <RadioButton Content="Characters per minute" FontSize="20"  HorizontalAlignment="Left" Margin="6,230,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0" Grid.Column="2"/>
 
+                </Grid>
+                <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90"/>
             </Grid>
-            <Grid x:Name="SettingBottem" Height="auto" VerticalAlignment="Bottom">
-                <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,10,10,10" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="180" Height="90"/>
-            </Grid>
-            
-
         </Grid>
-
     </Viewbox>
 </Page>
