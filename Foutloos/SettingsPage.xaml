@@ -11,23 +11,26 @@
       Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
       Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <Grid Background="White" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
-
+        <Grid Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+            <Grid.Background>
+                <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
+                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+            </Grid.Background>
             <Grid>
-                <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="White" Height="89" Margin="373,21,443.2,0">
+                <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="89" Margin="373,21,443.2,0">
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Center" Width="100"/>
                     <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Top" Height="100" Width="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
                 </Grid>
                 <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="20,131,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="Black"/>
-                <Grid x:Name="gridGeneral" Width="1250" Height="199" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,170,19.6,0">
-                    <Grid Name="gridloggedOut" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="10,0,-10,-100">
+                <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,170,19.6,0">
+                    <Grid Name="gridloggedOut" Background="White" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,-10,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80"/>
                         <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
                         <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80"/>
                         <Label Content="to see acount details" HorizontalAlignment="Left" Margin="711,70,0,80" Width="auto" Height="40" FontSize="20" />
                     </Grid>
-                    <Grid Name="gridloggedIn" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
+                    <Grid Name="gridloggedIn" Background="White" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Label x:Name="lblUsername" Content="Username:" FontSize="20" HorizontalAlignment="Left" Margin="25,40,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="lblEmail" Content="Email:" FontSize="20" HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top"/>
@@ -38,7 +41,7 @@
                     </Grid>
                 </Grid>
                 <Label x:Name="lblSettings" Content="General Information" HorizontalAlignment="Left" Margin="20,370,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
-                <Grid x:Name="gridSettings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="290" Width="475" Margin="20,410,0,0">
+                <Grid x:Name="gridSettings" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="290" Width="475" Margin="25,410,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0*"/>
                         <ColumnDefinition Width="4*"/>
