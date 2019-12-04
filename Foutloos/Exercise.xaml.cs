@@ -65,8 +65,7 @@ namespace Foutloos
         //Boolean for spellchecking special characters
         bool specialCharacters;
         
-        public Exercise(string text)
-        {
+        public Exercise(string text, bool sc) { 
             InitializeComponent();
 
             //Set users focus on the users inputbox
