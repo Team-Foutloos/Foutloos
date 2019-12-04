@@ -58,8 +58,10 @@ namespace Foutloos
         bool textToSpeechActive = false;
         //Create a bool to see if the exercise is started.
         bool exerciseStarted = false;
+        //Boolean for spellchecking special characters
+        bool specialCharacters;
         
-        public Exercise(string text)
+        public Exercise(string text, bool sc)
         {
             InitializeComponent();
 
@@ -68,6 +70,9 @@ namespace Foutloos
 
             //Show exercise text on the page
             this.exerciseText = text;
+
+            //Save bool for special characters
+            specialCharacters = sc;
 
             //Set progressbar maximum value
             ProgressBar.Maximum = exerciseText.Length;
@@ -514,8 +519,18 @@ namespace Foutloos
                 //Update characters per minute
                 cpm++;
 
+                //Check for spellcheck special characters
+                string nextChar = exerciseStringLeft.First().ToString();
+                if(!specialCharacters)
+                {
+                    if(exerciseStringLeft.First() == 129)
+                    {
+                        nextChar = "ü";
+                    }
+                }
+
                 //Check if the user's input is correct
-                if (e.Text == exerciseStringLeft.First().ToString())
+                if (e.Text == nextChar)
                 {
                     //Used for saving user's mistakes
                     mistake = false;
