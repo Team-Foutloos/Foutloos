@@ -1,0 +1,86 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Foutloos.Modals"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:Foutloos="clr-namespace:Foutloos" x:Class="Foutloos.Modals.ResultsAfterExercise"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="ResultsAfterExercise" Height="600" Width="1000">
+    <Grid HorizontalAlignment="Center">
+        <Grid>
+            <Label FontWeight="SemiBold" FontSize="25" Content="Results" Foreground="White" HorizontalAlignment="Left" Margin="156,18,0,0" VerticalAlignment="Top"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="353" Margin="402,46,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
+            <Label FontWeight="SemiBold" FontSize="25" Content="Previous results" Foreground="White" HorizontalAlignment="Left" Margin="532,18,0,0" VerticalAlignment="Top"/>
+            <Foutloos:ThemedButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Continue" Margin="0,0,20,20" PreviewMouseDown="ThemedButton_PreviewMouseDown"/>
+            <Foutloos:ThemedButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Go Back" Margin="20,0,0,20" PreviewMouseDown="ThemedButton_PreviewMouseDown_1"/>
+            <Grid Margin="0,0,0,0">
+                <Label Name="wordspm_label" FontSize="20" Foreground="white" Content="Words per minute: " HorizontalAlignment="Left" Margin="67,110,0,0" VerticalAlignment="Top"/>
+                <Label Name="charspm_label" FontSize="20" Foreground="white" Content="Characters per minute: " HorizontalAlignment="Left" Margin="31,152,0,0" VerticalAlignment="Top"/>
+                <Label Name="time_label" FontSize="20" Foreground="white" Content="Time: " HorizontalAlignment="Left" Margin="183,194,0,0" VerticalAlignment="Top"/>
+                <Label Name="error_label" FontSize="20" Foreground="white" Content="Errors: " HorizontalAlignment="Left" Margin="174,236,0,0" VerticalAlignment="Top"/>
+                <Label Name="accuracy_label" FontSize="20" Foreground="white" Content="Accuracy: " HorizontalAlignment="Left" Margin="147,273,0,0" VerticalAlignment="Top"/>
+
+                <Grid>
+                    <Grid.Resources>
+                        <Style x:Key="NullLegendItem" TargetType="chartingToolkit:LegendItem" >
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="chartingToolkit:LegendItem" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <LinearGradientBrush x:Key="NormalBrush" EndPoint="1,0" StartPoint="0,0">
+                            <GradientStop Color="Transparent" />
+                        </LinearGradientBrush>
+                        <Style x:Key="PlotAreaStyle" TargetType="{x:Type Grid}">
+                            <Setter Property="Background" Value="{StaticResource NormalBrush}"/>
+                        </Style>
+                        <Brush x:Key="MyColumnColor">White</Brush>
+                        <!--Style override-->
+                        <Style x:Key="MyColumnDataPointStyle"
+                   TargetType="{x:Type chartingToolkit:LineDataPoint}">
+                            <Setter Property="Background"
+                    Value="{StaticResource MyColumnColor}" />
+                            <Setter Property="BorderBrush"
+                    Value="Black" />
+                            <Setter Property="BorderThickness"
+                    Value="0" />
+                        </Style>
+                    </Grid.Resources>
+                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="pointChart" Foreground="White" Margin="0,315,516.333,85">
+                        <chartingToolkit:LineSeries LegendItemStyle="{StaticResource NullLegendItem}" Background="Transparent" Foreground="White" Name="LineWPM" Title="WPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}">
+                            <chartingToolkit:LineSeries.DataPointStyle>
+                                <Style TargetType="chartingToolkit:LineDataPoint">
+                                    <Setter Property="Opacity" Value="0"/>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Setter Property="Background" Value="DeepSkyBlue"/>
+                                </Style>
+                            </chartingToolkit:LineSeries.DataPointStyle>
+                        </chartingToolkit:LineSeries>
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="CPMchart" Foreground="White" Margin="193,315,323.333,85">
+                        <chartingToolkit:LineSeries LegendItemStyle="{StaticResource NullLegendItem}" Background="Transparent" Foreground="White" Name="LineCPM" Title="CPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}">
+                            <chartingToolkit:LineSeries.DataPointStyle>
+                                <Style TargetType="chartingToolkit:LineDataPoint">
+                                    <Setter Property="Opacity" Value="0"/>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Setter Property="Background" Value="DeepSkyBlue"/>
+                                </Style>
+                            </chartingToolkit:LineSeries.DataPointStyle>
+                        </chartingToolkit:LineSeries>
+                    </chartingToolkit:Chart>
+                    <Label Content="WPM" Foreground="White" FontSize="25" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="40,315,0,0" VerticalAlignment="Top"/>
+                    <Label Content="CPM" Foreground="White" FontSize="25" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="233,315,0,0" VerticalAlignment="Top"/>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

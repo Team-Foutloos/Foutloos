@@ -89,7 +89,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise("Random text");
+                Application.Current.MainWindow.Content = new Exercise("A musician must make music, an artist must paint, a poet must write, if he is to be ultimately at peace with himself. What a man can be, he must be");
             }
             
         }

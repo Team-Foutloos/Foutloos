@@ -58,6 +58,9 @@ namespace Foutloos
         bool textToSpeechActive = false;
         //Create a bool to see if the exercise is started.
         bool exerciseStarted = false;
+        //Add a list to save the wpm and time
+        List<int> wpmTimeList = new List<int>() {0};
+        List<int> cpmTimeList = new List<int>() {0};
 
         public Exercise(string text)
         {
@@ -118,7 +121,6 @@ namespace Foutloos
             //If the exercise is not started yet, show the countdown and start the exercise.
             if (!exerciseStarted)
             {
-                overlayTextBox.Visibility = Visibility.Hidden;
                 UIElement rootVisual = this.Content as UIElement;
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
                 if (rootVisual != null && adornerLayer != null)
@@ -130,6 +132,7 @@ namespace Foutloos
                     Modals.Countdown countdown = new Modals.Countdown();
                     countdown.ShowDialog();
                     adornerLayer.Remove(darkenAdorner);
+                    overlayTextBox.Visibility = Visibility.Hidden;
                 }
                 //Turn the exercisStarted to true, so that when the user returns from the modal, the exersice starts.
                 exerciseStarted = true;
@@ -452,21 +455,7 @@ namespace Foutloos
                             //Set progressbar value
                             ProgressBar.Value++;
 
-                            //Check if the exercise is finished
-                            if (exerciseStringLeft.Length == 0)
-                            {
-                                //Change exercise text when exercise is finished
-                                timer.Stop();
-                                exerciseFinished = true;
-                                Exercise_TextBlock.Text = "";
-                                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
-
-                                //Hide text to speech element
-                                TextToSpeech.Visibility = Visibility.Hidden;
-
-                                //Change progressbar when the exercise is finished
-                                ProgressBar.Foreground = Brushes.Green;
-                            }
+           
                         }
                         else
                         {
@@ -505,6 +494,7 @@ namespace Foutloos
                     Exercise_TextBlock.Text = "";
                     Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
                     e.Handled = true;
+
                 }
             }
         }
@@ -559,6 +549,36 @@ namespace Foutloos
 
                         //Change progressbar when the exercise is finished
                         ProgressBar.Foreground = Brushes.Green;
+
+
+                        //Show the results
+                        UIElement rootVisual = this.Content as UIElement;
+                        AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                        int wordspm;
+                        int charspm;
+                        double accuracy =((((double) exerciseText.Length - (double) mistakes) / (double) exerciseText.Length) * 100);
+
+
+
+                        //If the seconds is higher then 0, divide by seconds.
+                        if (seconds > 0)
+                        {
+                            wordspm = (wpm * 60) / seconds;
+                            charspm = (cpm * 60) / seconds;
+                        }
+                        else
+                        {
+                            wordspm = (wpm * 60);
+                            charspm = (cpm * 60);
+                        }
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList);
+                        if (rootVisual != null && adornerLayer != null)
+                        {
+                            CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
+                            adornerLayer.Add(darkenAdorner);
+                            results.ShowDialog();
+                        }
+
                     }
                 }
                 else
@@ -952,9 +972,14 @@ namespace Foutloos
 
             //Update characters per minute
             CPM.Content = Convert.ToString((cpm * 60) / seconds);
+            //Add cpm to the list
+            cpmTimeList.Add((cpm * 60) / seconds);
+
 
             //Update words per minute
             WPM.Content = Convert.ToString((wpm * 60) / seconds);
+            //Add wpm to the list
+            wpmTimeList.Add((wpm * 60) / seconds);
 
             //Update mistake counter
             Error.Content = Convert.ToString(mistakes);
