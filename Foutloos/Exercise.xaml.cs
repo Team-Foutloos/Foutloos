@@ -527,6 +527,7 @@ namespace Foutloos
                     {
                         nextChar = "ü";
                     }
+                    else if(exerciseStringLeft.First() == 129)
                 }
 
                 //Check if the user's input is correct
