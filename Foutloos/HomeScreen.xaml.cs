@@ -232,7 +232,7 @@ namespace Foutloos
 
         private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ShowModal(new Modals.ModalRegister());
+            ShowModal(new Modals.ModalRegister(this));
         }
 
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)

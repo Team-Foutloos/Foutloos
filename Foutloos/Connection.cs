@@ -41,7 +41,7 @@ namespace Foutloos
         }
 
 
-        public void insertInto(string query)
+        public bool insertInto(string query)
         {
                         
             try
@@ -50,11 +50,13 @@ namespace Foutloos
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                conn.Close();                
+                conn.Close();
+                return true;
             }
             catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show("No connection or wrong query");
+                return false;
             }
            
         }

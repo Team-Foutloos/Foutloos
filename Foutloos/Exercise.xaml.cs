@@ -21,7 +21,7 @@ namespace Foutloos
     public partial class Exercise : Page
     {
         //Exercise text
-        private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";       
+        private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
         //String used to determine which characters are left in the exercise
         private string exerciseStringLeft;
         //String used to save users correct input
@@ -58,11 +58,14 @@ namespace Foutloos
         bool textToSpeechActive = false;
         //Create a bool to see if the exercise is started.
         bool exerciseStarted = false;
+        //Add a list to save the wpm and time
+        List<int> wpmTimeList = new List<int>() {0};
+        List<int> cpmTimeList = new List<int>() {0};
+
         //Boolean for spellchecking special characters
         bool specialCharacters;
         
-        public Exercise(string text, bool sc)
-        {
+        public Exercise(string text, bool sc) { 
             InitializeComponent();
 
             //Set users focus on the users inputbox
@@ -79,6 +82,7 @@ namespace Foutloos
 
             //Show keyboard
             UserInput_TextBox.Margin = userInput_WithKeyboard;
+            overlayTextBox.Margin = userInput_WithKeyboard;
             Test.Visibility = Visibility.Visible;
 
             //Save remaining exercise text into variable
@@ -114,7 +118,7 @@ namespace Foutloos
 
             //Change text shown on screen
             TextToSpeech.Visibility = Visibility.Visible;
-            TextToSpeech.Content = "Press any key to start the exercise";
+            TextToSpeech.Content = "";
         }
 
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -133,6 +137,7 @@ namespace Foutloos
                     Modals.Countdown countdown = new Modals.Countdown();
                     countdown.ShowDialog();
                     adornerLayer.Remove(darkenAdorner);
+                    overlayTextBox.Visibility = Visibility.Hidden;
                 }
                 //Turn the exercisStarted to true, so that when the user returns from the modal, the exersice starts.
                 exerciseStarted = true;
@@ -141,7 +146,7 @@ namespace Foutloos
                 e.Handled = true;
 
                 //Start text to speech if the toggle is enabled
-                if(ToggleSpeech.Toggled)
+                if (ToggleSpeech.Toggled)
                 {
                     //Start text to speech
                     new Thread(() =>
@@ -151,8 +156,9 @@ namespace Foutloos
                         textToSpeechActive = false;
                     }).Start();
 
-                    //Show text to speech label
+                    //Show text to speech label and combobox
                     TextToSpeech.Visibility = Visibility.Visible;
+                    Voice_ComboBox.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -169,212 +175,212 @@ namespace Foutloos
                     timerStarted = true;
                 }
 
-            //Functionality Toggle Keyboard
-            //Check if toggle is true
-            if (ToggleKeyboard.Toggled)
-            {
-                //Check which key is pressed
-                if (e.Key == Key.D1)
+                //Functionality Toggle Keyboard
+                //Check if toggle is true
+                if (ToggleKeyboard.Toggled)
                 {
-                    Key1_Back.Fill = Brushes.Black;
+                    //Check which key is pressed
+                    if (e.Key == Key.D1)
+                    {
+                        Key1_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D2)
+                    {
+                        Key2_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D3)
+                    {
+                        Key3_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D4)
+                    {
+                        Key4_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D5)
+                    {
+                        Key5_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D6)
+                    {
+                        Key6_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D7)
+                    {
+                        Key7_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D8)
+                    {
+                        Key8_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D9)
+                    {
+                        Key9_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D0)
+                    {
+                        Key0_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.OemMinus)
+                    {
+                        KeyDash_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.Q)
+                    {
+                        Keyq_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.W)
+                    {
+                        Keyw_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.E)
+                    {
+                        Keye_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.R)
+                    {
+                        Keyr_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.T)
+                    {
+                        Keyt_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.Y)
+                    {
+                        Keyy_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.U)
+                    {
+                        Keyu_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.I)
+                    {
+                        Keyi_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.O)
+                    {
+                        Keyo_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.P)
+                    {
+                        Keyp_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.A)
+                    {
+                        Keya_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.S)
+                    {
+                        Keys_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.D)
+                    {
+                        Keyd_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.F)
+                    {
+                        Keyf_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.G)
+                    {
+                        Keyg_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.H)
+                    {
+                        Keyh_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.J)
+                    {
+                        Keyj_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.K)
+                    {
+                        Keyk_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.L)
+                    {
+                        Keyl_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.Oem1)
+                    {
+                        KeyColon_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.Oem7)
+                    {
+                        KeyAccolade_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.LeftShift)
+                    {
+                        KeyShift_Back.Fill = Brushes.Black;
+                        Key1_Text.Text = "!";
+                        Key2_Text.Text = "@";
+                        Key3_Text.Text = "#";
+                        Key4_Text.Text = "$";
+                        Key5_Text.Text = "%";
+                        Key6_Text.Text = "^";
+                        Key7_Text.Text = "&";
+                        Key8_Text.Text = "*";
+                        Key9_Text.Text = "(";
+                        Key0_Text.Text = ")";
+                        KeyDash_Text.Text = "_";
+                        KeyColon_Text.Text = ":";
+                        KeyAccolade_Text.Text = "\"";
+                        KeyComma_Text.Text = "<";
+                        KeyDot_Text.Text = ">";
+                        KeySlash_Text.Text = "?";
+                    }
+                    else if (e.Key == Key.Z)
+                    {
+                        Keyz_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.X)
+                    {
+                        Keyx_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.C)
+                    {
+                        Keyc_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.V)
+                    {
+                        Keyv_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.B)
+                    {
+                        Keyb_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.N)
+                    {
+                        Keyn_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.M)
+                    {
+                        Keym_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.OemComma)
+                    {
+                        KeyComma_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.OemPeriod)
+                    {
+                        KeyDot_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.Oem2)
+                    {
+                        KeySlash_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.LeftCtrl)
+                    {
+                        KeyControl_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.LeftAlt)
+                    {
+                        KeyAlt_Back.Fill = Brushes.Black;
+                    }
+                    else if (e.Key == Key.Space)
+                    {
+                        KeySpace_Back.Fill = Brushes.Black;
+                    }
                 }
-                else if (e.Key == Key.D2)
-                {
-                    Key2_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D3)
-                {
-                    Key3_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D4)
-                {
-                    Key4_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D5)
-                {
-                    Key5_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D6)
-                {
-                    Key6_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D7)
-                {
-                    Key7_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D8)
-                {
-                    Key8_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D9)
-                {
-                    Key9_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D0)
-                {
-                    Key0_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.OemMinus)
-                {
-                    KeyDash_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.Q)
-                {
-                    Keyq_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.W)
-                {
-                    Keyw_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.E)
-                {
-                    Keye_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.R)
-                {
-                    Keyr_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.T)
-                {
-                    Keyt_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.Y)
-                {
-                    Keyy_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.U)
-                {
-                    Keyu_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.I)
-                {
-                    Keyi_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.O)
-                {
-                    Keyo_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.P)
-                {
-                    Keyp_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.A)
-                {
-                    Keya_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.S)
-                {
-                    Keys_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.D)
-                {
-                    Keyd_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.F)
-                {
-                    Keyf_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.G)
-                {
-                    Keyg_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.H)
-                {
-                    Keyh_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.J)
-                {
-                    Keyj_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.K)
-                {
-                    Keyk_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.L)
-                {
-                    Keyl_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.Oem1)
-                {
-                    KeyColon_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.Oem7)
-                {
-                    KeyAccolade_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.LeftShift)
-                {
-                    KeyShift_Back.Fill = Brushes.Black;
-                    Key1_Text.Text = "!";
-                    Key2_Text.Text = "@";
-                    Key3_Text.Text = "#";
-                    Key4_Text.Text = "$";
-                    Key5_Text.Text = "%";
-                    Key6_Text.Text = "^";
-                    Key7_Text.Text = "&";
-                    Key8_Text.Text = "*";
-                    Key9_Text.Text = "(";
-                    Key0_Text.Text = ")";
-                    KeyDash_Text.Text = "_";
-                    KeyColon_Text.Text = ":";
-                    KeyAccolade_Text.Text = "\"";
-                    KeyComma_Text.Text = "<";
-                    KeyDot_Text.Text = ">";
-                    KeySlash_Text.Text = "?";
-                }
-                else if (e.Key == Key.Z)
-                {
-                    Keyz_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.X)
-                {
-                    Keyx_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.C)
-                {
-                    Keyc_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.V)
-                {
-                    Keyv_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.B)
-                {
-                    Keyb_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.N)
-                {
-                    Keyn_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.M)
-                {
-                    Keym_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.OemComma)
-                {
-                    KeyComma_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.OemPeriod)
-                {
-                    KeyDot_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.Oem2)
-                {
-                    KeySlash_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.LeftCtrl)
-                {
-                    KeyControl_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.LeftAlt)
-                {
-                    KeyAlt_Back.Fill = Brushes.Black;
-                }
-                else if (e.Key == Key.Space)
-                {
-                    KeySpace_Back.Fill = Brushes.Black;
-                }
-            }
 
                 //Set user's cursor to the end of line
                 UserInput_TextBox.CaretIndex = UserInput_TextBox.Text.Length;
@@ -385,21 +391,21 @@ namespace Foutloos
                     e.Handled = true;
                 }
 
-            //Disable the use of enter
-            if(e.Key == Key.Enter)
-            {
-                //Start text to speech
-                if(!textToSpeechActive && !exerciseFinished)
+                //Disable the use of enter
+                if (e.Key == Key.Enter)
                 {
-                    new Thread(() =>
+                    //Start text to speech
+                    if (!textToSpeechActive && !exerciseFinished)
                     {
-                        textToSpeechActive = true;
-                        synthesizer.Speak(exerciseNextWord);
-                        textToSpeechActive = false;
-                    }).Start();
+                        new Thread(() =>
+                        {
+                            textToSpeechActive = true;
+                            synthesizer.Speak(exerciseNextWord);
+                            textToSpeechActive = false;
+                        }).Start();
+                    }
+                    e.Handled = true;
                 }
-                e.Handled = true;
-            }
 
                 //Check if the exercise is finished
                 if (!exerciseFinished)
@@ -425,7 +431,7 @@ namespace Foutloos
                             temp = temp.Skip(1).ToArray();
                             exerciseNextWord = temp.First();
                             //Start speech if the toggle is true
-                            if(ToggleSpeech.Toggled)
+                            if (ToggleSpeech.Toggled)
                             {
                                 new Thread(() =>
                                 {
@@ -454,44 +460,30 @@ namespace Foutloos
                             //Set progressbar value
                             ProgressBar.Value++;
 
-                            //Check if the exercise is finished
-                            if (exerciseStringLeft.Length == 0)
-                            {
-                                //Change exercise text when exercise is finished
-                                timer.Stop();
-                                exerciseFinished = true;
-                                Exercise_TextBlock.Text = "";
-                                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
-
-                                //Hide text to speech element
-                                TextToSpeech.Visibility = Visibility.Hidden;
-
-                                //Change progressbar when the exercise is finished
-                                ProgressBar.Foreground = Brushes.Green;
-                            }
+           
                         }
                         else
                         {
                             //Disable incorrect input to be shown in user's inputbox
                             e.Handled = true;
 
-                                //Check if the next character of the exercise was a mistake, by the user, before
-                                if (!mistake)
-                                {
-                                    //Update mistakes counter
-                                    mistakes++;
+                            //Check if the next character of the exercise was a mistake, by the user, before
+                            if (!mistake)
+                            {
+                                //Update mistakes counter
+                                mistakes++;
 
-                                    //Update dictionary containing user's mistakes
-                                    try
-                                    {
-                                        userMistakes.Add((char)32, 1);
-                                    }
-                                    catch (Exception)
-                                    {
-                                        userMistakes[(char)32] += 1;
-                                    }
-                                    mistake = true;
+                                //Update dictionary containing user's mistakes
+                                try
+                                {
+                                    userMistakes.Add((char)32, 1);
                                 }
+                                catch (Exception)
+                                {
+                                    userMistakes[(char)32] += 1;
+                                }
+                                mistake = true;
+                            }
 
                             //Visualize incorrect input
                             Exercise_TextBlock.Text = "";
@@ -507,6 +499,7 @@ namespace Foutloos
                     Exercise_TextBlock.Text = "";
                     Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
                     e.Handled = true;
+
                 }
             }
         }
@@ -571,6 +564,36 @@ namespace Foutloos
 
                         //Change progressbar when the exercise is finished
                         ProgressBar.Foreground = Brushes.Green;
+
+
+                        //Show the results
+                        UIElement rootVisual = this.Content as UIElement;
+                        AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                        int wordspm;
+                        int charspm;
+                        double accuracy =((((double) exerciseText.Length - (double) mistakes) / (double) exerciseText.Length) * 100);
+
+
+
+                        //If the seconds is higher then 0, divide by seconds.
+                        if (seconds > 0)
+                        {
+                            wordspm = (wpm * 60) / seconds;
+                            charspm = (cpm * 60) / seconds;
+                        }
+                        else
+                        {
+                            wordspm = (wpm * 60);
+                            charspm = (cpm * 60);
+                        }
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList);
+                        if (rootVisual != null && adornerLayer != null)
+                        {
+                            CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
+                            adornerLayer.Add(darkenAdorner);
+                            results.ShowDialog();
+                        }
+
                     }
                 }
                 else
@@ -634,7 +657,7 @@ namespace Foutloos
                 //Setting the voice of the speech to the selected system voice. (User input comboVoice)
                 synthesizer.SelectVoice(Voice_ComboBox.SelectedItem.ToString().Split('.')[0]);
             }
-            catch(Exception) { }
+            catch (Exception) { }
 
             //Start text to speech
             if (!textToSpeechActive && !exerciseFinished)
@@ -658,6 +681,7 @@ namespace Foutloos
             {
                 //Change user input box margin and text to speech margin
                 UserInput_TextBox.Margin = userInput_WithKeyboard;
+                overlayTextBox.Margin = userInput_WithKeyboard;
                 TextToSpeech.Margin = textToSpeechKeyboardOn;
                 Test.Visibility = Visibility.Visible;
             }
@@ -665,6 +689,7 @@ namespace Foutloos
             {
                 //Hide keyboard
                 UserInput_TextBox.Margin = userInput_WithoutKeyboard;
+                overlayTextBox.Margin = userInput_WithoutKeyboard;
                 TextToSpeech.Margin = textToSpeechKeyboardOff;
                 Test.Visibility = Visibility.Hidden;
             }
@@ -676,6 +701,7 @@ namespace Foutloos
         //Speech toggle functionality
         private void ToggleSpeech_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //Change label and combobox visibility based on the toggle and exercise progress
             if (exerciseStarted)
             {
                 if (ToggleSpeech.Toggled)
@@ -961,12 +987,17 @@ namespace Foutloos
 
             //Update characters per minute
             CPM.Content = Convert.ToString((cpm * 60) / seconds);
+            //Add cpm to the list
+            cpmTimeList.Add((cpm * 60) / seconds);
+
 
             //Update words per minute
             WPM.Content = Convert.ToString((wpm * 60) / seconds);
+            //Add wpm to the list
+            wpmTimeList.Add((wpm * 60) / seconds);
 
             //Update mistake counter
             Error.Content = Convert.ToString(mistakes);
         }
     }
-}      
+}
