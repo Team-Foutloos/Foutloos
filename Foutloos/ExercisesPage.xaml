@@ -10,10 +10,10 @@
       Title="ExercisesPage" Background="White">
     <Viewbox StretchDirection="Both" Stretch="Uniform">
         <Grid HorizontalAlignment="Right" Width="1900" Background="White" Height="1000">
-            <Button Content="&lt; Home" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="Button_Click" FontFamily="Arial Rounded MT Bold" FontSize="30"/>
+            <local:ThemedIconButton Width="Auto"  Height="Auto" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
             <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="138" Margin="287,16,0,0" VerticalAlignment="Top" Width="244"/>
             <TextBlock HorizontalAlignment="Left" Margin="687,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="60" FontFamily="Arial Rounded MT Bold" Height="135" Width="637"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
-            <Button Content="Start selected exercise" HorizontalAlignment="Left" Margin="1516,820,0,0" VerticalAlignment="Top" Width="344" FontFamily="Arial Rounded MT Bold" Height="60" FontSize="30" Click="Button_Click_1"/>
+            <local:ThemedButton DynamicTextRegular="Start selected exercise" HorizontalAlignment="Left" Margin="1516,820,0,0" VerticalAlignment="Top" Width="344" Height="60" FontSize="30" PreviewMouseDown="StartExercise_PreviewMouseDown"/>
             <RadioButton x:Name="Text" Content="Text (Speech optional)" HorizontalAlignment="Left" Margin="1516,674,0,0" VerticalAlignment="Top" FontSize="20" Height="71" Width="319" IsChecked="true"/>
             <RadioButton x:Name="Spoken" Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Left" Margin="1516,745,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="191"/>
             <TextBlock HorizontalAlignment="Left" Margin="1516,425,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="25" Text="Description" Height="80" Width="210"/>
@@ -45,15 +45,15 @@
                 </TabItem>
                 <TabItem Header="Selected for you">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,-1,0,1">
-                        <Grid x:Name="Grid_Selected" ShowGridLines="False" Background="White">                           
+                        <Grid x:Name="Grid_Selected" ShowGridLines="False" Background="White">
 
-                            
+
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Amateur">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="Grid_Amateur" ShowGridLines="False" Background="White">                                                   
+                        <Grid x:Name="Grid_Amateur" ShowGridLines="False" Background="White">
 
 
                         </Grid>
@@ -61,20 +61,20 @@
                 </TabItem>
                 <TabItem Header="Normal">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="Grid_Normal" ShowGridLines="False" Background="White">                          
+                        <Grid x:Name="Grid_Normal" ShowGridLines="False" Background="White">
 
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Expert">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="Grid_Expert" ShowGridLines="False" Background="White">                            
+                        <Grid x:Name="Grid_Expert" ShowGridLines="False" Background="White">
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Finished">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="Grid_Finished" ShowGridLines="False" Background="White">                           
+                        <Grid x:Name="Grid_Finished" ShowGridLines="False" Background="White">
 
                         </Grid>
                     </ScrollViewer>
