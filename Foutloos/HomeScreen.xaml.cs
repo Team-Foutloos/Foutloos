@@ -85,11 +85,11 @@ namespace Foutloos
             FrameworkElement clickedElement = e.Source as FrameworkElement;
             if (clickedElement == BoxBorder1 || clickedElement == Box1)
             {
-                Application.Current.MainWindow.Content = new VoiceExercise("Random text");
+                Application.Current.MainWindow.Content = new VoiceExercise("This sentence is typed in an amazing program");
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise("A musician must make music, an artist must paint, a poet must write, if he is to be ultimately at peace with himself. What a man can be, he must be");
+                Application.Current.MainWindow.Content = new Exercise("The choice for mankind lies between freedom and happiness and for the great bulk of mankind, happiness is better.", true);
             }
             
         }
@@ -238,11 +238,13 @@ namespace Foutloos
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Here comes the reference to the settings page
+            Application.Current.MainWindow.Content = new SettingsAndProfilePage();
         }
         private void seeProgressBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.Content = new Results();
         }
+
     }
 
 }

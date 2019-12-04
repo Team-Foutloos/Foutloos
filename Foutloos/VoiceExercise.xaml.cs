@@ -76,7 +76,7 @@ namespace Foutloos
             //Adding the different speed levels in the app from the rateValues array
             foreach(double speed in rateValues)
             {
-                comboRate.Items.Add(speed);
+                comboRate.Items.Add($"{speed} X");
             }
             //Set the default selected speed
             comboRate.SelectedIndex = 1;
@@ -284,7 +284,7 @@ namespace Foutloos
             try
             {
                 //Setting the volume of the speech to the selected value (User input sliderVolume)
-                this.synthesizer.Volume = (int)sliderVolume.Value * 10;
+                this.synthesizer.Volume = (int)sliderVolume.Value;
             }
             catch
             {
