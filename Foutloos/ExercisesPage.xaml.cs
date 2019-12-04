@@ -340,7 +340,7 @@ namespace Foutloos
 
             if (Text.IsChecked == true)
             {
-                Application.Current.MainWindow.Content = new Exercise(tekst);                
+                Application.Current.MainWindow.Content = new Exercise(tekst, true);                
             }
             else
             {
