@@ -10,20 +10,39 @@
       
       Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
       Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+    <Page.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Page.RenderTransform>
     <Viewbox StretchDirection="Both" Stretch="Uniform">
         <Grid Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
             <Grid.Background>
                 <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
                     ViewportUnits="Absolute" Viewport="0,0,1024,768" />
             </Grid.Background>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <RectAnimation Storyboard.TargetProperty="Background.Viewport"
+                                   To="-1024,-768,1024,768" Duration="0:0:40" 
+                                   RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
             <Grid>
                 <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="89" Margin="373,21,443.2,0">
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Center" Width="100"/>
                     <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Top" Height="100" Width="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
                 </Grid>
                 <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="20,131,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="Black"/>
-                <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,170,19.6,0">
-                    <Grid Name="gridloggedOut" Background="White" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,-10,-100">
+                <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,170,19.6,0">
+                    <Grid Name="gridloggedOut" Background="White" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80"/>
                         <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
