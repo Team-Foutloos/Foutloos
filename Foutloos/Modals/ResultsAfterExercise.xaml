@@ -15,16 +15,19 @@
     <Grid HorizontalAlignment="Center">
         <Grid>
             <Label FontWeight="SemiBold" FontSize="25" Content="Results" Foreground="White" HorizontalAlignment="Left" Margin="156,18,0,0" VerticalAlignment="Top"/>
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="353" Margin="402,46,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
-            <Label FontWeight="SemiBold" FontSize="25" Content="Previous results" Foreground="White" HorizontalAlignment="Left" Margin="532,18,0,0" VerticalAlignment="Top"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="353" Margin="478,46,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
+            <Label FontWeight="SemiBold" FontSize="25" Content="Previous results" Foreground="White" HorizontalAlignment="Left" Margin="644,18,0,0" VerticalAlignment="Top"/>
             <Foutloos:ThemedButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Continue" Margin="0,0,20,20" PreviewMouseDown="ThemedButton_PreviewMouseDown"/>
             <Foutloos:ThemedButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Go Back" Margin="20,0,0,20" PreviewMouseDown="ThemedButton_PreviewMouseDown_1"/>
+            <Foutloos:ThemedButton HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Retry" Margin="0,0,20,20" PreviewMouseDown="ThemedButton_PreviewMouseDown_2"/>
+
             <Grid Margin="0,0,0,0">
-                <Label Name="wordspm_label" FontSize="20" Foreground="white" Content="Words per minute: " HorizontalAlignment="Left" Margin="67,110,0,0" VerticalAlignment="Top"/>
-                <Label Name="charspm_label" FontSize="20" Foreground="white" Content="Characters per minute: " HorizontalAlignment="Left" Margin="31,152,0,0" VerticalAlignment="Top"/>
-                <Label Name="time_label" FontSize="20" Foreground="white" Content="Time: " HorizontalAlignment="Left" Margin="183,194,0,0" VerticalAlignment="Top"/>
-                <Label Name="error_label" FontSize="20" Foreground="white" Content="Errors: " HorizontalAlignment="Left" Margin="174,236,0,0" VerticalAlignment="Top"/>
-                <Label Name="accuracy_label" FontSize="20" Foreground="white" Content="Accuracy: " HorizontalAlignment="Left" Margin="147,273,0,0" VerticalAlignment="Top"/>
+                <Label Name="wordspm_label" FontSize="20" Foreground="white" Content="Words per minute: " HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top"/>
+                <Label Name="charspm_label" FontSize="20" Foreground="white" Content="Characters per minute: " HorizontalAlignment="Left" Margin="6,298,0,0" VerticalAlignment="Top"/>
+                <Label Name="time_label" FontSize="20" Foreground="white" Content="Time: " HorizontalAlignment="Left" Margin="326,147,0,0" VerticalAlignment="Top"/>
+                <Label Name="error_label" FontSize="20" Foreground="white" Content="Errors: " HorizontalAlignment="Left" Margin="317,189,0,0" VerticalAlignment="Top"/>
+                <Label Name="accuracy_label" FontSize="20" Foreground="white" Content="Accuracy: " HorizontalAlignment="Left" Margin="290,226,0,0" VerticalAlignment="Top"/>
+                <Label Content="Errors per character" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="264,298,0,0" VerticalAlignment="Top"/>
 
                 <Grid>
                     <Grid.Resources>
@@ -54,7 +57,7 @@
                     Value="0" />
                         </Style>
                     </Grid.Resources>
-                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="pointChart" Foreground="White" Margin="0,315,516.333,85">
+                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="pointChart" Foreground="White" Margin="2,88,759,312">
                         <chartingToolkit:LineSeries LegendItemStyle="{StaticResource NullLegendItem}" Background="Transparent" Foreground="White" Name="LineWPM" Title="WPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}">
                             <chartingToolkit:LineSeries.DataPointStyle>
                                 <Style TargetType="chartingToolkit:LineDataPoint">
@@ -65,7 +68,7 @@
                             </chartingToolkit:LineSeries.DataPointStyle>
                         </chartingToolkit:LineSeries>
                     </chartingToolkit:Chart>
-                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="CPMchart" Foreground="White" Margin="193,315,323.333,85">
+                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="CPMchart" Foreground="White" Margin="0,293,761,107">
                         <chartingToolkit:LineSeries LegendItemStyle="{StaticResource NullLegendItem}" Background="Transparent" Foreground="White" Name="LineCPM" Title="CPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}">
                             <chartingToolkit:LineSeries.DataPointStyle>
                                 <Style TargetType="chartingToolkit:LineDataPoint">
@@ -76,9 +79,23 @@
                             </chartingToolkit:LineSeries.DataPointStyle>
                         </chartingToolkit:LineSeries>
                     </chartingToolkit:Chart>
-                    <Label Content="WPM" Foreground="White" FontSize="25" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="40,315,0,0" VerticalAlignment="Top"/>
-                    <Label Content="CPM" Foreground="White" FontSize="25" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="233,315,0,0" VerticalAlignment="Top"/>
-
+                    <chartingToolkit:Chart Foreground="White" PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Name="charError" HorizontalAlignment="Left" Margin="257,293,0,0" VerticalAlignment="Top" Height="200" Width="206">
+                        <chartingToolkit:ColumnSeries LegendItemStyle="{StaticResource NullLegendItem}" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}">
+                            <chartingToolkit:ColumnSeries.DataPointStyle>
+                                <Style TargetType="chartingToolkit:ColumnDataPoint">
+                                    <Setter Property="Background" Value="DeepSkyBlue"/>
+                                </Style>
+                            </chartingToolkit:ColumnSeries.DataPointStyle>
+                        </chartingToolkit:ColumnSeries>
+                    </chartingToolkit:Chart>
+                    <Rectangle Width="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="374" Margin="264,104,0,0" VerticalAlignment="Top" Stroke="White" />
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="22,290,0,0" Stroke="White" VerticalAlignment="Top" Width="428" />
+                </Grid>
+                <Grid VerticalAlignment="Center" Width="407" HorizontalAlignment="Center" Margin="534,229,59,265" Height="106">
+                    <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Login" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="or" FontSize="24" Foreground="White" HorizontalAlignment="center" VerticalAlignment="Top"/>
+                    <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Register" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Label Content="to see previous resulsts" FontSize="24" Foreground="White" HorizontalAlignment="center" VerticalAlignment="Bottom"/>
                 </Grid>
             </Grid>
         </Grid>

@@ -26,8 +26,9 @@ namespace Foutloos.Modals
         private double accuracy;
         private List<int> cpmTimeList;
         private List<int> wpmTimeList;
+        private Dictionary<char, int> mistakeLetters;
 
-        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList)
+        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter)
         {
             InitializeComponent();
             this.wpm = wpm;
@@ -37,6 +38,7 @@ namespace Foutloos.Modals
             this.accuracy = accuracy;
             this.cpmTimeList = cpmTimeList;
             this.wpmTimeList = wpmTimeList;
+            this.mistakeLetters = mistakeLetter;
 
             wordspm_label.Content = wordspm_label.Content.ToString() + wpm;
             charspm_label.Content = charspm_label.Content.ToString() + cpm;
@@ -45,10 +47,28 @@ namespace Foutloos.Modals
             accuracy_label.Content = accuracy_label.Content.ToString() + Math.Round(accuracy, 2) + "%";
 
             FillLineChart();
+            FillColumnChart();
         }
 
         private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+        }
+
+        private void FillColumnChart()
+        {
+            List<KeyValuePair<string, int>> valueList = new List<KeyValuePair<string, int>>();
+            foreach (var dictionaryItem in mistakeLetters)
+            {
+                valueList.Add(new KeyValuePair<string, int>(dictionaryItem.Key.ToString(), dictionaryItem.Value));
+            }
+            charError.DataContext = valueList;
+
+
+            Style styleLegend = new Style { TargetType = typeof(Control) };
+            styleLegend.Setters.Add(new Setter(Control.HeightProperty, 0d));
+
+
+            charError.LegendStyle = styleLegend;
         }
 
         private void FillLineChart()
@@ -85,6 +105,12 @@ namespace Foutloos.Modals
         private void ThemedButton_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.Content = new ExercisesPage();
+            this.Close();
+        }
+
+        private void ThemedButton_PreviewMouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new Exercise("temptekst", false);
             this.Close();
         }
     }

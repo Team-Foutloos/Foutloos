@@ -61,6 +61,8 @@ namespace Foutloos
         //Add a list to save the wpm and time
         List<int> wpmTimeList = new List<int>() {0};
         List<int> cpmTimeList = new List<int>() {0};
+        //Add a list to save the wrong letters
+        List<char> charErrors_char = new List<char>();
 
         //Boolean for spellchecking special characters
         bool specialCharacters;
@@ -586,7 +588,7 @@ namespace Foutloos
                             wordspm = (wpm * 60);
                             charspm = (cpm * 60);
                         }
-                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList);
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList, userMistakes);
                         if (rootVisual != null && adornerLayer != null)
                         {
                             CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
@@ -635,6 +637,7 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.Yellow });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
+                        
                     }
                 }
             }
