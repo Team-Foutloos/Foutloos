@@ -41,7 +41,7 @@ namespace Foutloos
             Connection c = new Connection();
             DataTable dt = new DataTable();
             
-            dt = c.PullData("SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
+            dt = c.PullData("SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 3");
 
 
             //Create all the lists of exercises and add them to the main list (exercises)
@@ -286,9 +286,10 @@ namespace Foutloos
                     this.wpm_number.Content = "0";
                     this.cpm_number.Content = "0";
                     this.error_number.Content = "0";
-                    //this.Description.Content = exercise["text"].ToString();
+                    this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
                     this.level.Text = $"Level: {exercise["difficulty"]}";
+                    this.Origin.Content = exercise["source"];
 
                 }
             }           

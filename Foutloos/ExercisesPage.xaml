@@ -14,7 +14,7 @@
                 <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
                     ViewportUnits="Absolute" Viewport="0,0,1024,768" />
             </Grid.Background>
-            <local:ThemedIconButton Width="220"  Height="70" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
+            <local:ThemedIconButton Width="auto"  Height="70" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
             <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left"  Margin="520,23,0,0" VerticalAlignment="Top" Width="153"/>
             <TextBlock HorizontalAlignment="Left" Margin="697,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="70" FontWeight="SemiBold" Height="81"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
             <Grid  Margin="0,168,70,191" HorizontalAlignment="Right" Width="300">
@@ -43,7 +43,7 @@
                             </ScrollViewer>
                         </Grid>
                         <Label Content="Origin" HorizontalAlignment="Center" Margin="109,313,106,360.333" VerticalAlignment="Center" FontSize="25" FontWeight="SemiBold"/>
-                        <Label Content="William Shakespeare 1832" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="28,357,28,321.333" Height="39"/>
+                        <Label Name="Origin" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="28,357,28,321.333" Height="39"/>
                         <TextBlock HorizontalAlignment="Center" Margin="49,5,50,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" Height="27" Width="197" FontSize="25"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
                     </Grid>
                 </Border>
