@@ -240,7 +240,7 @@
                 <Label Content="Errors:" Height="30" Width="43" Margin="0,32,110,38"/>
                 <Label Content="0" Name="Error" Height="30" Width="30" Margin="52,32,68,38"/>
             </Grid>
-            <local:Special_Character_Message x:Name="SpecialChar" HorizontalAlignment="Left" Height="100" Margin="241,5,0,0" VerticalAlignment="Top" Width="100"/>
+            <local:Special_Character_Message x:Name="SpecialChar" Visibility="Hidden" HorizontalAlignment="Left" Height="100" Margin="147,6,0,0" VerticalAlignment="Top" Width="100"/>
 
 
         </Grid>

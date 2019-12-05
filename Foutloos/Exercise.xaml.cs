@@ -65,6 +65,8 @@ namespace Foutloos
         List<char> charErrors_char = new List<char>();
         //Boolean for spellchecking special characters
         bool specialCharacters;
+        //Margin for special character message
+        Thickness specialCharacterMargin = new Thickness(147, 6, 0, 0);
         
         public Exercise(string text, bool sc) { 
             InitializeComponent();
@@ -472,7 +474,22 @@ namespace Foutloos
                             //Set progressbar value
                             ProgressBar.Value++;
 
-           
+                            //Show special character instructions when enabled
+                            if (specialCharacters)
+                            {
+                                if (exerciseStringLeft.Length > 0)
+                                {
+                                    if (exerciseStringLeft.First() > 220)
+                                    {
+                                        SpecialChar.Visibility = Visibility.Visible;
+                                        SpecialChar.ChangeText(exerciseStringLeft.First());
+                                    }
+                                    else
+                                    {
+                                        SpecialChar.Visibility = Visibility.Hidden;
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -617,11 +634,34 @@ namespace Foutloos
                     if (exerciseStringLeft.Length > 0)
                     {
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Yellow });
+                        TextPointer test = Exercise_TextBlock.ContentEnd;
+                        Point ding = test.GetNextInsertionPosition();
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
 
                     //Set progressbar value
                     ProgressBar.Value++;
+
+                    //Show special character instructions when enabled
+                    if (specialCharacters)
+                    {
+                        if(exerciseStringLeft.Length > 0)
+                        {
+                            if (exerciseStringLeft.First() > 220)
+                            {
+                                SpecialChar.Visibility = Visibility.Visible;
+                                SpecialChar.ChangeText(exerciseStringLeft.First());
+                            }
+                            else
+                            {
+                                SpecialChar.Visibility = Visibility.Hidden;
+                            }
+                        }
+                    }
+
+                    //Change location of special character message
+                    specialCharacterMargin = new Thickness(specialCharacterMargin.Left + 8, specialCharacterMargin.Top, specialCharacterMargin.Right - 8, specialCharacterMargin.Bottom);
+                    SpecialChar.Margin = specialCharacterMargin;
 
                     //Check if the exercise is finished
                     if (exerciseStringLeft.Length == 0)
@@ -634,6 +674,7 @@ namespace Foutloos
                         exerciseFinished = true;
                         Exercise_TextBlock.Text = "";
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                        SpecialChar.Visibility = Visibility.Hidden;
 
                         //Hide text to speech element
                         TextToSpeech.Visibility = Visibility.Hidden;

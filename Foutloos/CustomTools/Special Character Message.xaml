@@ -9,8 +9,8 @@
         <Grid HorizontalAlignment="Left" Height="60" Width="100" Margin="0" VerticalAlignment="Top">
             <Rectangle Fill="White" Height="40" Width="80" Margin="10,4,10,16" RadiusY="7.5" RadiusX="7.5" Stroke="Black"/>
 
-            <Viewbox Margin="0,0,39,23">
-                <TextBlock Name="Text" Text="hoi" TextWrapping="Wrap"/>
+            <Viewbox Margin="13,5,14,19">
+                <TextBlock Name="Text" TextWrapping="Wrap"/>
             </Viewbox>
             <Polygon Fill="White" Stroke="Black">
                 <Polygon.Points>
