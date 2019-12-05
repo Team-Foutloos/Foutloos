@@ -68,7 +68,6 @@ namespace Foutloos
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
-                string done = row["finished"].ToString();
 
                 exercises[((int)Int64.Parse(difficulty))-1].Add(row);
                 exercises[3].Add(row);
