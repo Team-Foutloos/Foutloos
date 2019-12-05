@@ -25,11 +25,9 @@ namespace Foutloos.Modals
     public partial class ModalRegister : Window
     {
         Connection c = new Connection();
-        HomeScreen owner;
 
-        public ModalRegister(HomeScreen owner)
+        public ModalRegister()
         {
-            this.owner = owner;
             InitializeComponent();
         }
 
@@ -109,7 +107,6 @@ namespace Foutloos.Modals
         {
             this.Dispatcher.Invoke(() =>
             {
-                owner.loginUIchange();
                 this.Close();
             });
         }
