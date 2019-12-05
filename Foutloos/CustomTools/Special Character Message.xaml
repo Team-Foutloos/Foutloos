@@ -12,6 +12,7 @@
             <Viewbox Margin="13,5,14,19">
                 <TextBlock Name="Text" TextWrapping="Wrap"/>
             </Viewbox>
+            
             <Polygon Fill="White" Stroke="Black">
                 <Polygon.Points>
                     <Point X="50" Y="40"/>

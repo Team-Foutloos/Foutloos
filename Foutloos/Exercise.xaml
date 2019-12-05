@@ -36,7 +36,7 @@
             <Label Content="Text to speech:" Height="30" Width="100" Margin="939,693,327,77" />
             <local:ToggleButton x:Name="ToggleSpeech" HorizontalAlignment="Left" Height="54" Margin="1066,681,0,0" VerticalAlignment="Top" Width="54" MouseLeftButtonDown="ToggleSpeech_MouseLeftButtonDown" RenderTransformOrigin="0.531,0.186"/>
             <Label Content="Press enter to replay speech!" Name="TextToSpeech" Height="50" Width="500" FontSize="30" Visibility="Visible" Margin="783,403,139,347"/>
-            <ComboBox Name="Voice_ComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="190" Margin="948,737,0,0"/>
+            <ComboBox Name="Voice_ComboBox" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="190" Margin="948,737,0,0"/>
 
             <!-- Virtual Keyboard -->
             <Grid Margin="485,306,283,327" Name="Test" Visibility="Hidden">
