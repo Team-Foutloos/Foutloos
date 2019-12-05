@@ -41,7 +41,7 @@ namespace Foutloos
             Connection c = new Connection();
             DataTable dt = new DataTable();
             
-            dt = c.PullData("SELECT * FROM Exercises");
+            dt = c.PullData("SELECT * FROM Exercise");
 
 
             //Create all the lists of exercises and add them to the main list (exercises)
