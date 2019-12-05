@@ -44,7 +44,7 @@
                 <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,170,19.6,0">
                     <Grid Name="gridloggedOut" Background="White" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
-                        <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80"/>
+                        <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80" Click="BtnLogIn_Click"/>
                         <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
                         <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80"/>
                         <Label Content="to see acount details" HorizontalAlignment="Left" Margin="711,70,0,80" Width="auto" Height="40" FontSize="20" />

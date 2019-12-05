@@ -44,5 +44,22 @@ namespace Foutloos
                 gridloggedOut.Visibility = Visibility.Visible;
             }
         }
+
+        private void BtnLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            ShowModal(new Modals.ModalLogin(this));
+        }
+        private void ShowModal<T>(T modal) where T : Window
+        {
+            UIElement rootVisual = this.Content as UIElement;
+            AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+            if (rootVisual != null && adornerLayer != null)
+            {
+                CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
+                adornerLayer.Add(darkenAdorner);
+                modal.ShowDialog();
+                adornerLayer.Remove(darkenAdorner);
+            }
+        }
     }
 }
