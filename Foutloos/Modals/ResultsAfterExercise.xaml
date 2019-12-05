@@ -57,7 +57,7 @@
                     Value="0" />
                         </Style>
                     </Grid.Resources>
-                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="pointChart" Foreground="White" Margin="2,88,759,312">
+                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="pointChart" Foreground="White" Margin="2,88,741,312">
                         <chartingToolkit:LineSeries LegendItemStyle="{StaticResource NullLegendItem}" Background="Transparent" Foreground="White" Name="LineWPM" Title="WPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}">
                             <chartingToolkit:LineSeries.DataPointStyle>
                                 <Style TargetType="chartingToolkit:LineDataPoint">
@@ -68,7 +68,7 @@
                             </chartingToolkit:LineSeries.DataPointStyle>
                         </chartingToolkit:LineSeries>
                     </chartingToolkit:Chart>
-                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="CPMchart" Foreground="White" Margin="0,293,761,107">
+                    <chartingToolkit:Chart PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Background="Transparent" Name="CPMchart" Foreground="White" Margin="0,293,741,107">
                         <chartingToolkit:LineSeries LegendItemStyle="{StaticResource NullLegendItem}" Background="Transparent" Foreground="White" Name="LineCPM" Title="CPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}">
                             <chartingToolkit:LineSeries.DataPointStyle>
                                 <Style TargetType="chartingToolkit:LineDataPoint">
@@ -79,7 +79,7 @@
                             </chartingToolkit:LineSeries.DataPointStyle>
                         </chartingToolkit:LineSeries>
                     </chartingToolkit:Chart>
-                    <chartingToolkit:Chart Foreground="White" PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Name="charError" HorizontalAlignment="Left" Margin="257,293,0,0" VerticalAlignment="Top" Height="200" Width="206">
+                    <chartingToolkit:Chart Foreground="White" PlotAreaStyle="{StaticResource PlotAreaStyle}" BorderThickness="0" Name="charError" HorizontalAlignment="Left" Margin="264,291,0,0" VerticalAlignment="Top" Height="200" Width="257">
                         <chartingToolkit:ColumnSeries LegendItemStyle="{StaticResource NullLegendItem}" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}">
                             <chartingToolkit:ColumnSeries.DataPointStyle>
                                 <Style TargetType="chartingToolkit:ColumnDataPoint">
