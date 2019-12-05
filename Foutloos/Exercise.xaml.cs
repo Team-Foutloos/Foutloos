@@ -636,6 +636,7 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Background = Brushes.Yellow });
                         TextPointer test = Exercise_TextBlock.ContentEnd;
                         Point ding = test.GetNextInsertionPosition();
+                        Exercise_TextBlock.Caret
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
                     }
 
