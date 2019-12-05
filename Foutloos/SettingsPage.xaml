@@ -19,7 +19,7 @@
         </TransformGroup>
     </Page.RenderTransform>
     <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <Grid Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+        <Grid Height="1080" Width="1920">
             <Grid.Background>
                 <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
                     ViewportUnits="Absolute" Viewport="0,0,1024,768" />
