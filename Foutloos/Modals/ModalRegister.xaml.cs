@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -102,22 +103,6 @@ namespace Foutloos.Modals
         }
 
         //Close the application
-        /*private void timerC(object state)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-
-                var image = new BitmapImage();
-
-                image.BeginInit();
-                image.UriSource = new Uri(@"assets/testimage.gif", UriKind.Relative);
-                image.EndInit();
-
-                ImageBehavior.SetAnimatedSource(loading, image);
-                ImageBehavior.SetRepeatBehavior(loading, new RepeatBehavior(5));
-                Timer t = new Timer(timerC, null, 1500, 1500);
-            });
-        }*/
         private void closeWindow(object state)
         {
             this.Dispatcher.Invoke(() =>
@@ -160,8 +145,11 @@ namespace Foutloos.Modals
 
                 //Insert the user into the database.
                 string CmdString = $"INSERT INTO usertable VALUES ('{username.Text}', '{hashedPassword}', '{license.Text}')";
-                c.insertInto(CmdString);
-                loadingScreen();
+                if (c.insertInto(CmdString))
+                {
+                    ConfigurationManager.AppSettings["username"] = username.Text;
+                    loadingScreen();
+                };
 
             }
 

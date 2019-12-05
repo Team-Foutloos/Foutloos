@@ -11,11 +11,9 @@ namespace Foutloos.Modals
 {
     public partial class ModalLogin : Window
     {
-        private HomeScreen owner;
         private Timer t;
-        public ModalLogin(HomeScreen owner)
+        public ModalLogin()
         {
-            this.owner = owner;
             InitializeComponent();
         }
 
@@ -47,8 +45,6 @@ namespace Foutloos.Modals
         {
             this.Dispatcher.Invoke(() =>
             {                            
-                //If a user logs in, change the UI of the homePage.
-                owner.loginUIchange();
                 this.Close();
             });
             

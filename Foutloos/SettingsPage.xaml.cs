@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,25 @@ namespace Foutloos
         public SettingsAndProfilePage()
         {
             InitializeComponent();
+            this.loginUIchange();
+        }
+
+
+
+        public void loginUIchange()
+        {
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+            {
+                Title.Content = $"Hello, {ConfigurationManager.AppSettings["username"]}!";
+                gridloggedIn.Visibility = Visibility.Visible;
+                gridloggedOut.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Title.Content = $"Hello!";
+                gridloggedIn.Visibility = Visibility.Hidden;
+                gridloggedOut.Visibility = Visibility.Visible;
+            }
         }
     }
 }

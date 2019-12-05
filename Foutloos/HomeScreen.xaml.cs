@@ -89,7 +89,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise("The choice for mankind lies between freedom and happiness and for the great bulk of mankind, happiness is better.", true);
+                Application.Current.MainWindow.Content = new Exercise("better.", true);
             }
             
         }
@@ -227,12 +227,14 @@ namespace Foutloos
 
         private void LoginBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ShowModal(new Modals.ModalLogin(this));
+            ShowModal(new Modals.ModalLogin());
+            loginUIchange();
         }
 
         private void RegisterBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new Modals.ModalRegister());
+            loginUIchange();
         }
 
         private void SettingsBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
