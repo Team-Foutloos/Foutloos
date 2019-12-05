@@ -130,21 +130,13 @@ namespace Foutloos
             {
                 //Catching the backspace key and make it remove the last char from the variable wich holds the
                 //written text. All other keys will be added to the same variable.
-                if (keyChar.Equals('\b'))
-                {
-                    if (typedText.Length > 0)
-                    {
-                        typedText = typedText.Remove(typedText.Length - 1);
-                    }
-                }
-                else
-                {
+                string typedTextOld = typedText;
+
                     if (typedText.Length < dbString.Length)
                     {
                         typedText += e.Text;
                         typedKeys++;
                     }
-                }
 
                 
                 //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
@@ -193,11 +185,8 @@ namespace Foutloos
                                 //Adding the mistakes index so it wont be counted up when the text updates
                                 mistakeIndex.Add(i);
                             }
-                            
-                            //Making spaces in the wrong part of the text red underscores for better visibility
-                            string wrongChar = typedText[i].ToString().Replace(' ', '_');
-                            //Adding the wrong char to the text
-                            inputText.Inlines.Add(new Run(wrongChar) { Foreground = Brushes.Red });
+
+                            typedText = typedTextOld;
 
                             //Flipping the wrong variable so all the text after the mistake is also shown in red
                             if (!wrong)
