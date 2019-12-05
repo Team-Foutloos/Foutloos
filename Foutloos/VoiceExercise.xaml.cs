@@ -41,6 +41,7 @@ namespace Foutloos
         int second;
         //Variable for the amount of chars typed within a certain timespan.
         int typedKeys;
+        int typedWords;
 
         //Array with all the speech speed levels
         double[] rateValues = { 0.5, 1, 1.25 };
@@ -50,7 +51,12 @@ namespace Foutloos
 
         //Making an array that saves the indexes of errors so they wont be counted twice
         List<int> mistakeIndex = new List<int>();
-        
+
+
+        //Add a list to save the wpm and time
+        List<int> wpmTimeList = new List<int>() { 0 };
+        List<int> cpmTimeList = new List<int>() { 0 };
+
 
         public VoiceExercise(string text)
         {
@@ -88,6 +94,8 @@ namespace Foutloos
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
 
+
+
         }
 
         //Adding a TextComposition event to the window.
@@ -122,6 +130,18 @@ namespace Foutloos
             //If enter is pressed while the exercise isn't running yet the exercise will start
             if (keyChar == '\r' && !running && !exerciseFinished)
             {
+                UIElement rootVisual = this.Content as UIElement;
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                if (rootVisual != null && adornerLayer != null)
+                {
+                    CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
+                    adornerLayer.Add(darkenAdorner);
+
+                    //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                    Modals.Countdown countdown = new Modals.Countdown();
+                    countdown.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
+                }
                 startSpeaking();
                 running = true;
                 headLabel.Content = "Press enter to replay";
@@ -217,6 +237,35 @@ namespace Foutloos
                         headLabel.Content = $"Done! Total time: {SecondsToTime(second)}\nNumber of mistakes: {mistakesNumber}";
                         ProgressBar.Foreground = Brushes.Green;
                         exerciseFinished = true;
+
+
+                        //Show the results
+                        UIElement rootVisual = this.Content as UIElement;
+                        AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                        int wordspm;
+                        int charspm;
+                        double accuracy = ((((double)dbString.Length - (double)mistakesNumber) / (double)dbString.Length) * 100);
+
+
+
+                        //If the seconds is higher then 0, divide by seconds.
+                        if (second > 0)
+                        {
+                            wordspm = (typedWords * 60) / second;
+                            charspm = (typedKeys * 60) / second;
+                        }
+                        else
+                        {
+                            wordspm = (typedWords * 60);
+                            charspm = (typedKeys * 60);
+                        }
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, second, mistakesNumber, accuracy, cpmTimeList, wpmTimeList, mistakes, dbString);
+                        if (rootVisual != null && adornerLayer != null)
+                        {
+                            CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
+                            adornerLayer.Add(darkenAdorner);
+                            results.ShowDialog();
+                        }
                     }
                 }
 
@@ -226,17 +275,26 @@ namespace Foutloos
 
         //Every second that the timer is enabled this will happen.
         private void Timer_Tick(object sender, EventArgs e)
-        {
+        { 
+
             //Adding a second every time the timer ticks
             second++;
             //Displaying the correct time to the user
             timeLable.Content = SecondsToTime(second);
 
+
+            //Add wpm to the list
+            wpmTimeList.Add((typedWords * 60) / second);
+
+            //Add cpm to the list
+            cpmTimeList.Add((typedKeys * 60) / second);
+
             //Calculating the typed keys per minute
             cpmLable.Content = Math.Round((typedText.Length / (double)second) * 60);
 
             string[] woorden = typedText.Split(' ');
-            wpmLable.Content = Math.Round((woorden.Length / (double)second) * 60);
+            typedWords = woorden.Length;
+            wpmLable.Content = Math.Round((typedWords / (double)second) * 60);
             
         }
 
