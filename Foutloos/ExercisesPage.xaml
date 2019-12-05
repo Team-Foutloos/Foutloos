@@ -9,29 +9,75 @@
       Width="{x:Static SystemParameters.PrimaryScreenWidth}"
       Title="ExercisesPage" Background="White">
     <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <Grid HorizontalAlignment="Right" Width="1900" Background="White" Height="1000">
-            <local:ThemedIconButton Width="Auto"  Height="Auto" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
-            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="138" Margin="287,16,0,0" VerticalAlignment="Top" Width="244"/>
-            <TextBlock HorizontalAlignment="Left" Margin="687,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="60" FontFamily="Arial Rounded MT Bold" Height="135" Width="637"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
-            <local:ThemedButton DynamicTextRegular="Start selected exercise" HorizontalAlignment="Left" Margin="1516,820,0,0" VerticalAlignment="Top" Width="344" Height="60" FontSize="30" PreviewMouseDown="StartExercise_PreviewMouseDown"/>
-            <RadioButton x:Name="Text" Content="Text (Speech optional)" HorizontalAlignment="Left" Margin="1516,674,0,0" VerticalAlignment="Top" FontSize="20" Height="71" Width="319" IsChecked="true"/>
-            <RadioButton x:Name="Spoken" Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Left" Margin="1516,745,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="191"/>
-            <TextBlock HorizontalAlignment="Left" Margin="1516,425,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" FontSize="25" Text="Description" Height="80" Width="210"/>
-            <TextBlock x:Name="Exercise" HorizontalAlignment="Left" Margin="1521,271,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontFamily="Arial Rounded MT Bold" Height="35" Width="187"/>
-            <TextBlock x:Name="level" HorizontalAlignment="Left" Margin="1521,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="20" Width="249"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
-            <TextBox HorizontalAlignment="Left" Height="110" Margin="1516,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
-            <TextBlock HorizontalAlignment="Left" Margin="1521,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Text="Type #" FontSize="20" Width="87"/>
-            <Label x:Name="WPM" Content="WPM:" HorizontalAlignment="Left" Margin="1521,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="69" FontSize="20"/>
-            <Label Content="CPM:" HorizontalAlignment="Left" Margin="1521,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT" Height="42" Width="69" FontSize="20"/>
-            <Label Content="Total Errors:" HorizontalAlignment="Left" Margin="1521,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="154" FontSize="20"/>
-            <Label x:Name="wpm_number" Content="0" HorizontalAlignment="Left" Margin="1747,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="41" Width="33" FontSize="20"/>
-            <Label x:Name="cpm_number" Content="0" HorizontalAlignment="Left" Margin="1747,111,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="51" FontSize="20"/>
-            <Label x:Name="error_number" Content="0" HorizontalAlignment="Left" Margin="1747,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontFamily="Arial Rounded MT Bold" Height="42" Width="23" FontSize="20"/>
-            <TextBlock HorizontalAlignment="Left" Margin="1516,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Arial Rounded MT Bold" Height="27" Width="197" FontSize="25"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
-            <Viewbox HorizontalAlignment="Left" Height="100" Margin="1530,655,0,0" VerticalAlignment="Top" Width="100"/>
-            <Label x:Name="Description" Content="" HorizontalAlignment="Left" Margin="1521,479,0,0" VerticalAlignment="Top" Height="171" Width="314" FontSize="20"/>
-            <TabControl HorizontalAlignment="Left" Height="771" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
-                <TabItem Header="All" Height="22" VerticalAlignment="Top">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Width="1900" Height="1080">
+            <Grid.Background>
+                <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
+                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+            </Grid.Background>
+            <local:ThemedIconButton Width="auto"  Height="70" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
+            <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left"  Margin="520,23,0,0" VerticalAlignment="Top" Width="153"/>
+            <TextBlock HorizontalAlignment="Left" Margin="697,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="70" FontWeight="SemiBold" Height="81"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
+            <Grid  Margin="0,168,70,191" HorizontalAlignment="Right" Width="300">
+                <Border Background="White" BorderBrush="MidnightBlue" CornerRadius="10" BorderThickness="2">
+                    <Grid>
+                        <RadioButton x:Name="Text" Content="Text (Speech optional)" HorizontalAlignment="Center" Margin="35,544,52,0" VerticalAlignment="Top" FontSize="20" Height="71" IsChecked="true"/>
+                        <RadioButton x:Name="Spoken" Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Center" Margin="35,575,129,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="132"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="83,164,83,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="25" Text="Description" Height="80"/>
+                        <Grid Margin="-2,426,2,182">
+                            <TextBlock x:Name="Exercise" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontWeight="SemiBold" Height="35"/>
+                            <TextBlock x:Name="level" HorizontalAlignment="Left" Margin="50,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="20"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
+                        </Grid>
+                        <TextBox HorizontalAlignment="Center" Height="110" Margin="0,44,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
+                        <Grid HorizontalAlignment="Right" Margin="0,52,10,571.333" Width="280">
+                            <Label x:Name="WPM" Content="WPM:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontWeight="SemiBold" Height="42" Width="69" FontSize="20"/>
+                            <Label Content="CPM:" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" Height="42" FontWeight="SemiBold" Width="69" FontSize="20"/>
+                            <Label Content="Total Errors:" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" Height="41" Width="154" FontWeight="SemiBold" FontSize="20"/>
+                            <Label x:Name="wpm_number" Content="0" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontWeight="SemiBold" Height="41"  FontSize="20"/>
+                            <Label x:Name="cpm_number" Content="0" HorizontalAlignment="Right" Margin="0,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontWeight="SemiBold" Height="42"  FontSize="20"/>
+                            <Label x:Name="error_number" Content="0" HorizontalAlignment="Right" Margin="0,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.385,0" FontWeight="SemiBold" Height="42"  FontSize="20"/>
+                        </Grid>
+                        <Grid Margin="0,201,0,416.333" VerticalAlignment="Center" Height="100">
+                            <ScrollViewer>
+                                <TextBlock x:Name="Description" TextWrapping="Wrap" Text="Hallo mijn naam is hsdlkjaflkj fdsjfdslkj lkjjdlfskj lkjsfd  lkjdsf lkjs flkjs fds lkjfs flkjsd fslkjd fslkjd flkjsd fs fdlkjslkjlkjsd fslkjdf lkjsf s fdsf sfd sdflk sf lkajfdlks j fslkjflkjsdf lkjs flks fdjsd flksd lfjslkdjf lkdsjf lksjd flkjsdlkf jslkd fsdsf lkjs sf dslkjdf lkjsdlkjf lkjs" FontSize="20"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Label Content="Origin" HorizontalAlignment="Center" Margin="109,313,106,360.333" VerticalAlignment="Center" FontSize="25" FontWeight="SemiBold"/>
+                        <Label Name="Origin" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="28,357,28,321.333" Height="39"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="49,5,50,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" Height="27" Width="197" FontSize="25"><Run Text="Previous results"/><LineBreak/><Run/></TextBlock>
+                    </Grid>
+                </Border>
+                <local:ThemedButton DynamicTextRegular="Start selected exercise" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="300" Height="60" FontSize="30" PreviewMouseDown="StartExercise_PreviewMouseDown"/>
+            </Grid>
+            <TabControl Foreground="White" Background="MidnightBlue" FontSize="20" HorizontalAlignment="Left" Height="721" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <Border Name="Border" BorderBrush="MidnightBlue" BorderThickness="1,1,1,0"  CornerRadius="4,4,0,0" Margin="2,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Border" Property="Background" Value="DeepSkyBlue" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="All" VerticalAlignment="Top" Background="MidnightBlue">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_All" ShowGridLines="False" Background="White">
 

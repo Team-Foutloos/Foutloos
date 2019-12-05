@@ -26,9 +26,10 @@ namespace Foutloos.Modals
         private double accuracy;
         private List<int> cpmTimeList;
         private List<int> wpmTimeList;
+        private string exerciseText;
         private Dictionary<char, int> mistakeLetters;
 
-        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter)
+        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText)
         {
             InitializeComponent();
             this.wpm = wpm;
@@ -39,12 +40,14 @@ namespace Foutloos.Modals
             this.cpmTimeList = cpmTimeList;
             this.wpmTimeList = wpmTimeList;
             this.mistakeLetters = mistakeLetter;
+            this.exerciseText = exerciseText;
 
             wordspm_label.Content = wordspm_label.Content.ToString() + wpm;
             charspm_label.Content = charspm_label.Content.ToString() + cpm;
             time_label.Content = time_label.Content.ToString() + this.time.ToString("mm':'ss");
             error_label.Content = error_label.Content.ToString() + mistakes;
             accuracy_label.Content = accuracy_label.Content.ToString() + Math.Round(accuracy, 2) + "%";
+            stringExercise.Text = exerciseText;
 
             FillLineChart();
             FillColumnChart();
@@ -110,7 +113,7 @@ namespace Foutloos.Modals
 
         private void ThemedButton_PreviewMouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new Exercise("temptekst", false);
+            Application.Current.MainWindow.Content = new Exercise(exerciseText, false);
             this.Close();
         }
     }

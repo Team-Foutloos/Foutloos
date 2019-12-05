@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,38 +12,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Speech.Synthesis;
-
 
 namespace Foutloos.Modals
 {
     /// <summary>
-    /// Interaction logic for YesCancelModal.xaml
+    /// Interaction logic for LogoutAreYouSure.xaml
     /// </summary>
-    public partial class YesCancelModal : Window
+    public partial class LogoutAreYouSure : Window
     {
-        SpeechSynthesizer _synthesizer;
-
-        public YesCancelModal()
+        public LogoutAreYouSure()
         {
             InitializeComponent();
-        }
-
-        public YesCancelModal(SpeechSynthesizer synthesizer)
-        {
-            InitializeComponent();
-            this._synthesizer = synthesizer;
         }
 
         private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
-            
-            Application.Current.MainWindow.Content = new Foutloos.ExercisesPage();
-            if (_synthesizer != null)
-            {
-                _synthesizer.Pause();
-            }
+            ConfigurationManager.AppSettings["username"] = "";
+            Application.Current.MainWindow.Content = new SettingsPage();
+            this.Close();      
         }
 
         private void ThemedButton_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
