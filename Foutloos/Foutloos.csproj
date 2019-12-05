@@ -85,6 +85,9 @@
     </Compile>
     <Compile Include="CustomTools\DarkerBackground.cs" />
     <Compile Include="Connection.cs" />
+    <Compile Include="Modals\LogoutAreYouSure.xaml.cs">
+      <DependentUpon>LogoutAreYouSure.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modals\ResultsAfterExercise.xaml.cs">
       <DependentUpon>ResultsAfterExercise.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Modals\LogoutAreYouSure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Modals\ModalRegister.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
