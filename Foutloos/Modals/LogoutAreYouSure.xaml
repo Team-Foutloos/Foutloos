@@ -1,0 +1,26 @@
+﻿<Window x:Class="Foutloos.Modals.LogoutAreYouSure"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Foutloos.Modals"
+        xmlns:Foutloos="clr-namespace:Foutloos"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        mc:Ignorable="d"
+        Title="LogoutAreYouSure" Height="200" Width="400">
+
+        <Grid>
+        <Border x:Name="loginGrid"  CornerRadius="10" BorderThickness="2" Background="White">
+            <Grid>
+
+                <Foutloos:ThemedButton DynamicTextRegular="Yes" HorizontalAlignment="Left" Height="50" Margin="15,130,0,0" VerticalAlignment="Top" Width="127" PreviewMouseDown="ThemedButton_PreviewMouseDown"/>
+                <Foutloos:ThemedButton DynamicTextRegular="Cancel" HorizontalAlignment="Right" Height="50" Margin="0,130,15,0" VerticalAlignment="Top" Width="127" PreviewMouseDown="ThemedButton_PreviewMouseDown_1"/>
+                <Label FontSize="20" Content="Do you really want to logoff?" HorizontalAlignment="Center" Margin="10,35,0,0" VerticalAlignment="Top" Height="87"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
