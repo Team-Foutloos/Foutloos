@@ -6,63 +6,116 @@
       xmlns:local="clr-namespace:Foutloos"
       xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" x:Class="Foutloos.Results"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="675" d:DesignWidth="1200"
       Title="Results">
+    <Page.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Page.RenderTransform>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
+                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+        </Grid.Background>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <RectAnimation Storyboard.TargetProperty="Background.Viewport"
+                                   To="-1024,-768,1024,768" Duration="0:0:40" 
+                                   RepeatBehavior="Forever"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="608" Width="1180" Margin="10,10,10,57.2">
+            <TextBlock HorizontalAlignment="Left" Margin="151,-1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="90" FontFamily="Arial Rounded MT Bold" Height="110" Width="418"><Run Text="Results"/><LineBreak/><Run/></TextBlock>
+            <TextBlock HorizontalAlignment="Left" TextAlignment="Right" Margin="540,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="60" FontFamily="Arial Rounded MT Bold" Height="71" Width="474"><Run Text="Username"/><LineBreak/><Run/></TextBlock>
+            <TabControl HorizontalAlignment="Left" Height="419" Margin="151,109,0,0" VerticalAlignment="Top" Width="863">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TabItem}">
+                                    <!--Reserving space for headers-->
+                                    <Grid>
+                                        <Border Name="Border" Background="LightGray" Margin="0,0,0,3" BorderBrush="Black" BorderThickness="2,2,2,0">
+                                            <ContentPresenter x:Name="ContentSite" ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                                        </Border>
+                                        <Rectangle Height="25" Width="100"/>
+                                    </Grid>
+                                    <!--selected tab styling-->
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter TargetName="Border" Property="Background" Value="#FF6E6c67"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <!--TabHeader Text styling-->
+                        <Setter Property="Background" Value="AliceBlue" />
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="FontFamily" Value="Arial Rounded MT Bold"/>
 
-    <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="175,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="50" FontFamily="Arial Rounded MT Bold" Height="53" Width="357"><Run Text="Results"/><LineBreak/><Run/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" TextAlignment="Center" Margin="410,10,33,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40" FontFamily="Arial Rounded MT Bold" Height="53" Width="357"><Run Text="Username"/><LineBreak/><Run/></TextBlock>
-        <TabControl HorizontalAlignment="Left" Height="341" Margin="30,63,0,0" VerticalAlignment="Top" Width="737">
-            <TabItem Header="User Stats" Margin="517,0,-521,-2.2">
-                <Grid Background="#FFE5E5E5">
-                    <TextBlock HorizontalAlignment="Left" Margin="54,35,0,0" TextWrapping="Wrap" Text="Average WPM" VerticalAlignment="Top" Height="25" Width="154"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="54,60,0,0" TextWrapping="Wrap" Text="Average CPM" VerticalAlignment="Top" Height="25" Width="154"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="54,85,0,0" TextWrapping="Wrap" Text="Average Accuracy" VerticalAlignment="Top" Height="25" Width="154"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="54,115,0,0" TextWrapping="Wrap" Text="Average Mistakes" VerticalAlignment="Top" Height="25" Width="154"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="54,140,0,0" TextWrapping="Wrap" Text="Text/Speech Ratio" VerticalAlignment="Top" Height="25" Width="154"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="54,165,0,0" TextWrapping="Wrap" Text="Most made mistake" VerticalAlignment="Top" Height="25" Width="154"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="54,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="25" Width="154"/>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="User Stats" Margin="517,0,-521,-2.4">
+                    <Grid Background="#FFE5E5E5">
+                        <TextBlock HorizontalAlignment="Left" Margin="54,35,0,0" TextWrapping="Wrap" Text="Average WPM" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,60,0,0" TextWrapping="Wrap" Text="Average CPM" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,85,0,0" TextWrapping="Wrap" Text="Average Accuracy" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,115,0,0" TextWrapping="Wrap" Text="Average Mistakes" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,140,0,0" TextWrapping="Wrap" Text="Text/Speech Ratio" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,165,0,0" TextWrapping="Wrap" Text="Most made mistake" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="25" Width="154"/>
 
-                </Grid>
-            </TabItem>
-            <TabItem Header="Exercise Stats" Margin="517,0,-521.6,-2.2">
-                <Grid Background="#FFE5E5E5">
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Exercise Stats" Margin="519,0,-523.2,-2.4">
+                    <Grid Background="#FFE5E5E5">
 
-                    <ListBox Name="ExerciseList" SelectionChanged="ExerciseList_SelectionChanged" HorizontalAlignment="Left" Height="211" Margin="44,58,0,0" VerticalAlignment="Top" Width="231" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition MinWidth="90" MaxWidth="90"/>
-                                        <ColumnDefinition MinWidth="60" MaxWidth="60"/>
-                                        <ColumnDefinition MinWidth="70" MaxWidth="70"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Name}"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Type}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Difficulty}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        <ListBox Name="ExerciseList" SelectionChanged="ExerciseList_SelectionChanged" HorizontalAlignment="Left" Height="225" Margin="44,90,0,0" VerticalAlignment="Top" Width="321" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition MinWidth="120" MaxWidth="90"/>
+                                            <ColumnDefinition MinWidth="80" MaxWidth="60"/>
+                                            <ColumnDefinition MinWidth="90" MaxWidth="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Type}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Difficulty}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
-                    <chartingToolkit:Chart Name="columnChart" Title="Exercise_#" HorizontalAlignment="Left" Margin="366,10,0,0" VerticalAlignment="Top" Height="259" Width="327">
-                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}"/>
-                    </chartingToolkit:Chart>
+                        <chartingToolkit:Chart Name="columnChart" Title="Exercise_#" HorizontalAlignment="Left" Margin="428,40,0,0" VerticalAlignment="Top" Height="293" Width="402">
+                            <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}"/>
+                        </chartingToolkit:Chart>
 
-                </Grid>
-            </TabItem>
-            <TabItem Header="Timeline" Margin="520.6,0,-525,-2">
-                <Grid Background="#FFE5E5E5">
-                    <chartingToolkit:Chart Name="pointChart"  Margin="227,10,36.2,-0.2">
-                        <chartingToolkit:LineSeries Name="LineWPM" Title="WPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
-                        <chartingToolkit:LineSeries Name="LineMistakes" Title="Mistakes" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Timeline" Margin="520.2,0,-524.2,-2.4">
+                    <Grid Background="#FFE5E5E5">
+                        <chartingToolkit:Chart Name="pointChart"  Margin="227,10,36.2,-0.2">
+                            <chartingToolkit:LineSeries Name="LineWPM" Title="WPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
+                            <chartingToolkit:LineSeries Name="LineMistakes" Title="Mistakes" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
 
-                    </chartingToolkit:Chart>
-                </Grid>
-            </TabItem>
+                        </chartingToolkit:Chart>
+                    </Grid>
+                </TabItem>
 
 
-        </TabControl>
+            </TabControl>
 
+        </Grid>
     </Grid>
 </Page>
