@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Speech.Synthesis;
@@ -52,6 +53,8 @@ namespace Foutloos
         //Making an array that saves the indexes of errors so they wont be counted twice
         List<int> mistakeIndex = new List<int>();
 
+        double avgWPM;
+        double avgCPM;
 
         //Add a list to save the wpm and time
         List<int> wpmTimeList = new List<int>() { 0 };
@@ -228,6 +231,16 @@ namespace Foutloos
                         exerciseFinished = true;
 
 
+                        //This will add the results to the resultstable
+                        /*if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+                        {
+                            Connection c = new Connection();
+                            int userID = int.Parse(ConfigurationManager.AppSettings["userID"]);
+                            int resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, )";
+                        }*/
+
+
                         //Show the results
                         UIElement rootVisual = this.Content as UIElement;
                         AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
@@ -279,11 +292,13 @@ namespace Foutloos
             cpmTimeList.Add((typedKeys * 60) / second);
 
             //Calculating the typed keys per minute
-            cpmLable.Content = Math.Round((typedText.Length / (double)second) * 60);
+            avgCPM = Math.Round((typedText.Length / (double)second) * 60);
+            cpmLable.Content = avgCPM;
 
             string[] woorden = typedText.Split(' ');
             typedWords = woorden.Length;
-            wpmLable.Content = Math.Round((typedWords / (double)second) * 60);
+            avgWPM = Math.Round((typedWords / (double)second) * 60);
+            wpmLable.Content = avgWPM;
             
         }
 
