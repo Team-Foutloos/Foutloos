@@ -41,7 +41,7 @@ namespace Foutloos
             Connection c = new Connection();
             DataTable dt = new DataTable();
             
-            dt = c.PullData("SELECT * FROM Exercises");
+            dt = c.PullData("SELECT * FROM Exercise");
 
 
             //Create all the lists of exercises and add them to the main list (exercises)
@@ -68,7 +68,6 @@ namespace Foutloos
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
-                string done = row["finished"].ToString();
 
                 exercises[((int)Int64.Parse(difficulty))-1].Add(row);
                 exercises[3].Add(row);
@@ -290,7 +289,7 @@ namespace Foutloos
                     this.wpm_number.Content = "0";
                     this.cpm_number.Content = "0";
                     this.error_number.Content = "0";
-                    this.Description.Content = exercise["text"].ToString();
+                    //this.Description.Content = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
                     this.level.Text = $"Level: {difficulty}";
 

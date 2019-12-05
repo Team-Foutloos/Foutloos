@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Speech.Synthesis;
+
 
 namespace Foutloos.Modals
 {
@@ -19,15 +21,28 @@ namespace Foutloos.Modals
     /// </summary>
     public partial class YesCancelModal : Window
     {
+        SpeechSynthesizer _synthesizer;
+
         public YesCancelModal()
         {
             InitializeComponent();
         }
 
+        public YesCancelModal(SpeechSynthesizer synthesizer)
+        {
+            InitializeComponent();
+            this._synthesizer = synthesizer;
+        }
+
         private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+            
             Application.Current.MainWindow.Content = new Foutloos.ExercisesPage();
+            if (_synthesizer != null)
+            {
+                _synthesizer.Pause();
+            }
         }
 
         private void ThemedButton_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)

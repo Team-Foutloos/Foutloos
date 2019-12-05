@@ -340,16 +340,18 @@ namespace Foutloos
         {
             if (!exerciseFinished && exerciseStarted )
             {
-                //Dialog will be opened when the user wan't to exit the exercise when it's not finished
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to leave the exercise? Your progress will be lost!", "Exit Exercise", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.Yes)
+                //Custom dialog will be opened when the user wan't to exit the exercise when it's not finishedUIElement rootVisual = this.Content as UIElement;
+                UIElement rootVisual = this.Content as UIElement;
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                if (rootVisual != null && adornerLayer != null)
                 {
+                    CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
+                    adornerLayer.Add(darkenAdorner);
 
-                    if (synthesizer.State == SynthesizerState.Speaking)
-                    {
-                        synthesizer.Pause();
-                    }
-                    Application.Current.MainWindow.Content = new HomeScreen();
+                    //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                    Modals.YesCancelModal result = new Modals.YesCancelModal(this.synthesizer);
+                    result.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
 
                 }
             }
