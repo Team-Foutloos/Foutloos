@@ -26,7 +26,6 @@
                         <Grid Margin="-2,426,2,182">
                             <TextBlock x:Name="Exercise" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontWeight="SemiBold" Height="35"/>
                             <TextBlock x:Name="level" HorizontalAlignment="Left" Margin="50,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="20"><Run Text="Level #"/><LineBreak/><Run/></TextBlock>
-                            <TextBlock HorizontalAlignment="Left" Margin="50,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Text="Type #" FontSize="20"/>
                         </Grid>
                         <TextBox HorizontalAlignment="Center" Height="110" Margin="0,44,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
                         <Grid HorizontalAlignment="Right" Margin="0,52,10,571.333" Width="280">
