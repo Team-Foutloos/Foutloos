@@ -142,9 +142,10 @@ namespace Foutloos.Modals
 
                 //First hash the password, this happens in the securepasswordhasher class.
                 string hashedPassword = SecurePasswordHasher.Hash(password.Password);
+                int userID = (c.ID("SELECT Max(userID) FROM Usertable")) + 1;
 
                 //Insert the user into the database.
-                string CmdString = $"INSERT INTO usertable VALUES ('{username.Text}', '{hashedPassword}', '{license.Text}')";
+                string CmdString = $"INSERT INTO usertable VALUES ('{userID}', '{username.Text}', '{hashedPassword}', '{license.Text}')";
                 if (c.insertInto(CmdString))
                 {
                     ConfigurationManager.AppSettings["username"] = username.Text;
