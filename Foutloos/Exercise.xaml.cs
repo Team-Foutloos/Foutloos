@@ -63,7 +63,6 @@ namespace Foutloos
         List<int> cpmTimeList = new List<int>() {0};
         //Add a list to save the wrong letters
         List<char> charErrors_char = new List<char>();
-
         //Boolean for spellchecking special characters
         bool specialCharacters;
         
@@ -75,9 +74,20 @@ namespace Foutloos
 
             //Show exercise text on the page
             this.exerciseText = text;
+            exerciseStringLeft = text;
 
             //Save bool for special characters
             specialCharacters = sc;
+
+            //Show special character instructions when enabled
+            if (specialCharacters)
+            {
+                if(exerciseStringLeft.First() > 220)
+                {
+                    SpecialChar.Visibility = Visibility.Visible;
+                    SpecialChar.ChangeText(exerciseStringLeft.First());
+                }
+            }
 
             //Set progressbar maximum value
             ProgressBar.Maximum = exerciseText.Length;
@@ -515,18 +525,75 @@ namespace Foutloos
                 cpm++;
 
                 //Check for spellcheck special characters
-                string nextChar = exerciseStringLeft.First().ToString();
+                char nextChar = exerciseStringLeft.First();
+                string nextString = e.Text;
+                //Change users input based on the next character
                 if(!specialCharacters)
                 {
-                    if(exerciseStringLeft.First() == 129)
+                    if(exerciseStringLeft.First() == 252 && nextString == "u")
                     {
-                        nextChar = "ü";
+                        nextString = "ü";
                     }
-                    else if(exerciseStringLeft.First() == 129)
+                    else if(exerciseStringLeft.First() == 232 && nextString == "e")
+                    {
+                        nextString = "è";
+                    }
+                    else if(exerciseStringLeft.First() == 228 && nextString == "a")
+                    {
+                        nextString = "ä";
+                    }
+                    else if (exerciseStringLeft.First() == 224 && nextString == "a")
+                    {
+                        nextString = "à";
+                    }
+                    else if(nextChar == 235 && nextString == "e")
+                    {
+                        nextString = "ë";
+                    }
+                    else if (exerciseStringLeft.First() == 233 && nextString == "e")
+                    {
+                        nextString = "é";
+                    }
+                    else if (exerciseStringLeft.First() == 239 && nextString == "i")
+                    {
+                        nextString = "ï";
+                    }
+                    else if (exerciseStringLeft.First() == 236 && nextString == "i")
+                    {
+                        nextString = "ì";
+                    }
+                    else if (exerciseStringLeft.First() == 246 && nextString == "o")
+                    {
+                        nextString = "ö";
+                    }
+                    else if (exerciseStringLeft.First() == 242 && nextString == "o")
+                    {
+                        nextString = "ò";
+                    }
+                    else if (exerciseStringLeft.First() == 249 && nextString == "u")
+                    {
+                        nextString = "ù";
+                    }
+                    else if (exerciseStringLeft.First() == 225 && nextString == "a")
+                    {
+                        nextString = "á";
+                    }
+                    else if (exerciseStringLeft.First() == 237 && nextString == "i")
+                    {
+                        nextString = "í";
+                    }
+                    else if (exerciseStringLeft.First() == 243 && nextString == "o")
+                    {
+                        nextString = "ó";
+                    }
+                    else if (exerciseStringLeft.First() == 250 && nextString == "u")
+                    {
+                        nextString = "ú";
+                    }
                 }
 
                 //Check if the user's input is correct
-                if (e.Text == nextChar)
+                if (nextString == exerciseStringLeft.First().ToString())
                 {
                     //Used for saving user's mistakes
                     mistake = false;
@@ -539,6 +606,12 @@ namespace Foutloos
                     //Update variables
                     userInputCorrect += exerciseStringLeft.First().ToString();
                     exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
+
+                    //Change users inputbox
+                    UserInput_TextBox.Text = "";
+                    UserInput_TextBox.Text = userInputCorrect;
+                    UserInput_TextBox.CaretIndex = userInputCorrect.Length;
+                    e.Handled = true;
 
                     //Add remaining exercise text if there is any
                     if (exerciseStringLeft.Length > 0)

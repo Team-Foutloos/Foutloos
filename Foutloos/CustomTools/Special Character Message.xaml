@@ -7,15 +7,19 @@
              mc:Ignorable="d">
     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid HorizontalAlignment="Left" Height="60" Width="100" Margin="0" VerticalAlignment="Top">
-            <Rectangle Fill="White" Height="40" Width="80" Margin="10,4,10,16" RadiusY="7.5" RadiusX="7.5"/>
-            <TextBlock Name="Text" Text="shift + &quot; + u" Margin="21,16,19,24" Height="20" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Polygon Fill="White">
+            <Rectangle Fill="White" Height="40" Width="80" Margin="10,4,10,16" RadiusY="7.5" RadiusX="7.5" Stroke="Black"/>
+
+            <Viewbox Margin="0,0,39,23">
+                <TextBlock Name="Text" Text="hoi" TextWrapping="Wrap"/>
+            </Viewbox>
+            <Polygon Fill="White" Stroke="Black">
                 <Polygon.Points>
                     <Point X="50" Y="40"/>
                     <Point X="70" Y="40"/>
                     <Point X="65" Y="60"/>
                 </Polygon.Points>
             </Polygon>
+            <Rectangle Fill="White" Margin="48,39,29,17"/>
         </Grid>
     </Viewbox>
 </UserControl>

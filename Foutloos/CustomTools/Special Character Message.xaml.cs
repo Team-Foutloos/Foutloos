@@ -15,46 +15,74 @@ using System.Windows.Shapes;
 
 namespace Foutloos
 {
-    /// <summary>
-    /// Interaction logic for Special_Character_Message.xaml
-    /// </summary>
     public partial class Special_Character_Message : UserControl
     {
-        public Special_Character_Message(char c)
+        public Special_Character_Message()
         {
             InitializeComponent();
+        }
 
-            if(c == 129)
+        public void ChangeText(char c)
+        {
+            if (c == 252)
             {
                 Text.Text = "shift & \" + u";
             }
-            else if(c == 130)
+            else if (c == 233)
             {
                 Text.Text = "\' + e";
             }
-            else if(c == 132)
+            else if (c == 228)
             {
-                Text.Text = "\" + a";
+                Text.Text = "shift & \" + a";
             }
-            else if(c == 133)
+            else if (c == 224)
             {
                 Text.Text = "` + a";
             }
-            else if(c == 137)
+            else if (c == 235)
             {
                 Text.Text = "shift & \" + e";
             }
-            else if(c == 138)
+            else if (c == 232)
             {
                 Text.Text = "` + e";
             }
-            else if(c == 139)
+            else if (c == 239)
             {
                 Text.Text = "shift & \" + i";
             }
-            else if(c == 141)
+            else if (c == 236)
             {
                 Text.Text = "` + i";
+            }
+            else if (c == 246)
+            {
+                Text.Text = "shift & \" + o";
+            }
+            else if (c == 242)
+            {
+                Text.Text = "` + o";
+            }
+            else if (c == 249)
+            {
+                Text.Text = "` + u";
+            }
+            else if (c == 225)
+            {
+                Text.Text = "' + a";
+            }
+            else if (c == 237)
+            {
+                Text.Text = "' + i";
+            }
+            else if (c == 243)
+            {
+                Text.Text = "' + o";
+            }
+            else if (c == 250)
+            {
+                Text.Text = "' + u";
             }
         }
     }

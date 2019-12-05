@@ -89,7 +89,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise("better.", true);
+                Application.Current.MainWindow.Content = new Exercise("ïíìùúüòóöèéë", true);
             }
             
         }
