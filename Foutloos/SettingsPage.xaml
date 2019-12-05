@@ -1,4 +1,4 @@
-﻿<Page x:Class="Foutloos.SettingsAndProfilePage"
+﻿<Page x:Class="Foutloos.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -36,9 +36,11 @@
                 </EventTrigger>
             </Grid.Triggers>
             <Grid>
-                <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="89" Margin="373,21,443.2,0">
-                    <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left" Height="100" VerticalAlignment="Center" Width="100"/>
-                    <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Top" Height="100" Width="auto" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
+                
+                <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="110" Margin="0,20,0,0">
+                    <local:ThemedButton Width="auto" Height="auto" DynamicTextRegular="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30" PreviewMouseDown="ThemedButton_HomeMouseDown"/>
+                    <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="120,0,480,0" Height="90" Width="90"/>
+                    <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Stretch" Margin="150,0,0,0" VerticalAlignment="Center" Height="90" Width="400" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
                 </Grid>
                 <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="20,131,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="Black"/>
                 <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,170,19.6,0">
@@ -46,7 +48,7 @@
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80" Click="BtnLogIn_Click"/>
                         <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
-                        <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80"/>
+                        <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80" Click="BtnRegister_Click"/>
                         <Label Content="to see acount details" HorizontalAlignment="Left" Margin="711,70,0,80" Width="auto" Height="40" FontSize="20" />
                     </Grid>
                     <Grid Name="gridloggedIn" Background="White" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
@@ -76,8 +78,9 @@
                     <RadioButton Content="Characters per minute" FontSize="20"  HorizontalAlignment="Left" Margin="6,230,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0" Grid.Column="2"/>
 
                 </Grid>
-                <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90"/>
+                <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click"/>
             </Grid>
+            
         </Grid>
     </Viewbox>
 </Page>

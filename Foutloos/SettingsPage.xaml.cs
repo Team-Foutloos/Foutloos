@@ -19,9 +19,9 @@ namespace Foutloos
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsAndProfilePage : Page
+    public partial class SettingsPage : Page
     {
-        public SettingsAndProfilePage()
+        public SettingsPage()
         {
             InitializeComponent();
             this.loginUIchange();
@@ -36,6 +36,7 @@ namespace Foutloos
                 Title.Content = $"Hello, {ConfigurationManager.AppSettings["username"]}!";
                 gridloggedIn.Visibility = Visibility.Visible;
                 gridloggedOut.Visibility = Visibility.Hidden;
+                btnLogOut.IsEnabled = true;
             }
             else
             {
@@ -47,8 +48,13 @@ namespace Foutloos
 
         private void BtnLogIn_Click(object sender, RoutedEventArgs e)
         {
-            ShowModal(new Modals.ModalLogin(this));
+            ShowModal(new Modals.ModalLogin());
         }
+        private void BtnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            ShowModal(new Modals.ModalRegister());
+        }
+
         private void ShowModal<T>(T modal) where T : Window
         {
             UIElement rootVisual = this.Content as UIElement;
@@ -60,6 +66,16 @@ namespace Foutloos
                 modal.ShowDialog();
                 adornerLayer.Remove(darkenAdorner);
             }
+        }
+
+        private void BtnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            ShowModal(new Modals.LogoutAreYouSure());
+        }
+
+        private void ThemedButton_HomeMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new HomeScreen();
         }
     }
 }
