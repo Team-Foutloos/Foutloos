@@ -38,45 +38,35 @@
             <Grid>
                 
                 <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="110" Margin="0,20,0,0">
-                    <local:ThemedButton Width="auto" Height="auto" DynamicTextRegular="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30" PreviewMouseDown="ThemedButton_HomeMouseDown"/>
+                    <local:ThemedButton Width="auto" Height="auto" DynamicTextRegular="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,20,30,20" PreviewMouseDown="ThemedButton_HomeMouseDown"/>
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="120,0,480,0" Height="90" Width="90"/>
                     <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Stretch" Margin="150,0,0,0" VerticalAlignment="Center" Height="90" Width="400" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
                 </Grid>
-                <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="20,131,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="Black"/>
-                <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,170,19.6,0">
-                    <Grid Name="gridloggedOut" Background="White" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
+                <Label x:Name="lblGeneral" Content="General Information" HorizontalAlignment="Left" Margin="335,131,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="Black"/>
+                <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,170,0,0">
+                    <Grid Name="gridloggedOut" Background="White" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80" Click="BtnLogIn_Click"/>
                         <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
                         <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80" Click="BtnRegister_Click"/>
                         <Label Content="to see acount details" HorizontalAlignment="Left" Margin="711,70,0,80" Width="auto" Height="40" FontSize="20" />
                     </Grid>
-                    <Grid Name="gridloggedIn" Background="White" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
+                    <Grid Name="gridloggedIn" Background="White" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Label x:Name="lblUsername" Content="Username:" FontSize="20" HorizontalAlignment="Left" Margin="25,40,0,0" VerticalAlignment="Top"/>
-                        <Label x:Name="lblEmail" Content="Email:" FontSize="20" HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top"/>
                         <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,40,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top"/>
-                        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,100,0,0" TextWrapping="Wrap" Text="Placeholder@adress.com" VerticalAlignment="Top"/>
-                        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0"/>
-                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0"/>
+                        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0" Click="BtnChangePassword_Click"/>
+                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0" Click="BtnSave_Click"/>
                     </Grid>
                 </Grid>
-                <Label x:Name="lblSettings" Content="General Information" HorizontalAlignment="Left" Margin="20,370,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
-                <Grid x:Name="gridSettings" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="290" Width="475" Margin="25,410,0,0">
+                <Label x:Name="lblSettings" Content="Licenses" HorizontalAlignment="Left" Margin="335,380,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
+                <Grid x:Name="gridSettings" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top" Height="290" Width="1250" Margin="0,420,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0*"/>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="13*"/>
                     </Grid.ColumnDefinitions>
                     <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Grid.ColumnSpan="3" />
-                    <Label Content="Dyslectic mode" FontSize="20" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-                    <local:ToggleButton HorizontalAlignment="Left" Height="75" Margin="238,0,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
-                    <Label Content="Darkmode" FontSize="20" HorizontalAlignment="Left" Margin="25,72,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-                    <local:ToggleButton HorizontalAlignment="Left" Height="75" Margin="238,56,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
-                    <Label Content="Speed notation" FontSize="20" HorizontalAlignment="Left" Margin="23,146,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-                    <RadioButton Content="Words per minute" FontSize="20"  HorizontalAlignment="Left" Margin="6,188,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0" Grid.Column="2"/>
-                    <RadioButton Content="Characters per minute" FontSize="20"  HorizontalAlignment="Left" Margin="6,230,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0,0,0" Grid.Column="2"/>
-
                 </Grid>
                 <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click"/>
             </Grid>
