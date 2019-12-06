@@ -26,6 +26,7 @@ namespace Foutloos
 
         
         private string tekst;
+        private int exerciseID;
         private int amount;
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
 
@@ -288,7 +289,9 @@ namespace Foutloos
                     this.error_number.Content = "0";
                     this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
+                    this.exerciseID = int.Parse(exercise["exerciseID"].ToString());
                     this.level.Text = $"Level: {exercise["difficulty"]}";
+                    
 
                     if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 1)
                     {
@@ -334,7 +337,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new VoiceExercise(tekst);
+                Application.Current.MainWindow.Content = new VoiceExercise(tekst, exerciseID);
             }
         }
     }

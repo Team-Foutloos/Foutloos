@@ -84,7 +84,6 @@ namespace Foutloos.Modals
                             if (reader.Read() && SecurePasswordHasher.Verify(password.Password, (string)reader["password"]))
                             {
                                 ConfigurationManager.AppSettings["username"] = (string)reader["username"];
-                                ConfigurationManager.AppSettings["üserID"] = (string)reader["userID"];
 
                                 loadingScreen();
                             }
