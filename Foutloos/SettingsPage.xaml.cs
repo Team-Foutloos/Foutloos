@@ -21,6 +21,8 @@ namespace Foutloos
     /// </summary>
     public partial class SettingsPage : Page
     {
+
+        private int userID;
         public SettingsPage()
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace Foutloos
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
                 Title.Content = $"Hello, {ConfigurationManager.AppSettings["username"]}!";
+                txtUsername.Text = ConfigurationManager.AppSettings["username"];
                 gridloggedIn.Visibility = Visibility.Visible;
                 gridloggedOut.Visibility = Visibility.Hidden;
                 btnLogOut.IsEnabled = true;
@@ -68,14 +71,40 @@ namespace Foutloos
             }
         }
 
+        //The logout button
         private void BtnLogOut_Click(object sender, RoutedEventArgs e)
         {
             ShowModal(new Modals.LogoutAreYouSure());
         }
 
+        //The return to home button
         private void ThemedButton_HomeMouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.Content = new HomeScreen();
+        }
+
+        //Connector to the Database
+        Connection c = new Connection();
+
+        //The save button to save user/email adress changes
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            string errorMessage = "";
+
+            if (txtUsername.Text.Length < 5)
+            {
+                errorMessage += "Username is too short";
+            }
+            else
+            {
+                userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+                string CmdString = $"UPDATE Usertable SET username = '{txtUsername}' WHERE userID = '{userID}'";
+            }
+        }
+
+        private void BtnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            ShowModal(new Modals.ChangePassword(userID));
         }
 
         private void License_Click(object sender, RoutedEventArgs e)

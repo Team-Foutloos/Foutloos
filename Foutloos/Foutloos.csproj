@@ -80,6 +80,9 @@
     <Compile Include="CustomTools\loadingIndicator.xaml.cs">
       <DependentUpon>loadingIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modals\ChangePassword.xaml.cs">
+      <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="License.cs" />
     <Compile Include="Modals\Countdown.xaml.cs">
       <DependentUpon>Countdown.xaml</DependentUpon>
@@ -116,6 +119,10 @@
       <DependentUpon>VoiceExercise.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomTools\loadingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modals\ChangePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
