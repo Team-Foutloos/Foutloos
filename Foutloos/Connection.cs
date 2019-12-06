@@ -52,6 +52,7 @@ namespace Foutloos
                     SqlCommand cmd = new SqlCommand(query, conn);
                     conn.Open();
                     packages.Add((Int32)cmd.ExecuteScalar());
+                    conn.Close();
                 }
 
 
@@ -133,6 +134,7 @@ namespace Foutloos
                     SqlCommand cmd = new SqlCommand(query, conn);
                     conn.Open();
                     id = (Int32)cmd.ExecuteScalar();
+                    conn.Close();
                 }
 
 
