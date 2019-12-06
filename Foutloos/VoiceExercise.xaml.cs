@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Speech.Synthesis;
@@ -26,7 +28,8 @@ namespace Foutloos
         //The speech synthesizer for speaking the given sentences
         SpeechSynthesizer synthesizer;
 
-        string dbString = "This is the end. Hold your breath and count to ten.";
+        string dbString = "";
+        int exerciseID;
 
         //The text displayed on the screen
         string typedText = "";
@@ -41,6 +44,7 @@ namespace Foutloos
         int second;
         //Variable for the amount of chars typed within a certain timespan.
         int typedKeys;
+        int typedWords;
 
         //Array with all the speech speed levels
         double[] rateValues = { 0.5, 1, 1.25 };
@@ -50,12 +54,20 @@ namespace Foutloos
 
         //Making an array that saves the indexes of errors so they wont be counted twice
         List<int> mistakeIndex = new List<int>();
-        
 
-        public VoiceExercise(string text)
+        double avgWPM;
+        double avgCPM;
+
+        //Add a list to save the wpm and time
+        List<int> wpmTimeList = new List<int>() { 0 };
+        List<int> cpmTimeList = new List<int>() { 0 };
+
+
+        public VoiceExercise(string text, int exerciseID)
         {
             InitializeComponent();
             this.dbString = text;
+            this.exerciseID = exerciseID;
 
             //Setting the speech synthesizer (system default text to speech object).
             synthesizer = new SpeechSynthesizer();
@@ -87,6 +99,8 @@ namespace Foutloos
             //Configuring the timer and adding an event
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+
+
 
         }
 
@@ -122,6 +136,18 @@ namespace Foutloos
             //If enter is pressed while the exercise isn't running yet the exercise will start
             if (keyChar == '\r' && !running && !exerciseFinished)
             {
+                UIElement rootVisual = this.Content as UIElement;
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                if (rootVisual != null && adornerLayer != null)
+                {
+                    CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
+                    adornerLayer.Add(darkenAdorner);
+
+                    //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                    Modals.Countdown countdown = new Modals.Countdown();
+                    countdown.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
+                }
                 startSpeaking();
                 running = true;
                 headLabel.Content = "Press enter to replay";
@@ -130,21 +156,13 @@ namespace Foutloos
             {
                 //Catching the backspace key and make it remove the last char from the variable wich holds the
                 //written text. All other keys will be added to the same variable.
-                if (keyChar.Equals('\b'))
-                {
-                    if (typedText.Length > 0)
-                    {
-                        typedText = typedText.Remove(typedText.Length - 1);
-                    }
-                }
-                else
-                {
+                string typedTextOld = typedText;
+
                     if (typedText.Length < dbString.Length)
                     {
                         typedText += e.Text;
                         typedKeys++;
                     }
-                }
 
                 
                 //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
@@ -193,11 +211,8 @@ namespace Foutloos
                                 //Adding the mistakes index so it wont be counted up when the text updates
                                 mistakeIndex.Add(i);
                             }
-                            
-                            //Making spaces in the wrong part of the text red underscores for better visibility
-                            string wrongChar = typedText[i].ToString().Replace(' ', '_');
-                            //Adding the wrong char to the text
-                            inputText.Inlines.Add(new Run(wrongChar) { Foreground = Brushes.Red });
+
+                            typedText = typedTextOld;
 
                             //Flipping the wrong variable so all the text after the mistake is also shown in red
                             if (!wrong)
@@ -212,11 +227,73 @@ namespace Foutloos
                     //If the sentence is completed
                     if (typedText.Length == dbString.Length && !wrong)
                     {
+                        //The timer stops
                         timer.Stop();
+                        //With a LINQ query the amount of mistakes is calculated
                         int mistakesNumber = mistakes.Values.Sum();
+                        //Some basic info will be displayed on the users screen
                         headLabel.Content = $"Done! Total time: {SecondsToTime(second)}\nNumber of mistakes: {mistakesNumber}";
+                        //The progressbars color will be set to green
                         ProgressBar.Foreground = Brushes.Green;
                         exerciseFinished = true;
+
+
+                        //This will add the results to the resultstable
+                        if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+                        {
+                            //Make a new connectionclass
+                            Connection c = new Connection();
+
+                            //Getting the necessary IDs from the database
+                            int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
+                            int resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
+                            //The query to insert the result into the result table
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID})";
+                            //Executing the query
+                            if (c.insertInto(CmdString))
+                            {
+                                //If the result has been added to the database, the Errors can be saved too
+                                //For each keyValuePair in the dictionary the key will be added with the matching value
+                                foreach(KeyValuePair<char, int> mistake in mistakes)
+                                {
+                                    //Getting the id for the new error
+                                    int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
+                                    //Setting the query for adding the errors
+                                    string insertMistakes = $"INSERT INTO Error (errorID, letter, count, resultID) VALUES ({errorID}, '{mistake.Key}', {mistake.Value}, {resultID})";
+                                    //Inserting the error with the query above
+                                    c.insertInto(insertMistakes);
+                                }
+                            }
+                        }
+
+
+                        //Show the results
+                        UIElement rootVisual = this.Content as UIElement;
+                        AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                        int wordspm;
+                        int charspm;
+                        double accuracy = ((((double)dbString.Length - (double)mistakesNumber) / (double)dbString.Length) * 100);
+
+
+
+                        //If the seconds is higher then 0, divide by seconds.
+                        if (second > 0)
+                        {
+                            wordspm = (typedWords * 60) / second;
+                            charspm = (typedKeys * 60) / second;
+                        }
+                        else
+                        {
+                            wordspm = (typedWords * 60);
+                            charspm = (typedKeys * 60);
+                        }
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, second, mistakesNumber, accuracy, cpmTimeList, wpmTimeList, mistakes, dbString);
+                        if (rootVisual != null && adornerLayer != null)
+                        {
+                            CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
+                            adornerLayer.Add(darkenAdorner);
+                            results.ShowDialog();
+                        }
                     }
                 }
 
@@ -226,17 +303,28 @@ namespace Foutloos
 
         //Every second that the timer is enabled this will happen.
         private void Timer_Tick(object sender, EventArgs e)
-        {
+        { 
+
             //Adding a second every time the timer ticks
             second++;
             //Displaying the correct time to the user
             timeLable.Content = SecondsToTime(second);
 
+
+            //Add wpm to the list
+            wpmTimeList.Add((typedWords * 60) / second);
+
+            //Add cpm to the list
+            cpmTimeList.Add((typedKeys * 60) / second);
+
             //Calculating the typed keys per minute
-            cpmLable.Content = Math.Round((typedText.Length / (double)second) * 60);
+            avgCPM = Math.Round((typedText.Length / (double)second) * 60);
+            cpmLable.Content = avgCPM;
 
             string[] woorden = typedText.Split(' ');
-            wpmLable.Content = Math.Round((woorden.Length / (double)second) * 60);
+            typedWords = woorden.Length;
+            avgWPM = Math.Round((typedWords / (double)second) * 60);
+            wpmLable.Content = avgWPM;
             
         }
 
