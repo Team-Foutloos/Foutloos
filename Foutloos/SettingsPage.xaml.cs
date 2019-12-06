@@ -77,5 +77,10 @@ namespace Foutloos
         {
             Application.Current.MainWindow.Content = new HomeScreen();
         }
+
+        private void License_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

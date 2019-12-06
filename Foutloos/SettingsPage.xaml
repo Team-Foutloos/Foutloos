@@ -59,6 +59,7 @@
                         <TextBox x:Name="txtEmail" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,100,0,0" TextWrapping="Wrap" Text="Placeholder@adress.com" VerticalAlignment="Top"/>
                         <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0"/>
                         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0"/>
+                        <Button x:Name="License" Content="Add LicenseKey" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="1050,16,0,154" Click="License_Click"/>
                     </Grid>
                 </Grid>
                 <Label x:Name="lblSettings" Content="General Information" HorizontalAlignment="Left" Margin="20,370,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
