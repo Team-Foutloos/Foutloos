@@ -63,7 +63,42 @@ namespace Foutloos
 
             return packages;
 
-        } 
+        }
+        
+
+        public string getPassword(int ID)
+        {  
+            try
+            {
+                string hashedPassword = null;
+                string query = $"SELECT password FROM userTable WHERE userID = '{ID}'";
+                SqlConnection conn = new SqlConnection(connectionstring);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                using (SqlDataReader oReader = cmd.ExecuteReader())
+                {
+                    try {
+                        while (oReader.Read())
+                        {
+                            hashedPassword = SecurePasswordHasher.Hash(oReader["password"].ToString());
+                        }
+                        conn.Close();
+                        return hashedPassword;
+                    }
+                    catch(Exception e)
+                    {
+                        System.Windows.Forms.MessageBox.Show($"Could not read and return any data{e}");
+                        return hashedPassword;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show($"No connection or wrong query{e}");
+                return null;
+            }
+        }
+
 
         //insert data int to the database.
         public bool insertInto(string query)

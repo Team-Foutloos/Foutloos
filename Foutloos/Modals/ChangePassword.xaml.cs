@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,15 +33,26 @@ namespace Foutloos.Modals
 
         private void SaveBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            var r = c.PullData($"SELECT password FROM userTable WHERE userID = '{userID}'");
-            oldpassword.Password = r.Rows.ToString();
-            
-        }
-
+            string passwordFD = c.getPassword(userID);
+            string passwordOld = SecurePasswordHasher.Hash(oldpassword.Password);
+            if (passwordFD.Equals(passwordOld))
+            {
+                string passwordNew = SecurePasswordHasher.Hash(newpassword.Password);
+                string passwordRepeat = SecurePasswordHasher.Hash(Repeatpassword.Password);
+                if (passwordRepeat.Equals(passwordNew))
+                {
+                    string CmdString = $"UPDATE Usertable SET password = '{passwordNew}' WHERE userID = '{userID}'";
+                    if (c.insertInto(CmdString))
+                    {
+                        this.Close();
+                    }
+                }
+            }
+        }    
+        
         private void CancelBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
+                this.Close();
         }
     }
 }
