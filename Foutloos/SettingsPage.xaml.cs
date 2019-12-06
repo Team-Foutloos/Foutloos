@@ -99,6 +99,10 @@ namespace Foutloos
             {
                 userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
                 string CmdString = $"UPDATE Usertable SET username = '{txtUsername}' WHERE userID = '{userID}'";
+                if (c.insertInto(CmdString))
+                {
+                    System.Windows.Forms.MessageBox.Show("Username succesfully changed");
+                }
             }
         }
 
