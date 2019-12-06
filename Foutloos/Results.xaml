@@ -100,8 +100,8 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <TextBlock x:Name="ColumnChartTitle" HorizontalAlignment="Left" Margin="513,23,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="49" Width="211"/>
-                        <chartingToolkit:Chart Name="columnChart" HorizontalAlignment="Left" Margin="428,23,0,0" VerticalAlignment="Top" Height="345" Width="125">
+                        <TextBlock x:Name="ColumnChartTitle" HorizontalAlignment="Left" Margin="513,23,0,0" FontSize="24" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="49" Width="290"/>
+                        <chartingToolkit:Chart Name="columnChart" BorderThickness="0" HorizontalAlignment="Left" Margin="428,23,0,0" VerticalAlignment="Top" Height="345" Width="125">
                             <chartingToolkit:Chart.LegendStyle>
                                 <Style TargetType="datavis:Legend">
                                     <Setter Property="Width" Value="0" />
@@ -112,7 +112,7 @@
                             </chartingToolkit:Chart.Axes>
                             <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}"/>
                         </chartingToolkit:Chart>
-                        <chartingToolkit:Chart Name="columnChartCPM" HorizontalAlignment="Left" Margin="553,23,0,0" VerticalAlignment="Top" Height="345" Width="125">
+                        <chartingToolkit:Chart Name="columnChartCPM" BorderThickness="0" HorizontalAlignment="Left" Margin="553,23,0,0" VerticalAlignment="Top" Height="345" Width="125">
                             <chartingToolkit:Chart.LegendStyle>
                                 <Style TargetType="datavis:Legend">
                                     <Setter Property="Width" Value="0" />
@@ -123,7 +123,7 @@
                             </chartingToolkit:Chart.Axes>
                             <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}"/>
                         </chartingToolkit:Chart>
-                        <chartingToolkit:Chart Name="columnChartMistakes" HorizontalAlignment="Left" Margin="678,23,0,0" VerticalAlignment="Top" Height="345" Width="125">
+                        <chartingToolkit:Chart Name="columnChartMistakes" BorderThickness="0" HorizontalAlignment="Left" Margin="678,23,0,0" VerticalAlignment="Top" Height="345" Width="125">
                             <chartingToolkit:Chart.LegendStyle>
                                 <Style TargetType="datavis:Legend">
                                     <Setter Property="Width" Value="0" />
