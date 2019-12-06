@@ -80,6 +80,7 @@
     <Compile Include="CustomTools\loadingIndicator.xaml.cs">
       <DependentUpon>loadingIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="License.cs" />
     <Compile Include="Modals\Countdown.xaml.cs">
       <DependentUpon>Countdown.xaml</DependentUpon>
     </Compile>

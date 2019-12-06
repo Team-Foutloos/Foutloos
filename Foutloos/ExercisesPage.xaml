@@ -89,14 +89,7 @@
                     </ScrollViewer>
 
                 </TabItem>
-                <TabItem Header="Selected for you">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,-1,0,1">
-                        <Grid x:Name="Grid_Selected" ShowGridLines="False" Background="White">
-
-
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
+                
                 <TabItem Header="Amateur">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Amateur" ShowGridLines="False" Background="White">

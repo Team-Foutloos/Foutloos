@@ -34,12 +34,35 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("No connection");
+                System.Windows.Forms.MessageBox.Show($"No connection{e}");
             }
 
             return dataTable;
         }
 
+        public List<int> getPackages(string query)
+        {
+            List<int> packages = new List<int>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+                    packages.Add((Int32)cmd.ExecuteScalar());
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                
+            }
+
+            return packages;
+
+        } 
 
         public bool insertInto(string query)
         {
@@ -55,11 +78,12 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("No connection or wrong query");
+                System.Windows.Forms.MessageBox.Show($"No connection or wrong query{e}");
                 return false;
             }
 
         }
+
 
         public int ID(string query)
         {
@@ -78,7 +102,7 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("No connection");
+                //System.Windows.Forms.MessageBox.Show($"No connection");
             }
 
 
