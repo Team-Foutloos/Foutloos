@@ -41,7 +41,7 @@ namespace Foutloos
             Connection c = new Connection();
             DataTable dt = new DataTable();
             
-            dt = c.PullData("SELECT * FROM Exercises");
+            dt = c.PullData("SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
 
 
             //Create all the lists of exercises and add them to the main list (exercises)
@@ -56,10 +56,7 @@ namespace Foutloos
             exercises.Add(expertExercises);
             exercises.Add(allExercises);
 
-            int selected = 0;
-            int amateur = 0;
-            int normal = 0;
-            int expert = 0;
+            int selected = 0;           
             int finished = 0;            
             amount = 0;
             
@@ -68,7 +65,6 @@ namespace Foutloos
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
-                string done = row["finished"].ToString();
 
                 exercises[((int)Int64.Parse(difficulty))-1].Add(row);
                 exercises[3].Add(row);
@@ -290,9 +286,24 @@ namespace Foutloos
                     this.wpm_number.Content = "0";
                     this.cpm_number.Content = "0";
                     this.error_number.Content = "0";
-                    this.Description.Content = exercise["text"].ToString();
+                    this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
-                    this.level.Text = $"Level: {difficulty}";
+                    this.level.Text = $"Level: {exercise["difficulty"]}";
+
+                    if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 1)
+                    {
+                        this.level.Text = "Level: Amateur";                 
+                    }
+                    if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 2)
+                    {
+                        this.level.Text = "Level: Normal";
+                    }
+                    if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 3)
+                    {
+                        this.level.Text = "Level: Expert";
+                    }
+
+                    this.Origin.Content = exercise["source"];
 
                 }
             }           
