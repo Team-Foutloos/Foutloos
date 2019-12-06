@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Speech.Synthesis;
@@ -27,7 +28,8 @@ namespace Foutloos
         //The speech synthesizer for speaking the given sentences
         SpeechSynthesizer synthesizer;
 
-        string dbString = "This is the end. Hold your breath and count to ten.";
+        string dbString = "";
+        int exerciseID;
 
         //The text displayed on the screen
         string typedText = "";
@@ -61,10 +63,11 @@ namespace Foutloos
         List<int> cpmTimeList = new List<int>() { 0 };
 
 
-        public VoiceExercise(string text)
+        public VoiceExercise(string text, int exerciseID)
         {
             InitializeComponent();
             this.dbString = text;
+            this.exerciseID = exerciseID;
 
             //Setting the speech synthesizer (system default text to speech object).
             synthesizer = new SpeechSynthesizer();
@@ -224,21 +227,44 @@ namespace Foutloos
                     //If the sentence is completed
                     if (typedText.Length == dbString.Length && !wrong)
                     {
+                        //The timer stops
                         timer.Stop();
+                        //With a LINQ query the amount of mistakes is calculated
                         int mistakesNumber = mistakes.Values.Sum();
+                        //Some basic info will be displayed on the users screen
                         headLabel.Content = $"Done! Total time: {SecondsToTime(second)}\nNumber of mistakes: {mistakesNumber}";
+                        //The progressbars color will be set to green
                         ProgressBar.Foreground = Brushes.Green;
                         exerciseFinished = true;
 
 
                         //This will add the results to the resultstable
-                        /*if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+                        if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
                         {
+                            //Make a new connectionclass
                             Connection c = new Connection();
-                            int userID = int.Parse(ConfigurationManager.AppSettings["userID"]);
+
+                            //Getting the necessary IDs from the database
+                            int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
                             int resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
-                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, )";
-                        }*/
+                            //The query to insert the result into the result table
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID})";
+                            //Executing the query
+                            if (c.insertInto(CmdString))
+                            {
+                                //If the result has been added to the database, the Errors can be saved too
+                                //For each keyValuePair in the dictionary the key will be added with the matching value
+                                foreach(KeyValuePair<char, int> mistake in mistakes)
+                                {
+                                    //Getting the id for the new error
+                                    int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
+                                    //Setting the query for adding the errors
+                                    string insertMistakes = $"INSERT INTO Error (errorID, letter, count, resultID) VALUES ({errorID}, '{mistake.Key}', {mistake.Value}, {resultID})";
+                                    //Inserting the error with the query above
+                                    c.insertInto(insertMistakes);
+                                }
+                            }
+                        }
 
 
                         //Show the results
