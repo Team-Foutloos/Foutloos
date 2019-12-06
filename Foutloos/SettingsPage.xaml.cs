@@ -36,6 +36,7 @@ namespace Foutloos
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
                 Title.Content = $"Hello, {ConfigurationManager.AppSettings["username"]}!";
+                txtUsername.Text = ConfigurationManager.AppSettings["username"];
                 gridloggedIn.Visibility = Visibility.Visible;
                 gridloggedOut.Visibility = Visibility.Hidden;
                 btnLogOut.IsEnabled = true;
