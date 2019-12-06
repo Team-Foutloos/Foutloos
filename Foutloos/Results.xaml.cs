@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,7 @@ namespace Foutloos
         public Results()
         {
             InitializeComponent();
+            UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
             FillListBox();
             FillColumnCharts("Exercise_0", 60, 240,30) ;
             FillLineChart();
@@ -34,6 +37,18 @@ namespace Foutloos
         //TODO: change mockdata for the UserResult Table in the database (Table name might be different)
         private void FillListBox()
         {
+
+            Connection c = new Connection();
+            DataTable dt = new DataTable();
+            
+
+            dt = c.PullData("SELECT * FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = " + ConfigurationManager.AppSettings["username"]);
+            
+            UserExerciseResult result = new UserExerciseResult();
+            //result.Mistakes = Convert.ToInt32(dt.Rows[0]["mistakes"]);
+            
+
+
             exerciselist = new List<UserExerciseResult>();
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 1", Difficulty = "Beginner", Type = "Text", WPM = 40, Mistakes = 6, CPM = 240 }) ;
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 2", Difficulty = "Beginner", Type = "Text", WPM = 45, Mistakes = 4, CPM = 270 });

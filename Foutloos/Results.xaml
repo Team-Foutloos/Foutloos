@@ -35,7 +35,7 @@
         </Grid.Triggers>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="608" Width="1180" Margin="10,10,10,57.2">
             <TextBlock HorizontalAlignment="Left" Margin="151,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="90" FontFamily="Arial Rounded MT Bold" Height="110" Width="418"><Run Text="Results"/><LineBreak/><Run/></TextBlock>
-            <TextBlock HorizontalAlignment="Left" TextAlignment="Right" Margin="540,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="60" FontFamily="Arial Rounded MT Bold" Height="71" Width="474"><Run Text="Username"/><LineBreak/><Run/></TextBlock>
+            <TextBlock Name="UsernameBlock" Text="Username" HorizontalAlignment="Left" TextAlignment="Right" Margin="540,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="60" FontFamily="Arial Rounded MT Bold" Height="71" Width="474"/>
             <local:ThemedIconButton HorizontalAlignment="Left" Margin="-50,10,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="GoHome_MouseDown"/>
 
             <TabControl HorizontalAlignment="Left" Height="419" Margin="151,109,0,0" VerticalAlignment="Top" Width="863">
