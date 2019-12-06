@@ -26,38 +26,86 @@ namespace Foutloos
 
         
         private string tekst;
-        private int amount;
+        private int exerciseID;
+        private int amount = 0;
+        
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
+        List<DataRow> amateurExercises = new List<DataRow>();
+        List<DataRow> normalExercises = new List<DataRow>();
+        List<DataRow> expertExercises = new List<DataRow>();
+        List<DataRow> allExercises = new List<DataRow>();
+        List<DataRow> finished = new List<DataRow>();
+        Connection c = new Connection();
 
         public ExercisesPage()
         {
             InitializeComponent();
+            
             AddButton();
 
         } 
+
+        private void AddDLC()
+        {
+
+            try
+            {
+                List<int> packages = new List<int>();
+                DataTable dt = new DataTable();
+                
+                //checks how many and which packages are connected to the logged in account.
+                packages = c.getPackages($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
+
+                //Adds the packages for all the packages available in the account.
+                foreach (int i in packages)
+                {
+                    dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");
+
+                    exercises.Add(amateurExercises);
+                    exercises.Add(normalExercises);
+                    exercises.Add(expertExercises);
+                    exercises.Add(allExercises);
+                    exercises.Add(finished);
+                                                         
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string ID = row["exerciseID"].ToString();
+                        string text = row["text"].ToString();
+                        string difficulty = row["difficulty"].ToString();
+
+                        exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
+                        exercises[3].Add(row);
+                        amount++;
+
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
+        }
         
         private void AddButton()
-        {
-            Connection c = new Connection();
+        {            
             DataTable dt = new DataTable();
             
-            dt = c.PullData("SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
-
+            //standard package that always gets added.
+            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
 
             //Create all the lists of exercises and add them to the main list (exercises)
             //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
-            List<DataRow> amateurExercises = new List<DataRow>();
-            List<DataRow> normalExercises = new List<DataRow>();
-            List<DataRow> expertExercises = new List<DataRow>();
-            List<DataRow> allExercises = new List<DataRow>();
+            
 
             exercises.Add(amateurExercises);
             exercises.Add(normalExercises);
             exercises.Add(expertExercises);
             exercises.Add(allExercises);
-
-            int selected = 0;           
-            int finished = 0;            
+            exercises.Add(finished);
+                            
+                      
             amount = 0;
             
             foreach (DataRow row in dt.Rows)
@@ -77,10 +125,10 @@ namespace Foutloos
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
-            //The standard left and top margin are added for grid Selected for you.
-            Grid_Selected.ShowGridLines = false;
-            Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-            Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+            ////The standard left and top margin are added for grid Selected for you.
+            //Grid_Selected.ShowGridLines = false;
+            //Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            //Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Amateur.
             Grid_Amateur.ShowGridLines = false;
@@ -102,12 +150,15 @@ namespace Foutloos
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
+            AddDLC();
+
             calculate(amount, "Grid_All");
-            calculate(selected, "Grid_Selected");
+            //calculate(selected, "Grid_Selected");
             calculate(exercises[0].Count, "Grid_Amateur");
             calculate(exercises[1].Count, "Grid_Normal");
             calculate(exercises[2].Count, "Grid_Expert");
-            calculate(finished, "Grid_Finished");
+            calculate(exercises[4].Count, "Grid_Finished");
+            
 
 
         }
@@ -129,11 +180,11 @@ namespace Foutloos
                     Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
                     Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
                 }
-                if (gridName == "Grid_Selected")
-                {
-                    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
+                //if (gridName == "Grid_Selected")
+                //{
+                //    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                //    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                //}
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
@@ -185,11 +236,11 @@ namespace Foutloos
                     Grid_All.Children.Add(b1);
                     b1.Click += (sender, e ) => B1_Click(sender, e, 3);
                 }
-                if (gridName == "Grid_Selected")
-                {
-                    Grid_Selected.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 5);
-                }
+                //if (gridName == "Grid_Selected")
+                //{
+                //    Grid_Selected.Children.Add(b1);
+                //    b1.Click += (sender, e) => B1_Click(sender, e, 5);
+                //}
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.Children.Add(b1);
@@ -238,12 +289,12 @@ namespace Foutloos
                     Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
-                if (gridName == "Grid_Selected")
-                {
-                    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+                //if (gridName == "Grid_Selected")
+                //{
+                //    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                //    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
-                }
+                //}
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
@@ -288,7 +339,9 @@ namespace Foutloos
                     this.error_number.Content = "0";
                     this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
+                    this.exerciseID = int.Parse(exercise["exerciseID"].ToString());
                     this.level.Text = $"Level: {exercise["difficulty"]}";
+                    
 
                     if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 1)
                     {
@@ -334,7 +387,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new VoiceExercise(tekst);
+                Application.Current.MainWindow.Content = new VoiceExercise(tekst, exerciseID);
             }
         }
     }

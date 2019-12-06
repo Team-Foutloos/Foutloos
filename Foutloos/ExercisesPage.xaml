@@ -38,7 +38,7 @@
                         </Grid>
                         <Grid Margin="0,201,0,416.333" VerticalAlignment="Center" Height="100">
                             <ScrollViewer>
-                                <TextBlock x:Name="Description" TextWrapping="Wrap" Text="Hallo mijn naam is hsdlkjaflkj fdsjfdslkj lkjjdlfskj lkjsfd  lkjdsf lkjs flkjs fds lkjfs flkjsd fslkjd fslkjd flkjsd fs fdlkjslkjlkjsd fslkjdf lkjsf s fdsf sfd sdflk sf lkajfdlks j fslkjflkjsdf lkjs flks fdjsd flksd lfjslkdjf lkdsjf lksjd flkjsdlkf jslkd fsdsf lkjs sf dslkjdf lkjsdlkjf lkjs" FontSize="20"/>
+                                <TextBlock x:Name="Description" TextWrapping="Wrap" FontSize="20" Width="251"/>
                             </ScrollViewer>
                         </Grid>
                         <Label Content="Origin" HorizontalAlignment="Center" Margin="109,313,106,360.333" VerticalAlignment="Center" FontSize="25" FontWeight="SemiBold"/>
@@ -89,14 +89,7 @@
                     </ScrollViewer>
 
                 </TabItem>
-                <TabItem Header="Selected for you">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,-1,0,1">
-                        <Grid x:Name="Grid_Selected" ShowGridLines="False" Background="White">
-
-
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
+                
                 <TabItem Header="Amateur">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Amateur" ShowGridLines="False" Background="White">

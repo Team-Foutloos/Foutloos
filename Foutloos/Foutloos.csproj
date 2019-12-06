@@ -83,6 +83,7 @@
     <Compile Include="Modals\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="License.cs" />
     <Compile Include="Modals\Countdown.xaml.cs">
       <DependentUpon>Countdown.xaml</DependentUpon>
     </Compile>

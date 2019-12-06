@@ -105,5 +105,19 @@ namespace Foutloos
         {
             ShowModal(new Modals.ChangePassword(userID));
         }
+
+        private void License_Click(object sender, RoutedEventArgs e)
+        {
+            License license = new License();
+
+            if (licenseBox.Text != "")            {
+                                
+                license.insertLicense(licenseBox.Text);
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Pls fill in a licensKey");
+            }
+        }
     }
 }

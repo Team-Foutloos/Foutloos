@@ -36,7 +36,7 @@
                 </EventTrigger>
             </Grid.Triggers>
             <Grid>
-                
+
                 <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="110" Margin="0,20,0,0">
                     <local:ThemedButton Width="auto" Height="auto" DynamicTextRegular="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,20,30,20" PreviewMouseDown="ThemedButton_HomeMouseDown"/>
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="120,0,480,0" Height="90" Width="90"/>
@@ -55,8 +55,11 @@
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Label x:Name="lblUsername" Content="Username:" FontSize="20" HorizontalAlignment="Left" Margin="25,40,0,0" VerticalAlignment="Top"/>
                         <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,40,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top"/>
-                        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0" Click="BtnChangePassword_Click"/>
-                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0" Click="BtnSave_Click"/>
+                        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,100,0,0" TextWrapping="Wrap" Text="Placeholder@adress.com" VerticalAlignment="Top"/>
+                        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0"/>
+                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0"/>
+                        <Button x:Name="License" Content="Add LicenseKey" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="1050,16,0,154" Click="License_Click"/>
+                        <TextBox x:Name="licenseBox" HorizontalAlignment="Left" Height="23" Margin="800,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
                     </Grid>
                 </Grid>
                 <Label x:Name="lblSettings" Content="Licenses" HorizontalAlignment="Left" Margin="335,380,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
@@ -69,8 +72,10 @@
                     <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Grid.ColumnSpan="3" />
                 </Grid>
                 <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click"/>
+                
             </Grid>
             
+
         </Grid>
     </Viewbox>
 </Page>
