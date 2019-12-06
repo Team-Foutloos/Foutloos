@@ -40,6 +40,7 @@ namespace Foutloos
             return dataTable;
         }
 
+        //returns the amount of packages connected to an account.
         public List<int> getPackages(string query)
         {
             List<int> packages = new List<int>();
@@ -64,6 +65,7 @@ namespace Foutloos
 
         } 
 
+        //insert data int to the database.
         public bool insertInto(string query)
         {
 
@@ -84,7 +86,7 @@ namespace Foutloos
 
         }
 
-
+        //returns 1 integer out of the database.
         public int ID(string query)
         {
             int id = 0;

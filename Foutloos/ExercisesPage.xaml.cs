@@ -41,7 +41,7 @@ namespace Foutloos
         {
             InitializeComponent();
             
-            AddButton(1);
+            AddButton();
 
         } 
 
@@ -53,8 +53,10 @@ namespace Foutloos
                 List<int> packages = new List<int>();
                 DataTable dt = new DataTable();
                 
+                //checks how many and which packages are connected to the logged in account.
                 packages = c.getPackages($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
 
+                //Adds the packages for all the packages available in the account.
                 foreach (int i in packages)
                 {
                     dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");
@@ -86,11 +88,12 @@ namespace Foutloos
             
         }
         
-        private void AddButton(int package)
+        private void AddButton()
         {            
             DataTable dt = new DataTable();
             
-            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {package}");
+            //standard package that always gets added.
+            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
 
             //Create all the lists of exercises and add them to the main list (exercises)
             //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
