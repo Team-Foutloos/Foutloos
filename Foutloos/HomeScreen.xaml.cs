@@ -85,7 +85,7 @@ namespace Foutloos
             FrameworkElement clickedElement = e.Source as FrameworkElement;
             if (clickedElement == BoxBorder1 || clickedElement == Box1)
             {
-                Application.Current.MainWindow.Content = new VoiceExercise("This sentence is typed in an amazing program");
+                Application.Current.MainWindow.Content = new VoiceExercise("This sentence is typed in an amazing program", 0);
             }
             else
             {
