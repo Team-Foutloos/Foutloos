@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,8 @@ namespace Foutloos.Modals
         public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText)
         {
             InitializeComponent();
+
+
             this.wpm = wpm;
             this.cpm = cpm;
             this.mistakes = mistakes;
@@ -53,10 +56,19 @@ namespace Foutloos.Modals
             FillColumnChart();
         }
 
-        private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+
+        private void UIChange()
         {
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+            {
+                previousResultsNoLogin_grid.Visibility = Visibility.Collapsed;
+                previousResultsLogin_grid.Visibility = Visibility.Visible;
+            }
         }
 
+
+
+        //Fill all the values of the column chart (the errors per letter chart)
         private void FillColumnChart()
         {
             List<KeyValuePair<string, int>> valueList = new List<KeyValuePair<string, int>>();
@@ -74,6 +86,7 @@ namespace Foutloos.Modals
             charError.LegendStyle = styleLegend;
         }
 
+        //Fill all the values of the line chart (the CPM and WPM chart)
         private void FillLineChart()
         {
             List<KeyValuePair<int, int>> wpm_line = new List<KeyValuePair<int, int>>();
@@ -105,16 +118,43 @@ namespace Foutloos.Modals
             CPMchart.LegendStyle = styleLegend;
         }
 
+        //If the user clicks the back key.
         private void ThemedButton_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.Content = new ExercisesPage();
             this.Close();
         }
 
+        //If the user clicks te retry key.
         private void ThemedButton_PreviewMouseDown_2(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false);
             this.Close();
+        }
+
+        //If the user clicks the next key.
+        private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+
+        //If the user clicks the login key.
+        private void ThemedButton_PreviewMouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            ShowModal(new ModalLogin());
+        }
+
+        //If the user clicks the register key
+        private void ThemedButton_PreviewMouseDown_4(object sender, MouseButtonEventArgs e)
+        {
+            ShowModal(new ModalRegister());
+        }
+
+
+        //This function shows the modal, login or register modal with generic types.
+        private void ShowModal<T>(T modal) where T : Window
+        {
+            modal.ShowDialog();
+            UIChange();
         }
     }
 }
