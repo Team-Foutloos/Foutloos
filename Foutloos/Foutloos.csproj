@@ -114,6 +114,9 @@
     <Compile Include="CustomTools\ToggleButton.xaml.cs">
       <DependentUpon>ToggleButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomTools\Special Character Message.xaml.cs">
+      <DependentUpon>Special Character Message.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserExerciseResult.cs" />
     <Compile Include="VoiceExercise.xaml.cs">
       <DependentUpon>VoiceExercise.xaml</DependentUpon>
@@ -200,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomTools\ThemedIconButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomTools\Special Character Message.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
