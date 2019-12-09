@@ -20,6 +20,7 @@ namespace Foutloos.Modals
     /// </summary>
     public partial class ResultsAfterExercise : Window
     {
+        private Connection c;
         private int wpm;
         private int cpm;
         private TimeSpan time;
@@ -33,7 +34,7 @@ namespace Foutloos.Modals
         public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText)
         {
             InitializeComponent();
-
+            UIChange();
 
             this.wpm = wpm;
             this.cpm = cpm;
@@ -61,7 +62,8 @@ namespace Foutloos.Modals
         {
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
-                previousResultsNoLogin_grid.Visibility = Visibility.Collapsed;
+                previousResultsNoLogin_grid.Visibility = Visibility.Hidden;
+
                 previousResultsLogin_grid.Visibility = Visibility.Visible;
             }
         }

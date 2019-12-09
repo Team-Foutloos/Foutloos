@@ -278,5 +278,8 @@
   <ItemGroup>
     <Resource Include="assets\accountIconWhite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\tick.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
