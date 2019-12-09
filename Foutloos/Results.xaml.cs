@@ -91,33 +91,13 @@ namespace Foutloos
                         break;
                 }
                 exerciselist.Add(result);
-                System.Windows.Forms.MessageBox.Show(dt.Rows[i]["difficulty"].ToString());
             }
 
-
-            
-            /*exerciselist.Add(new UserExerciseResult() { Name = "Exercise 1", Difficulty = "Beginner", Type = "Text", WPM = 40, Mistakes = 6, CPM = 240 }) ;
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 2", Difficulty = "Beginner", Type = "Text", WPM = 45, Mistakes = 4, CPM = 270 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 7", Difficulty = "Advanced", Type = "Speech", WPM = 20, Mistakes = 1, CPM = 120});
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 3", Difficulty = "Beginner", Type = "Text", WPM = 60, Mistakes = 15, CPM = 360 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 4", Difficulty = "Beginner", Type = "Text", WPM = 55, Mistakes = 6, CPM = 345 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 5", Difficulty = "Beginner", Type = "Text", WPM = 60, Mistakes = 7, CPM = 365 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 6", Difficulty = "Advanced", Type = "Text", WPM = 40, Mistakes = 7, CPM = 300 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 8", Difficulty = "Advanced", Type = "Speech", WPM = 16, Mistakes = 1, CPM = 100 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 9", Difficulty = "Advanced", Type = "Text", WPM = 57, Mistakes = 20, CPM = 380 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 10", Difficulty = "Advanced", Type = "Text", WPM = 50, Mistakes = 7, CPM = 340 });*/
 
             ExerciseList.ItemsSource = exerciselist;
         }
 
-        private void FillColumnChart(string Name, int WPM, int Mistakes)
-        {
-            ColumnChartTitle.Text = Name;
-            List<KeyValuePair<string, int>> valueList = new List<KeyValuePair<string, int>>();
-            valueList.Add(new KeyValuePair<string, int>("WPM", WPM));
-            valueList.Add(new KeyValuePair<string, int>("Mistakes", Mistakes));
-            columnChart.DataContext = valueList;
-        }
+       
         private void FillColumnCharts(string Name, int WPM, int CPM, int Mistakes)
         {
             ColumnChartTitle.Text = Name;
