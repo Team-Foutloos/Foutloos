@@ -132,11 +132,6 @@ namespace Foutloos.Modals
                 errorMessage += "Passwords do not match";
                 shakeTheBox();
             }
-            else if (license.Text.Length < 5)
-            {
-                errorMessage += "This license is not in use";
-                shakeTheBox();
-            }
             else
             {
 
@@ -145,7 +140,7 @@ namespace Foutloos.Modals
                 int userID = (c.ID("SELECT Max(userID) FROM Usertable")) + 1;
 
                 //Insert the user into the database.
-                string CmdString = $"INSERT INTO usertable VALUES ('{userID}', '{username.Text}', '{hashedPassword}', '{license.Text}')";
+                string CmdString = $"INSERT INTO usertable VALUES ('{userID}', '{username.Text}', '{hashedPassword}', 'XAFDV')";
                 if (c.insertInto(CmdString))
                 {
                     ConfigurationManager.AppSettings["username"] = username.Text;
