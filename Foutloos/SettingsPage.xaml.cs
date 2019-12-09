@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -19,6 +21,7 @@ namespace Foutloos
         {
             InitializeComponent();
             this.loginUIchange();
+            checkLicenses();
         }
 
 
@@ -122,11 +125,61 @@ namespace Foutloos
             if (licenseBox.Text != "")
             {
                 license.insertLicense(licenseBox.Text);
+                checkLicenses();
             }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Pls fill in a licensKey");
             }
+        }
+
+        private void TxtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            if (box.Text.Length == 12)
+            {
+                Storyboard myStoryboard = (Storyboard)box.Resources["TestStoryboard"];
+                Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, box);
+                myStoryboard.Begin();
+            }
+        }
+
+        public void checkLicenses()
+        {
+            List<int> licenses = new List<int>();
+            StringBuilder l = new StringBuilder();
+            int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+            licenses = c.getPackages($"SELECT packageID FROM license WHERE userID = {Name}");
+
+            l.Append("STANDARD Pack\n");
+
+
+            foreach (int license in licenses)
+            {
+                if (license == 2)
+                {
+                    l.Append("George Orwell Pack" + "\n");
+                }
+                if (license == 3)
+                {
+                    l.Append("Special Character Pack" + "\n");
+                }
+                if (license == 4)
+                {
+                    l.Append("Stephen King Pack" + "\n");
+                }
+                if (license == 5)
+                {
+                    l.Append("J.K. Rowling Pack" + "\n");
+                }
+                if (license == 6)
+                {
+                    l.Append("Star Wars Pack" + "\n");
+                }
+
+            }
+
+            licensesContent.Text = l.ToString();
         }
     }
 }

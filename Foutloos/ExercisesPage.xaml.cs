@@ -474,7 +474,7 @@ namespace Foutloos
         {
             if (Text.IsChecked == true)
             {
-                Application.Current.MainWindow.Content = new Exercise(tekst, true, exerciseID);
+                Application.Current.MainWindow.Content = new Exercise(tekst, specialChar.IsChecked.Value, this.exerciseID);
             }
             else
             {

@@ -26,6 +26,7 @@ namespace Foutloos
             {
                 c.insertInto($"UPDATE License SET userID = {userID}, used = 1 WHERE licenseID = {id}; ");
                 System.Windows.Forms.MessageBox.Show("License Key has been added to your account");
+                
             }
             else
             {

@@ -73,7 +73,8 @@
                 </Grid>
 
             </Grid>
-            
+            <TextBlock x:Name="licensesContent" HorizontalAlignment="Left" Margin="345,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="266" Width="1225"/>
+
 
         </Grid>
     </Viewbox>
