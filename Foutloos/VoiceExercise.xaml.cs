@@ -248,7 +248,7 @@ namespace Foutloos
                             int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
                             int resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
                             //The query to insert the result into the result table
-                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID})";
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, dateOfCreation, speech) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID}, '{DateTime.Now}', 1)";
                             //Executing the query
                             if (c.insertInto(CmdString))
                             {
