@@ -129,7 +129,7 @@ namespace Foutloos
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("Pls fill in a licensKey");
+                System.Windows.Forms.MessageBox.Show("Pls fill in a licenseKey");
             }
         }
 
