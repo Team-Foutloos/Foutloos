@@ -44,15 +44,20 @@ namespace Foutloos
         public List<int> getPackages(string query)
         {
             List<int> packages = new List<int>();
+            SqlConnection conn = new SqlConnection(connectionstring);
+            conn.Open();
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionstring))
+
+                
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    conn.Open();
-                    packages.Add((Int32)cmd.ExecuteScalar());
-                    conn.Close();
+                    while (reader.Read())
+                    {
+                        packages.Add(reader.GetInt32(0));
+                    }
                 }
 
 
@@ -61,6 +66,7 @@ namespace Foutloos
             {
                 
             }
+            conn.Close();
 
             return packages;
 

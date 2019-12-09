@@ -54,13 +54,15 @@ namespace Foutloos
             {
                 List<int> packages = new List<int>();
                 DataTable dt = new DataTable();
-                
+
                 //checks how many and which packages are connected to the logged in account.
+                //DataTable test = new DataTable();
+                //test = c.PullData($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
                 packages = c.getPackages($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
 
                 //Adds the packages for all the packages available in the account.
                 foreach (int i in packages)
-                {
+                {                    
                     dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");
 
                     exercises.Add(amateurExercises);
