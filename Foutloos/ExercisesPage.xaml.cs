@@ -154,18 +154,18 @@ namespace Foutloos
 
             AddDLC();
 
-            calculate(amount, "Grid_All");
+            calculate(3, "Grid_All");
             //calculate(selected, "Grid_Selected");
-            calculate(exercises[0].Count, "Grid_Amateur");
-            calculate(exercises[1].Count, "Grid_Normal");
-            calculate(exercises[2].Count, "Grid_Expert");
-            calculate(exercises[4].Count, "Grid_Finished");
+            calculate(0, "Grid_Amateur");
+            calculate(1, "Grid_Normal");
+            calculate(2, "Grid_Expert");
+            calculate(4, "Grid_Finished");
             
 
 
         }
 
-        private void calculate(int amount, string gridName)
+        private void calculate(int difficulty, string gridName)
         {
 
             int exnum = 1;
@@ -212,78 +212,123 @@ namespace Foutloos
 
 
             //The button gets added as frequently as needed. 
-            for (int z = 0; z < amount; z++)
+            foreach (var exercise in exercises[difficulty])
             {
                 TextBlock l1 = new TextBlock();
-                Border borderButton = new Border();
+                Grid borderButtonGrid = new Grid() {Margin=new Thickness(10)};
+                TextBlock level = new TextBlock();
 
+                //Get the completed logo
+                BitmapImage logo = new BitmapImage();
+                logo.BeginInit();
+                logo.UriSource = new Uri(@"/assets/tick.png", UriKind.RelativeOrAbsolute);
+                logo.EndInit();
+
+                Image completedIcon = new Image();
+                completedIcon.Source = logo;
+                completedIcon.Width = 40;
+                completedIcon.Opacity = .4;
+                Border borderButton = new Border();
+                var availableColors = new List<Color>();
+
+                //Save the difficulty so that you can use it easily laser
+                int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
 
                 //Set all the button colors
                 var allColor = Color.FromRgb(0, 102, 255);
                 var easyColor = Color.FromRgb(51, 204, 51);
                 var mediumColor = Color.FromRgb(255, 153, 0);
                 var hardColor = Color.FromRgb(204, 0, 0);
+                //Put all of the colors in a list so they can be easily picked out later.
+                availableColors.Add(easyColor);
+                availableColors.Add(mediumColor);
+                availableColors.Add(hardColor);
+
 
                 //Set all the properties for the label.
-                borderButton.Child = l1;
+                borderButton.Child = borderButtonGrid;
+
+                //Set the properties for the children of the grid of the borderbutotn.
+                borderButtonGrid.Children.Add(l1);
+                borderButtonGrid.Children.Add(level);
+                borderButtonGrid.Children.Add(completedIcon);
+
+
                 borderButton.CornerRadius = new CornerRadius(10);
-                borderButton.BorderBrush = new SolidColorBrush(allColor) { Opacity = 1 };
+                borderButton.BorderBrush = new SolidColorBrush(availableColors[dif]) { Opacity = 1 };
                 borderButton.BorderThickness = new Thickness(5);
-                borderButton.Background = new SolidColorBrush(allColor) { Opacity = backgroundOpacity };
+                borderButton.Background = new SolidColorBrush(availableColors[dif]) { Opacity = backgroundOpacity };
+                level.FontSize = 15;
+                level.HorizontalAlignment = HorizontalAlignment.Left;
+                level.VerticalAlignment = VerticalAlignment.Bottom;
                 l1.HorizontalAlignment = HorizontalAlignment.Center;
                 l1.VerticalAlignment = VerticalAlignment.Center;
+                completedIcon.HorizontalAlignment = HorizontalAlignment.Right;
+                completedIcon.VerticalAlignment = VerticalAlignment.Bottom;
                 Grid.SetColumn(borderButton, j + 1);
 
                 //Add the mouseEnter and mouseLeave event to the borderButton;
                 borderButton.MouseEnter += BorderButton_MouseEnter;
                 borderButton.MouseLeave += BorderButton_MouseLeave;
 
+                
+                    //Add the right color to the borders according to the level
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
 
                 //iets met stackpanel
-
                 Grid.SetRow(borderButton, x);
                 borderButton.Name = $"E{i}";
                 l1.Text = $"Excercise: {exnum}";
+
+                //Set the levelText
+                switch (dif)
+                {
+                    case 0:
+                        level.Text = "Amateur";
+                        break;
+                    case 1:
+                        level.Text = "Normal";
+                        break;
+                    case 2:
+                        level.Text = "Expert";
+                        break;
+                }
+
                 //b1.BorderThickness
 
-
-
-                if (gridName == "Grid_All")
-                {
-                    Grid_All.Children.Add(borderButton);
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
-                }
                 //if (gridName == "Grid_Selected")
                 //{
                 //    Grid_Selected.Children.Add(b1);
                 //    b1.Click += (sender, e) => B1_Click(sender, e, 5);
                 //}
+                if (gridName == "Grid_All")
+                {
+                    Grid_All.Children.Add(borderButton);
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
+                }
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.Children.Add(borderButton);
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 0);
-                    borderButton.BorderBrush = new SolidColorBrush(easyColor) { Opacity = 1 };
-                    borderButton.Background = new SolidColorBrush(easyColor) { Opacity = backgroundOpacity };
                 }
                 if (gridName == "Grid_Normal")
                 {
                     Grid_Normal.Children.Add(borderButton);
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 1);
-                    borderButton.BorderBrush = new SolidColorBrush(mediumColor) { Opacity = 1 };
-                    borderButton.Background = new SolidColorBrush(mediumColor) { Opacity = backgroundOpacity };
                 }
                 if (gridName == "Grid_Expert")
                 {
                     Grid_Expert.Children.Add(borderButton);
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 2);
-                    borderButton.BorderBrush = new SolidColorBrush(hardColor) { Opacity = 1 };
-                    borderButton.Background = new SolidColorBrush(hardColor) { Opacity = backgroundOpacity };
                 }
                 if (gridName == "Grid_Finished")
                 {
                     Grid_Finished.Children.Add(borderButton);
                     borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
                 }
+
+                //if ((int)Int64.Parse(exercise[difficulty].ToString()) == 4)
+                //{
+                //    Grid_Finished.Children.Add(borderButton);
+                //    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
+                //}
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
                 j += 2;
@@ -366,7 +411,7 @@ namespace Foutloos
         private void B1_Click(object sender, RoutedEventArgs e, int difficulty)
         {
             Border b = (Border)sender;
-            for (int i = 0; i <= exercises[difficulty].Count; i++)
+            for (int i = 0; i < exercises[difficulty].Count; i++)
             {              
                 if (b.Name.Equals($"E{i}"))
                 {
@@ -377,6 +422,7 @@ namespace Foutloos
                     }
                     selectedBorderButton = b;
                     exerciseDetails_grid.Visibility = Visibility.Visible;
+                    Console.WriteLine(i);
                     DataRow exercise = exercises[difficulty][i];
                     this.Exercise.Text = $"Exercise {i+1}";
                     this.wpm_number.Content = "0";
@@ -428,7 +474,7 @@ namespace Foutloos
         {
             if (Text.IsChecked == true)
             {
-                Application.Current.MainWindow.Content = new Exercise(tekst, true);
+                Application.Current.MainWindow.Content = new Exercise(tekst, true, exerciseID);
             }
             else
             {

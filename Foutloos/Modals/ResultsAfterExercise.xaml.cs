@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Foutloos.Modals
     /// </summary>
     public partial class ResultsAfterExercise : Window
     {
+        private Connection c;
         private int wpm;
         private int cpm;
         private TimeSpan time;
@@ -29,11 +31,14 @@ namespace Foutloos.Modals
         private List<int> wpmTimeList;
         private string exerciseText;
         private Dictionary<char, int> mistakeLetters;
+        private int exerciseID;
+        private bool specialChars;
+        private bool isSpoken;
 
-        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText)
+        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText, int exerciseID)
         {
             InitializeComponent();
-
+            UIChange();
 
             this.wpm = wpm;
             this.cpm = cpm;
@@ -44,6 +49,38 @@ namespace Foutloos.Modals
             this.wpmTimeList = wpmTimeList;
             this.mistakeLetters = mistakeLetter;
             this.exerciseText = exerciseText;
+            this.exerciseID = exerciseID;
+            this.isSpoken = true;
+
+            wordspm_label.Content = wordspm_label.Content.ToString() + wpm;
+            charspm_label.Content = charspm_label.Content.ToString() + cpm;
+            time_label.Content = time_label.Content.ToString() + this.time.ToString("mm':'ss");
+            error_label.Content = error_label.Content.ToString() + mistakes;
+            accuracy_label.Content = accuracy_label.Content.ToString() + Math.Round(accuracy, 2) + "%";
+            stringExercise.Text = exerciseText;
+
+            FillLineChart();
+            FillColumnChart();
+        }
+
+
+        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText, int exerciseID, bool specialChars)
+        {
+            InitializeComponent();
+            UIChange();
+
+            this.wpm = wpm;
+            this.cpm = cpm;
+            this.mistakes = mistakes;
+            this.time = TimeSpan.FromSeconds(time);
+            this.accuracy = accuracy;
+            this.cpmTimeList = cpmTimeList;
+            this.wpmTimeList = wpmTimeList;
+            this.mistakeLetters = mistakeLetter;
+            this.exerciseText = exerciseText;
+            this.exerciseID = exerciseID;
+            this.specialChars = specialChars;
+            this.isSpoken = false;
 
             wordspm_label.Content = wordspm_label.Content.ToString() + wpm;
             charspm_label.Content = charspm_label.Content.ToString() + cpm;
@@ -61,8 +98,21 @@ namespace Foutloos.Modals
         {
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
             {
-                previousResultsNoLogin_grid.Visibility = Visibility.Collapsed;
-                previousResultsLogin_grid.Visibility = Visibility.Visible;
+                Connection c = new Connection();
+                DataTable dt = new DataTable();
+
+                previousResultsNoLogin_grid.Visibility = Visibility.Hidden;
+                try
+                {
+                    dt = c.PullData($"SELECT R.exerciseID, mistakes, wpm, cpm, time, difficulty, speech " +
+                        $"FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
+                        $"JOIN Exercise E ON R.exerciseID = E.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND R.exerciseID = {exerciseID}");
+                    previousResultsLogin_grid.Visibility = Visibility.Visible;
+                }
+                catch
+                {
+                    noPreviousResultsLogin_grid.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -128,7 +178,10 @@ namespace Foutloos.Modals
         //If the user clicks te retry key.
         private void ThemedButton_PreviewMouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new Exercise(exerciseText, false);
+            if (this.isSpoken)
+                Application.Current.MainWindow.Content = new VoiceExercise(exerciseText, exerciseID);
+            else
+                Application.Current.MainWindow.Content = new Exercise(exerciseText, specialChars, exerciseID);
             this.Close();
         }
 
