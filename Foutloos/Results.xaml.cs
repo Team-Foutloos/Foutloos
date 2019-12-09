@@ -29,7 +29,7 @@ namespace Foutloos
             InitializeComponent();
             UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
             FillListBox();
-            FillColumnCharts("Exercise_0", 60, 240,30) ;
+            FillColumnCharts("Exercise_#", 0, 0,0) ;
             FillLineChart();
         }
 
@@ -42,10 +42,10 @@ namespace Foutloos
             DataTable dt = new DataTable();
             
 
-            dt = c.PullData("SELECT * FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = " + ConfigurationManager.AppSettings["username"]);
+            dt = c.PullData($"SELECT * FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
             
             UserExerciseResult result = new UserExerciseResult();
-            //result.Mistakes = Convert.ToInt32(dt.Rows[0]["mistakes"]);
+            System.Windows.Forms.MessageBox.Show(dt.Rows[0]["mistakes"].ToString());  //= Convert.ToInt32(dt.Rows[0]["mistakes"]);
             
 
 
