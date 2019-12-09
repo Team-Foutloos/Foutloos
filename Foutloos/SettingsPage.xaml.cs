@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace Foutloos
 {
@@ -87,6 +79,9 @@ namespace Foutloos
         Connection c = new Connection();
 
         //The save button to save user/email adress changes
+
+
+        
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             string errorMessage = "";
@@ -122,6 +117,17 @@ namespace Foutloos
             else
             {
                 System.Windows.Forms.MessageBox.Show("Pls fill in a licensKey");
+            }
+        }
+
+        private void TxtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            if (box.Text.Length == 12)
+            {
+                Storyboard myStoryboard = (Storyboard)box.Resources["TestStoryboard"];
+                Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, box);
+                myStoryboard.Begin();
             }
         }
     }
