@@ -84,7 +84,7 @@ namespace Foutloos
             if (specialCharacters)
             {
                 char first = exerciseStringLeft.First();
-                if(first > 220 && first != 8217)
+                if(first > 220 && first < 8200)
                 {
                     SpecialChar.Visibility = Visibility.Visible;
                     SpecialChar.ChangeText(exerciseStringLeft.First());
@@ -550,6 +550,10 @@ namespace Foutloos
                 {
                     nextChar = (char)39;
                 }
+                else if(nextChar == 8220 || nextChar == 8221)
+                {
+                    nextChar = (char)34;
+                }
                 string nextString = e.Text;
                 //Change users input based on the next character
                 if(!specialCharacters)
@@ -652,6 +656,10 @@ namespace Foutloos
                         if(first == 8217)
                         {
                             first = (char)39;
+                        }
+                        else if(first == 8220 || first == 8221)
+                        {
+                            first = (char)34;
                         }
                         if (first > 220 && specialCharacters)
                         {
