@@ -17,7 +17,7 @@
             <Label FontWeight="SemiBold" FontSize="25" Content="Results" Foreground="White" HorizontalAlignment="Left" Margin="156,78,0,0" VerticalAlignment="Top"/>
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="353" Margin="478,124,0,0" Stroke="White" VerticalAlignment="Top" Width="2"/>
             <Label FontWeight="SemiBold" FontSize="25" Content="Previous results" Foreground="White" HorizontalAlignment="Left" Margin="644,72,0,0" VerticalAlignment="Top"/>
-            <Foutloos:ThemedButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Continue" Margin="0,0,20,20" PreviewMouseDown="ThemedButton_PreviewMouseDown"/>
+            <!-- <Foutloos:ThemedButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Continue" Margin="0,0,20,20" PreviewMouseDown="ThemedButton_PreviewMouseDown"/> -->
             <Foutloos:ThemedButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Go Back" Margin="20,0,0,20" PreviewMouseDown="ThemedButton_PreviewMouseDown_1"/>
             <Foutloos:ThemedButton HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="50" DynamicTextRegular="Retry" Margin="0,0,20,20" PreviewMouseDown="ThemedButton_PreviewMouseDown_2"/>
 
@@ -102,10 +102,10 @@
             </Grid>
         </Grid>
         <Grid Visibility="Collapsed" Name="previousResultsLogin_grid" HorizontalAlignment="Right" Margin="0,248,184,217">
-            <Label Foreground="White" Margin="0,0,0,0" FontSize="20" Content="Words Per Minute: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
-            <Label Foreground="White" Margin="0,30,0,0" FontSize="20" Content="Keys Per Minute: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
-            <Label Foreground="White" Margin="0,60,0,0" FontSize="20" Content="Errors: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
-            <Label Foreground="White" Margin="0,90,0,0" FontSize="20" Content="Accuracy: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Name="prevWPM" Foreground="White" Margin="0,0,0,0" FontSize="20" Content="Words Per Minute: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Name="prevCPM"  Foreground="White" Margin="0,30,0,0" FontSize="20" Content="Keys Per Minute: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Name="prevError" Foreground="White" Margin="0,60,0,0" FontSize="20" Content="Errors: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Name="prevAcur" Foreground="White" Margin="0,90,0,0" FontSize="20" Content="Time: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
         </Grid>
     </Grid>
