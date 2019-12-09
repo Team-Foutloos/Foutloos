@@ -158,7 +158,7 @@ namespace Foutloos
             calculate(0, "Grid_Amateur");
             calculate(1, "Grid_Normal");
             calculate(2, "Grid_Expert");
-            calculate(4, "Grid_Finished");
+            calculate(3, "Grid_Finished");
             
         }
 
@@ -214,14 +214,16 @@ namespace Foutloos
                 //Save the difficulty so that you can use it easily later
                 int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
 
+
+                //Create the main button.
                 BorderButton button = new BorderButton(dif);
                 Border borderButton = button.getButton();
-                               
+                Grid borderGrid = (Grid) borderButton.Child;
+                Image completedIcon = (Image) borderGrid.Children[2];
+                TextBlock l1 = (TextBlock)borderGrid.Children[0];
 
                 int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
 
-
-                           
 
                 DataTable finished = new DataTable();                
                 finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
@@ -229,6 +231,7 @@ namespace Foutloos
                 if (finished.Rows.Count > 0)
                 {
                     completedIcon.Visibility = Visibility.Visible;
+
                 }
                 else
                 {
@@ -252,20 +255,6 @@ namespace Foutloos
                 Grid.SetRow(borderButton, x);
                 borderButton.Name = $"E{i}";
                 l1.Text = $"Excercise: {exnum}";
-
-                //Set the levelText
-                switch (dif)
-                {
-                    case 0:
-                        level.Text = "Amateur";
-                        break;
-                    case 1:
-                        level.Text = "Normal";
-                        break;
-                    case 2:
-                        level.Text = "Expert";
-                        break;
-                }
 
                 //b1.BorderThickness
 
@@ -293,20 +282,23 @@ namespace Foutloos
                 }
                 if (gridName == "Grid_Finished")
                 {
-                    Grid_Finished.Children.Add(borderButton);
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
+                    if (finished.Rows.Count > 0)
+                    {
+                        Grid_Finished.Children.Add(borderButton);
+                        borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
+                        //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
+                        j += 2;
+                        i++;
+                        exnum++;
+                    }
                 }
-
-                //if ((int)Int64.Parse(exercise[difficulty].ToString()) == 4)
-                //{
-                //    Grid_Finished.Children.Add(borderButton);
-                //    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
-                //}
-
-                //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
-                j += 2;
-                i++;
-                exnum++;
+                else
+                {
+                    //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
+                    j += 2;
+                    i++;
+                    exnum++;
+                }
                 
                 //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
                 //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.

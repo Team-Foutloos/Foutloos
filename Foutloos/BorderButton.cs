@@ -64,6 +64,22 @@ namespace Foutloos
             l1.VerticalAlignment = VerticalAlignment.Center;
             completedIcon.HorizontalAlignment = HorizontalAlignment.Right;
             completedIcon.VerticalAlignment = VerticalAlignment.Bottom;
+
+
+
+            //Set the levelText
+            switch (dif)
+            {
+                case 0:
+                    level.Text = "Amateur";
+                    break;
+                case 1:
+                    level.Text = "Normal";
+                    break;
+                case 2:
+                    level.Text = "Expert";
+                    break;
+            }
         }
 
         public Border getButton()
