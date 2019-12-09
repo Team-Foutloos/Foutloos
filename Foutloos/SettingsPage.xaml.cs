@@ -44,6 +44,7 @@ namespace Foutloos
         private void BtnLogIn_Click(object sender, RoutedEventArgs e)
         {
             ShowModal(new Modals.ModalLogin());
+            Application.Current.MainWindow.Content = new SettingsPage();
         }
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
@@ -93,10 +94,19 @@ namespace Foutloos
             else
             {
                 userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-                string CmdString = $"UPDATE Usertable SET username = '{txtUsername}' WHERE userID = '{userID}'";
+                System.Console.WriteLine(userID);
+                string CmdString = $"UPDATE usertable set username = '{txtUsername.Text}' WHERE userID = {userID}";
                 if (c.insertInto(CmdString))
                 {
                     System.Windows.Forms.MessageBox.Show("Username succesfully changed");
+                    ConfigurationManager.AppSettings["username"] = txtUsername.Text;
+                    txtUsername.Text = ConfigurationManager.AppSettings["username"];
+                    Application.Current.MainWindow.Content = new SettingsPage();
+
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("werkt niet");
                 }
             }
         }
@@ -120,15 +130,15 @@ namespace Foutloos
             }
         }
 
-        private void TxtUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox box = (TextBox)sender;
-            if (box.Text.Length == 12)
-            {
-                Storyboard myStoryboard = (Storyboard)box.Resources["TestStoryboard"];
-                Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, box);
-                myStoryboard.Begin();
-            }
-        }
+        //private void TxtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox box = (TextBox)sender;
+        //    if (box.Text.Length == 12)
+        //    {
+        //        Storyboard myStoryboard = (Storyboard)box.Resources["TestStoryboard"];
+        //        Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, box);
+        //        myStoryboard.Begin();
+        //    }
+        //}
     }
 }
