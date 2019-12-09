@@ -35,7 +35,7 @@ namespace Foutloos
             InitializeComponent();
             try
             {
-                UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
+                userNameWelcome.Content = userNameWelcome.Content.ToString() + ConfigurationManager.AppSettings["username"];
                 FillUserStats();
                 FillPieChart();
                 FillListBox();
