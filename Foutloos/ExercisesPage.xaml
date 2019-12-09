@@ -132,7 +132,7 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Finished">
+                <TabItem Visibility="Hidden" Header="Finished">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Finished" ShowGridLines="False" Background="White">
 
