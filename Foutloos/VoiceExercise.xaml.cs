@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Speech.Synthesis;
-using System.Timers;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -24,12 +22,13 @@ namespace Foutloos
         //Setting some variables that are used for the application.
         //Timer for displaying elapsed time and calculating the WPM/CPM
         DispatcherTimer timer = new DispatcherTimer();
-        
+
         //The speech synthesizer for speaking the given sentences
         SpeechSynthesizer synthesizer;
 
         string dbString = "";
         int exerciseID;
+        List<string> dbStringLeft;
 
         //The text displayed on the screen
         string typedText = "";
@@ -62,18 +61,18 @@ namespace Foutloos
         List<int> wpmTimeList = new List<int>() { 0 };
         List<int> cpmTimeList = new List<int>() { 0 };
 
-
         public VoiceExercise(string text, int exerciseID)
         {
             InitializeComponent();
             this.dbString = text;
             this.exerciseID = exerciseID;
+            this.dbStringLeft = dbString.Split(' ').ToList<string>();
 
             //Setting the speech synthesizer (system default text to speech object).
             synthesizer = new SpeechSynthesizer();
             //Adding an event to the synthesizer
             synthesizer.SpeakCompleted += new EventHandler<SpeakCompletedEventArgs>(synthesizer_SpeakCompleted);
-            
+
 
             //Putting each voice/language installed on the users pc in a combobox for the user to select.
             foreach (InstalledVoice v in synthesizer.GetInstalledVoices())
@@ -86,7 +85,7 @@ namespace Foutloos
             comboVoice.SelectionChanged += ComboVoice_SelectionChanged;
 
             //Adding the different speed levels in the app from the rateValues array
-            foreach(double speed in rateValues)
+            foreach (double speed in rateValues)
             {
                 comboRate.Items.Add($"{speed} X");
             }
@@ -94,7 +93,7 @@ namespace Foutloos
             comboRate.SelectedIndex = 1;
 
             //Setting the standard synthesizer speed to the default
-            synthesizer.Rate = (int)(rateValues[comboRate.SelectedIndex] * 10) - 15;
+            synthesizer.Rate = (int)(rateValues[comboRate.SelectedIndex] * 10) - 10;
 
             //Configuring the timer and adding an event
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -133,6 +132,11 @@ namespace Foutloos
                 return;
             }
 
+            if (keyChar == 9 || keyChar == 8)
+            {
+                return;
+            }
+
             //If enter is pressed while the exercise isn't running yet the exercise will start
             if (keyChar == '\r' && !running && !exerciseFinished)
             {
@@ -148,23 +152,25 @@ namespace Foutloos
                     countdown.ShowDialog();
                     adornerLayer.Remove(darkenAdorner);
                 }
-                startSpeaking();
                 running = true;
-                headLabel.Content = "Press enter to replay";
+                timer.Start();
+                exerciseStarted = true;
+                startSpeaking();
+
             }
-            else if(exerciseStarted && !exerciseFinished && keyChar != '\r')
+            else if (exerciseStarted && !exerciseFinished && keyChar != '\r')
             {
                 //Catching the backspace key and make it remove the last char from the variable wich holds the
                 //written text. All other keys will be added to the same variable.
                 string typedTextOld = typedText;
 
-                    if (typedText.Length < dbString.Length)
-                    {
-                        typedText += e.Text;
-                        typedKeys++;
-                    }
+                if (typedText.Length < dbString.Length)
+                {
+                    typedText += e.Text;
+                    typedKeys++;
+                }
 
-                
+
                 //Displayig the typed text on the user's screen (this wil build up the whole sentence from scratch again everytime the text is updated)
                 if (typedText.Length <= dbString.Length)
                 {
@@ -175,9 +181,11 @@ namespace Foutloos
                     //Setting a bool witch turns true when a typo was made by the user
                     bool wrong = false;
 
+
                     //Writing the text on the screen of the user char for char
                     for (int i = 0; i < typedText.Length; i++)
                     {
+
                         //If the text is correct it will be green. If there was a typo all text from
                         //the typo onwards will be red.
                         if (typedText[i] == dbString[i] && wrong == false)
@@ -186,13 +194,13 @@ namespace Foutloos
                             inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
                             ProgressBar.Value++;
                         }
-                        else if(keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
+                        else if (keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
                         {
                             ProgressBar.Foreground = Brushes.Red;
                             //Make sure a mistake isn't counted multiple times. 
                             if (!mistakeIndex.Contains(i) && !wrong)
                             {
-                                
+
                                 //Check if mistake was made earlier (!wrong means it only gets the first char where the user goes wrong)
                                 if (mistakes.ContainsKey(dbString[i]))
                                 {
@@ -212,6 +220,7 @@ namespace Foutloos
                                 mistakeIndex.Add(i);
                             }
 
+
                             typedText = typedTextOld;
 
                             //Flipping the wrong variable so all the text after the mistake is also shown in red
@@ -220,6 +229,11 @@ namespace Foutloos
                                 wrong = true;
                             }
                         }
+                    }
+
+                    if (dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
+                    {
+                        startSpeaking();
                     }
 
 
@@ -301,11 +315,12 @@ namespace Foutloos
 
             }
 
+
         }
 
         //Every second that the timer is enabled this will happen.
         private void Timer_Tick(object sender, EventArgs e)
-        { 
+        {
 
             //Adding a second every time the timer ticks
             second++;
@@ -327,35 +342,28 @@ namespace Foutloos
             typedWords = woorden.Length;
             avgWPM = Math.Round((typedWords / (double)second) * 60);
             wpmLable.Content = avgWPM;
-            
+
         }
 
-       
+
 
         //When calling this the speech will start playing and the exercise starts.
         private void startSpeaking()
         {
-            //Start the time if the exersice didn't begin yet.
-            if (!exerciseStarted)
-            {
-                timer.Start();
-                exerciseStarted = true;
-            }
-
 
             //Disabling the comboboxes so no changes can be made while speeking.
             comboVoice.IsEnabled = false;
             comboRate.IsEnabled = false;
 
-            //Starting the system speech
-            switch (synthesizer.State)
+            //Start text to speech
+            new Thread(() =>
             {
-                //if synthesizer is ready
-                case SynthesizerState.Ready:
-                    synthesizer.SpeakAsync(dbString);
-                    break;
+                
+                synthesizer.Speak(dbStringLeft[0]);
+                dbStringLeft.RemoveAt(0);
+            }).Start();
 
-            }
+
         }
 
         //This is executed when the synthesiser is done.
@@ -366,6 +374,7 @@ namespace Foutloos
             //Enabling the comboboxes again
             comboVoice.IsEnabled = true;
             comboRate.IsEnabled = true;
+
         }
 
         //Every time the volume is changed by the user this method runs.
@@ -428,7 +437,7 @@ namespace Foutloos
         //Homebutton
         private void HomeBTN_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!exerciseFinished && exerciseStarted )
+            if (!exerciseFinished && exerciseStarted)
             {
                 //Custom dialog will be opened when the user wan't to exit the exercise when it's not finishedUIElement rootVisual = this.Content as UIElement;
                 UIElement rootVisual = this.Content as UIElement;
@@ -464,7 +473,7 @@ namespace Foutloos
             //Functionality Toggle
             //Check if toggle is true
             if (ToggleKeyboard.Toggled)
-            { 
+            {
                 //Check which key is pressed
                 if (e.Key == Key.D1)
                 {

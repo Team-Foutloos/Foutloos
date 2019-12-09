@@ -14,6 +14,17 @@
                 <ImageBrush Opacity=".2" ImageSource="assets/background.png" Stretch="UniformToFill" TileMode="Tile"
                     ViewportUnits="Absolute" Viewport="0,0,1024,768" />
             </Grid.Background>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <RectAnimation Storyboard.TargetProperty="Background.Viewport"
+                                   To="-1024,-768,1024,768" Duration="0:0:40" 
+                                   RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
             <local:ThemedIconButton Width="auto"  Height="70" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
             <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left"  Margin="520,23,0,0" VerticalAlignment="Top" Width="153"/>
             <TextBlock HorizontalAlignment="Left" Margin="697,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="70" FontWeight="SemiBold" Height="81"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>

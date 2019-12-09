@@ -104,12 +104,22 @@ namespace Foutloos.Modals
                 previousResultsNoLogin_grid.Visibility = Visibility.Hidden;
                 try
                 {
-                    dt = c.PullData($"SELECT R.exerciseID, mistakes, wpm, cpm, time, difficulty, speech " +
-                        $"FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
-                        $"JOIN Exercise E ON R.exerciseID = E.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND R.exerciseID = {exerciseID}");
-                    previousResultsLogin_grid.Visibility = Visibility.Visible;
+                    dt = c.PullData($"SELECT time, mistakes, wpm, cpm FROM result WHERE exerciseID = {exerciseID} AND userID = (SELECT userID from usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}')");
                 }
                 catch
+                {
+                    noPreviousResultsLogin_grid.Visibility = Visibility.Visible;
+                }
+                if (dt != null && dt.Rows.Count > 1)
+                { 
+                    prevError.Content = prevError.Content.ToString() + dt.Rows[dt.Rows.Count-2]["mistakes"].ToString();
+                    prevWPM.Content = prevWPM.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["wpm"].ToString();
+                    prevCPM.Content = prevCPM.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["cpm"].ToString();
+                    prevAcur.Content = prevAcur.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["time"].ToString();
+
+                    previousResultsLogin_grid.Visibility = Visibility.Visible;
+                }
+                else
                 {
                     noPreviousResultsLogin_grid.Visibility = Visibility.Visible;
                 }

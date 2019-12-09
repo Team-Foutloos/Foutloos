@@ -38,7 +38,7 @@
             <Grid>
 
                 <Grid Name="gridTitle" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="110" Margin="0,20,0,0">
-                    <local:ThemedButton Width="auto" Height="auto" DynamicTextRegular="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,20,30,20" PreviewMouseDown="ThemedButton_HomeMouseDown"/>
+                    <local:ThemedIconButton Width="auto" Height="auto" DynamicTextIcon="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,20,30,20" DynamicIcon="assets/homeIconWhite.png" PreviewMouseDown="ThemedButton_HomeMouseDown"/>
                     <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="120,0,480,0" Height="90" Width="90"/>
                     <Label Name="Title" Content="Hello!" FontSize="40" HorizontalAlignment="Stretch" Margin="150,0,0,0" VerticalAlignment="Center" Height="90" Width="400" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#000000"/>
                 </Grid>
@@ -69,9 +69,9 @@
                         <ColumnDefinition Width="13*"/>
                     </Grid.ColumnDefinitions>
                     <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Grid.ColumnSpan="3" />
+                    <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25"  HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click" Grid.Column="2" Margin="0,0,0,-117"/>
                 </Grid>
-                <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click"/>
-                
+
             </Grid>
             <TextBlock x:Name="licensesContent" HorizontalAlignment="Left" Margin="345,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="266" Width="1225"/>
 
