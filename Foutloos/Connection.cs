@@ -81,7 +81,7 @@ namespace Foutloos
                     try {
                         while (oReader.Read())
                         {
-                            hashedPassword = SecurePasswordHasher.Hash(oReader["password"].ToString());
+                            hashedPassword = oReader["password"].ToString();
                         }
                         conn.Close();
                         return hashedPassword;
