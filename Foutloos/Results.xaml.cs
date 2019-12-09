@@ -25,6 +25,11 @@ namespace Foutloos
     {
         private Connection c = new Connection();
         private List<UserExerciseResult> exerciselist;
+        private List<UserExerciseResult> ReverseExerciseList;
+
+        private List<KeyValuePair<int, int>> wpm_line;
+        private List<KeyValuePair<int, int>> cpm_line;
+        private List<KeyValuePair<int, int>> mistake_line;
         public Results()
         {
             InitializeComponent();
@@ -32,6 +37,7 @@ namespace Foutloos
             {
                 UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
                 FillUserStats();
+                FillPieChart();
                 FillListBox();
                 FillColumnCharts("Exercise_#", 0, 0, 0);
                 FillLineChart();
@@ -86,6 +92,20 @@ namespace Foutloos
             
 
         }
+        private void FillPieChart()
+        {
+            DataTable dt = new DataTable();
+            dt = c.PullData($"SELECT letter, SUM(count) FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' " +
+                $"GROUP BY letter ORDER BY SUM(count) DESC");
+            List<KeyValuePair<string, int>> mistakes = new List<KeyValuePair<string, int>>();
+
+            for (int i = 0; i < 8 && i < dt.Rows.Count; i++) {
+                mistakes.Add(new KeyValuePair<string, int>(dt.Rows[i][0].ToString(), Convert.ToInt32(dt.Rows[i][1])));
+            }
+
+            PieChart.DataContext = mistakes;
+        }
         private void FillListBox()
         {
             DataTable dt = new DataTable();
@@ -139,9 +159,14 @@ namespace Foutloos
                 //Add object to list
                 exerciselist.Add(result);
             }
-
+            ReverseExerciseList = new List<UserExerciseResult>();
+            //Reverse list for recent exercise top
+            for(int i = (exerciselist.Count()-1); i>=0; i--)
+            {
+                ReverseExerciseList.Add((UserExerciseResult)exerciselist[i]);
+            }
             //ExerciseList in the xaml-part will use this list as ItemSource when binding
-            ExerciseList.ItemsSource = exerciselist;
+            ExerciseList.ItemsSource = ReverseExerciseList;
         }
 
        
@@ -164,16 +189,19 @@ namespace Foutloos
        
         private void FillLineChart()
         {
-            List<KeyValuePair<int, int>> wpm_line = new List<KeyValuePair<int, int>>();
-            List<KeyValuePair<int, int>> mistake_line = new List<KeyValuePair<int, int>>();
+            wpm_line = new List<KeyValuePair<int, int>>();
+            cpm_line = new List<KeyValuePair<int, int>>();
+            mistake_line = new List<KeyValuePair<int, int>>();
             int counter = 1;
             foreach(UserExerciseResult result in exerciselist)
             {
                 wpm_line.Add(new KeyValuePair<int,int>(counter, result.WPM));
+                cpm_line.Add(new KeyValuePair<int,int>(counter, result.CPM));
                 mistake_line.Add(new KeyValuePair<int, int>(counter, result.Mistakes));
                 counter++;
             }
             LineWPM.DataContext = wpm_line;
+            LineCPM.DataContext = cpm_line;
             LineMistakes.DataContext = mistake_line;
         }
 
@@ -189,54 +217,45 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new HomeScreen();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void WPM_Click(object sender, RoutedEventArgs e)
         {
-            FillLineChart();
+            if(WPMButton.Content.Equals("Hide WPM"))
+            {
+                LineWPM.DataContext = null;
+                WPMButton.Content = "Show WPM";
+            }else
+            {
+                LineWPM.DataContext = wpm_line;
+                WPMButton.Content = "Hide WPM";
+            }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void CPM_Click(object sender, RoutedEventArgs e)
         {
-            List<KeyValuePair<int, int>> wpm_line = new List<KeyValuePair<int, int>>();
-            List<KeyValuePair<int, int>> mistake_line = new List<KeyValuePair<int, int>>();
-            int counter = 1;
-            foreach (UserExerciseResult result in exerciselist)
+            if (CPMButton.Content.Equals("Hide CPM"))
             {
-                wpm_line.Add(new KeyValuePair<int, int>(counter, result.WPM));
-                mistake_line.Add(new KeyValuePair<int, int>(counter, result.CPM));
-                counter++;
+                LineCPM.DataContext = null;
+                CPMButton.Content = "Show CPM";
             }
-            LineWPM.DataContext = wpm_line;
-            LineMistakes.DataContext = mistake_line;
+            else
+            {
+                LineCPM.DataContext = cpm_line;
+                CPMButton.Content = "Hide CPM";
+            }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Mistakes_Click(object sender, RoutedEventArgs e)
         {
-            List<KeyValuePair<int, int>> wpm_line = new List<KeyValuePair<int, int>>();
-            List<KeyValuePair<int, int>> mistake_line = new List<KeyValuePair<int, int>>();
-            int counter = 1;
-            foreach (UserExerciseResult result in exerciselist)
+            if (MistakesButton.Content.Equals("Hide Mistakes"))
             {
-                wpm_line.Add(new KeyValuePair<int, int>(counter, result.WPM));
-                mistake_line.Add(new KeyValuePair<int, int>(counter, result.CPM));
-                counter++;
+                LineMistakes.DataContext = null;
+                MistakesButton.Content = "Show Mistakes";
             }
-            LineWPM.DataContext = null;
-            LineMistakes.DataContext = mistake_line;
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            List<KeyValuePair<int, int>> wpm_line = new List<KeyValuePair<int, int>>();
-            List<KeyValuePair<int, int>> mistake_line = new List<KeyValuePair<int, int>>();
-            int counter = 1;
-            foreach (UserExerciseResult result in exerciselist)
+            else
             {
-                wpm_line.Add(new KeyValuePair<int, int>(counter, result.WPM));
-                mistake_line.Add(new KeyValuePair<int, int>(counter, result.WPM));
-                counter++;
+                LineMistakes.DataContext = mistake_line;
+                MistakesButton.Content = "Hide Mistakes";
             }
-            LineWPM.DataContext = null;
-            LineMistakes.DataContext = mistake_line;
         }
     }
 }

@@ -87,6 +87,11 @@
                         <TextBlock x:Name="TextSpeechRatio" HorizontalAlignment="Left" Margin="307,240,0,0" TextWrapping="Wrap" Text="0/0" VerticalAlignment="Top"/>
                         <TextBlock x:Name="FavoriteDifficulty" HorizontalAlignment="Left" Margin="307,280,0,0" TextWrapping="Wrap" Text="Amateur" VerticalAlignment="Top" Height="25" Width="101"/>
 
+                        <chartingToolkit:Chart Name="PieChart" Title="Most made mistakes" HorizontalAlignment="Left" Margin="436,40,0,0" VerticalAlignment="Top" Height="298" Width="374">
+                            
+                            <chartingToolkit:PieSeries Name="Mistake" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}" />
+                        </chartingToolkit:Chart>
+
                     </Grid>
                 </TabItem>
                 <TabItem Header="Exercise Stats" Margin="519,0,-523.2,-2.4">
@@ -148,14 +153,15 @@
                 </TabItem>
                 <TabItem Header="Timeline" Margin="520.2,0,-524.2,-2.4">
                     <Grid Background="#FFE5E5E5">
-                        <chartingToolkit:Chart Name="pointChart"  Margin="227,10,36.2,-0.2">
+                        <chartingToolkit:Chart Name="pointChart"  Margin="227,10,9.6,-0.6">
                             <chartingToolkit:LineSeries Name="LineWPM" Title="WPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
+                            <chartingToolkit:LineSeries Name="LineCPM" Title="CPM" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
                             <chartingToolkit:LineSeries Name="LineMistakes" Title="Mistakes" IndependentValuePath="Key" DependentValuePath="Value" ItemsSource="{Binding}"/>
 
                         </chartingToolkit:Chart>
-                        <Button Content="WPM + Mist" HorizontalAlignment="Left" Margin="37,59,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click"/>
-                        <Button Content="WPM + CPM" HorizontalAlignment="Left" Margin="37,99,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click_1"/>
-                        <Button Content="CPM" HorizontalAlignment="Left" Margin="37,139,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click_2"/>
+                        <Button Content="Hide WPM" Name="WPMButton" HorizontalAlignment="Left" Margin="37,120,0,0" VerticalAlignment="Top" Width="137" Height="35" Click="WPM_Click"/>
+                        <Button Content="Hide CPM" Name="CPMButton" HorizontalAlignment="Left" Margin="37,180,0,0" VerticalAlignment="Top" Width="137" Height="35" Click="CPM_Click"/>
+                        <Button Content="Hide Mistakes" Name="MistakesButton" HorizontalAlignment="Left" Margin="37,238,0,0" VerticalAlignment="Top" Width="137" Height="35" Click="Mistakes_Click"/>
                     </Grid>
                 </TabItem>
 
