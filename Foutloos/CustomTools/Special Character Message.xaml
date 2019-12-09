@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Foutloos.Special_Character_Message"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Foutloos"
+             mc:Ignorable="d">
+    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid HorizontalAlignment="Left" Height="60" Width="100" Margin="0" VerticalAlignment="Top">
+            <Rectangle Fill="White" Height="40" Width="80" Margin="10,4,10,16" RadiusY="7.5" RadiusX="7.5" Stroke="Black"/>
+
+            <Viewbox Margin="13,5,14,19">
+                <TextBlock Name="Text" TextWrapping="Wrap"/>
+            </Viewbox>
+            
+            <Polygon Fill="White" Stroke="Black">
+                <Polygon.Points>
+                    <Point X="50" Y="40"/>
+                    <Point X="70" Y="40"/>
+                    <Point X="65" Y="60"/>
+                </Polygon.Points>
+            </Polygon>
+            <Rectangle Fill="White" Margin="48,39,29,17"/>
+        </Grid>
+    </Viewbox>
+</UserControl>

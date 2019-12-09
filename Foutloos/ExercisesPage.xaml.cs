@@ -22,9 +22,8 @@ namespace Foutloos
     /// Interaction logic for ExercisesPage.xaml
     /// </summary>
     public partial class ExercisesPage : Page
-    {
+    { 
 
-        
         private string tekst;
         private int exerciseID;
         private int amount = 0;
@@ -36,6 +35,9 @@ namespace Foutloos
         List<DataRow> allExercises = new List<DataRow>();
         List<DataRow> finished = new List<DataRow>();
         Connection c = new Connection();
+        private Border selectedBorderButton;
+        private double selectedOpacity = .3;
+        private double backgroundOpacity = .5;
 
         public ExercisesPage()
         {
@@ -208,33 +210,48 @@ namespace Foutloos
 
             }
 
-            
+
             //The button gets added as frequently as needed. 
             for (int z = 0; z < amount; z++)
             {
-                Button b1 = new Button();
-                Label l1 = new Label();                                
+                TextBlock l1 = new TextBlock();
+                Border borderButton = new Border();
 
 
-                Grid.SetColumn(b1, j + 1);
+                //Set all the button colors
+                var allColor = Color.FromRgb(0, 102, 255);
+                var easyColor = Color.FromRgb(51, 204, 51);
+                var mediumColor = Color.FromRgb(255, 153, 0);
+                var hardColor = Color.FromRgb(204, 0, 0);
 
-                
+                //Set all the properties for the label.
+                borderButton.Child = l1;
+                borderButton.CornerRadius = new CornerRadius(10);
+                borderButton.BorderBrush = new SolidColorBrush(allColor) { Opacity = 1 };
+                borderButton.BorderThickness = new Thickness(5);
+                borderButton.Background = new SolidColorBrush(allColor) { Opacity = backgroundOpacity };
+                l1.HorizontalAlignment = HorizontalAlignment.Center;
+                l1.VerticalAlignment = VerticalAlignment.Center;
+                Grid.SetColumn(borderButton, j + 1);
+
+                //Add the mouseEnter and mouseLeave event to the borderButton;
+                borderButton.MouseEnter += BorderButton_MouseEnter;
+                borderButton.MouseLeave += BorderButton_MouseLeave;
+
+
                 //iets met stackpanel
 
-                Grid.SetRow(b1, x);
-                b1.Background = Brushes.White;
-                b1.Name = $"E{i}";
-                b1.Content = $"Excercise: {exnum}";
-                b1.Foreground = Brushes.Black;
-                b1.BorderBrush = Brushes.Black;
+                Grid.SetRow(borderButton, x);
+                borderButton.Name = $"E{i}";
+                l1.Text = $"Excercise: {exnum}";
                 //b1.BorderThickness
 
 
 
                 if (gridName == "Grid_All")
                 {
-                    Grid_All.Children.Add(b1);
-                    b1.Click += (sender, e ) => B1_Click(sender, e, 3);
+                    Grid_All.Children.Add(borderButton);
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
                 }
                 //if (gridName == "Grid_Selected")
                 //{
@@ -243,32 +260,35 @@ namespace Foutloos
                 //}
                 if (gridName == "Grid_Amateur")
                 {
-                    Grid_Amateur.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 0);
-                    b1.Background = Brushes.LightGreen;
+                    Grid_Amateur.Children.Add(borderButton);
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 0);
+                    borderButton.BorderBrush = new SolidColorBrush(easyColor) { Opacity = 1 };
+                    borderButton.Background = new SolidColorBrush(easyColor) { Opacity = backgroundOpacity };
                 }
                 if (gridName == "Grid_Normal")
                 {
-                    Grid_Normal.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 1);
-                    b1.Background = Brushes.DarkOrange;
+                    Grid_Normal.Children.Add(borderButton);
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 1);
+                    borderButton.BorderBrush = new SolidColorBrush(mediumColor) { Opacity = 1 };
+                    borderButton.Background = new SolidColorBrush(mediumColor) { Opacity = backgroundOpacity };
                 }
                 if (gridName == "Grid_Expert")
                 {
-                    Grid_Expert.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 2);
-                    b1.Background = Brushes.Red;
+                    Grid_Expert.Children.Add(borderButton);
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 2);
+                    borderButton.BorderBrush = new SolidColorBrush(hardColor) { Opacity = 1 };
+                    borderButton.Background = new SolidColorBrush(hardColor) { Opacity = backgroundOpacity };
                 }
                 if (gridName == "Grid_Finished")
                 {
-                    Grid_Finished.Children.Add(b1);
-                    b1.Click += (sender, e) => B1_Click(sender, e, 4);
+                    Grid_Finished.Children.Add(borderButton);
+                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
                 }
 
                 //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
                 j += 2;
                 i++;
-                exnum++;                
+                exnum++;
 
                 //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
                 //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
@@ -323,15 +343,40 @@ namespace Foutloos
             }
         }
 
-        
+        //If the mouse leaves the exercise
+        private void BorderButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border selectedExercise = (Border)sender;
+
+            if (selectedBorderButton != selectedExercise)
+            {
+                selectedExercise.Background.Opacity = backgroundOpacity;
+            }
+        }
+
+        //If the mouse is over the exercise
+        private void BorderButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Border selectedExercise = (Border)sender;
+            selectedExercise.Background.Opacity = selectedOpacity;
+        }
+
+
         //This checks which buttons has been clicked.
         private void B1_Click(object sender, RoutedEventArgs e, int difficulty)
         {
-            Button b = (Button)sender;
+            Border b = (Border)sender;
             for (int i = 0; i <= exercises[difficulty].Count; i++)
             {              
                 if (b.Name.Equals($"E{i}"))
                 {
+                    //Make the previously selected border the right opacity again if its not this button.
+                    if (selectedBorderButton != null && selectedBorderButton != b)
+                    {
+                        selectedBorderButton.Background.Opacity = backgroundOpacity;
+                    }
+                    selectedBorderButton = b;
+                    exerciseDetails_grid.Visibility = Visibility.Visible;
                     DataRow exercise = exercises[difficulty][i];
                     this.Exercise.Text = $"Exercise {i+1}";
                     this.wpm_number.Content = "0";

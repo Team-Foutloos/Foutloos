@@ -91,14 +91,21 @@
                     <Rectangle Width="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="374" Margin="264,104,0,0" VerticalAlignment="Top" Stroke="White" />
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="22,290,0,0" Stroke="White" VerticalAlignment="Top" Width="428" />
                 </Grid>
-                <Grid VerticalAlignment="Center" Width="407" HorizontalAlignment="Center" Margin="534,271,59,223" Height="106">
-                    <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Login" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Grid Name="previousResultsNoLogin_grid" VerticalAlignment="Center" Width="407" HorizontalAlignment="Center" Margin="534,271,59,223" Height="106">
+                    <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Login" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewMouseDown="ThemedButton_PreviewMouseDown_3"/>
                     <Label Content="or" FontSize="24" Foreground="White" HorizontalAlignment="center" VerticalAlignment="Top"/>
-                    <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Register" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Register" HorizontalAlignment="Right" VerticalAlignment="Top" PreviewMouseDown="ThemedButton_PreviewMouseDown_4"/>
                     <Label Content="to see previous resulsts" FontSize="24" Foreground="White" HorizontalAlignment="center" VerticalAlignment="Bottom"/>
                 </Grid>
                 <TextBlock Name="stringExercise" Foreground="White" HorizontalAlignment="Center"  Margin="0,12,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
             </Grid>
+        </Grid>
+        <Grid Visibility="Collapsed" Name="previousResultsLogin_grid" HorizontalAlignment="Right" Margin="0,248,184,217">
+            <Label Foreground="White" Margin="0,0,0,0" FontSize="20" Content="Words Per Minute: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Foreground="White" Margin="0,30,0,0" FontSize="20" Content="Keys Per Minute: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Foreground="White" Margin="0,60,0,0" FontSize="20" Content="Errors: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <Label Foreground="White" Margin="0,90,0,0" FontSize="20" Content="Accuracy: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
         </Grid>
     </Grid>
 </Window>
