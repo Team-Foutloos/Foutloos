@@ -80,7 +80,8 @@ namespace Foutloos
             //Show special character instructions when enabled
             if (specialCharacters)
             {
-                if(exerciseStringLeft.First() > 220)
+                char first = exerciseStringLeft.First();
+                if(first > 220 && first != 8217)
                 {
                     SpecialChar.Visibility = Visibility.Visible;
                     SpecialChar.ChangeText(exerciseStringLeft.First());
@@ -528,7 +529,6 @@ namespace Foutloos
                     Exercise_TextBlock.Text = "";
                     Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
                     e.Handled = true;
-
                 }
             }
         }
@@ -543,6 +543,10 @@ namespace Foutloos
 
                 //Check for spellcheck special characters
                 char nextChar = exerciseStringLeft.First();
+                if(nextChar == 8217)
+                {
+                    nextChar = (char)39;
+                }
                 string nextString = e.Text;
                 //Change users input based on the next character
                 if(!specialCharacters)
@@ -610,7 +614,7 @@ namespace Foutloos
                 }
 
                 //Check if the user's input is correct
-                if (nextString == exerciseStringLeft.First().ToString())
+                if (nextString == nextChar.ToString())
                 {
                     //Used for saving user's mistakes
                     mistake = false;
@@ -641,7 +645,12 @@ namespace Foutloos
                         SpecialChar.Margin = new Thickness(location.X + 150, location.Y, 0, 0);
 
                         //Check for special character
-                        if (exerciseStringLeft.First() > 220 && specialCharacters)
+                        char first = exerciseStringLeft.First();
+                        if(first == 8217)
+                        {
+                            first = (char)39;
+                        }
+                        if (first > 220 && specialCharacters)
                         {
                             SpecialChar.Visibility = Visibility.Visible;
                             SpecialChar.ChangeText(exerciseStringLeft.First());
@@ -699,7 +708,6 @@ namespace Foutloos
                             adornerLayer.Add(darkenAdorner);
                             results.ShowDialog();
                         }
-
                     }
                 }
                 else
