@@ -17,11 +17,12 @@
             <local:ThemedIconButton Width="auto"  Height="70" Margin="53,25,1669,917" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" DynamicIcon="assets/homeIconWhite.png" />
             <Image Source="assets/LogoFoutloosPNG.png" HorizontalAlignment="Left"  Margin="520,23,0,0" VerticalAlignment="Top" Width="153"/>
             <TextBlock HorizontalAlignment="Left" Margin="697,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="70" FontWeight="SemiBold" Height="81"><Run Text="All exercises"/><LineBreak/><Run/></TextBlock>
-            <Grid Name="exerciseDetails_grid" Visibility="Hidden"  Margin="0,168,70,191" HorizontalAlignment="Right" Width="300">
+            <Grid Name="exerciseDetails_grid" Visibility="Hidden" Margin="0,168,70,191" HorizontalAlignment="Right" Width="300">
                 <Border Background="White" BorderBrush="MidnightBlue" CornerRadius="10" BorderThickness="2">
                     <Grid>
                         <RadioButton x:Name="Text" Content="Text (Speech optional)" HorizontalAlignment="Center" Margin="35,544,52,0" VerticalAlignment="Top" FontSize="20" Height="71" IsChecked="true"/>
-                        <RadioButton x:Name="Spoken" Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Center" Margin="35,575,129,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="132"/>
+                        <RadioButton x:Name="Spoken" Content="Spoken only&#xD;&#xA;" HorizontalAlignment="Center" Margin="35,613,129,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="132"/>
+                        <CheckBox x:Name="specialChar" Content="Special Character control" HorizontalAlignment="Center" Margin="35,579,10,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="251"/>
                         <TextBlock HorizontalAlignment="Center" Margin="83,164,83,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="25" Text="Description" Height="80"/>
                         <Grid Margin="-2,426,2,182">
                             <TextBlock x:Name="Exercise" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Exercise #" VerticalAlignment="Top" FontSize="25" FontWeight="SemiBold" Height="35"/>
