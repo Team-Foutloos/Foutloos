@@ -153,22 +153,23 @@ namespace Foutloos
 
             AddDLC();
 
-            calculate(3, "Grid_All");
+            calculate(3, "Grid_All", amount);
             //calculate(selected, "Grid_Selected");
-            calculate(0, "Grid_Amateur");
-            calculate(1, "Grid_Normal");
-            calculate(2, "Grid_Expert");
-            calculate(3, "Grid_Finished");
+            calculate(0, "Grid_Amateur", exercises[0].Count);
+            calculate(1, "Grid_Normal", exercises[1].Count);
+            calculate(2, "Grid_Expert", exercises[2].Count);
+            calculate(3, "Grid_Finished", amount);
             
         }
 
-        private void calculate(int difficulty, string gridName)
+        private void calculate(int difficulty, string gridName, int amount)
         {
 
             int exnum = 1;
             int x = 1;
             int j = 0;
-            int i = 0;           
+            int i = 0;
+            int scroll = 0;
 
 
             // The amount of columns is always the same.Therefore this piece of code adds them.
@@ -231,7 +232,7 @@ namespace Foutloos
                 if (finished.Rows.Count > 0)
                 {
                     completedIcon.Visibility = Visibility.Visible;
-
+                    scroll++;
                 }
                 else
                 {
@@ -342,15 +343,18 @@ namespace Foutloos
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
-                }
+                }                
+            }
+            for (int row = 0; row < Math.Ceiling((double)scroll / 4); row++)
+            {
                 if (gridName == "Grid_Finished")
                 {
                     Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
                     Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
-
             }
+                
         }
 
         //If the mouse leaves the exercise
