@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
@@ -63,9 +64,11 @@ namespace Foutloos
         List<int> cpmTimeList = new List<int>() {0};
         //Boolean for spellchecking special characters
         bool specialCharacters;
+        int exerciseID;
         
-        public Exercise(string text, bool sc) { 
+        public Exercise(string text, bool sc, int exerciseID) { 
             InitializeComponent();
+            this.exerciseID = exerciseID;
 
             //Set users focus on the users inputbox
             UserInput_TextBox.Focus();
@@ -81,7 +84,7 @@ namespace Foutloos
             if (specialCharacters)
             {
                 char first = exerciseStringLeft.First();
-                if(first > 220 && first != 8217)
+                if(first > 220 && first < 8200)
                 {
                     SpecialChar.Visibility = Visibility.Visible;
                     SpecialChar.ChangeText(exerciseStringLeft.First());
@@ -547,6 +550,10 @@ namespace Foutloos
                 {
                     nextChar = (char)39;
                 }
+                else if(nextChar == 8220 || nextChar == 8221)
+                {
+                    nextChar = (char)34;
+                }
                 string nextString = e.Text;
                 //Change users input based on the next character
                 if(!specialCharacters)
@@ -650,6 +657,10 @@ namespace Foutloos
                         {
                             first = (char)39;
                         }
+                        else if(first == 8220 || first == 8221)
+                        {
+                            first = (char)34;
+                        }
                         if (first > 220 && specialCharacters)
                         {
                             SpecialChar.Visibility = Visibility.Visible;
@@ -701,13 +712,46 @@ namespace Foutloos
                             wordspm = (wpm * 60);
                             charspm = (cpm * 60);
                         }
-                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList, userMistakes, exerciseText);
+
+                        //This will add the results to the resultstable
+                        if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+                        {
+                            //Make a new connectionclass
+                            Connection c = new Connection();
+
+                            //Getting the necessary IDs from the database
+                            int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
+                            int resultID = 1;
+                            resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
+                            //The query to insert the result into the result table
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, dateOfCreation, speech) VALUES ({resultID}, {mistakes}, {seconds}, {wordspm}, {charspm}, {userID}, {exerciseID}, '{DateTime.Now}', 0)";
+                            //Executing the query
+                            if (c.insertInto(CmdString))
+                            {
+                                //If the result has been added to the database, the Errors can be saved too
+                                //For each keyValuePair in the dictionary the key will be added with the matching value
+                                foreach (KeyValuePair<char, int> mistake in userMistakes)
+                                {
+                                    //Getting the id for the new error
+                                    int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
+                                    //Setting the query for adding the errors
+                                    string insertMistakes = $"INSERT INTO Error (errorID, letter, count, resultID) VALUES ({errorID}, '{mistake.Key}', {mistake.Value}, {resultID})";
+                                    //Inserting the error with the query above
+                                    c.insertInto(insertMistakes);
+                                }
+                            }
+
+                        }
+
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList, userMistakes, exerciseText, exerciseID);
                         if (rootVisual != null && adornerLayer != null)
                         {
                             CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
                             adornerLayer.Add(darkenAdorner);
                             results.ShowDialog();
                         }
+
+                        
                     }
                 }
                 else

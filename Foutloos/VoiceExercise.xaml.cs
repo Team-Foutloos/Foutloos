@@ -289,7 +289,7 @@ namespace Foutloos
                             wordspm = (typedWords * 60);
                             charspm = (typedKeys * 60);
                         }
-                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, second, mistakesNumber, accuracy, cpmTimeList, wpmTimeList, mistakes, dbString);
+                        Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, second, mistakesNumber, accuracy, cpmTimeList, wpmTimeList, mistakes, dbString, exerciseID);
                         if (rootVisual != null && adornerLayer != null)
                         {
                             CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
