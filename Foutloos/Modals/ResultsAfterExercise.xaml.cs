@@ -29,8 +29,9 @@ namespace Foutloos.Modals
         private List<int> wpmTimeList;
         private string exerciseText;
         private Dictionary<char, int> mistakeLetters;
+        private int exerciseID;
 
-        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText)
+        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText, int exerciseID)
         {
             InitializeComponent();
 
@@ -44,6 +45,7 @@ namespace Foutloos.Modals
             this.wpmTimeList = wpmTimeList;
             this.mistakeLetters = mistakeLetter;
             this.exerciseText = exerciseText;
+            this.exerciseID = exerciseID;
 
             wordspm_label.Content = wordspm_label.Content.ToString() + wpm;
             charspm_label.Content = charspm_label.Content.ToString() + cpm;
@@ -128,7 +130,7 @@ namespace Foutloos.Modals
         //If the user clicks te retry key.
         private void ThemedButton_PreviewMouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new Exercise(exerciseText, false);
+            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, exerciseID);
             this.Close();
         }
 
