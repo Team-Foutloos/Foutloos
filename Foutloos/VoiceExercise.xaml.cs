@@ -246,7 +246,8 @@ namespace Foutloos
 
                             //Getting the necessary IDs from the database
                             int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
-                            int resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
+                            int resultID = 1;
+                            resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
                             //The query to insert the result into the result table
                             string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, dateOfCreation, speech) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID}, '{DateTime.Now}', 1)";
                             //Executing the query
@@ -254,7 +255,7 @@ namespace Foutloos
                             {
                                 //If the result has been added to the database, the Errors can be saved too
                                 //For each keyValuePair in the dictionary the key will be added with the matching value
-                                foreach(KeyValuePair<char, int> mistake in mistakes)
+                                foreach (KeyValuePair<char, int> mistake in mistakes)
                                 {
                                     //Getting the id for the new error
                                     int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
@@ -264,6 +265,7 @@ namespace Foutloos
                                     c.insertInto(insertMistakes);
                                 }
                             }
+
                         }
 
 
