@@ -89,7 +89,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise("’Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program", true);
+                Application.Current.MainWindow.Content = new Exercise("”Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program", true);
             }
             
         }
