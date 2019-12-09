@@ -90,7 +90,7 @@
                     </chartingToolkit:Chart>
                     <Rectangle Width="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="374" Margin="264,104,0,0" VerticalAlignment="Top" Stroke="White" />
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="22,290,0,0" Stroke="White" VerticalAlignment="Top" Width="428" />
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="717,163,0,0" VerticalAlignment="Top"/>
+                    <Label Name="noPreviousResultsLogin_grid" Content="No previous results yet!" FontSize="25" Foreground="White" Visibility="Hidden" HorizontalAlignment="Left" Margin="602,290,0,0" VerticalAlignment="Top"/>
                 </Grid>
                 <Grid Name="previousResultsNoLogin_grid" VerticalAlignment="Center" Width="407" HorizontalAlignment="Center" Margin="534,271,59,223" Height="106">
                     <Foutloos:ThemedButton Width="150" Height="50" DynamicTextRegular="Login" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewMouseDown="ThemedButton_PreviewMouseDown_3"/>
