@@ -58,8 +58,32 @@ namespace Foutloos
             dt1 = c.PullData($"SELECT COUNT(*) FROM Exercise");
             
             UniqueExerciseComp.Text = dt0.Rows[0][4].ToString() + "/" + dt1.Rows[0][0].ToString();
-            TextSpeechRatio.Text = "" + "/" + "";
-            FavoriteDifficulty.Text = "";
+
+            DataTable dt2 = new DataTable();
+            dt2 = c.PullData($"SELECT COUNT(*) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
+                $"WHERE speech = 1 AND username = '{ConfigurationManager.AppSettings["username"]}'"); 
+            TextSpeechRatio.Text = $"{Convert.ToInt32(ExercisesCompleted.Text) - Convert.ToInt32(dt2.Rows[0][0])}/{dt2.Rows[0][0].ToString()}";
+
+            DataTable dt3 = new DataTable();
+            dt3 = c.PullData($"SELECT difficulty, COUNT(difficulty) FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                $"JOIN Exercise E ON E.exerciseID = R.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}'" +
+                $" GROUP BY difficulty ORDER BY COUNT(difficulty) DESC"); 
+            switch (dt3.Rows[0][0].ToString())
+            {
+                case "1":
+                    FavoriteDifficulty.Text = "Amateur";
+                    break;
+                case "2":
+                    FavoriteDifficulty.Text = "Normal";
+                    break;
+                case "3":
+                    FavoriteDifficulty.Text = "Expert";
+                    break;
+                default:
+                    FavoriteDifficulty.Text = "unknown";
+                    break;
+            }
+            
 
         }
         private void FillListBox()
