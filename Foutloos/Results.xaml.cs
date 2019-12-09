@@ -27,10 +27,17 @@ namespace Foutloos
         public Results()
         {
             InitializeComponent();
-            UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
-            FillListBox();
-            FillColumnCharts("Exercise_#", 0, 0,0) ;
-            FillLineChart();
+            try
+            {
+                UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
+                FillListBox();
+                FillColumnCharts("Exercise_#", 0, 0, 0);
+                FillLineChart();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         
@@ -40,23 +47,56 @@ namespace Foutloos
 
             Connection c = new Connection();
             DataTable dt = new DataTable();
-
-
-            dt = c.PullData($"SELECT * FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
-                $"WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-
-            UserExerciseResult result = new UserExerciseResult();
-            result.Name = dt.Rows[0]["mistakes"].ToString();
-            result.Mistakes = Convert.ToInt32(dt.Rows[0]["mistakes"]);
-            result.WPM = Convert.ToInt32(dt.Rows[0]["wpm"]);
-            result.CPM = Convert.ToInt32(dt.Rows[0]["cpm"]);
-            //result.Mistakes = Convert.ToInt32(dt.Rows[0]["time"]);
-            result.Mistakes = Convert.ToInt32(dt.Rows[0]["mistakes"]);
-            //System.Windows.Forms.MessageBox.Show(dt.Rows[0]["mistakes"].ToString());
-
-
             exerciselist = new List<UserExerciseResult>();
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 1", Difficulty = "Beginner", Type = "Text", WPM = 40, Mistakes = 6, CPM = 240 }) ;
+
+            dt = c.PullData($"SELECT R.exerciseID, mistakes, wpm, cpm, time, difficulty, speech " +
+                $"FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
+                $"JOIN Exercise E ON R.exerciseID = E.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                UserExerciseResult result = new UserExerciseResult();
+                result.Name = "Exercise " + dt.Rows[i]["exerciseID"].ToString();
+                result.Mistakes = Convert.ToInt32(dt.Rows[i]["mistakes"]);
+                result.WPM = Convert.ToInt32(dt.Rows[i]["wpm"]);
+                result.CPM = Convert.ToInt32(dt.Rows[i]["cpm"]);
+                //result.Mistakes = Convert.ToInt32(dt.Rows[i]["time"]);
+                result.Difficulty = dt.Rows[i]["difficulty"].ToString();
+                switch (result.Difficulty)
+                {
+                    case "1":
+                        result.Difficulty = "Amateur";
+                        break;
+                    case "2":
+                        result.Difficulty = "Normal";
+                        break;
+                    case "3":
+                        result.Difficulty = "Expert";
+                        break;
+                    default:
+                        result.Difficulty = "unknown";
+                        break;
+                }
+                result.Type = dt.Rows[i]["speech"].ToString();
+                switch (result.Type)
+                {
+                    case "0":
+                        result.Type = "Text";
+                        break;
+                    case "1":
+                        result.Type = "Speech";
+                        break;
+                    default:
+                        result.Type = "Unknown";
+                        break;
+                }
+                exerciselist.Add(result);
+                System.Windows.Forms.MessageBox.Show(dt.Rows[i]["difficulty"].ToString());
+            }
+
+
+            
+            /*exerciselist.Add(new UserExerciseResult() { Name = "Exercise 1", Difficulty = "Beginner", Type = "Text", WPM = 40, Mistakes = 6, CPM = 240 }) ;
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 2", Difficulty = "Beginner", Type = "Text", WPM = 45, Mistakes = 4, CPM = 270 });
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 7", Difficulty = "Advanced", Type = "Speech", WPM = 20, Mistakes = 1, CPM = 120});
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 3", Difficulty = "Beginner", Type = "Text", WPM = 60, Mistakes = 15, CPM = 360 });
@@ -65,7 +105,7 @@ namespace Foutloos
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 6", Difficulty = "Advanced", Type = "Text", WPM = 40, Mistakes = 7, CPM = 300 });
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 8", Difficulty = "Advanced", Type = "Speech", WPM = 16, Mistakes = 1, CPM = 100 });
             exerciselist.Add(new UserExerciseResult() { Name = "Exercise 9", Difficulty = "Advanced", Type = "Text", WPM = 57, Mistakes = 20, CPM = 380 });
-            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 10", Difficulty = "Advanced", Type = "Text", WPM = 50, Mistakes = 7, CPM = 340 });
+            exerciselist.Add(new UserExerciseResult() { Name = "Exercise 10", Difficulty = "Advanced", Type = "Text", WPM = 50, Mistakes = 7, CPM = 340 });*/
 
             ExerciseList.ItemsSource = exerciselist;
         }
