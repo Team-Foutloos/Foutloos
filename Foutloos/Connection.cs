@@ -148,6 +148,37 @@ namespace Foutloos
             return id;
         }
 
+        public List<string> getLicenses(string query)
+        {
+            List<string> packages = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            packages.Add(reader.GetString(0));
+                        }
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return packages;
+
+        }
+
 
     }
 }

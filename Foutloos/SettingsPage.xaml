@@ -73,7 +73,8 @@
                 <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25" Margin="0,0,20,90" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click"/>
                 
             </Grid>
-            
+            <TextBlock x:Name="licensesContent" HorizontalAlignment="Left" Margin="345,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="266" Width="1225"/>
+
 
         </Grid>
     </Viewbox>

@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -19,6 +21,7 @@ namespace Foutloos
         {
             InitializeComponent();
             this.loginUIchange();
+            checkLicenses();
         }
 
 
@@ -129,6 +132,28 @@ namespace Foutloos
                 Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, box);
                 myStoryboard.Begin();
             }
+        }
+
+        private void checkLicenses()
+        {
+            List<int> licenses = new List<int>();
+            StringBuilder l = new StringBuilder();
+            int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+            licenses = c.getPackages($"SELECT packageID FROM license WHERE userID = {Name}");
+
+            l.Append("STANDARD Pack\n");
+
+
+            foreach (int license in licenses)
+            {
+                if (license == 2)
+                {
+                    l.Append("George Orwell Pack" + "\n");
+                }               
+                
+            }
+
+            licensesContent.Text = l.ToString();
         }
     }
 }
