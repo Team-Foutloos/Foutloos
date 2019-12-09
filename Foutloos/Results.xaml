@@ -70,13 +70,22 @@
                 </TabControl.Resources>
                 <TabItem Header="User Stats" Margin="517,0,-521,-2.4">
                     <Grid Background="#FFE5E5E5">
-                        <TextBlock HorizontalAlignment="Left" Margin="54,35,0,0" TextWrapping="Wrap" Text="Average WPM" VerticalAlignment="Top" Height="25" Width="154"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="54,60,0,0" TextWrapping="Wrap" Text="Average CPM" VerticalAlignment="Top" Height="25" Width="154"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="54,85,0,0" TextWrapping="Wrap" Text="Average Accuracy" VerticalAlignment="Top" Height="25" Width="154"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="54,115,0,0" TextWrapping="Wrap" Text="Average Mistakes" VerticalAlignment="Top" Height="25" Width="154"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="54,140,0,0" TextWrapping="Wrap" Text="Text/Speech Ratio" VerticalAlignment="Top" Height="25" Width="154"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="54,165,0,0" TextWrapping="Wrap" Text="Most made mistake" VerticalAlignment="Top" Height="25" Width="154"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="54,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <!--fixed textblocks (User Stats)-->
+                        <TextBlock HorizontalAlignment="Left" Margin="54,40,0,0" TextWrapping="Wrap" Text="Exercises completed" VerticalAlignment="Top" Height="25" Width="192"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,80,0,0" TextWrapping="Wrap" Text="Unique exercises" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,120,0,0" TextWrapping="Wrap" Text="Average WPM" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,160,0,0" TextWrapping="Wrap" Text="Average CPM" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,200,0,0" TextWrapping="Wrap" Text="Total Mistakes" VerticalAlignment="Top" Height="25" Width="154"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,240,0,0" TextWrapping="Wrap" Text="Text/Speech Ratio" VerticalAlignment="Top" Height="25" Width="210"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="54,280,0,0" TextWrapping="Wrap" Text="Favorite Difficulty" VerticalAlignment="Top" Height="25" Width="192"/>
+                        <!--data from database textblocks (User Stats)-->
+                        <TextBlock x:Name="ExercisesCompleted" HorizontalAlignment="Left" Margin="307,40,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="UniqueExerciseComp" HorizontalAlignment="Left" Margin="307,80,0,0" TextWrapping="Wrap" Text="0/0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="AverageWPM" HorizontalAlignment="Left" Margin="307,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="AverageCPM" HorizontalAlignment="Left" Margin="307,160,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="TotalMistakes" HorizontalAlignment="Left" Margin="307,200,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="TextSpeechRatio" HorizontalAlignment="Left" Margin="307,240,0,0" TextWrapping="Wrap" Text="0/0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="FavoriteDifficulty" HorizontalAlignment="Left" Margin="307,280,0,0" TextWrapping="Wrap" Text="Amateur" VerticalAlignment="Top" Height="25" Width="101"/>
 
                     </Grid>
                 </TabItem>
@@ -147,7 +156,6 @@
                         <Button Content="WPM + Mist" HorizontalAlignment="Left" Margin="37,59,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click"/>
                         <Button Content="WPM + CPM" HorizontalAlignment="Left" Margin="37,99,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click_1"/>
                         <Button Content="CPM" HorizontalAlignment="Left" Margin="37,139,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click_2"/>
-                        <Button Content="WPM" HorizontalAlignment="Left" Margin="37,180,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Button_Click_3"/>
                     </Grid>
                 </TabItem>
 

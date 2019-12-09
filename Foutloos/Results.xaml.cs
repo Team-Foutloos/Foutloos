@@ -23,6 +23,7 @@ namespace Foutloos
     /// </summary>
     public partial class Results : Page
     {
+        private Connection c = new Connection();
         private List<UserExerciseResult> exerciselist;
         public Results()
         {
@@ -30,6 +31,7 @@ namespace Foutloos
             try
             {
                 UsernameBlock.Text = ConfigurationManager.AppSettings["username"];
+                FillUserStats();
                 FillListBox();
                 FillColumnCharts("Exercise_#", 0, 0, 0);
                 FillLineChart();
@@ -40,12 +42,28 @@ namespace Foutloos
             }
         }
 
-        
-        //TODO: change mockdata for the UserResult Table in the database (Table name might be different)
+
+        private void FillUserStats()
+        {
+            DataTable dt0 = new DataTable();
+            
+            dt0 = c.PullData($"SELECT COUNT(*), AVG(wpm), AVG(cpm), SUM(mistakes), COUNT(DISTINCT(exerciseID)) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+            
+            ExercisesCompleted.Text = dt0.Rows[0][0].ToString();
+            AverageWPM.Text = dt0.Rows[0][1].ToString();
+            AverageCPM.Text = dt0.Rows[0][2].ToString();
+            TotalMistakes.Text = dt0.Rows[0][3].ToString();
+
+            DataTable dt1 = new DataTable();
+            dt1 = c.PullData($"SELECT COUNT(*) FROM Exercise");
+            
+            UniqueExerciseComp.Text = dt0.Rows[0][4].ToString() + "/" + dt1.Rows[0][0].ToString();
+            TextSpeechRatio.Text = "" + "/" + "";
+            FavoriteDifficulty.Text = "";
+
+        }
         private void FillListBox()
         {
-
-            Connection c = new Connection();
             DataTable dt = new DataTable();
             exerciselist = new List<UserExerciseResult>();
 
@@ -53,8 +71,10 @@ namespace Foutloos
                 $"FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
                 $"JOIN Exercise E ON R.exerciseID = E.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
 
+            //Fill Listbox
             for (int i = 0; i < dt.Rows.Count; i++)
             {
+                //Convert datarow into object
                 UserExerciseResult result = new UserExerciseResult();
                 result.Name = "Exercise " + dt.Rows[i]["exerciseID"].ToString();
                 result.Mistakes = Convert.ToInt32(dt.Rows[i]["mistakes"]);
@@ -62,6 +82,7 @@ namespace Foutloos
                 result.CPM = Convert.ToInt32(dt.Rows[i]["cpm"]);
                 //result.Mistakes = Convert.ToInt32(dt.Rows[i]["time"]);
                 result.Difficulty = dt.Rows[i]["difficulty"].ToString();
+                //change number into text
                 switch (result.Difficulty)
                 {
                     case "1":
@@ -78,6 +99,7 @@ namespace Foutloos
                         break;
                 }
                 result.Type = dt.Rows[i]["speech"].ToString();
+                //change number into text
                 switch (result.Type)
                 {
                     case "0":
@@ -90,10 +112,11 @@ namespace Foutloos
                         result.Type = "Unknown";
                         break;
                 }
+                //Add object to list
                 exerciselist.Add(result);
             }
 
-
+            //ExerciseList in the xaml-part will use this list as ItemSource when binding
             ExerciseList.ItemsSource = exerciselist;
         }
 
