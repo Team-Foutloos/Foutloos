@@ -55,12 +55,11 @@ namespace Foutloos.Modals
                         Repeatpassword.Clear();
                     }
                     else {
-                        //string CmdString = $"UPDATE Usertable SET password = '{SecurePasswordHasher.Hash(passwordNew)}' WHERE userID = '{userID}'";
-                        //if (c.insertInto(CmdString))
-                        //{
-                        //    this.Close();
-                        //}
-                        this.Close();
+                        string CmdString = $"UPDATE Usertable SET password = '{SecurePasswordHasher.Hash(passwordNew)}' WHERE userID = '{userID}'";
+                        if (c.insertInto(CmdString))
+                        {
+                            this.Close();
+                        }
                     }
                 }
                 else
