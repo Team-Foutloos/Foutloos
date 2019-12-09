@@ -54,7 +54,7 @@
                     <Grid Name="gridloggedIn" Background="White" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Label x:Name="lblUsername" Content="Username:" FontSize="20" HorizontalAlignment="Left" Margin="25,35,0,0" VerticalAlignment="Top"/>
-                        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,40,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,40,0,0" TextWrapping="Wrap" Text="Your username" VerticalAlignment="Top" TextChanged="TxtUsername_TextChanged"/>
                         <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="20,140,0,0"/>
                         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="30" FontSize="20" Margin="0,140,20,0"/>
                         <Button x:Name="License" Content="Add LicenseKey" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="1050,16,0,154" Click="License_Click"/>
