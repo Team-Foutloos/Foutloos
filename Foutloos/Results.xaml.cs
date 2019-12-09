@@ -40,13 +40,19 @@ namespace Foutloos
 
             Connection c = new Connection();
             DataTable dt = new DataTable();
-            
 
-            dt = c.PullData($"SELECT * FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-            
+
+            dt = c.PullData($"SELECT * FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
+                $"WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+
             UserExerciseResult result = new UserExerciseResult();
-            System.Windows.Forms.MessageBox.Show(dt.Rows[0]["mistakes"].ToString());  //= Convert.ToInt32(dt.Rows[0]["mistakes"]);
-            
+            result.Name = dt.Rows[0]["mistakes"].ToString();
+            result.Mistakes = Convert.ToInt32(dt.Rows[0]["mistakes"]);
+            result.WPM = Convert.ToInt32(dt.Rows[0]["wpm"]);
+            result.CPM = Convert.ToInt32(dt.Rows[0]["cpm"]);
+            //result.Mistakes = Convert.ToInt32(dt.Rows[0]["time"]);
+            result.Mistakes = Convert.ToInt32(dt.Rows[0]["mistakes"]);
+            //System.Windows.Forms.MessageBox.Show(dt.Rows[0]["mistakes"].ToString());
 
 
             exerciselist = new List<UserExerciseResult>();
@@ -71,7 +77,6 @@ namespace Foutloos
             valueList.Add(new KeyValuePair<string, int>("WPM", WPM));
             valueList.Add(new KeyValuePair<string, int>("Mistakes", Mistakes));
             columnChart.DataContext = valueList;
-
         }
         private void FillColumnCharts(string Name, int WPM, int CPM, int Mistakes)
         {
