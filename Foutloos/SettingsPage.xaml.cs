@@ -32,6 +32,7 @@ namespace Foutloos
             {
                 Title.Content = $"Hello, {ConfigurationManager.AppSettings["username"]}!";
                 txtUsername.Text = ConfigurationManager.AppSettings["username"];
+                userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
                 gridloggedIn.Visibility = Visibility.Visible;
                 gridloggedOut.Visibility = Visibility.Hidden;
                 btnLogOut.IsEnabled = true;
@@ -47,10 +48,13 @@ namespace Foutloos
         private void BtnLogIn_Click(object sender, RoutedEventArgs e)
         {
             ShowModal(new Modals.ModalLogin());
+            userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+            Application.Current.MainWindow.Content = new SettingsPage();
         }
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
             ShowModal(new Modals.ModalRegister());
+            Application.Current.MainWindow.Content = new SettingsPage();
         }
 
         private void ShowModal<T>(T modal) where T : Window
@@ -82,9 +86,6 @@ namespace Foutloos
         Connection c = new Connection();
 
         //The save button to save user/email adress changes
-
-
-        
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             string errorMessage = "";
@@ -95,11 +96,19 @@ namespace Foutloos
             }
             else
             {
-                userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-                string CmdString = $"UPDATE Usertable SET username = '{txtUsername}' WHERE userID = '{userID}'";
+                System.Console.WriteLine(userID);
+                string CmdString = $"UPDATE usertable set username = '{txtUsername.Text}' WHERE userID = {userID}";
                 if (c.insertInto(CmdString))
                 {
                     System.Windows.Forms.MessageBox.Show("Username succesfully changed");
+                    ConfigurationManager.AppSettings["username"] = txtUsername.Text;
+                    txtUsername.Text = ConfigurationManager.AppSettings["username"];
+                    Application.Current.MainWindow.Content = new SettingsPage();
+
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("werkt niet");
                 }
             }
         }
@@ -113,8 +122,8 @@ namespace Foutloos
         {
             License license = new License();
 
-            if (licenseBox.Text != "")            {
-                                
+            if (licenseBox.Text != "")
+            {
                 license.insertLicense(licenseBox.Text);
             }
             else
