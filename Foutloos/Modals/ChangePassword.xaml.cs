@@ -23,6 +23,7 @@ namespace Foutloos.Modals
         Connection c = new Connection();
 
         private int userID;
+        private string errorMessage;
 
 
         public ChangePassword(int id)
@@ -35,19 +36,46 @@ namespace Foutloos.Modals
         {
             string passwordFD = c.getPassword(userID);
             string passwordOld = SecurePasswordHasher.Hash(oldpassword.Password);
-            if (passwordFD.Equals(passwordOld))
+            if (SecurePasswordHasher.Verify(oldpassword.Password, passwordFD))
             {
-                string passwordNew = SecurePasswordHasher.Hash(newpassword.Password);
-                string passwordRepeat = SecurePasswordHasher.Hash(Repeatpassword.Password);
-                if (passwordRepeat.Equals(passwordNew))
+                string passwordNew = newpassword.Password;
+                string passwordRepeat = Repeatpassword.Password;
+                bool fHasSpace = passwordNew.Contains(" ");
+                if (newpassword.Password != null && newpassword.Password != "" && !fHasSpace)
                 {
-                    string CmdString = $"UPDATE Usertable SET password = '{passwordNew}' WHERE userID = '{userID}'";
-                    if (c.insertInto(CmdString))
+                    if (passwordNew.Count() < 8)
                     {
-                        this.Close();
+                        errorMessage += "Password is too short or to long";
+                    }
+                    else if (passwordNew != passwordRepeat)
+                    {
+                        errorMessage += "A password is incorrect";
+                        oldpassword.Clear();
+                        newpassword.Clear();
+                        Repeatpassword.Clear();
+                    }
+                    else {
+                        string CmdString = $"UPDATE Usertable SET password = '{SecurePasswordHasher.Hash(passwordNew)}' WHERE userID = '{userID}'";
+                        if (c.insertInto(CmdString))
+                        {
+                            this.Close();
+                        }
                     }
                 }
+                else
+                {
+                    errorMessage += "Please add a new password at 'new Password'";
+                }
             }
+            else
+            {                
+                errorMessage += "A password is incorrect";
+                oldpassword.Clear();
+                newpassword.Clear();
+                Repeatpassword.Clear();
+            }
+            ErrorMessage.Content = errorMessage;
+            errorMessage = "";
         }    
         
         private void CancelBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)

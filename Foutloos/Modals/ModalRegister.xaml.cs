@@ -140,7 +140,7 @@ namespace Foutloos.Modals
                 int userID = (c.ID("SELECT Max(userID) FROM Usertable")) + 1;
 
                 //Insert the user into the database.
-                string CmdString = $"INSERT INTO usertable VALUES ('{userID}', '{username.Text}', '{hashedPassword}', 'XAFDV')";
+                string CmdString = $"INSERT INTO usertable VALUES ('{userID}', '{username.Text}', '{hashedPassword}')";
                 if (c.insertInto(CmdString))
                 {
                     ConfigurationManager.AppSettings["username"] = username.Text;
