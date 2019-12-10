@@ -352,17 +352,25 @@ namespace Foutloos
         {
 
             //Disabling the comboboxes so no changes can be made while speeking.
-            comboVoice.IsEnabled = false;
-            comboRate.IsEnabled = false;
 
-            //Start text to speech
-            new Thread(() =>
+            try
             {
-                
-                synthesizer.Speak(dbStringLeft[0]);
-                dbStringLeft.RemoveAt(0);
-            }).Start();
+                string toSpeak = dbStringLeft[0];
+                //Start text to speech
+                new Thread(() =>
+                {
 
+                    synthesizer.Speak(toSpeak);
+
+                }).Start();
+
+                dbStringLeft.RemoveAt(0);
+            }
+            catch
+            {
+
+            }
+            
 
         }
 
