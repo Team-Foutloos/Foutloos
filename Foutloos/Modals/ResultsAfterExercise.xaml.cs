@@ -134,7 +134,14 @@ namespace Foutloos.Modals
             List<KeyValuePair<string, int>> valueList = new List<KeyValuePair<string, int>>();
             foreach (var dictionaryItem in mistakeLetters)
             {
-                valueList.Add(new KeyValuePair<string, int>(dictionaryItem.Key.ToString(), dictionaryItem.Value));
+                if(dictionaryItem.Key != ' ')
+                {
+                    valueList.Add(new KeyValuePair<string, int>(dictionaryItem.Key.ToString(), dictionaryItem.Value));
+                }
+                else{
+                    valueList.Add(new KeyValuePair<string, int>("␣", dictionaryItem.Value));
+                }
+                
             }
             charError.DataContext = valueList;
 
