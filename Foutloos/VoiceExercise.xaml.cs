@@ -41,6 +41,10 @@ namespace Foutloos
 
         //Variable for the total amount of seconds that have elapsed
         int second;
+        int secondOfLastLetter;
+
+        string previousWord;
+
         //Variable for the amount of chars typed within a certain timespan.
         int typedKeys;
         int typedWords;
@@ -60,6 +64,7 @@ namespace Foutloos
         //Add a list to save the wpm and time
         List<int> wpmTimeList = new List<int>() { 0 };
         List<int> cpmTimeList = new List<int>() { 0 };
+
 
         public VoiceExercise(string text, int exerciseID)
         {
@@ -186,12 +191,15 @@ namespace Foutloos
                     for (int i = 0; i < typedText.Length; i++)
                     {
 
-                        //If the text is correct it will be green. If there was a typo all text from
-                        //the typo onwards will be red.
-                        if (typedText[i] == dbString[i] && wrong == false)
+
+                            //If the text is correct it will be green. If there was a typo all text from
+                            //the typo onwards will be red.
+                        if ((typedText[i] == dbString[i] || ((dbString[i] == '\'' || dbString[i] == '`' || dbString[i] == '’') && (typedText[i] == '\'' || typedText[i] == '`' || typedText[i] == '’')) || ((dbString[i] == '"' || dbString[i] == '“' || dbString[i] == '”') && (typedText[i] == '"' || typedText[i] == '“' || typedText[i] == '”'))) && wrong == false)
                         {
+                            secondOfLastLetter = second;
+
                             ProgressBar.Foreground = Brushes.DeepSkyBlue;
-                            inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
+                            inputText.Inlines.Add(new Run(dbString[i].ToString()) { Foreground = Brushes.Green });
                             ProgressBar.Value++;
                         }
                         else if (keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
@@ -343,6 +351,12 @@ namespace Foutloos
             avgWPM = Math.Round((typedWords / (double)second) * 60);
             wpmLable.Content = avgWPM;
 
+
+            if(second > secondOfLastLetter + 3)
+            {
+                headLabel.Content = previousWord;
+            }
+
         }
 
 
@@ -350,20 +364,17 @@ namespace Foutloos
         //When calling this the speech will start playing and the exercise starts.
         private void startSpeaking()
         {
-
-            //Disabling the comboboxes so no changes can be made while speeking.
-
             try
             {
-                string toSpeak = dbStringLeft[0];
+                string wordToSay = dbStringLeft[0];
                 //Start text to speech
                 new Thread(() =>
                 {
 
-                    synthesizer.Speak(toSpeak);
+                    synthesizer.Speak(wordToSay);
 
                 }).Start();
-
+                previousWord = wordToSay;
                 dbStringLeft.RemoveAt(0);
             }
             catch
@@ -422,7 +433,7 @@ namespace Foutloos
             try
             {
                 //Setting the speed of the speech to the selected value. (User input comboRate)
-                this.synthesizer.Rate = (int)(rateValues[comboRate.SelectedIndex] * 10) - 15;
+                this.synthesizer.Rate = (int)(rateValues[comboRate.SelectedIndex] * 10) - 10;
             }
             catch
             {

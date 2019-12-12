@@ -62,8 +62,13 @@ namespace Foutloos
 
             DataTable dt1 = new DataTable();
             dt1 = c.PullData($"SELECT COUNT(*) FROM Exercise");
-            
-            UniqueExerciseComp.Text = dt0.Rows[0][4].ToString() + "/" + dt1.Rows[0][0].ToString();
+
+            //Query to get the total amount of exercises the user has with additional packages
+            DataTable getExercisesCount = c.PullData($"SELECT COUNT(*) FROM Exercise WHERE packageID IN (SELECT STRING_AGG(packageID, ',') FROM License L LEFT JOIN Usertable U ON L.userID = U.userID WHERE U.username = '{ConfigurationManager.AppSettings["username"]}' )");
+
+
+            //Displaying the amount of different exercises done by the user against the max amount the user can do (the amount the user has in extra packages plus the 15 of the standard package)
+            UniqueExerciseComp.Text = dt0.Rows[0][4].ToString() + "/" + ((int)getExercisesCount.Rows[0][0] + 15).ToString();
 
             DataTable dt2 = new DataTable();
             dt2 = c.PullData($"SELECT COUNT(*) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
@@ -101,7 +106,15 @@ namespace Foutloos
             List<KeyValuePair<string, int>> mistakes = new List<KeyValuePair<string, int>>();
 
             for (int i = 0; i < 8 && i < dt.Rows.Count; i++) {
-                mistakes.Add(new KeyValuePair<string, int>(dt.Rows[i][0].ToString(), Convert.ToInt32(dt.Rows[i][1])));
+                if(dt.Rows[i][0].ToString() != " ")
+                {
+                    mistakes.Add(new KeyValuePair<string, int>(dt.Rows[i][0].ToString(), Convert.ToInt32(dt.Rows[i][1])));
+                }
+                else
+                {
+                    mistakes.Add(new KeyValuePair<string, int>("␣", Convert.ToInt32(dt.Rows[i][1])));
+                }
+                
             }
 
             PieChart.DataContext = mistakes;
