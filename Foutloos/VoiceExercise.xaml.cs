@@ -69,6 +69,7 @@ namespace Foutloos
         public VoiceExercise(string text, int exerciseID)
         {
             InitializeComponent();
+            //Setting the exercise defaults
             this.dbString = text;
             this.exerciseID = exerciseID;
             this.dbStringLeft = dbString.Split(' ').ToList<string>();
@@ -142,6 +143,8 @@ namespace Foutloos
                 return;
             }
 
+
+
             //If enter is pressed while the exercise isn't running yet the exercise will start
             if (keyChar == '\r' && !running && !exerciseFinished)
             {
@@ -198,6 +201,8 @@ namespace Foutloos
                         {
                             secondOfLastLetter = second;
 
+                            
+
                             ProgressBar.Foreground = Brushes.DeepSkyBlue;
                             inputText.Inlines.Add(new Run(dbString[i].ToString()) { Foreground = Brushes.Green });
                             ProgressBar.Value++;
@@ -239,11 +244,11 @@ namespace Foutloos
                         }
                     }
 
-                    if (dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
-                    {
-                        startSpeaking();
-                    }
-
+                        if (!wrong && dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
+                        {
+                            startSpeaking();
+                        }
+                    
 
 
                     //If the sentence is completed
@@ -346,12 +351,13 @@ namespace Foutloos
             avgCPM = Math.Round((typedText.Length / (double)second) * 60);
             cpmLable.Content = avgCPM;
 
+            //Calculate the amount of words and after calculating the average Words per minute
             string[] woorden = typedText.Split(' ');
             typedWords = woorden.Length;
             avgWPM = Math.Round((typedWords / (double)second) * 60);
             wpmLable.Content = avgWPM;
 
-
+            //If the user hasn't typed the right letter in a while (three seconds) the correct word will be shown
             if(second > secondOfLastLetter + 3)
             {
                 headLabel.Content = previousWord;
@@ -366,7 +372,12 @@ namespace Foutloos
         {
             try
             {
+                //Saving the word to say
                 string wordToSay = dbStringLeft[0];
+                previousWord = wordToSay;
+                //Removing the word from the list
+                dbStringLeft.RemoveAt(0);
+
                 //Start text to speech
                 new Thread(() =>
                 {
@@ -374,8 +385,6 @@ namespace Foutloos
                     synthesizer.Speak(wordToSay);
 
                 }).Start();
-                previousWord = wordToSay;
-                dbStringLeft.RemoveAt(0);
             }
             catch
             {
