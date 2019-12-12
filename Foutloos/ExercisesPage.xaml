@@ -162,7 +162,7 @@
                                     </ComboBox>
                                 </Grid>
                             </Grid>
-                            <local:ThemedButton DynamicTextRegular="Start!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60" Width="300" Height="60" FontSize="30" PreviewMouseDown="ThemedButton_PreviewMouseDown"/>
+                            <local:ThemedButton DynamicTextRegular="Start!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60" Width="300" Height="60" FontSize="30" PreviewMouseDown="StartGeneratedExercise_PreviewMouseDown"/>
                             <TextBlock Foreground="Black" FontSize="32" 
                                        Text="Start a randomly generated exercise!" HorizontalAlignment="Center" 
                                        Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
