@@ -73,6 +73,9 @@ namespace Foutloos
             //Set users focus on the users inputbox
             UserInput_TextBox.Focus();
 
+            //Set language of keyboard for exercise
+            int lang = InputLanguage.InstalledInputLanguages.IndexOf(InputLanguage.CurrentInputLanguage);
+
             //Show exercise text on the page
             this.exerciseText = text;
             exerciseStringLeft = text;
