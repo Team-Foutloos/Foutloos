@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,14 +39,18 @@ namespace Foutloos
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
         private double backgroundOpacity = .5;
+        Thread myThread;
 
         public ExercisesPage()
         {
+            Modals.loadingModal loadingIndicator = new Modals.loadingModal();
             InitializeComponent();
-            
+            loadingIndicator.Show();
             AddButton();
+            loadingIndicator.Close();
+        }
 
-        } 
+
 
         private void AddDLC()
         {
@@ -92,7 +97,7 @@ namespace Foutloos
         private void AddButton()
         {            
             DataTable dt = new DataTable();
-            
+
             //standard package that always gets added.
             dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
 
@@ -108,19 +113,18 @@ namespace Foutloos
                             
                       
             amount = 0;
-            
+
             foreach (DataRow row in dt.Rows)
             {
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
 
-                exercises[((int)Int64.Parse(difficulty))-1].Add(row);
+                exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
                 exercises[3].Add(row);
-                amount++;        
-                
-            }
+                amount++;
 
+            }
             //The standard left and top margin are added for grid All.
             Grid_All.ShowGridLines = false;
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
@@ -159,7 +163,8 @@ namespace Foutloos
             calculate(1, "Grid_Normal", exercises[1].Count);
             calculate(2, "Grid_Expert", exercises[2].Count);
             calculate(3, "Grid_Finished", amount);
-            
+
+
         }
 
         private void calculate(int difficulty, string gridName, int amount)
@@ -467,6 +472,7 @@ namespace Foutloos
             else
             {
                 Application.Current.MainWindow.Content = new VoiceExercise(tekst, exerciseID);
+                
             }
         }
 
