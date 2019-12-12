@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -222,7 +223,25 @@ namespace Foutloos
 
         private void AllExercisesBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new ExercisesPage();
+
+            Connection c = new Connection();
+            InitializeComponent();
+
+            string exerciseText = "";
+            DataTable dt0 = new DataTable();
+
+            dt0 = c.PullData($"SELECT * FROM Dictionary");
+            Random rand = new Random();
+
+            for (int i = 0; i < 20; i++)
+            {
+                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                if (i != 19)
+                {
+                    exerciseText += " ";
+                }
+            }
+            Application.Current.MainWindow.Content = new Exercise(exerciseText,false,999);
         }
 
         private void LoginBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
