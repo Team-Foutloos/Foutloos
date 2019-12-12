@@ -99,6 +99,9 @@
     <Compile Include="Modals\YesCancelModal.xaml.cs">
       <DependentUpon>YesCancelModal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RandomExcersice.xaml.cs">
+      <DependentUpon>RandomExcersice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SecurePasswordHasher.cs" />
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -184,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modals\YesCancelModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RandomExcersice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
