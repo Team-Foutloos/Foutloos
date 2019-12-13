@@ -463,9 +463,40 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new HomeScreen();
         }
 
+
+        //Cecked als er geen letters in txtAmount zit.
+        bool IsDigitsOnly(string str)
+        {
+            foreach (char c in str)
+            {
+                if (c < '0' || c > '9')
+                    return false;
+            }
+
+            return true;
+        }
+
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            startupRandomText();
+            if(radioWord.IsChecked == true)
+            {
+                if (IsDigitsOnly(txtWords.Text))
+                {
+                    int amount = int.Parse(txtWords.Text);
+                    startupRandomText(amount);
+                }
+                else {
+                    startupRandomText();
+                }
+            }
+            else if(radioTime.IsChecked == true)
+            {
+
+            }
+            else
+            {
+                startupRandomText();
+            }
         }
 
         private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -510,6 +541,32 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
 
+        private void startupRandomText(int value)
+        {
+            Connection c = new Connection();
+
+            string exerciseText = "";
+
+            DataTable mostMistakes = new DataTable();
+            DataTable dt0 = new DataTable();
+
+            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                $"GROUP BY letter ORDER BY SUM(count) DESC");
+
+            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+            Random rand = new Random();
+
+            for (int i = 0; i < value; i++)
+            {
+                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                if (i != value-1)
+                {
+                    exerciseText += " ";
+                }
+            }
+            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+        }
 
         //For the randomly generated exercise
         private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -539,6 +596,22 @@ namespace Foutloos
                 }
             }
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+        }
+
+        private void a(object sender, RoutedEventArgs e)
+        {
+            if(radioWord.IsChecked == true)
+            {
+                txtWords.IsEnabled = true;
+                cmbTime.IsEnabled = false;
+                Console.WriteLine("a");
+            }
+            else if (radioTime.IsChecked == true)
+            {
+                cmbTime.IsEnabled = true;
+                txtWords.IsEnabled = false;
+                Console.WriteLine("b");
+            }
         }
     }
 }
