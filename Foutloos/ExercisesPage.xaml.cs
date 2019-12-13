@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,14 +39,18 @@ namespace Foutloos
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
         private double backgroundOpacity = .5;
+        Thread myThread;
 
         public ExercisesPage()
         {
+            Modals.loadingModal loadingIndicator = new Modals.loadingModal();
             InitializeComponent();
-            
+            loadingIndicator.Show();
             AddButton();
+            loadingIndicator.Close();
+        }
 
-        } 
+
 
         private void AddDLC()
         {
@@ -92,7 +97,7 @@ namespace Foutloos
         private void AddButton()
         {            
             DataTable dt = new DataTable();
-            
+
             //standard package that always gets added.
             dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
 
@@ -108,19 +113,18 @@ namespace Foutloos
                             
                       
             amount = 0;
-            
+
             foreach (DataRow row in dt.Rows)
             {
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
 
-                exercises[((int)Int64.Parse(difficulty))-1].Add(row);
+                exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
                 exercises[3].Add(row);
-                amount++;        
-                
-            }
+                amount++;
 
+            }
             //The standard left and top margin are added for grid All.
             Grid_All.ShowGridLines = false;
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
@@ -159,7 +163,8 @@ namespace Foutloos
             calculate(1, "Grid_Normal", exercises[1].Count);
             calculate(2, "Grid_Expert", exercises[2].Count);
             calculate(3, "Grid_Finished", amount);
-            
+
+
         }
 
         private void calculate(int difficulty, string gridName, int amount)
@@ -458,6 +463,11 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new HomeScreen();
         }
 
+        private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            startupRandomText();
+        }
+
         private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Text.IsChecked == true)
@@ -467,7 +477,68 @@ namespace Foutloos
             else
             {
                 Application.Current.MainWindow.Content = new VoiceExercise(tekst, exerciseID);
+                
             }
+        }
+
+        //Randomly generate a text based on the users flaws
+        private void startupRandomText()
+        {
+
+            Connection c = new Connection();
+
+            string exerciseText = "";
+
+            DataTable mostMistakes = new DataTable();
+            DataTable dt0 = new DataTable();
+
+            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                $"GROUP BY letter ORDER BY SUM(count) DESC");
+
+            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+            Random rand = new Random();
+
+            for (int i = 0; i < 20; i++)
+            {
+                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                if (i != 19)
+                {
+                    exerciseText += " ";
+                }
+            }
+            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+        }
+
+
+        //For the randomly generated exercise
+        private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+
+            Connection c = new Connection();
+
+            string exerciseText = "";
+
+            DataTable mostMistakes = new DataTable();
+            DataTable dt0 = new DataTable();
+
+            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                $"GROUP BY letter ORDER BY SUM(count) DESC");
+
+            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+            Random rand = new Random();
+
+            for (int i = 0; i < 20; i++)
+            {
+                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                if (i != 19)
+                {
+                    exerciseText += " ";
+                }
+            }
+            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
     }
 }
