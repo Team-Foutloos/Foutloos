@@ -154,6 +154,27 @@ namespace Foutloos
             return id;
         }       
 
+        public string getPackageName(string query)
+        {
+            string packageName;
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(connectionstring);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                
+                conn.Close();
+                
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show($"No connection or wrong query{e}");
+                
+            }
+
+            return null;
+        }
 
     }
 }

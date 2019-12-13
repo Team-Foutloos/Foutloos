@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -247,6 +248,11 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Results();
         }
 
+        //When the user clicks the multiplayer button
+        private void MultiPlayerBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new Multiplayer.tokenScreen();
+        }
     }
 
 }
