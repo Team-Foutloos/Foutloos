@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
+﻿using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WpfAnimatedGif;
 
 namespace Foutloos.Modals
 {
@@ -121,14 +110,15 @@ namespace Foutloos.Modals
                 errorMessage += "Username is too short";
 
                 shakeTheBox();
-               
+
             }
             else if (password.Password.Length < 8)
             {
                 errorMessage += "Password is too short";
                 shakeTheBox();
             }
-            else if (password.Password.Length > 8 && !(password.Password.Equals(passwordRepeat.Password))){
+            else if (password.Password.Length > 8 && !(password.Password.Equals(passwordRepeat.Password)))
+            {
                 errorMessage += "Passwords do not match";
                 shakeTheBox();
             }

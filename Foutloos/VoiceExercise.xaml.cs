@@ -195,13 +195,13 @@ namespace Foutloos
                     {
 
 
-                            //If the text is correct it will be green. If there was a typo all text from
-                            //the typo onwards will be red.
+                        //If the text is correct it will be green. If there was a typo all text from
+                        //the typo onwards will be red.
                         if ((typedText[i] == dbString[i] || ((dbString[i] == '\'' || dbString[i] == '`' || dbString[i] == '’') && (typedText[i] == '\'' || typedText[i] == '`' || typedText[i] == '’')) || ((dbString[i] == '"' || dbString[i] == '“' || dbString[i] == '”') && (typedText[i] == '"' || typedText[i] == '“' || typedText[i] == '”'))) && wrong == false)
                         {
                             secondOfLastLetter = second;
 
-                            
+
 
                             ProgressBar.Foreground = Brushes.DeepSkyBlue;
                             inputText.Inlines.Add(new Run(dbString[i].ToString()) { Foreground = Brushes.Green });
@@ -244,11 +244,11 @@ namespace Foutloos
                         }
                     }
 
-                        if (!wrong && dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
-                        {
-                            startSpeaking();
-                        }
-                    
+                    if (!wrong && dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
+                    {
+                        startSpeaking();
+                    }
+
 
 
                     //If the sentence is completed
@@ -358,7 +358,7 @@ namespace Foutloos
             wpmLable.Content = avgWPM;
 
             //If the user hasn't typed the right letter in a while (three seconds) the correct word will be shown
-            if(second > secondOfLastLetter + 3)
+            if (second > secondOfLastLetter + 3)
             {
                 headLabel.Content = previousWord;
             }
@@ -390,7 +390,7 @@ namespace Foutloos
             {
 
             }
-            
+
 
         }
 
