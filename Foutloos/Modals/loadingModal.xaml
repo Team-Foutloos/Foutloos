@@ -1,0 +1,28 @@
+﻿<Window
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Foutloos.Modals"
+      xmlns:CustomTools="clr-namespace:Foutloos.CustomTools" x:Class="Foutloos.Modals.loadingModal"
+      mc:Ignorable="d" 
+    WindowStartupLocation="CenterScreen"
+      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Background="Transparent"
+    AllowsTransparency="True"
+    WindowStyle="None"
+      Title="loadingModal">
+
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="Black" Opacity="0.45"/>
+        </Grid.Background>
+        <Viewbox Stretch="Uniform" StretchDirection="Both">
+            <Grid Width="1402" Opacity="1">
+                <CustomTools:loadingIndicator Visibility="Visible" Height="150"  Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Viewbox>
+    </Grid>
+
+</Window>

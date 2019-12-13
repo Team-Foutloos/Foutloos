@@ -41,6 +41,10 @@ namespace Foutloos
 
         //Variable for the total amount of seconds that have elapsed
         int second;
+        int secondOfLastLetter;
+
+        string previousWord;
+
         //Variable for the amount of chars typed within a certain timespan.
         int typedKeys;
         int typedWords;
@@ -61,9 +65,11 @@ namespace Foutloos
         List<int> wpmTimeList = new List<int>() { 0 };
         List<int> cpmTimeList = new List<int>() { 0 };
 
+
         public VoiceExercise(string text, int exerciseID)
         {
             InitializeComponent();
+            //Setting the exercise defaults
             this.dbString = text;
             this.exerciseID = exerciseID;
             this.dbStringLeft = dbString.Split(' ').ToList<string>();
@@ -137,6 +143,8 @@ namespace Foutloos
                 return;
             }
 
+
+
             //If enter is pressed while the exercise isn't running yet the exercise will start
             if (keyChar == '\r' && !running && !exerciseFinished)
             {
@@ -186,12 +194,17 @@ namespace Foutloos
                     for (int i = 0; i < typedText.Length; i++)
                     {
 
-                        //If the text is correct it will be green. If there was a typo all text from
-                        //the typo onwards will be red.
-                        if (typedText[i] == dbString[i] && wrong == false)
+
+                            //If the text is correct it will be green. If there was a typo all text from
+                            //the typo onwards will be red.
+                        if ((typedText[i] == dbString[i] || ((dbString[i] == '\'' || dbString[i] == '`' || dbString[i] == '’') && (typedText[i] == '\'' || typedText[i] == '`' || typedText[i] == '’')) || ((dbString[i] == '"' || dbString[i] == '“' || dbString[i] == '”') && (typedText[i] == '"' || typedText[i] == '“' || typedText[i] == '”'))) && wrong == false)
                         {
+                            secondOfLastLetter = second;
+
+                            
+
                             ProgressBar.Foreground = Brushes.DeepSkyBlue;
-                            inputText.Inlines.Add(new Run(typedText[i].ToString()) { Foreground = Brushes.Green });
+                            inputText.Inlines.Add(new Run(dbString[i].ToString()) { Foreground = Brushes.Green });
                             ProgressBar.Value++;
                         }
                         else if (keyChar != '\r')//Make sure an enter press doesn't count as an error (Enter is pressed to replay the speech)
@@ -231,11 +244,11 @@ namespace Foutloos
                         }
                     }
 
-                    if (dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
-                    {
-                        startSpeaking();
-                    }
-
+                        if (!wrong && dbString.Length > typedText.Length && dbString[typedText.Length] == ' ')
+                        {
+                            startSpeaking();
+                        }
+                    
 
 
                     //If the sentence is completed
@@ -338,10 +351,17 @@ namespace Foutloos
             avgCPM = Math.Round((typedText.Length / (double)second) * 60);
             cpmLable.Content = avgCPM;
 
+            //Calculate the amount of words and after calculating the average Words per minute
             string[] woorden = typedText.Split(' ');
             typedWords = woorden.Length;
             avgWPM = Math.Round((typedWords / (double)second) * 60);
             wpmLable.Content = avgWPM;
+
+            //If the user hasn't typed the right letter in a while (three seconds) the correct word will be shown
+            if(second > secondOfLastLetter + 3)
+            {
+                headLabel.Content = previousWord;
+            }
 
         }
 
@@ -350,19 +370,27 @@ namespace Foutloos
         //When calling this the speech will start playing and the exercise starts.
         private void startSpeaking()
         {
-
-            //Disabling the comboboxes so no changes can be made while speeking.
-            comboVoice.IsEnabled = false;
-            comboRate.IsEnabled = false;
-
-            //Start text to speech
-            new Thread(() =>
+            try
             {
-                
-                synthesizer.Speak(dbStringLeft[0]);
+                //Saving the word to say
+                string wordToSay = dbStringLeft[0];
+                previousWord = wordToSay;
+                //Removing the word from the list
                 dbStringLeft.RemoveAt(0);
-            }).Start();
 
+                //Start text to speech
+                new Thread(() =>
+                {
+
+                    synthesizer.Speak(wordToSay);
+
+                }).Start();
+            }
+            catch
+            {
+
+            }
+            
 
         }
 
@@ -414,7 +442,7 @@ namespace Foutloos
             try
             {
                 //Setting the speed of the speech to the selected value. (User input comboRate)
-                this.synthesizer.Rate = (int)(rateValues[comboRate.SelectedIndex] * 10) - 15;
+                this.synthesizer.Rate = (int)(rateValues[comboRate.SelectedIndex] * 10) - 10;
             }
             catch
             {
