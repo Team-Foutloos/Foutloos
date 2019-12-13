@@ -248,6 +248,11 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Results();
         }
 
+        //When the user clicks the multiplayer button
+        private void MultiPlayerBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new Multiplayer.tokenScreen();
+        }
     }
 
 }
