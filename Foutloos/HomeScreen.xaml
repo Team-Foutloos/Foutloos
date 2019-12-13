@@ -76,7 +76,7 @@
                 <!-- All exercises button, its not actually a button but a textblock wrapped inside of a border, the click and hover events are given to this button in the class -->
                 <local:ThemedButton x:Name="allExercisesBtn" DynamicTextRegular="See all exercises" Grid.Row="3" Grid.Column="1" Margin="349.333,1,350.333,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="AllExercisesBtn_PreviewMouseDown" Grid.RowSpan="1" />
 
-                <Grid Visibility="Visible" Grid.ColumnSpan="1" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1">
+                <Grid Visibility="Visible" Grid.ColumnSpan="1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="0.333,278.667,0.333,12" Grid.RowSpan="2">
                     <local:ThemedButton x:Name="multiPlayerBtn" DynamicTextRegular="Play Multiplayer" Grid.Row="3" Grid.Column="1" Margin="349.333,99,350.333,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="MultiPlayerBtn_PreviewMouseDown"/>
                     <Image Grid.Column="1" Source="assets/new.png" HorizontalAlignment="Left" Height="62" Margin="319.333,73,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62"/>
                 </Grid>
@@ -91,7 +91,7 @@
 
 
                 </Grid>
-                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="328.333,113,0,0" Grid.Row="3" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress" PreviewMouseDown="seeProgressBtn_PreviewMouseDown"/>
+                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Center" Height="75" Margin="0,0,0,60" Grid.Row="3" VerticalAlignment="Bottom" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress" PreviewMouseDown="seeProgressBtn_PreviewMouseDown"/>
 
 
 
