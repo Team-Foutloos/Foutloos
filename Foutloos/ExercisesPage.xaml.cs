@@ -478,25 +478,33 @@ namespace Foutloos
 
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            string errorMsg;
             if(radioWord.IsChecked == true)
             {
-                if (IsDigitsOnly(txtWords.Text))
+                if (IsDigitsOnly(txtWords.Text) && txtWords.Text != "" && txtWords.Text != null)
                 {
                     int amount = int.Parse(txtWords.Text);
-                    startupRandomText(amount);
+                    if(amount < 250)
+                    {
+                        startupRandomText(amount);
+                    }
+                    else
+                    {
+                        errorMsg = "The amount of words can't be more then 250 words";
+                        lblError.Content = errorMsg;
+                    }
                 }
                 else {
-                    startupRandomText();
+                    
+                    errorMsg = "Please use numbers to indicate the amount of words needed";
+                    lblError.Content = errorMsg;
                 }
             }
             else if(radioTime.IsChecked == true)
             {
-
+               
             }
-            else
-            {
-                startupRandomText();
-            }
+                
         }
 
         private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)

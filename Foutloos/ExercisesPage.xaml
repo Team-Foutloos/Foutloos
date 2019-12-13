@@ -161,6 +161,7 @@
                                         <ComboBoxItem Content="10 min" Tag="600"/>
                                     </ComboBox>
                                 </Grid>
+                                <Label x:Name="lblError" FontSize="22" Width="auto" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20" Foreground="Red" />
                             </Grid>
                             <local:ThemedButton DynamicTextRegular="Start!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60" Width="300" Height="60" FontSize="30" PreviewMouseDown="StartGeneratedExercise_PreviewMouseDown"/>
                             <TextBlock Foreground="Black" FontSize="32" 
