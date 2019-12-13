@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Data;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Foutloos.Multiplayer
 {
@@ -19,7 +19,7 @@ namespace Foutloos.Multiplayer
         string typedText = "";
         bool done = false;
 
-        Timer timer = new Timer();
+        DispatcherTimer timer = new DispatcherTimer();
 
         int timeMilliseconds;
 
@@ -39,13 +39,13 @@ namespace Foutloos.Multiplayer
                 }
             }
 
-            timer.Interval = 1;
-            timer.Elapsed += Timer_Elapsed;
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Tick += Timer_Elapsed;
             timer.Start();
 
             Connection c = new Connection();
             DataTable dt = new DataTable();
-            dt = c.PullData($"SELECT username FROM Usertable WHERE userID = (SELECT userID FROM RoomPlayer WHERE roomID = {roomID})");
+            dt = c.PullData($"SELECT username FROM Usertable WHERE userID IN (SELECT userID FROM RoomPlayer WHERE roomID = {roomID})");
 
             foreach(DataRow s in dt.Rows)
             {
@@ -57,9 +57,10 @@ namespace Foutloos.Multiplayer
 
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void Timer_Elapsed(object sender, EventArgs e)
         {
             timeMilliseconds++;
+            timerTextBlock.Text = millisecondsToTime(timeMilliseconds);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -133,7 +134,7 @@ namespace Foutloos.Multiplayer
         private string millisecondsToTime(int milliseconds)
         {
             //Converting the int seconds to a correct time notation
-            TimeSpan result = TimeSpan.FromMilliseconds(milliseconds);
+            TimeSpan result = TimeSpan.FromMilliseconds(milliseconds*10);
             //Writing the text to the users screen in the correct time notation
             return result.ToString("ss':'fff");
         }
