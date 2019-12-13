@@ -102,7 +102,6 @@
     <Compile Include="Modals\YesCancelModal.xaml.cs">
       <DependentUpon>YesCancelModal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Multiplayer\DispatcherTime.cs" />
     <Compile Include="Multiplayer\GameScreen.xaml.cs">
       <DependentUpon>GameScreen.xaml</DependentUpon>
     </Compile>
