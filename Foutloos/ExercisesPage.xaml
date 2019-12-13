@@ -60,7 +60,7 @@
                 </Border>
                 <local:ThemedButton DynamicTextRegular="Start selected exercise" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="300" Height="60" FontSize="30" PreviewMouseDown="StartExercise_PreviewMouseDown"/>
             </Grid>
-            <TabControl Foreground="White" Background="MidnightBlue" FontSize="20" HorizontalAlignment="Left" Height="721" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
+            <TabControl Name="tabcontrol" Foreground="White" Background="MidnightBlue" FontSize="20" HorizontalAlignment="Left" Height="721" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Foreground" Value="White"/>
@@ -135,6 +135,13 @@
                 <TabItem Header="Finished">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Finished" ShowGridLines="False" Background="White">
+
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Name="GeorgeOrwell" Header="George Orwell" Visibility="Collapsed">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="Grid_George_Orwell" ShowGridLines="False" Background="White">
 
                         </Grid>
                     </ScrollViewer>
