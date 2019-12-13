@@ -44,10 +44,10 @@ namespace Foutloos.Modals
         private void closeWindow(object state)
         {
             this.Dispatcher.Invoke(() =>
-            {                            
+            {
                 this.Close();
             });
-            
+
         }
 
         private void Login_MouseDown(object sender, MouseButtonEventArgs e)
@@ -93,7 +93,8 @@ namespace Foutloos.Modals
                                 error = "Username or Password incorrect!";
                             }
                         }
-                    } catch(Exception f)
+                    }
+                    catch (Exception f)
                     {
                         error = "Your computer is not connected to the internet.";
                     }

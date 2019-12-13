@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -30,7 +27,7 @@ namespace Foutloos
             completedIcon.Source = logo;
             completedIcon.Width = 40;
             completedIcon.Opacity = .4;
-           
+
             var availableColors = new List<Color>();
 
             //Set all the button colors
@@ -86,6 +83,6 @@ namespace Foutloos
         {
             return borderButton;
         }
-        
+
     }
 }

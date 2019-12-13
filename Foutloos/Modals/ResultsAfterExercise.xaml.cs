@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Foutloos.Modals
 {
@@ -111,8 +103,8 @@ namespace Foutloos.Modals
                     noPreviousResultsLogin_grid.Visibility = Visibility.Visible;
                 }
                 if (dt != null && dt.Rows.Count > 1)
-                { 
-                    prevError.Content = prevError.Content.ToString() + dt.Rows[dt.Rows.Count-2]["mistakes"].ToString();
+                {
+                    prevError.Content = prevError.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["mistakes"].ToString();
                     prevWPM.Content = prevWPM.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["wpm"].ToString();
                     prevCPM.Content = prevCPM.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["cpm"].ToString();
                     prevAcur.Content = prevAcur.Content.ToString() + dt.Rows[dt.Rows.Count - 2]["time"].ToString();
@@ -134,14 +126,15 @@ namespace Foutloos.Modals
             List<KeyValuePair<string, int>> valueList = new List<KeyValuePair<string, int>>();
             foreach (var dictionaryItem in mistakeLetters)
             {
-                if(dictionaryItem.Key != ' ')
+                if (dictionaryItem.Key != ' ')
                 {
                     valueList.Add(new KeyValuePair<string, int>(dictionaryItem.Key.ToString(), dictionaryItem.Value));
                 }
-                else{
+                else
+                {
                     valueList.Add(new KeyValuePair<string, int>("␣", dictionaryItem.Value));
                 }
-                
+
             }
             charError.DataContext = valueList;
 

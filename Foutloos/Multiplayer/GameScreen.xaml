@@ -1,0 +1,45 @@
+﻿<Page x:Class="Foutloos.Multiplayer.GameScreen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Foutloos.Multiplayer"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+      Title="GameScreen">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Opacity=".2" ImageSource="../assets/background.png" Stretch="UniformToFill" TileMode="Tile"
+                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+        </Grid.Background>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <RectAnimation Storyboard.TargetProperty="Background.Viewport"
+                                   To="-1024,-768,1024,768" Duration="0:0:40" 
+                                   RepeatBehavior="Forever"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        
+        <UserControl Loaded="UserControl_Loaded">
+            <Viewbox Stretch="Uniform" StretchDirection="Both">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="1594">
+                    <TextBlock x:Name="inputText" Text="TextToType" RenderTransformOrigin="0.5,0.5" Margin="0,0,10.333,9.333" FontSize="70" FontWeight="Bold" TextAlignment="Center" Foreground="Black" />
+                    <TextBlock x:Name="doneTextBlock" Text="That was fast! We're still waiting for other players..." FontSize="20" TextAlignment="Center" Margin="0,385,0,-326.333" FontWeight="Bold" Visibility="Hidden"/>
+                    <ListView x:Name="namesList" Margin="0,-397,1379,362.667" Background="Transparent" BorderThickness="0" Focusable="False">
+                        
+                    </ListView>
+                </Grid>
+                
+            </Viewbox>
+        </UserControl>
+        
+        
+    </Grid>
+</Page>
