@@ -69,11 +69,11 @@ namespace Foutloos.Multiplayer
             databaseListener.IsBackground = true;
             databaseListener.Start();
 
-            //Collapse the tokenGrid so the player can't see it, only the owner can
-            token_grid.Visibility = Visibility.Collapsed;
-
-            //Collapse the button Start so the player can't see it, only the owner can
+            //Collapse the button Start so the player can't see it, only the owner can, and show the motivating text
+            share_textblock.Text = "Tell him to hurry up please, we cannot wait to see you beat him.";
+            token_textblock.Text = "Waiting for the host to start!";
             startMatch_button.Visibility = Visibility.Collapsed;
+            
         }
 
         //Listen to the database
@@ -105,6 +105,7 @@ namespace Foutloos.Multiplayer
             {
                 roomID = c.ID($"SELECT roomID from room where roomToken = '{tokenString}'");
             }
+            if (c.PullData($"SELECT roomID from roomplayer WHERE roomID = '{roomID}' AND userID = '{ConfigurationManager.AppSettings["userID"]}'").Rows.Count == 0)
             c.insertInto($"INSERT INTO roomplayer (roomID, userID) VALUES ('{roomID}', '{ConfigurationManager.AppSettings["userID"]}')");
         }
 
@@ -140,6 +141,9 @@ namespace Foutloos.Multiplayer
         private void leaveRoom()
         {
             c.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
+
+            //Check if the room is empy, if it is, delete the room.
+            c.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
             
         }
 
@@ -149,6 +153,11 @@ namespace Foutloos.Multiplayer
         {
             leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
+        }
+
+        private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new GameScreen(roomID);
         }
     }
 }

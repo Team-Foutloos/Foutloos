@@ -134,6 +134,7 @@ namespace Foutloos.Modals
                 if (c.insertInto(CmdString))
                 {
                     ConfigurationManager.AppSettings["username"] = username.Text;
+                    ConfigurationManager.AppSettings["userID"] = userID.ToString();
                     loadingScreen();
                 };
 
