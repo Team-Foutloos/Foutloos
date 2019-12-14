@@ -176,6 +176,10 @@ namespace Foutloos
                 {
                     l.Append("Star Wars Pack \n");
                 }
+                if (license == 7)
+                {
+                    l.Append("Auto generating Pack");
+                }
 
             }
 

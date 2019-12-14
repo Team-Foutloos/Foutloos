@@ -60,9 +60,7 @@ namespace Foutloos
                 List<int> packages = new List<int>();
                 DataTable dt = new DataTable();
 
-                //checks how many and which packages are connected to the logged in account.
-                //DataTable test = new DataTable();
-                //test = c.PullData($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
+                //checks how many and which packages are connected to the logged in account.          
                 packages = c.getPackages($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
 
                 //Adds the packages for all the packages available in the account.
@@ -75,6 +73,15 @@ namespace Foutloos
                     exercises.Add(expertExercises);
                     exercises.Add(allExercises);
                     exercises.Add(finished);
+
+                    if (i == 2)
+                    {
+                        GeorgeOrwell.Visibility = Visibility.Visible;
+                    }
+                    if (i == 7)
+                    {
+                        Generated.Visibility = Visibility.Visible;
+                    }
                                                          
                     foreach (DataRow row in dt.Rows)
                     {
@@ -157,6 +164,11 @@ namespace Foutloos
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
+            //The standard left and top margin are added for George Orwell.
+            Grid_GO.ShowGridLines = true;
+            Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
             AddDLC();
 
             calculate(3, "Grid_All", amount);
@@ -165,6 +177,7 @@ namespace Foutloos
             calculate(1, "Grid_Normal", exercises[1].Count);
             calculate(2, "Grid_Expert", exercises[2].Count);
             calculate(3, "Grid_Finished", amount);
+            calculate(3, "Grid_GO", amount);
 
 
         }
@@ -212,112 +225,123 @@ namespace Foutloos
                     Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
                     Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
                 }
+                if (gridName == "Grid_GO")
+                {
+                    Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
 
             }
 
-
-            //The button gets added as frequently as needed. 
-            foreach (var exercise in exercises[difficulty])
+            if (difficulty > 0)
             {
-                //Save the difficulty so that you can use it easily later
-                int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
 
-
-                //Create the main button.
-                BorderButton button = new BorderButton(dif);
-                Border borderButton = button.getButton();
-                Grid borderGrid = (Grid) borderButton.Child;
-                Image completedIcon = (Image) borderGrid.Children[2];
-                TextBlock l1 = (TextBlock)borderGrid.Children[0];
-
-                int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-
-
-                DataTable finished = new DataTable();                
-                finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
-
-                if (finished.Rows.Count > 0)
+                //The button gets added as frequently as needed. 
+                foreach (var exercise in exercises[difficulty])
                 {
-                    completedIcon.Visibility = Visibility.Visible;
-                    scroll++;
-                }
-                else
-                {
-                    completedIcon.Visibility = Visibility.Hidden;
-                }
+                    //Save the difficulty so that you can use it easily later
+                    int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
 
-                
 
-                
-                Grid.SetColumn(borderButton, j + 1);
+                    //Create the main button.
+                    BorderButton button = new BorderButton(dif);
+                    Border borderButton = button.getButton();
+                    Grid borderGrid = (Grid)borderButton.Child;
+                    Image completedIcon = (Image)borderGrid.Children[2];
+                    TextBlock l1 = (TextBlock)borderGrid.Children[0];
 
-                //Add the mouseEnter and mouseLeave event to the borderButton;
-                borderButton.MouseEnter += BorderButton_MouseEnter;
-                borderButton.MouseLeave += BorderButton_MouseLeave;
+                    int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
 
-                
+
+                    DataTable finished = new DataTable();
+                    finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
+
+                    if (finished.Rows.Count > 0)
+                    {
+                        completedIcon.Visibility = Visibility.Visible;
+                        scroll++;
+                    }
+                    else
+                    {
+                        completedIcon.Visibility = Visibility.Hidden;
+                    }
+
+
+
+
+                    Grid.SetColumn(borderButton, j + 1);
+
+                    //Add the mouseEnter and mouseLeave event to the borderButton;
+                    borderButton.MouseEnter += BorderButton_MouseEnter;
+                    borderButton.MouseLeave += BorderButton_MouseLeave;
+
+
                     //Add the right color to the borders according to the level
                     borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
 
-                //iets met stackpanel
-                Grid.SetRow(borderButton, x);
-                borderButton.Name = $"E{i}";
-                l1.Text = $"Excercise: {exnum}";
+                    //iets met stackpanel
+                    Grid.SetRow(borderButton, x);
+                    borderButton.Name = $"E{i}";
+                    l1.Text = $"Excercise: {exnum}";
 
-                //b1.BorderThickness
+                    //b1.BorderThickness
 
-                //if (gridName == "Grid_Selected")
-                //{
-                //    Grid_Selected.Children.Add(b1);
-                //    b1.Click += (sender, e) => B1_Click(sender, e, 5);
-                //}
-                if (gridName == "Grid_All")
-                {
-                    Grid_All.Children.Add(borderButton);
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
-                }
-                if (gridName == "Grid_Amateur")
-                {
-                    Grid_Amateur.Children.Add(borderButton);
-                }
-                if (gridName == "Grid_Normal")
-                {
-                    Grid_Normal.Children.Add(borderButton);
-                }
-                if (gridName == "Grid_Expert")
-                {
-                    Grid_Expert.Children.Add(borderButton);
-                }
-                if (gridName == "Grid_Finished")
-                {
-                    if (finished.Rows.Count > 0)
+                    //if (gridName == "Grid_Selected")
+                    //{
+                    //    Grid_Selected.Children.Add(b1);
+                    //    b1.Click += (sender, e) => B1_Click(sender, e, 5);
+                    //}
+                    if (gridName == "Grid_All")
                     {
-                        Grid_Finished.Children.Add(borderButton);
-                        borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
+                        Grid_All.Children.Add(borderButton);
+                        borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
+                    }
+                    if (gridName == "Grid_Amateur")
+                    {
+                        Grid_Amateur.Children.Add(borderButton);
+                    }
+                    if (gridName == "Grid_Normal")
+                    {
+                        Grid_Normal.Children.Add(borderButton);
+                    }
+                    if (gridName == "Grid_Expert")
+                    {
+                        Grid_Expert.Children.Add(borderButton);
+                    }
+                    if (gridName == "Grid_Finished")
+                    {
+                        if (finished.Rows.Count > 0)
+                        {
+                            Grid_Finished.Children.Add(borderButton);
+                            borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
+                            //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
+                            j += 2;
+                            i++;
+                            exnum++;
+                        }
+                    }
+                    if (gridName == "Grid_GO")
+                    {
+                        Grid_GO.Children.Add(borderButton);
+                    }
+                    else
+                    {
                         //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
                         j += 2;
                         i++;
                         exnum++;
                     }
-                }
-                else
-                {
-                    //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
-                    j += 2;
-                    i++;
-                    exnum++;
-                }
-                
-                //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
-                //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
-                if (i % 4 == 0 && i != 0)
-                {
-                    x += 2;
-                    j = 0;
-                }
 
+                    //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
+                    //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
+                    if (i % 4 == 0 && i != 0)
+                    {
+                        x += 2;
+                        j = 0;
+                    }
+
+                }
             }
-
             //Control if the amount of buttons / 4 is equal to 1, 2, 3 etc. This is to indicate how many times more rows have to get added to the software.
             for (int row = 0; row < Math.Ceiling((double)amount / 4); row++)
             {
