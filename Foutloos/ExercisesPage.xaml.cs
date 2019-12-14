@@ -2,20 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Foutloos
 {
@@ -23,18 +13,18 @@ namespace Foutloos
     /// Interaction logic for ExercisesPage.xaml
     /// </summary>
     public partial class ExercisesPage : Page
-    { 
+    {
 
         private string tekst;
         private int exerciseID;
-        private int amount = 0;     
-        
+        private int amount = 0;
+
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
         List<DataRow> amateurExercises = new List<DataRow>();
         List<DataRow> normalExercises = new List<DataRow>();
         List<DataRow> expertExercises = new List<DataRow>();
         List<DataRow> allExercises = new List<DataRow>();
-        List<DataRow> finished = new List<DataRow>();        
+        List<DataRow> finished = new List<DataRow>();
         Connection c = new Connection();
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
@@ -75,7 +65,7 @@ namespace Foutloos
                     exercises.Add(expertExercises);
                     exercises.Add(allExercises);
                     exercises.Add(finished);
-                                                         
+
                     foreach (DataRow row in dt.Rows)
                     {
                         string ID = row["exerciseID"].ToString();
@@ -88,16 +78,16 @@ namespace Foutloos
 
                     }
                 }
-                
+
             }
             catch (Exception e)
             {
-                
-            }           
+
+            }
         }
-        
+
         private void AddButton()
-        {            
+        {
             DataTable dt = new DataTable();
 
             //standard package that always gets added.
@@ -105,15 +95,15 @@ namespace Foutloos
 
             //Create all the lists of exercises and add them to the main list (exercises)
             //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
-            
+
 
             exercises.Add(amateurExercises);
             exercises.Add(normalExercises);
             exercises.Add(expertExercises);
             exercises.Add(allExercises);
             exercises.Add(finished);
-                            
-                      
+
+
             amount = 0;
 
             foreach (DataRow row in dt.Rows)
@@ -226,14 +216,14 @@ namespace Foutloos
                 //Create the main button.
                 BorderButton button = new BorderButton(dif);
                 Border borderButton = button.getButton();
-                Grid borderGrid = (Grid) borderButton.Child;
-                Image completedIcon = (Image) borderGrid.Children[2];
+                Grid borderGrid = (Grid)borderButton.Child;
+                Image completedIcon = (Image)borderGrid.Children[2];
                 TextBlock l1 = (TextBlock)borderGrid.Children[0];
 
                 int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
 
 
-                DataTable finished = new DataTable();                
+                DataTable finished = new DataTable();
                 finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
 
                 if (finished.Rows.Count > 0)
@@ -246,18 +236,18 @@ namespace Foutloos
                     completedIcon.Visibility = Visibility.Hidden;
                 }
 
-                
 
-                
+
+
                 Grid.SetColumn(borderButton, j + 1);
 
                 //Add the mouseEnter and mouseLeave event to the borderButton;
                 borderButton.MouseEnter += BorderButton_MouseEnter;
                 borderButton.MouseLeave += BorderButton_MouseLeave;
 
-                
-                    //Add the right color to the borders according to the level
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
+
+                //Add the right color to the borders according to the level
+                borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
 
                 //iets met stackpanel
                 Grid.SetRow(borderButton, x);
@@ -307,7 +297,7 @@ namespace Foutloos
                     i++;
                     exnum++;
                 }
-                
+
                 //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
                 //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
                 if (i % 4 == 0 && i != 0)
@@ -350,7 +340,7 @@ namespace Foutloos
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
-                }                
+                }
             }
             for (int row = 0; row < Math.Ceiling((double)scroll / 4); row++)
             {
@@ -361,7 +351,7 @@ namespace Foutloos
 
                 }
             }
-                
+
         }
 
         //If the mouse leaves the exercise
@@ -385,15 +375,15 @@ namespace Foutloos
 
         //This checks which buttons has been clicked.
         private void B1_Click(object sender, RoutedEventArgs e, int difficulty)
-        {            
+        {
 
             Border b = (Border)sender;
             for (int i = 0; i < exercises[difficulty].Count; i++)
-            {              
+            {
                 if (b.Name.Equals($"E{i}"))
-                {                  
-                                      
-                                
+                {
+
+
                     //Make the previously selected border the right opacity again if its not this button.
                     if (selectedBorderButton != null && selectedBorderButton != b)
                     {
@@ -403,7 +393,7 @@ namespace Foutloos
                     exerciseDetails_grid.Visibility = Visibility.Visible;
                     Console.WriteLine(i);
                     DataRow exercise = exercises[difficulty][i];
-                    this.Exercise.Text = $"Exercise {i+1}";
+                    this.Exercise.Text = $"Exercise {i + 1}";
 
                     //Gets all the data from the database relating to the exercises.
                     DataTable finished = new DataTable();
@@ -413,7 +403,7 @@ namespace Foutloos
                     //Tries to place the previous results if available.
                     try
                     {
-                        this.wpm_number.Content = $"{finished.Rows[finished.Rows.Count-1][3]}";
+                        this.wpm_number.Content = $"{finished.Rows[finished.Rows.Count - 1][3]}";
                         this.cpm_number.Content = $"{finished.Rows[finished.Rows.Count - 1][4]}";
                         this.error_number.Content = $"{finished.Rows[finished.Rows.Count - 1][1]}";
                     }
@@ -423,16 +413,16 @@ namespace Foutloos
                         this.cpm_number.Content = $"0";
                         this.error_number.Content = $"0";
                     }
-                    
+
                     this.Description.Text = exercise["text"].ToString();
                     this.tekst = exercise["text"].ToString();
                     this.exerciseID = int.Parse(exercise["exerciseID"].ToString());
                     this.level.Text = $"Level: {exercise["difficulty"]}";
-                    
+
 
                     if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 1)
                     {
-                        this.level.Text = "Level: Amateur";                 
+                        this.level.Text = "Level: Amateur";
                     }
                     if ((int)Int64.Parse(exercise["difficulty"].ToString()) == 2)
                     {
@@ -445,7 +435,7 @@ namespace Foutloos
                     this.Origin.Content = exercise["source"];
 
                 }
-            }           
+            }
 
         }
 
@@ -454,7 +444,7 @@ namespace Foutloos
 
         }
 
-       
+
         private void TabControl_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
@@ -518,7 +508,7 @@ namespace Foutloos
             else
             {
                 Application.Current.MainWindow.Content = new VoiceExercise(tekst, exerciseID);
-                
+
             }
         }
 
