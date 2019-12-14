@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace Foutloos
 {
@@ -20,13 +15,13 @@ namespace Foutloos
             int idused = c.ID($"select used from license WHERE licenseID = '{id}'");
             //Checks which user is logged in.
             int userID = c.ID($"select userID from Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-           
+
             //if the result of the license id is higher than 1, it means its available. I after controls if the id has ben used.
             if (id > 0 && idused == 0)
             {
                 c.insertInto($"UPDATE License SET userID = {userID}, used = 1 WHERE licenseID = {id}; ");
                 System.Windows.Forms.MessageBox.Show("License Key has been added to your account");
-                
+
             }
             else
             {

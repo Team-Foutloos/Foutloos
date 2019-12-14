@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Foutloos.Modals
 {
@@ -54,7 +43,8 @@ namespace Foutloos.Modals
                         newpassword.Clear();
                         Repeatpassword.Clear();
                     }
-                    else {
+                    else
+                    {
                         string CmdString = $"UPDATE Usertable SET password = '{SecurePasswordHasher.Hash(passwordNew)}' WHERE userID = '{userID}'";
                         if (c.insertInto(CmdString))
                         {
@@ -68,7 +58,7 @@ namespace Foutloos.Modals
                 }
             }
             else
-            {                
+            {
                 errorMessage += "A password is incorrect";
                 oldpassword.Clear();
                 newpassword.Clear();
@@ -76,11 +66,11 @@ namespace Foutloos.Modals
             }
             ErrorMessage.Content = errorMessage;
             errorMessage = "";
-        }    
-        
+        }
+
         private void CancelBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-                this.Close();
+            this.Close();
         }
     }
 }

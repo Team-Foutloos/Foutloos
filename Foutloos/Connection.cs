@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Foutloos
 {
@@ -64,17 +61,17 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                
+
             }
             conn.Close();
 
             return packages;
 
         }
-        
+
 
         public string getPassword(int ID)
-        {  
+        {
             try
             {
                 string hashedPassword = null;
@@ -84,7 +81,8 @@ namespace Foutloos
                 conn.Open();
                 using (SqlDataReader oReader = cmd.ExecuteReader())
                 {
-                    try {
+                    try
+                    {
                         while (oReader.Read())
                         {
                             hashedPassword = oReader["password"].ToString();
@@ -92,7 +90,7 @@ namespace Foutloos
                         conn.Close();
                         return hashedPassword;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         System.Windows.Forms.MessageBox.Show($"Could not read and return any data{e}");
                         return hashedPassword;
@@ -152,7 +150,7 @@ namespace Foutloos
 
 
             return id;
-        }       
+        }
 
         public string getPackageName(string query)
         {
@@ -178,4 +176,3 @@ namespace Foutloos
 
     }
 }
- 
