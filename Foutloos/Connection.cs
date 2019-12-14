@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -166,6 +167,17 @@ namespace Foutloos
             }
 
             return null;
+        }
+
+        public void leaveRoom()
+        {
+            this.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
+
+            //Check if the room is empy, if it is, delete the room.
+
+            //Change this
+            //this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
+
         }
 
     }

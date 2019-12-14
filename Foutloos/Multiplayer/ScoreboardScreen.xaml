@@ -1,0 +1,150 @@
+﻿<Page x:Class="Foutloos.Multiplayer.ScoreboardScreen"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Foutloos.Multiplayer"
+      xmlns:Foutloos="clr-namespace:Foutloos"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ScoreboardScreen">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Opacity=".2" ImageSource="../assets/background.png" Stretch="UniformToFill" TileMode="Tile"
+                    ViewportUnits="Absolute" Viewport="0,0,1024,768" />
+        </Grid.Background>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <RectAnimation Storyboard.TargetProperty="Background.Viewport"
+                                   To="-1024,-768,1024,768" Duration="0:0:40" 
+                                   RepeatBehavior="Forever"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+
+        <Viewbox StretchDirection="Both" Stretch="Uniform">
+            <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
+                <Foutloos:ThemedIconButton Width="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Height="70" DynamicTextIcon="Leave" DynamicIcon="../assets/homeIconWhite.png" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" />
+                <Grid Name="ExerciseTitle_grid" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Height="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="auto" MinHeight="164.667"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Exercise x/x" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,0.333" Width="390"/>
+                    <TextBlock FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333" Width="296"/>
+                    <TextBlock FontWeight="SemiBold" Grid.Row="2" Foreground="DeepSkyBlue" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="CountdownDisplay" FontSize="60" Height="80"/>
+                </Grid>
+                <Grid Name="scoreboardThisRound_grid" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*" Name="firstPlace_medal_column"/>
+                        <ColumnDefinition Width="80*" Name="secondPlace_medal_column"/>
+                        <ColumnDefinition Width="80*" Name="thirdPlace_medal_column"/>
+                        <ColumnDefinition Width="80*" Name="fourthPlace_medal_column"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Grid.Row="0" Name="silver_textBlock" Text="ThijsNotkamp" VerticalAlignment="Bottom"/>
+                        <Rectangle Grid.Row="1" Fill="Gold" HorizontalAlignment="Left" Width="150" Height="125" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,5,0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Grid.Row="0" Name="winner_textBlock" Text="ThijsNotkamp" VerticalAlignment="Bottom"/>
+                        <Rectangle Grid.Row="1" Fill="Silver" HorizontalAlignment="Left" Width="150" Height="100" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="2" Margin="0,0,5,0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Grid.Row="0" Name="bronse_textBlock" Text="ThijsNotkamp" VerticalAlignment="Bottom"/>
+                        <Rectangle Grid.Row="1" Fill="#cd7f32" HorizontalAlignment="Left" Width="150" Height="75" VerticalAlignment="Bottom" />
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="3" Visibility="Collapsed" VerticalAlignment="Bottom">
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Name="loser_textBlock" Text="ThijsNotkamp"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="4" >
+                        <Border Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Name="firstPlayer_row"/>
+                                    <RowDefinition Name="secondPlayer_row"/>
+                                    <RowDefinition Name="thirdPlayer_row"/>
+                                    <RowDefinition Name="fourthPlayer_row"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Position Indicators-->
+                                <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="1" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="1" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="1" Text="0.01" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+
+                                <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="2" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="2" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="2" Text="0.01" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+
+
+                                <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="3" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="3" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="3" Text="0.30" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+
+                                <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="4" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="4" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="4" Text="0.50" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+
+                              
+
+                                <!-- First the names -->
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="Name" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Time" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+
+
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Height="148" VerticalAlignment="Bottom" Margin="0,0,0,50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21*"/>
+                        <RowDefinition Height="53*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="Overall scoreboard" FontSize="40"/>
+                    <Grid Name="ranking_grid" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="107" Grid.RowSpan="2" Width="654">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Visibility="Collapsed" FontSize="40" Grid.Row="0" Grid.Column="0" Text="Player1"/>
+                        <TextBlock Visibility="Collapsed"  FontSize="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="Player1"/>
+                        <TextBlock Visibility="Collapsed"  FontSize="40" Grid.Row="1" Grid.Column="0" Text="Player1"/>
+                        <TextBlock Visibility="Collapsed"  FontSize="40" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="Player1"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</Page>

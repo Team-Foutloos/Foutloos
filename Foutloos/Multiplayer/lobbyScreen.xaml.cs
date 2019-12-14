@@ -72,7 +72,9 @@ namespace Foutloos.Multiplayer
             //Collapse the button Start so the player can't see it, only the owner can, and show the motivating text
             share_textblock.Text = "Tell him to hurry up please, we cannot wait to see you beat him.";
             token_textblock.Text = "Waiting for the host to start!";
-            startMatch_button.Visibility = Visibility.Collapsed;
+
+            //Change this
+            startMatch_button.Visibility = Visibility.Visible;
             
         }
 
@@ -138,26 +140,23 @@ namespace Foutloos.Multiplayer
             
         }
 
-        private void leaveRoom()
-        {
-            c.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
-
-            //Check if the room is empy, if it is, delete the room.
-            c.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
-            
-        }
 
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            leaveRoom();
+            c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }
 
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new GameScreen(roomID);
+            //Start the game
+            //Application.Current.MainWindow.Content = new GameScreen(roomID);
+
+            //Change this
+            Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
+
         }
     }
 }
