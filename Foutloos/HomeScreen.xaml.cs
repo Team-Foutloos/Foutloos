@@ -49,7 +49,6 @@ namespace Foutloos
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
                 seeProgressBtn.Visibility = Visibility.Visible;
-                multiplayer_grid.Visibility = Visibility.Visible;
             }
             else
             {
