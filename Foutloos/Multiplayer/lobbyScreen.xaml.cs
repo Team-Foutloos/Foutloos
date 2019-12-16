@@ -74,7 +74,7 @@ namespace Foutloos.Multiplayer
             token_textblock.Text = "Waiting for the host to start!";
 
             //Change this
-            startMatch_button.Visibility = Visibility.Visible;
+            startMatch_button.Visibility = Visibility.Collapsed;
             
         }
 
@@ -84,7 +84,12 @@ namespace Foutloos.Multiplayer
             while (true)
             {
                 players = c.PullData($"SELECT username FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
-                
+
+                int hasStarted = (int) int.Parse(c.ID($"SELECT hasStarted FROM room WHERE roomID = {roomID}").ToString());
+
+                    if (hasStarted == 1)
+                    Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+               
 
                 for (int i = 0; i < players.Rows.Count; i++)
                 {
@@ -188,6 +193,7 @@ namespace Foutloos.Multiplayer
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Start the game
+            c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
             Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
 
         }
