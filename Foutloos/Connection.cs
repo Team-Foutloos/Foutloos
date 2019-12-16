@@ -169,14 +169,12 @@ namespace Foutloos
             return null;
         }
 
-        public void leaveRoom()
+        public void leaveRoom(int roomID)
         {
             this.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
-
+            this.insertInto($"DELETE FROM roomExercise WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
             //Check if the room is empy, if it is, delete the room.
-
-            //Change this
-            //this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
+            this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
 
         }
 

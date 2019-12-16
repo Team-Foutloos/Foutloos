@@ -137,7 +137,36 @@ namespace Foutloos.Multiplayer
 
             //Add the token to the token_textblock
             token_textblock.Text = token_textblock.Text + tokenString;
-            
+
+
+            //Add the exercises to the database
+            createExercises();
+        }
+
+        private void createExercises()
+        {
+            //Get all the words from dictionary so you can put them in exercises later
+            DataTable words = new DataTable();
+            Random rand = new Random();
+            words = c.PullData($"SELECT * FROM Dictionary");
+
+            //Create 10 exercises and add them in a for loop
+            for (int i = 0; i < 10; i++)
+            {
+                string exercise = "";
+
+                for (int j = 0; j < 8; j++)
+                {
+                    exercise += words.Rows[rand.Next(0, words.Rows.Count)]["list"].ToString();
+                    exercise += " ";
+                }
+                exercise.Remove(exercise.Length-1);
+
+                c.insertInto($"INSERT INTO roomExercise VALUES ({i},{roomID},'{exercise}')");
+
+
+
+            }
         }
 
 
@@ -145,7 +174,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            c.leaveRoom();
+            c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
         }
 

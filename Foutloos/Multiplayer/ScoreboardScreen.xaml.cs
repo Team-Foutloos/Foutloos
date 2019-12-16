@@ -96,7 +96,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            c.leaveRoom();
+            c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
         }
 
