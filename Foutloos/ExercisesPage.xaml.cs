@@ -223,7 +223,7 @@ namespace Foutloos
 
             }
 
-            if (difficulty > 0)
+            if (difficulty >= 0)
             {
 
                 //The button gets added as frequently as needed. 
