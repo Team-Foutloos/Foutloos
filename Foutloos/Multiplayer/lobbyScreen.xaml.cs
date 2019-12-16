@@ -181,10 +181,10 @@ namespace Foutloos.Multiplayer
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Start the game
-            //Application.Current.MainWindow.Content = new GameScreen(roomID);
+            Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
 
             //Change this
-            Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
+            //Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
 
         }
     }

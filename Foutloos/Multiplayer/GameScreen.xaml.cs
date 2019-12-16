@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,17 +16,26 @@ namespace Foutloos.Multiplayer
     public partial class GameScreen : Page
     {
         //Set basic variables
-        string textToType = "Doekoe";
+        string textToType = "";
         string typedText = "";
+        int exerciseID;
+        int roomID;
         bool done = false;
+        Connection c = new Connection();
 
         DispatcherTimer timer = new DispatcherTimer();
 
         int timeMilliseconds;
 
-        public GameScreen(int roomID)
+        public GameScreen(int roomID, int exerciseID)
         {
             InitializeComponent();
+
+            textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
+
+
+            this.exerciseID = exerciseID;
+            this.roomID = roomID;
             inputText.Inlines.Clear();
             for (int i = 0; i < textToType.Length; i++)
             {
@@ -119,7 +129,11 @@ namespace Foutloos.Multiplayer
                     doneTextBlock.Visibility = Visibility.Visible;
                     inputText.Opacity = 0.6;
                     done = true;
+                    int roomResultID = c.ID("SELECT MAX(roomResultID) FROM RoomResult") + 1;
+                    int userID = int.Parse(ConfigurationManager.AppSettings.Get("userID"));
+                    c.insertInto($"INSERT INTO RoomResult (roomResultID, roomWordID, roomID, userID, time) VALUES ({roomResultID}, {this.exerciseID}, {this.roomID}, {userID}, {timeMilliseconds})");
                 }
+
             }
             else
             {
