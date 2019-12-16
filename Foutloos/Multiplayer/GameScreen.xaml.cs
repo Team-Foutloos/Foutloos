@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -21,6 +22,7 @@ namespace Foutloos.Multiplayer
         int exerciseID;
         int roomID;
         bool done = false;
+       
         Connection c = new Connection();
 
         DispatcherTimer timer = new DispatcherTimer();
@@ -33,6 +35,7 @@ namespace Foutloos.Multiplayer
 
             textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
 
+            
 
             this.exerciseID = exerciseID;
             this.roomID = roomID;
@@ -69,8 +72,11 @@ namespace Foutloos.Multiplayer
 
         private void Timer_Elapsed(object sender, EventArgs e)
         {
-            timeMilliseconds++;
-            timerTextBlock.Text = millisecondsToTime(timeMilliseconds);
+            if (!done)
+            {
+                timeMilliseconds++;
+                timerTextBlock.Text = millisecondsToTime(timeMilliseconds);
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -124,14 +130,34 @@ namespace Foutloos.Multiplayer
 
                 if(textToType.Length == typedText.Length)
                 {
-                    timer.Stop();
+                    //timer.Stop();
                     doneTextBlock.Inlines.Add($" {millisecondsToTime(timeMilliseconds)}");
                     doneTextBlock.Visibility = Visibility.Visible;
                     inputText.Opacity = 0.6;
                     done = true;
                     int roomResultID = c.ID("SELECT MAX(roomResultID) FROM RoomResult") + 1;
                     int userID = int.Parse(ConfigurationManager.AppSettings.Get("userID"));
-                    c.insertInto($"INSERT INTO RoomResult (roomResultID, roomWordID, roomID, userID, time) VALUES ({roomResultID}, {this.exerciseID}, {this.roomID}, {userID}, {timeMilliseconds})");
+                    c.insertInto($"INSERT INTO RoomResult (roomResultID, roomExerciseID, roomID, userID, time) VALUES ({roomResultID}, {this.exerciseID}, {this.roomID}, {userID}, {timeMilliseconds})");
+                    new Thread(() =>
+                    {
+                        while (true)
+                        {
+                            int playerCount = c.ID($"SELECT COUNT(*) FROM RoomPlayer WHERE roomID = {this.roomID}");
+                            int playersDone = c.ID($"SELECT COUNT(*) FROM RoomResult WHERE roomID = {this.roomID}");
+
+                            if (playerCount == playersDone)
+                            {
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
+                                    
+                                });
+                                Thread.CurrentThread.Abort();
+                            }
+                            Thread.Sleep(500);
+                        }
+                        
+                    }).Start();
                 }
 
             }
