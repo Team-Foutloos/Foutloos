@@ -85,10 +85,17 @@ namespace Foutloos.Multiplayer
             {
                 players = c.PullData($"SELECT username FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
 
-                int hasStarted = (int) int.Parse(c.ID($"SELECT hasStarted FROM room WHERE roomID = {roomID}").ToString());
+                DataTable hasStarted = (c.PullData($"SELECT hasStarted FROM room WHERE roomID = {roomID}"));
+                if ((bool)hasStarted.Rows[0]["hasStarted"])
+                {
 
-                    if (hasStarted == 1)
-                    Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+                    this.Dispatcher.Invoke(() =>
+                    {
+
+                        Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+                        databaseListener.Abort();
+                    });
+                }
                
 
                 for (int i = 0; i < players.Rows.Count; i++)
@@ -188,6 +195,7 @@ namespace Foutloos.Multiplayer
         {
             c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
+            databaseListener.Abort();
         }
 
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -195,7 +203,7 @@ namespace Foutloos.Multiplayer
             //Start the game
             c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
             Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
-
+            databaseListener.Abort();
         }
     }
 }
