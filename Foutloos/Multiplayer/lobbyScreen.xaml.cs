@@ -145,7 +145,7 @@ namespace Foutloos.Multiplayer
             roomID = (c.ID("SELECT Max(roomID) FROM room")) + 1;
 
             //Then create a new room in the room table
-            c.insertInto($"INSERT INTO room (roomID, roomToken) VALUES ('{roomID}','{createTokenString()}')");
+            c.insertInto($"INSERT INTO room (roomID, roomToken, hasStarted) VALUES ('{roomID}','{createTokenString()}',0)");
 
             //Add the token to the token_textblock
             token_textblock.Text = token_textblock.Text + tokenString;
