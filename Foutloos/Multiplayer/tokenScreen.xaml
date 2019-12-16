@@ -32,14 +32,28 @@
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label VerticalAlignment="Top" FontSize="30" FontWeight="SemiBold" Content="Type against your friends!" HorizontalAlignment="Center"/>
                     <Border CornerRadius="10" BorderThickness="2"  BorderBrush="MidnightBlue" Background="White" Margin="0,50,0,0">
-                        <Grid Width="400" Height="350" >
-                            <Foutloos:ThemedButton x:Name="createRoom_button" DynamicTextRegular="Create A Room" VerticalAlignment="Top" Margin="0,50,0,0" HorizontalAlignment="Center" Height="50" Width="247" PreviewMouseDown="CreateRoom_button_PreviewMouseDown"/>
-                            <Rectangle Margin="0,115,0,183" HorizontalAlignment="Center" Height="2" Stroke="MidnightBlue" VerticalAlignment="Center" Width="400"/>
-                            <Label Content="Or enter a Room Token" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" FontSize="20"/>
-                            <TextBox Name="token_textBox" TextAlignment="Center" FontSize="30" Height="50" Width="247" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,115" TextWrapping="Wrap" MaxLength="5"/>
-                            <Foutloos:ThemedButton x:Name="joinRoom_button" DynamicTextRegular="Join A Room" VerticalAlignment="Bottom" Margin="0,0,0,50" HorizontalAlignment="Center" Height="50" Width="247" PreviewMouseDown="ThemedButton_PreviewMouseDown"/>
-
-                            <Label Content="Incorrect Token" Name="error_label" Visibility="Hidden" HorizontalAlignment="Center" Foreground="Red" FontSize="20" VerticalAlignment="Bottom"/>
+                        <Grid Width="400" Height="400" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="99*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="78*"/>
+                                <RowDefinition Height="175*"/>
+                                <RowDefinition Height="45*"/>
+                            </Grid.RowDefinitions>
+                            <Foutloos:ThemedButton Grid.Row="0" x:Name="createRoom_button" DynamicTextRegular="Create A Room" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="248" PreviewMouseDown="CreateRoom_button_PreviewMouseDown" Margin="76,25,76,24.333"/>
+                            <Rectangle HorizontalAlignment="Center" Height="2" Stroke="MidnightBlue" VerticalAlignment="Center" Width="400" Margin="0,0.667,0,0" Grid.Row="1" />
+                            <Foutloos:ThemedButton Grid.Row="2" x:Name="browseRoom_button" DynamicTextRegular="Browse Rooms" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="248" PreviewMouseDown="ThemedButton_PreviewMouseDown" Grid.RowSpan="1" Margin="76,0,76,1"/>
+                            <Grid Grid.Row="3" Margin="0,2,0,6.667" Grid.RowSpan="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="7*"/>
+                                    <RowDefinition Height="8*"/>
+                                    <RowDefinition Height="6*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Content="Or enter a Room Token" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="36" Margin="93,3" Width="214"/>
+                                <TextBox Name="token_textBox" TextAlignment="Center" FontSize="30" Height="50" Width="248" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextWrapping="Wrap" MaxLength="5" Margin="76,0,76,15" Grid.RowSpan="2"/>
+                                <Foutloos:ThemedButton Grid.Row="1" x:Name="joinRoom_button" DynamicTextRegular="Join A Room" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="248" PreviewMouseDown="ThemedButton_PreviewMouseDown" Grid.RowSpan="2"/>
+                            </Grid>
+                            <Label Grid.Row="4" Content="Incorrect Token" Name="error_label" Visibility="Hidden" HorizontalAlignment="Center" Foreground="Red" FontSize="20" VerticalAlignment="Bottom" Height="37" Margin="127,0" Width="146"/>
                         </Grid>
                     </Border>
                 </Grid>
