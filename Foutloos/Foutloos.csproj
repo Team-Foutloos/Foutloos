@@ -111,6 +111,9 @@
     <Compile Include="Multiplayer\ScoreboardScreen.xaml.cs">
       <DependentUpon>ScoreboardScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Multiplayer\ServerBrowser.xaml.cs">
+      <DependentUpon>ServerBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Multiplayer\tokenScreen.xaml.cs">
       <DependentUpon>tokenScreen.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Multiplayer\ScoreboardScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Multiplayer\ServerBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

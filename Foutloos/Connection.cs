@@ -175,7 +175,6 @@ namespace Foutloos
             this.insertInto($"DELETE FROM roomExercise WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
             //Check if the room is empy, if it is, delete the room.
             this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
-
         }
 
     }
