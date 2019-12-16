@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Foutloos
 {
@@ -42,7 +33,7 @@ namespace Foutloos
                 FillColumnCharts("Exercise_#", 0, 0, 0);
                 FillLineChart();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
@@ -52,9 +43,9 @@ namespace Foutloos
         private void FillUserStats()
         {
             DataTable dt0 = new DataTable();
-            
+
             dt0 = c.PullData($"SELECT COUNT(*), AVG(wpm), AVG(cpm), SUM(mistakes), COUNT(DISTINCT(exerciseID)) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-            
+
             ExercisesCompleted.Text = dt0.Rows[0][0].ToString();
             AverageWPM.Text = dt0.Rows[0][1].ToString();
             AverageCPM.Text = dt0.Rows[0][2].ToString();
@@ -72,13 +63,13 @@ namespace Foutloos
 
             DataTable dt2 = new DataTable();
             dt2 = c.PullData($"SELECT COUNT(*) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
-                $"WHERE speech = 1 AND username = '{ConfigurationManager.AppSettings["username"]}'"); 
+                $"WHERE speech = 1 AND username = '{ConfigurationManager.AppSettings["username"]}'");
             TextSpeechRatio.Text = $"{Convert.ToInt32(ExercisesCompleted.Text) - Convert.ToInt32(dt2.Rows[0][0])}/{dt2.Rows[0][0].ToString()}";
 
             DataTable dt3 = new DataTable();
             dt3 = c.PullData($"SELECT difficulty, COUNT(difficulty) FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
                 $"JOIN Exercise E ON E.exerciseID = R.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}'" +
-                $" GROUP BY difficulty ORDER BY COUNT(difficulty) DESC"); 
+                $" GROUP BY difficulty ORDER BY COUNT(difficulty) DESC");
             switch (dt3.Rows[0][0].ToString())
             {
                 case "1":
@@ -94,7 +85,7 @@ namespace Foutloos
                     FavoriteDifficulty.Text = "unknown";
                     break;
             }
-            
+
 
         }
         private void FillPieChart()
@@ -105,8 +96,9 @@ namespace Foutloos
                 $"GROUP BY letter ORDER BY SUM(count) DESC");
             List<KeyValuePair<string, int>> mistakes = new List<KeyValuePair<string, int>>();
 
-            for (int i = 0; i < 8 && i < dt.Rows.Count; i++) {
-                if(dt.Rows[i][0].ToString() != " ")
+            for (int i = 0; i < 8 && i < dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i][0].ToString() != " ")
                 {
                     mistakes.Add(new KeyValuePair<string, int>(dt.Rows[i][0].ToString(), Convert.ToInt32(dt.Rows[i][1])));
                 }
@@ -114,7 +106,7 @@ namespace Foutloos
                 {
                     mistakes.Add(new KeyValuePair<string, int>("␣", Convert.ToInt32(dt.Rows[i][1])));
                 }
-                
+
             }
 
             PieChart.DataContext = mistakes;
@@ -174,7 +166,7 @@ namespace Foutloos
             }
             ReverseExerciseList = new List<UserExerciseResult>();
             //Reverse list for recent exercise top
-            for(int i = (exerciselist.Count()-1); i>=0; i--)
+            for (int i = (exerciselist.Count() - 1); i >= 0; i--)
             {
                 ReverseExerciseList.Add((UserExerciseResult)exerciselist[i]);
             }
@@ -182,7 +174,7 @@ namespace Foutloos
             ExerciseList.ItemsSource = ReverseExerciseList;
         }
 
-       
+
         private void FillColumnCharts(string Name, int WPM, int CPM, int Mistakes)
         {
             ColumnChartTitle.Text = Name;
@@ -199,17 +191,17 @@ namespace Foutloos
             valueList3.Add(new KeyValuePair<string, int>("Mistakes", Mistakes));
             columnChartMistakes.DataContext = valueList3;
         }
-       
+
         private void FillLineChart()
         {
             wpm_line = new List<KeyValuePair<int, int>>();
             cpm_line = new List<KeyValuePair<int, int>>();
             mistake_line = new List<KeyValuePair<int, int>>();
             int counter = 1;
-            foreach(UserExerciseResult result in exerciselist)
+            foreach (UserExerciseResult result in exerciselist)
             {
-                wpm_line.Add(new KeyValuePair<int,int>(counter, result.WPM));
-                cpm_line.Add(new KeyValuePair<int,int>(counter, result.CPM));
+                wpm_line.Add(new KeyValuePair<int, int>(counter, result.WPM));
+                cpm_line.Add(new KeyValuePair<int, int>(counter, result.CPM));
                 mistake_line.Add(new KeyValuePair<int, int>(counter, result.Mistakes));
                 counter++;
             }
@@ -232,11 +224,12 @@ namespace Foutloos
 
         private void WPM_Click(object sender, RoutedEventArgs e)
         {
-            if(WPMButton.Content.Equals("Hide WPM"))
+            if (WPMButton.Content.Equals("Hide WPM"))
             {
                 LineWPM.DataContext = null;
                 WPMButton.Content = "Show WPM";
-            }else
+            }
+            else
             {
                 LineWPM.DataContext = wpm_line;
                 WPMButton.Content = "Hide WPM";

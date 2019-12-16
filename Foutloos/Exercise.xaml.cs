@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Speech.Synthesis;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Foutloos
@@ -60,13 +54,14 @@ namespace Foutloos
         //Create a bool to see if the exercise is started.
         bool exerciseStarted = false;
         //Add a list to save the wpm and time
-        List<int> wpmTimeList = new List<int>() {0};
-        List<int> cpmTimeList = new List<int>() {0};
+        List<int> wpmTimeList = new List<int>() { 0 };
+        List<int> cpmTimeList = new List<int>() { 0 };
         //Boolean for spellchecking special characters
         bool specialCharacters;
         int exerciseID;
-        
-        public Exercise(string text, bool sc, int exerciseID) { 
+
+        public Exercise(string text, bool sc, int exerciseID)
+        {
             InitializeComponent();
             this.exerciseID = exerciseID;
 
@@ -87,7 +82,7 @@ namespace Foutloos
             if (specialCharacters)
             {
                 char first = exerciseStringLeft.First();
-                if(first > 220 && first < 8200)
+                if (first > 220 && first < 8200)
                 {
                     SpecialChar.Visibility = Visibility.Visible;
                     SpecialChar.ChangeText(exerciseStringLeft.First());
@@ -549,27 +544,27 @@ namespace Foutloos
 
                 //Check for spellcheck special characters
                 char nextChar = exerciseStringLeft.First();
-                if(nextChar == 8217)
+                if (nextChar == 8217)
                 {
                     nextChar = (char)39;
                 }
-                else if(nextChar == 8220 || nextChar == 8221)
+                else if (nextChar == 8220 || nextChar == 8221)
                 {
                     nextChar = (char)34;
                 }
                 string nextString = e.Text;
                 //Change users input based on the next character
-                if(!specialCharacters)
+                if (!specialCharacters)
                 {
-                    if(exerciseStringLeft.First() == 252 && nextString == "u")
+                    if (exerciseStringLeft.First() == 252 && nextString == "u")
                     {
                         nextString = "ü";
                     }
-                    else if(exerciseStringLeft.First() == 232 && nextString == "e")
+                    else if (exerciseStringLeft.First() == 232 && nextString == "e")
                     {
                         nextString = "è";
                     }
-                    else if(exerciseStringLeft.First() == 228 && nextString == "a")
+                    else if (exerciseStringLeft.First() == 228 && nextString == "a")
                     {
                         nextString = "ä";
                     }
@@ -577,7 +572,7 @@ namespace Foutloos
                     {
                         nextString = "à";
                     }
-                    else if(nextChar == 235 && nextString == "e")
+                    else if (nextChar == 235 && nextString == "e")
                     {
                         nextString = "ë";
                     }
@@ -656,11 +651,11 @@ namespace Foutloos
 
                         //Check for special character
                         char first = exerciseStringLeft.First();
-                        if(first == 8217)
+                        if (first == 8217)
                         {
                             first = (char)39;
                         }
-                        else if(first == 8220 || first == 8221)
+                        else if (first == 8220 || first == 8221)
                         {
                             first = (char)34;
                         }
@@ -702,7 +697,7 @@ namespace Foutloos
                         AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
                         int wordspm;
                         int charspm;
-                        double accuracy =((((double) exerciseText.Length - (double) mistakes) / (double) exerciseText.Length) * 100);
+                        double accuracy = ((((double)exerciseText.Length - (double)mistakes) / (double)exerciseText.Length) * 100);
 
                         //If the seconds is higher then 0, divide by seconds.
                         if (seconds > 0)
@@ -754,7 +749,7 @@ namespace Foutloos
                             results.ShowDialog();
                         }
 
-                        
+
                     }
                 }
                 else
@@ -796,7 +791,7 @@ namespace Foutloos
                         Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.Red, Background = Brushes.Yellow });
                         Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.Remove(0, 1)));
-                        
+
                     }
                 }
             }

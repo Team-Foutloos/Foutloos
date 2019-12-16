@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Foutloos
 {
@@ -39,7 +28,7 @@ namespace Foutloos
                 //Here will the random exercises from the database come.
                 TextBlock textBlock = ((TextBlock)x.Child);
                 textBlock.Text += "\nTest tekst";
-                textBlock.Text = $"{BoxGrid.Children.IndexOf(x)+1}";
+                textBlock.Text = $"{BoxGrid.Children.IndexOf(x) + 1}";
 
                 //Adding the events
                 x.MouseEnter += OnBoxEnter;
@@ -92,7 +81,7 @@ namespace Foutloos
             {
                 Application.Current.MainWindow.Content = new Exercise("”Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program", true, 0);
             }
-            
+
         }
 
         //When the mouse enters an Exercise box this happens
@@ -111,7 +100,7 @@ namespace Foutloos
 
                 //Get the TextBlock that was hovered over.
                 Border hoveredBox = ((Border)sender);
-                
+
                 //Every other TextBlock in the grid will be hidden
                 foreach (Border x in BoxGrid.Children)
                 {
@@ -126,7 +115,7 @@ namespace Foutloos
                 }
 
                 //Adding extra information to the exercise box (Here will the level and the discription be shown)
-                TextBlock textBlock = ((TextBlock)hoveredBox.Child);  
+                TextBlock textBlock = ((TextBlock)hoveredBox.Child);
                 textBlock.Text += " - This exercise is amazing!!!!!!1!";
 
                 //The margin of the current TextBlock will be set to 0 with an animation
@@ -141,9 +130,9 @@ namespace Foutloos
                 animation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
                 hoveredBox.BeginAnimation(WidthProperty, animation);
             }
-            
 
-            
+
+
         }
 
         //End of mouse hover (Reset to begin values)
@@ -176,7 +165,7 @@ namespace Foutloos
 
             //Set the text of the ExerciseBox back to its origional value
             TextBlock textBlock = ((TextBlock)hoveredBox.Child);
-            textBlock.Text = $"{BoxGrid.Children.IndexOf(hoveredBox)+1}";
+            textBlock.Text = $"{BoxGrid.Children.IndexOf(hoveredBox) + 1}";
 
             //Make all other TextBlock visible again.
             foreach (Border x in BoxGrid.Children)
@@ -188,11 +177,11 @@ namespace Foutloos
                     fadeAnimation.To = 1;
                     fadeAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
                     x.BeginAnimation(OpacityProperty, fadeAnimation);
-                    
+
                 }
             }
 
-            
+
         }
 
         private void Animation_Completed(object sender, EventArgs e)
@@ -218,7 +207,7 @@ namespace Foutloos
         private void settings_Click(object sender, RoutedEventArgs e)
         {
             Connection c = new Connection();
-           
+
         }
 
         private void AllExercisesBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -248,6 +237,17 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Results();
         }
 
+        //When the user clicks the multiplayer button
+        private void MultiPlayerBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+                Application.Current.MainWindow.Content = new Multiplayer.tokenScreen();
+            else
+            {
+                ShowModal(new Modals.ModalLogin());
+                loginUIchange();
+            }
+        }
     }
 
 }

@@ -60,7 +60,7 @@
                 </Border>
                 <local:ThemedButton DynamicTextRegular="Start selected exercise" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="300" Height="60" FontSize="30" PreviewMouseDown="StartExercise_PreviewMouseDown"/>
             </Grid>
-            <TabControl Foreground="White" Background="MidnightBlue" FontSize="20" HorizontalAlignment="Left" Height="721" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
+            <TabControl Name="tabcontrol" Foreground="White" Background="MidnightBlue" FontSize="20" HorizontalAlignment="Left" Height="721" Margin="91,168,0,0" VerticalAlignment="Top" Width="1270" SelectionChanged="TabControl_SelectionChanged_1">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Foreground" Value="White"/>
@@ -137,23 +137,23 @@
                                 <Border BorderBrush="Black" BorderThickness="2" Height="auto" Width="auto"></Border>
                                 <Grid Height="90" VerticalAlignment="Top" Margin="0,20,0,0">
                                     <RadioButton x:Name="radioWord" Content="Write an amount of words" FontSize="22" Width="300" Height="30"
-                                                 HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" 
-                                                 Margin="10,10,0,0" VerticalContentAlignment="Center"
+                                                 HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="False" GroupName="GenSet"
+                                                 Margin="10,10,0,0" VerticalContentAlignment="Center" Checked="a"
                                                  />
                                     <Label Content="Amount:" FontSize="22" HorizontalAlignment="Left" 
                                            VerticalAlignment="Top" Margin="25,40,0,0" />
-                                    <TextBox Text="20" Width="150" Height="30" 
+                                    <TextBox x:Name="txtWords" Text="20" IsEnabled="False" Width="150" Height="30" 
                                              VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                             Margin="160,45,0,0" />
+                                             Margin="160,45,0,0"  />
                                 </Grid>
                                 <Grid Height="90" VerticalAlignment="Top" Margin="0,130,0,0">
                                     <RadioButton x:Name="radioTime" Content="Write for an amount of time" FontSize="22" Width="300" Height="30"
-                                                 HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="false" 
-                                                 Margin="10,10,0,0" VerticalContentAlignment="Center"
+                                                 HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="false" GroupName="GenSet"
+                                                 Margin="10,10,0,0" VerticalContentAlignment="Center" Checked="a" 
                                                  />
                                     <Label Content="Amount:" FontSize="22" HorizontalAlignment="Left" 
                                            VerticalAlignment="Top" Margin="25,40,0,0" />
-                                    <ComboBox x:Name="comboTime" HorizontalAlignment="Left" Margin="160,45,0,0" VerticalAlignment="Top" Width="150">
+                                    <ComboBox x:Name="cmbTime" HorizontalAlignment="Left" IsEnabled="False" Margin="160,45,0,0" VerticalAlignment="Top" Width="150">
                                         <ComboBoxItem Content="30 sec" Tag="30" IsSelected="True"/>
                                         <ComboBoxItem Content="1 min" Tag="60"/>
                                         <ComboBoxItem Content="3 min" Tag="180"/>
@@ -161,11 +161,19 @@
                                         <ComboBoxItem Content="10 min" Tag="600"/>
                                     </ComboBox>
                                 </Grid>
+                                <Label x:Name="lblError" FontSize="22" Width="auto" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20" Foreground="Red" />
                             </Grid>
                             <local:ThemedButton DynamicTextRegular="Start!" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60" Width="300" Height="60" FontSize="30" PreviewMouseDown="StartGeneratedExercise_PreviewMouseDown"/>
                             <TextBlock Foreground="Black" FontSize="32" 
                                        Text="Start a randomly generated exercise!" HorizontalAlignment="Center" 
                                        Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Name="GeorgeOrwell" Header="George Orwell" Visibility="Collapsed">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="Grid_George_Orwell" ShowGridLines="False" Background="White">
+
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
