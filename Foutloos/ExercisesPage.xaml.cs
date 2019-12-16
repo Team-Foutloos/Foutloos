@@ -25,6 +25,7 @@ namespace Foutloos
         List<DataRow> expertExercises = new List<DataRow>();
         List<DataRow> allExercises = new List<DataRow>();
         List<DataRow> finished = new List<DataRow>();
+        List<DataRow> GO = new List<DataRow>();
         Connection c = new Connection();
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
@@ -63,10 +64,15 @@ namespace Foutloos
                     exercises.Add(expertExercises);
                     exercises.Add(allExercises);
                     exercises.Add(finished);
+                    exercises.Add(GO);
+
+
 
                     if (i == 2)
                     {
-                        GeorgeOrwell.Visibility = Visibility.Visible;
+                        
+                        //GeorgeOrwell.Visibility = Visibility.Visible;
+                        
                     }
                     if (i == 7)
                     {
@@ -75,8 +81,7 @@ namespace Foutloos
                                                          
                     foreach (DataRow row in dt.Rows)
                     {
-                        string ID = row["exerciseID"].ToString();
-                        string text = row["text"].ToString();
+                        
                         string difficulty = row["difficulty"].ToString();
 
                         exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
@@ -92,6 +97,8 @@ namespace Foutloos
 
             }
         }
+
+       
 
         private void AddButton()
         {
@@ -109,6 +116,7 @@ namespace Foutloos
             exercises.Add(expertExercises);
             exercises.Add(allExercises);
             exercises.Add(finished);
+            exercises.Add(GO);
 
 
             amount = 0;
@@ -135,44 +143,46 @@ namespace Foutloos
             //Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Amateur.
-            Grid_Amateur.ShowGridLines = false;
+            Grid_Amateur.ShowGridLines = true;
             Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Normal.
-            Grid_Normal.ShowGridLines = false;
+            Grid_Normal.ShowGridLines = true;
             Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Expert.
-            Grid_Expert.ShowGridLines = false;
+            Grid_Expert.ShowGridLines = true;
             Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_Finished.ShowGridLines = false;
+            Grid_Finished.ShowGridLines = true;
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
-            //The standard left and top margin are added for George Orwell.
+            //The standard left and top margin are added for grid Finished.
             Grid_GO.ShowGridLines = true;
             Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
+
+
             AddDLC();
 
-            calculate(3, "Grid_All", amount);
-            //calculate(selected, "Grid_Selected");
-            calculate(0, "Grid_Amateur", exercises[0].Count);
-            calculate(1, "Grid_Normal", exercises[1].Count);
-            calculate(2, "Grid_Expert", exercises[2].Count);
-            calculate(3, "Grid_Finished", amount);
-            calculate(3, "Grid_GO", amount);
+            calculate(3, "Grid_All", amount, 1);
+            calculate(0, "Grid_Amateur", exercises[0].Count, 1);
+            calculate(1, "Grid_Normal", exercises[1].Count, 1);
+            calculate(2, "Grid_Expert", exercises[2].Count, 1);
+            calculate(3, "Grid_Finished", amount, 1);
+            calculate(4, "Grid_GO", exercises[4].Count, 2);
+           
 
 
         }
 
-        private void calculate(int difficulty, string gridName, int amount)
+        private void calculate(int difficulty, string gridName, int amount, int packageID)
         {
 
             int exnum = 1;
@@ -189,12 +199,7 @@ namespace Foutloos
                 {
                     Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
                     Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                //if (gridName == "Grid_Selected")
-                //{
-                //    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                //    Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                //}
+                }                
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
@@ -221,9 +226,11 @@ namespace Foutloos
                     Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
                 }
 
+
+
             }
 
-            if (difficulty >= 0)
+            if (packageID == 1)
             {
 
                 //The button gets added as frequently as needed. 
@@ -274,13 +281,7 @@ namespace Foutloos
                     borderButton.Name = $"E{i}";
                     l1.Text = $"Excercise: {exnum}";
 
-                    //b1.BorderThickness
 
-                    //if (gridName == "Grid_Selected")
-                    //{
-                    //    Grid_Selected.Children.Add(b1);
-                    //    b1.Click += (sender, e) => B1_Click(sender, e, 5);
-                    //}
                     if (gridName == "Grid_All")
                     {
                         Grid_All.Children.Add(borderButton);
@@ -329,9 +330,11 @@ namespace Foutloos
                         x += 2;
                         j = 0;
                     }
+                }              
 
-                }
             }
+            
+
             //Control if the amount of buttons / 4 is equal to 1, 2, 3 etc. This is to indicate how many times more rows have to get added to the software.
             for (int row = 0; row < Math.Ceiling((double)amount / 4); row++)
             {
@@ -341,12 +344,7 @@ namespace Foutloos
                     Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
-                //if (gridName == "Grid_Selected")
-                //{
-                //    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                //    Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
-                //}
                 if (gridName == "Grid_Amateur")
                 {
                     Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
@@ -365,6 +363,12 @@ namespace Foutloos
                     Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
+                if (gridName == "Grid_GO")
+                {
+                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
             }
             for (int row = 0; row < Math.Ceiling((double)scroll / 4); row++)
             {
@@ -375,7 +379,6 @@ namespace Foutloos
 
                 }
             }
-
         }
 
         //If the mouse leaves the exercise

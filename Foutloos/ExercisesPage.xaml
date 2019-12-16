@@ -129,7 +129,7 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="George Orwell" Visibility="Collapsed">
+                <TabItem Header="George Orwell">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_GO" ShowGridLines="False" Background="White">
 
@@ -177,13 +177,7 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Name="GeorgeOrwell" Header="George Orwell" Visibility="Collapsed">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <Grid x:Name="Grid_George_Orwell" ShowGridLines="False" Background="White">
-
-                        </Grid>
-                    </ScrollViewer>
-                </TabItem>
+                
             </TabControl>
         </Grid>
     </Viewbox>
