@@ -74,7 +74,7 @@ namespace Foutloos.Multiplayer
             token_textblock.Text = "Waiting for the host to start!";
 
             //Change this
-            startMatch_button.Visibility = Visibility.Visible;
+            startMatch_button.Visibility = Visibility.Collapsed;
             
         }
 
@@ -84,7 +84,19 @@ namespace Foutloos.Multiplayer
             while (true)
             {
                 players = c.PullData($"SELECT username FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
-                
+
+                DataTable hasStarted = (c.PullData($"SELECT hasStarted FROM room WHERE roomID = {roomID}"));
+                if ((bool)hasStarted.Rows[0]["hasStarted"])
+                {
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+
+                        Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+                        databaseListener.Abort();
+                    });
+                }
+               
 
                 for (int i = 0; i < players.Rows.Count; i++)
                 {
@@ -140,7 +152,7 @@ namespace Foutloos.Multiplayer
             roomID = (c.ID("SELECT Max(roomID) FROM room")) + 1;
 
             //Then create a new room in the room table
-            c.insertInto($"INSERT INTO room (roomID, roomToken) VALUES ('{roomID}','{createTokenString()}')");
+            c.insertInto($"INSERT INTO room (roomID, roomToken, hasStarted) VALUES ('{roomID}','{createTokenString()}',0)");
 
             //Add the token to the token_textblock
             token_textblock.Text = token_textblock.Text + tokenString;
@@ -183,13 +195,15 @@ namespace Foutloos.Multiplayer
         {
             c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
+            databaseListener.Abort();
         }
 
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             //Start the game
+            c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
             Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
-
+            databaseListener.Abort();
         }
     }
 }
