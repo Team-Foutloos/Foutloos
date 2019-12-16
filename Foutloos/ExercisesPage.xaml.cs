@@ -126,6 +126,7 @@ namespace Foutloos
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
+                string package = row["packageID"].ToString();
 
                 exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
                 exercises[3].Add(row);
@@ -136,11 +137,6 @@ namespace Foutloos
             Grid_All.ShowGridLines = false;
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-
-            ////The standard left and top margin are added for grid Selected for you.
-            //Grid_Selected.ShowGridLines = false;
-            //Grid_Selected.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-            //Grid_Selected.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Amateur.
             Grid_Amateur.ShowGridLines = true;
