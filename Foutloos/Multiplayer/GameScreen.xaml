@@ -32,8 +32,8 @@
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="1594">
                     <TextBlock x:Name="inputText" Text="TextToType" RenderTransformOrigin="0.5,0.5" Margin="0,0,10.333,9.333" FontSize="70" FontWeight="Bold" TextAlignment="Center" Foreground="Black" TextWrapping="Wrap" />
                     <TextBlock x:Name="doneTextBlock" Text="That was fast! We're still waiting for other players..." FontSize="20" TextAlignment="Center" Margin="0,385,0,-326.333" FontWeight="Bold" Visibility="Hidden"/>
-                    <TextBlock x:Name="timerTextBlock" Text="00:000" FontSize="30" TextAlignment="Right" Margin="1410,-397,10,435.667"/>
-                    <ListView x:Name="namesList" Margin="0,-397,1379,343.667" Background="Transparent" BorderThickness="0" Focusable="False">
+                    <TextBlock x:Name="timerTextBlock" Text="00:000" FontSize="30" TextAlignment="Right" Margin="1410,-344,10,382.667"/>
+                    <ListView x:Name="namesList" Margin="0,-344,1379,290.667" Background="Transparent" BorderThickness="0" Focusable="False">
                         
                     </ListView>
                     
