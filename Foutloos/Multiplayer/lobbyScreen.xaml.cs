@@ -72,7 +72,9 @@ namespace Foutloos.Multiplayer
             //Collapse the button Start so the player can't see it, only the owner can, and show the motivating text
             share_textblock.Text = "Tell him to hurry up please, we cannot wait to see you beat him.";
             token_textblock.Text = "Waiting for the host to start!";
-            startMatch_button.Visibility = Visibility.Collapsed;
+
+            //Change this
+            startMatch_button.Visibility = Visibility.Visible;
             
         }
 
@@ -135,29 +137,55 @@ namespace Foutloos.Multiplayer
 
             //Add the token to the token_textblock
             token_textblock.Text = token_textblock.Text + tokenString;
-            
+
+
+            //Add the exercises to the database
+            createExercises();
         }
 
-        private void leaveRoom()
+        private void createExercises()
         {
-            c.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
+            //Get all the words from dictionary so you can put them in exercises later
+            DataTable words = new DataTable();
+            Random rand = new Random();
+            words = c.PullData($"SELECT * FROM Dictionary");
 
-            //Check if the room is empy, if it is, delete the room.
-            c.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
-            
+            //Create 10 exercises and add them in a for loop
+            for (int i = 0; i < 10; i++)
+            {
+                string exercise = "";
+
+                for (int j = 0; j < 8; j++)
+                {
+                    exercise += words.Rows[rand.Next(0, words.Rows.Count)]["list"].ToString();
+                    exercise += " ";
+                }
+                exercise.Remove(exercise.Length-1);
+
+                c.insertInto($"INSERT INTO roomExercise VALUES ({i},{roomID},'{exercise}')");
+
+
+
+            }
         }
+
 
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            leaveRoom();
+            c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
         }
 
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new GameScreen(roomID);
+            //Start the game
+            //Application.Current.MainWindow.Content = new GameScreen(roomID);
+
+            //Change this
+            Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
+
         }
     }
 }
