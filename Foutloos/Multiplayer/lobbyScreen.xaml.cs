@@ -190,9 +190,6 @@ namespace Foutloos.Multiplayer
             //Start the game
             Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
 
-            //Change this
-            //Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
-
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Foutloos.Multiplayer
         public ScoreboardScreen(int roomID, int exerciseID)
         {
             InitializeComponent();
+            exerciseTextBlock.Text = $"Exercise {exerciseID + 1} / 10";
             this.roomID = roomID;
             this.exerciseID = exerciseID;
             c = new Connection();
@@ -31,15 +32,19 @@ namespace Foutloos.Multiplayer
 
         private void initializeScoreBoard()
         {
-            players = c.PullData($"SELECT username FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
+            //players = c.PullData($"SELECT username, u.userID FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
+            DataTable playerScoresTotal = c.PullData($"SELECT r.userID, MAX(U.username) username, SUM(time) totalTime FROM roomplayer r JOIN Usertable U ON U.userID = r.userID LEFT JOIN RoomResult rr ON r.roomID = rr.roomID WHERE r.roomID = {roomID} GROUP BY r.userID ORDER BY COUNT(rr.time) DESC");
 
             //Check how many players are in the room
-            for (int i = 0; i < players.Rows.Count; i++)
+            for (int i = 0; i < playerScoresTotal.Rows.Count; i++)
             {
+                DataTable playerScores = c.PullData($"SELECT time FROM RoomResult WHERE roomID = {roomID} AND userID = {playerScoresTotal.Rows[i]["userID"].ToString()} AND roomExerciseID = {exerciseID}");
+                
+
                 //Show the UI place
                 Grid medalGrid = (Grid) scoreboardThisRound_grid.Children[i];
                 TextBlock playerName = (TextBlock)medalGrid.Children[0];
-                playerName.Text = players.Rows[i]["username"].ToString();
+                playerName.Text = playerScoresTotal.Rows[i]["username"].ToString();
                 medalGrid.Visibility = Visibility.Visible;
 
                 Grid scoreGrid = (Grid)scoreboardThisRound_grid.Children[4];
@@ -53,11 +58,13 @@ namespace Foutloos.Multiplayer
                 TextBlock playerNameResult = (TextBlock)scoreTexts.Children[i*3+1];
                 TextBlock playerTimeResult = (TextBlock)scoreTexts.Children[i*3+2];
 
+                playerTimeResult.Text = TimeSpan.FromMilliseconds((int.Parse(playerScores.Rows[0]["time"].ToString())) * 10 ).ToString("ss':'fff");
+
                 playerPositionResult.Visibility = Visibility.Visible;
                 playerNameResult.Visibility = Visibility.Visible;
                 playerTimeResult.Visibility = Visibility.Visible;
 
-                playerNameResult.Text = players.Rows[i]["username"].ToString();
+                playerNameResult.Text = playerScoresTotal.Rows[i]["username"].ToString();
 
 
                 //Set the score for the overallPosition
@@ -65,7 +72,7 @@ namespace Foutloos.Multiplayer
 
                 TextBlock playerStanding = (TextBlock) overallRankings.Children[i];
                 playerStanding.Visibility = Visibility.Visible;
-                playerStanding.Text = players.Rows[i]["username"].ToString();
+                playerStanding.Text = playerScoresTotal.Rows[i]["username"].ToString();
 
 
             }
