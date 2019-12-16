@@ -26,8 +26,9 @@
             </EventTrigger>
         </Grid.Triggers>
 
+
         <Viewbox StretchDirection="Both" Stretch="Uniform">
-            <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5">
+            <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="1402" Height="880" RenderTransformOrigin="0.5,0.5">
                 <Foutloos:ThemedIconButton Width="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Height="70" DynamicTextIcon="Home" PreviewMouseDown="ThemedIconButton_PreviewMouseDown"  DynamicIcon="../assets/homeIconWhite.png" />
 
                 <Grid Height="600" Margin="0,100,0,100">
@@ -36,11 +37,53 @@
                         <RowDefinition Height="271*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Server Browser" FontWeight="SemiBold" FontSize="30" Grid.RowSpan="2"/>
-                    <Border Grid.Row="1" BorderThickness="2" BorderBrush="MidnightBlue" Background="White" CornerRadius="10" Width="800" HorizontalAlignment="Center">
+                    <Border Grid.Row="1" BorderThickness="2" BorderBrush="MidnightBlue" Background="White" CornerRadius="10" Width="1402" HorizontalAlignment="Center">
                         <Grid>
-                            <ListBox Name="serverList">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="15*"/>
+                                <RowDefinition Height="254*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Margin="20,0,0,0" Grid.Row="0" Text="Server Name" FontSize="20" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="0,0,20,0"  Grid.Row="0" Text="Player Count" FontSize="20" HorizontalAlignment="Right"/>
+                            <ListBox Grid.Row="1" Name="serverList" HorizontalAlignment="Center" BorderThickness="0">
+                                <ListBox.Resources>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                    <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                           
+                                                        <MultiTrigger>
 
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="Control.IsMouseOver"
+                                            Value="False" />
+                                                                <Condition Property="Control.IsMouseOver"
+                                            Value="True" />
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="DeepSkyBlue" />
+                                                        </MultiTrigger>
+                                   
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.Resources>
                             </ListBox>
+                            
                         </Grid>
                     </Border>
                 </Grid>

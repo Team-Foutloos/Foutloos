@@ -40,5 +40,10 @@ namespace Foutloos.Multiplayer
         {
             Application.Current.MainWindow.Content = new lobbyScreen(true);
         }
+
+        private void JoinRoom_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new ServerBrowser();
+        }
     }
 }

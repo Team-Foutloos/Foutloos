@@ -241,6 +241,7 @@ namespace Foutloos
         private void MultiPlayerBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+
                 Application.Current.MainWindow.Content = new Multiplayer.tokenScreen();
             else
             {
