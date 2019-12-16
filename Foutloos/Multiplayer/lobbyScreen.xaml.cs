@@ -128,6 +128,13 @@ namespace Foutloos.Multiplayer
 
         private void createRoom()
         {
+            //If the user is already in a room because the game wasn't closed properly this wil remove him from that game in order to make joining a new one possible
+            if(c.ID($"SELECT COUNT(*) FROM RoomPlayer WHERE userID = {ConfigurationManager.AppSettings.Get("userID")}") > 0)
+            {
+                int roomID = int.Parse(c.PullData($"SELECT roomID FROM RoomPlayer WHERE userID = {ConfigurationManager.AppSettings.Get("userID")}").Rows[0][0].ToString());
+                c.leaveRoom(roomID);
+            }
+
             //First get a unique roomID
             roomID = 1;
             roomID = (c.ID("SELECT Max(roomID) FROM room")) + 1;
@@ -182,9 +189,6 @@ namespace Foutloos.Multiplayer
         {
             //Start the game
             Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
-
-            //Change this
-            //Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
 
         }
     }

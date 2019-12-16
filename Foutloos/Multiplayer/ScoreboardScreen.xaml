@@ -34,8 +34,8 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="auto" MinHeight="164.667"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Exercise x/x" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,0.333" Width="390"/>
-                    <TextBlock FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333" Width="296"/>
+                    <TextBlock x:Name="exerciseTextBlock" Grid.Row="0" Text="Exercise x/x" TextAlignment="Center" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="-100,-1,-95,0.333" Width="585"/>
+                    <TextBlock x:Name="nextExerciseTextBlock" FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333" Width="296"/>
                     <TextBlock FontWeight="SemiBold" Grid.Row="2" Foreground="DeepSkyBlue" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="CountdownDisplay" FontSize="60" Height="80"/>
                 </Grid>
                 <Grid Name="scoreboardThisRound_grid" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -49,7 +49,7 @@
                         <ColumnDefinition Width="80*" Name="thirdPlace_medal_column"/>
                         <ColumnDefinition Width="80*" Name="fourthPlace_medal_column"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -111,7 +111,7 @@
                                 <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="4" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                                 <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="4" Text="0.50" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
 
-                              
+
 
                                 <!-- First the names -->
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
