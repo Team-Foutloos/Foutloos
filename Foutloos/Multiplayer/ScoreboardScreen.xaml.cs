@@ -13,16 +13,20 @@ namespace Foutloos.Multiplayer
     public partial class ScoreboardScreen : Page
     {
         private int roomID;
+        private int exerciseID;
         private Connection c;
         private DataTable players;
 
-        public ScoreboardScreen(int roomID)
+
+        public ScoreboardScreen(int roomID, int exerciseID)
         {
             InitializeComponent();
             this.roomID = roomID;
+            this.exerciseID = exerciseID;
             c = new Connection();
-            //StartCountdown(CountdownDisplay);
+            StartCountdown(CountdownDisplay);
             initializeScoreBoard();
+
         }
 
         private void initializeScoreBoard()
@@ -65,6 +69,8 @@ namespace Foutloos.Multiplayer
 
 
             }
+
+
         }
 
 
@@ -90,12 +96,14 @@ namespace Foutloos.Multiplayer
 
         private void CountdownTimer_Completed(object sender, EventArgs e)
         {
-            MessageBox.Show("Time's up!");
+            //Start the next exercise
+            Application.Current.MainWindow.Content = new GameScreen(roomID, this.exerciseID + 1);
         }
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+
             c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
         }

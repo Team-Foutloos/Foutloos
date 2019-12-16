@@ -143,13 +143,13 @@ namespace Foutloos.Multiplayer
                         while (true)
                         {
                             int playerCount = c.ID($"SELECT COUNT(*) FROM RoomPlayer WHERE roomID = {this.roomID}");
-                            int playersDone = c.ID($"SELECT COUNT(*) FROM RoomResult WHERE roomID = {this.roomID}");
+                            int playersDone = c.ID($"SELECT COUNT(*) FROM RoomResult WHERE roomID = {this.roomID} AND roomExerciseID = {this.exerciseID}");
 
                             if (playerCount == playersDone)
                             {
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    Application.Current.MainWindow.Content = new ScoreboardScreen(roomID);
+                                    Application.Current.MainWindow.Content = new ScoreboardScreen(this.roomID, this.exerciseID);
                                     
                                 });
                                 Thread.CurrentThread.Abort();
