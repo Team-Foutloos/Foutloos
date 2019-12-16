@@ -87,11 +87,9 @@ namespace Foutloos.Multiplayer
 
                 int hasStarted = (int) int.Parse(c.ID($"SELECT hasStarted FROM room WHERE roomID = {roomID}").ToString());
 
-                if (hasStarted != null)
-                { 
                     if (hasStarted == 1)
                     Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
-                }
+               
 
                 for (int i = 0; i < players.Rows.Count; i++)
                 {
