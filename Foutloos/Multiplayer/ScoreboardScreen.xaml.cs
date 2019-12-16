@@ -25,7 +25,15 @@ namespace Foutloos.Multiplayer
             this.roomID = roomID;
             this.exerciseID = exerciseID;
             c = new Connection();
-            StartCountdown(CountdownDisplay);
+            if(exerciseID < 9)
+            {
+                StartCountdown(CountdownDisplay);
+            }
+            else
+            {
+                nextExerciseTextBlock.Text = "Game is finished!";
+            }
+            
             initializeScoreBoard();
 
         }

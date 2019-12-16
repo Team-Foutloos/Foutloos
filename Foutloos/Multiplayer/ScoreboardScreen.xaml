@@ -35,7 +35,7 @@
                         <RowDefinition Height="auto" MinHeight="164.667"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="exerciseTextBlock" Grid.Row="0" Text="Exercise x/x" TextAlignment="Center" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="-100,-1,-95,0.333" Width="585"/>
-                    <TextBlock FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333" Width="296"/>
+                    <TextBlock x:Name="nextExerciseTextBlock" FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333" Width="296"/>
                     <TextBlock FontWeight="SemiBold" Grid.Row="2" Foreground="DeepSkyBlue" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="CountdownDisplay" FontSize="60" Height="80"/>
                 </Grid>
                 <Grid Name="scoreboardThisRound_grid" HorizontalAlignment="Center" VerticalAlignment="Center">
