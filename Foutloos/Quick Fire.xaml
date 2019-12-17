@@ -28,13 +28,22 @@
                 <TextBlock Name="ExerciseWord_TextBlock" Text="Foutloos" Width="150" Height="50" FontSize="30" Margin="640,228,632,605"/>
                 <Label Content="Streak:" Width="100" Height="40" FontSize="20" Margin="952,222,370,621"/>
                 <Label Name="StreakCounter_Label" Content="0" Width="100" Height="40" FontSize="20" Margin="1134,225,188,618"/>
-                <Label Content="Words Completed:" Width="200" Height="40" FontSize="20" Margin="952,256,270,587"/>
+                <Label Content="Words hit:" Width="200" Height="40" FontSize="20" Margin="952,256,270,587"/>
                 <Label Name="ExerciseWordCounter_Label" Width="100" Height="40" FontSize="20" Margin="1134,256,188,587"/>
 
                 <!-- Logo -->
                 <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
                 <!-- Time left progress bar -->
                 <ProgressBar x:Name="TimeleftBar" Minimum="0" Maximum="180" Value="180" HorizontalAlignment="Left" Height="8" Margin="640,270,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.5,0.5"/>
+                <RadioButton GroupName="Typing" Content="Steady" IsChecked="True" HorizontalAlignment="Left" Margin="357,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+                <RadioButton GroupName="Typing" Content="Speedy" HorizontalAlignment="Left" Margin="357,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
+                <RadioButton GroupName="Typing" Content="Turbo" HorizontalAlignment="Left" Margin="357,638,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2"/>
+                <RadioButton GroupName="Interval" Content="Reader" IsChecked="True" HorizontalAlignment="Left" Margin="476,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_3"/>
+                <RadioButton GroupName="Interval" Content="Typer" HorizontalAlignment="Left" Margin="476,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_4"/>
+                <RadioButton GroupName="Interval" Content="Master" HorizontalAlignment="Left" Margin="476,641,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_5"/>
+                <TextBlock HorizontalAlignment="Left" Margin="357,568,0,0" TextWrapping="Wrap" Text="Typing Speed" VerticalAlignment="Top" Height="25" Width="101"/>
+                <TextBlock HorizontalAlignment="Left" Margin="476,568,0,0" TextWrapping="Wrap" Text="Interval Speed" VerticalAlignment="Top" Height="25" Width="101"/>
+                <TextBlock HorizontalAlignment="Left" Margin="682,598,0,0" TextWrapping="Wrap" Text="Difficulty" VerticalAlignment="Top"/>
 
             </Grid>
         </Viewbox>

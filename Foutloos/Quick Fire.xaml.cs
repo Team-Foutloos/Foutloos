@@ -19,7 +19,7 @@ namespace Foutloos
     public partial class Quick_Fire : Page
     {
         //Exercise text
-        private string exerciseText = "Alpha Bravo Charlie Delta Echo Foxtrot Golf Hotel India Juliett Kilo Lima Mike November Oscar Papa Quebec Romeo Sierra Tango Uniform Victor Whiskey Xray Yankee Zulu";
+        private string exerciseText = "a bier a day keeps the hoofdpijn away";
         //Exercise words left
         private Queue<String> exerciseQueueTextLeft = new Queue<string>();
         //Next word used for text to speech
@@ -47,7 +47,10 @@ namespace Foutloos
         int topStreak = 0;
 
         //TODO: add difficulty screen
-        int difficulty = 2;
+        int difficultyReading;
+        int difficultyTyping;
+        //TODO: more time for longer words
+        int wordlength;
 
         public Quick_Fire()
         {
@@ -82,6 +85,9 @@ namespace Foutloos
 
             }
             ProgressBar.Maximum = counter;
+
+            
+            wordlength = e[0].Length;
         }
 
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
@@ -97,7 +103,7 @@ namespace Foutloos
                 //typing flow
                 if (TimeleftBar.Value > 0)
                 {
-                    TimeleftBar.Value -= 12 * difficulty;
+                    TimeleftBar.Value -= 60 * difficultyTyping / (1 + wordlength / 1);
 
                     if (TimeleftBar.Value > 90)
                     {
@@ -112,6 +118,8 @@ namespace Foutloos
                 }
                 else
                 {
+                    if (TimeleftBar.Value != 0)
+                        TimeleftBar.Value = 0;
                     canType = false;
 
                     //TODO: mistakes++
@@ -125,9 +133,11 @@ namespace Foutloos
                 if (TimeleftBar.Foreground != Brushes.Gray)
                     TimeleftBar.Foreground = Brushes.Gray;
                 if (TimeleftBar.Value < 180)
-                    TimeleftBar.Value += 18 * difficulty;
+                    TimeleftBar.Value += 60 * difficultyReading / (4 + wordlength/8 );
                 else
                 {
+                    if (TimeleftBar.Value != 180)
+                        TimeleftBar.Value = 180;
                     canType = true;
                     //adds typing function from user
                     var window = Window.GetWindow(this);
@@ -223,16 +233,18 @@ namespace Foutloos
             {
                 //reset streak
                 streak = false;
-                streakCounter = 1;
+                streakCounter = 0;
                 StreakCounter_Label.Content = streakCounter;
 
             }
 
+            //GENERAL CODE FOR NEXT WORD
 
             //Check if there are any words left in the exercise
             if (exerciseQueueTextLeft.Count > 0)
             {
                 exerciseNextWord = exerciseQueueTextLeft.Dequeue();
+                wordlength = exerciseNextWord.Length;
                 exerciseNextWordCorrect = "";
                 exerciseNextWordLeft = exerciseNextWord;
                 ExerciseWord_TextBlock.Text = exerciseNextWord;
@@ -245,6 +257,34 @@ namespace Foutloos
             }
         }
 
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 1;
+        }
 
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 2;
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 4;
+        }
+
+        private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 1;
+        }
+
+        private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 2;
+        }
+
+        private void RadioButton_Checked_5(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 4;
+        }
     }
 }
