@@ -16,6 +16,7 @@ namespace Foutloos.Multiplayer
         private int exerciseID;
         private Connection c;
         private DataTable players;
+        private Storyboard countdownStoryboard;
 
 
         public ScoreboardScreen(int roomID, int exerciseID)
@@ -40,15 +41,15 @@ namespace Foutloos.Multiplayer
 
         private void initializeScoreBoard()
         {
-            //players = c.PullData($"SELECT username, u.userID FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
-            DataTable playerScoresTotal = c.PullData($"SELECT r.userID, MAX(U.username) username, SUM(time) totalTime FROM roomplayer r JOIN Usertable U ON U.userID = r.userID LEFT JOIN RoomResult rr ON r.roomID = rr.roomID WHERE r.roomID = {roomID} GROUP BY r.userID ORDER BY COUNT(rr.time) DESC");
+            DataTable playerScoresTotal = c.PullData($"SELECT r.userID, U.username, time FROM roomplayer r JOIN Usertable U ON U.userID = r.userID LEFT JOIN RoomResult rr ON r.roomID = rr.roomID WHERE r.roomID = {roomID} AND rr.roomExerciseID = {exerciseID} GROUP BY U.userID ORDER BY rr.time ASC");
+
+
+
 
             //Check how many players are in the room
             for (int i = 0; i < playerScoresTotal.Rows.Count; i++)
             {
                 DataTable playerScores = c.PullData($"SELECT time FROM RoomResult WHERE roomID = {roomID} AND userID = {playerScoresTotal.Rows[i]["userID"].ToString()} AND roomExerciseID = {exerciseID}");
-                
-
                 //Show the UI place
                 Grid medalGrid = (Grid) scoreboardThisRound_grid.Children[i];
                 TextBlock playerName = (TextBlock)medalGrid.Children[0];
@@ -74,13 +75,8 @@ namespace Foutloos.Multiplayer
 
                 playerNameResult.Text = playerScoresTotal.Rows[i]["username"].ToString();
 
-
-                //Set the score for the overallPosition
-                Grid overallRankings = (Grid)ranking_grid;
-
-                TextBlock playerStanding = (TextBlock) overallRankings.Children[i];
-                playerStanding.Visibility = Visibility.Visible;
-                playerStanding.Text = playerScoresTotal.Rows[i]["username"].ToString();
+                //Set the standing for the player text
+                playercurrent.Text = playercurrent.Text + playerScoresTotal.Rows[i]["username"].ToString();
 
 
             }
@@ -103,7 +99,7 @@ namespace Foutloos.Multiplayer
             Storyboard.SetTargetName(countdownAnimation, target.Name);
             Storyboard.SetTargetProperty(countdownAnimation, new PropertyPath(TextBlock.TextProperty));
 
-            var countdownStoryboard = new Storyboard();
+            countdownStoryboard = new Storyboard();
             countdownStoryboard.Children.Add(countdownAnimation);
             countdownStoryboard.Completed += CountdownTimer_Completed;
             countdownStoryboard.Begin(this);
@@ -118,7 +114,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            countdownStoryboard.Stop(this);
             c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
         }
