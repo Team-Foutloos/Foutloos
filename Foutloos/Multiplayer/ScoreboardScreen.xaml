@@ -128,7 +128,7 @@
                         <RowDefinition Height="21*"/>
                         <RowDefinition Height="53*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="You're currently" FontSize="40"/>
+                    <TextBlock Name="playercurrent" Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="You're currently " FontSize="40"/>
                 </Grid>
             </Grid>
         </Viewbox>
