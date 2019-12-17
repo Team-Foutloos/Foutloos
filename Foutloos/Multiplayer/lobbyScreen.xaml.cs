@@ -120,7 +120,7 @@ namespace Foutloos.Multiplayer
                 roomID = c.ID($"SELECT roomID from room where roomToken = '{tokenString}'");
             }
             if (c.PullData($"SELECT roomID from roomplayer WHERE roomID = '{roomID}' AND userID = '{ConfigurationManager.AppSettings["userID"]}'").Rows.Count == 0)
-            c.insertInto($"INSERT INTO roomplayer (roomID, userID) VALUES ('{roomID}', '{ConfigurationManager.AppSettings["userID"]}')");
+            c.insertInto($"INSERT INTO roomplayer (roomID, userID, playerScore) VALUES ('{roomID}', '{ConfigurationManager.AppSettings["userID"]}',0)");
         }
 
         //Create a tokenString that consists of letters.
