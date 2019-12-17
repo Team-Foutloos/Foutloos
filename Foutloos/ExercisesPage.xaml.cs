@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Foutloos
 {
@@ -18,6 +19,7 @@ namespace Foutloos
         private string tekst;
         private int exerciseID;
         private int amount = 0;
+        private int counter = 0;
 
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
         List<DataRow> amateurExercises = new List<DataRow>();
@@ -25,6 +27,7 @@ namespace Foutloos
         List<DataRow> expertExercises = new List<DataRow>();
         List<DataRow> allExercises = new List<DataRow>();
         List<DataRow> finished = new List<DataRow>();
+        DispatcherTimer timer = new DispatcherTimer();
         Connection c = new Connection();
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
@@ -437,6 +440,11 @@ namespace Foutloos
 
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -476,7 +484,7 @@ namespace Foutloos
                     int amount = int.Parse(txtWords.Text);
                     if(amount < 250)
                     {
-                        startupRandomText(amount);
+                        startupRandomText(amount, false);
                     }
                     else
                     {
@@ -492,9 +500,22 @@ namespace Foutloos
             }
             else if(radioTime.IsChecked == true)
             {
-               
-            }
-                
+                switch (cmbTime.SelectedIndex)
+                {
+                    case 0:
+                        startupRandomText(30, true);
+                        break;
+                    case 1:
+                        startupRandomText(60, true);
+                        break;
+                    case 2:
+                        startupRandomText(180, true);
+                        break;
+                    case 3:
+                        startupRandomText(300, true);
+                        break;
+                }
+            }               
         }
 
         private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -539,31 +560,67 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
 
-        private void startupRandomText(int value)
+        private void startupRandomText(int value, bool timerMode)
         {
             Connection c = new Connection();
 
-            string exerciseText = "";
-
-            DataTable mostMistakes = new DataTable();
-            DataTable dt0 = new DataTable();
-
-            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                $"GROUP BY letter ORDER BY SUM(count) DESC");
-
-            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-            Random rand = new Random();
-
-            for (int i = 0; i < value; i++)
+            if (timerMode)
             {
-                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                if (i != value-1)
+                //The text for the exercise
+                string exerciseText = "";
+
+                //creates new data tabels
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < 500; i++)
                 {
-                    exerciseText += " ";
+                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != 499)
+                    {
+                        exerciseText += " ";
+                    }
                 }
+                Exercise exercise = new Exercise(exerciseText, false, 999);
+                exercise.SetCountdown(value);
+                Application.Current.MainWindow.Content = exercise;
+                
             }
-            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+            else
+            {
+                //The text for the exercise
+                string exerciseText = "";
+
+                //creates new data tabels
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < value; i++)
+                {
+                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != value - 1)
+                    {
+                        exerciseText += " ";
+                    }
+                }
+                Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+            }
         }
 
         //For the randomly generated exercise
@@ -596,19 +653,18 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
 
+        //Enables and Disables inputs specific to the radiobutton it serves 
         private void a(object sender, RoutedEventArgs e)
         {
             if(radioWord.IsChecked == true)
             {
                 txtWords.IsEnabled = true;
                 cmbTime.IsEnabled = false;
-                Console.WriteLine("a");
             }
             else if (radioTime.IsChecked == true)
             {
                 cmbTime.IsEnabled = true;
                 txtWords.IsEnabled = false;
-                Console.WriteLine("b");
             }
         }
     }

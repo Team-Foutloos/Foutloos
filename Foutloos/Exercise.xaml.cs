@@ -32,8 +32,16 @@ namespace Foutloos
         private Thickness userInput_WithKeyboard = new Thickness(183, 452, 183, 0);
         //Timer for displaying elapsed time and calculating the WPM/CPM
         DispatcherTimer timer = new DispatcherTimer();
+        //A countdown timer for generated exercises
+        DispatcherTimer timedExcer = new DispatcherTimer();
+        //Bool to check if the countdown must be enabeld
+        private bool enabletimedExcer = false;
+        //Variable for the amount seconds that needs to be countdown
+        private int counter = 0;
         //Variable for the total amount of seconds that have elapsed
         private int seconds = 0;
+        //Boolean used to determine if the exercise countdown is running
+        private bool counterStarted = false;
         //Boolean used to determine if the timer is running
         private bool timerStarted = false;
         //Int to keep track of characters per minute
@@ -102,6 +110,10 @@ namespace Foutloos
             //Configuring the timer and adding an event
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+
+            //Configuring the countdown and adding an event
+            timedExcer.Interval = TimeSpan.FromSeconds(1);
+            timedExcer.Tick += Countdown_Tick;
 
             //Change text to speech toggle te be turned off by default
             ToggleSpeech.Toggled = false;
@@ -182,6 +194,15 @@ namespace Foutloos
                 {
                     timer.Start();
                     timerStarted = true;
+                }
+
+                if (enabletimedExcer)
+                {
+                    if (!counterStarted)
+                    {
+                        timedExcer.Start();
+                        counterStarted = true;
+                    }
                 }
 
                 //Functionality Toggle Keyboard
@@ -1126,6 +1147,23 @@ namespace Foutloos
             else
             {
                 Application.Current.MainWindow.Content = new HomeScreen();
+            }
+        }
+
+        public void SetCountdown(int amount)
+        {
+            counter = amount;
+            enabletimedExcer = true;
+        }
+
+        private void Countdown_Tick(object sender, EventArgs e)
+        {
+            counter--;
+            if (counter == 0)
+            {
+                timedExcer.Stop();
+                timer.Stop();
+                MessageBox.Show("Game Over");
             }
         }
 
