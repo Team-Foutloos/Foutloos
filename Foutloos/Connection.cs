@@ -175,7 +175,7 @@ namespace Foutloos
             return null;
         }
 
-        public void leaveRoom(int roomID)
+        public void leaveRoom()
         {
             this.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
             this.insertInto($"DELETE FROM roomExercise WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");

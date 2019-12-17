@@ -119,7 +119,7 @@ namespace Foutloos.Multiplayer
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
 
-            c.leaveRoom(roomID);
+            c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }
 
