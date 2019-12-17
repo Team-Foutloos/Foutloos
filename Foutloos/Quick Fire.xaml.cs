@@ -10,16 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WpfAnimatedGif;
 
 namespace Foutloos
 {
     public partial class Quick_Fire : Page
     {
         //Exercise text
-        private string exerciseText = "alpha bravo charlie delta echo foxtrot hotel india juliett kilo mike november oscar papa quebec romeo sierra ";
+        private string exerciseText = "alpha bravo charlie delta echo foxtrot golf hotel india juliett kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whiskey x-ray yankee zulu";
         //Exercise words left
         private Queue<String> exerciseQueueTextLeft = new Queue<string>();
         //Next word used for text to speech
@@ -53,10 +55,32 @@ namespace Foutloos
         //TODO: more time for longer words
         int wordlength;
 
+        //animation stuff
+        TranslateTransform trans;
+        BitmapImage DrivingImage;
+        BitmapImage CrashingImage;
+        
+        
+
         public Quick_Fire()
         {
             InitializeComponent();
+            try
+            {   // load gifs to change CarPicture later
+                DrivingImage = new BitmapImage();
+                DrivingImage.BeginInit();
+                DrivingImage.UriSource = new Uri(@"/assets/Car.gif", UriKind.RelativeOrAbsolute);
+                DrivingImage.EndInit();
 
+                CrashingImage = new BitmapImage();
+                CrashingImage.BeginInit();
+                CrashingImage.UriSource = new Uri(@"/assets/testimage.gif", UriKind.RelativeOrAbsolute);
+                CrashingImage.EndInit();
+            } catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("gif loading failed");
+            }
+            
             //Save every word of exercise in a queue
             string[] e = exerciseText.Split(' ');
             foreach (string s in e)
@@ -140,6 +164,17 @@ namespace Foutloos
                     if (TimeleftBar.Value != 180)
                         TimeleftBar.Value = 180;
                     canType = true;
+
+                    //animates image
+                    ImageBehavior.SetAnimatedSource(CarPicture, DrivingImage);
+                    Vector offset = VisualTreeHelper.GetOffset(CarPicture);
+                    var left = offset.X;
+                    trans = new TranslateTransform();
+                    CarPicture.RenderTransform = trans;
+                    DoubleAnimation anim1 = new DoubleAnimation(0,230-left,TimeSpan.FromSeconds(1));
+                    trans.BeginAnimation(TranslateTransform.XProperty, anim1);
+                    
+                    
                     //adds typing function from user
                     var window = Window.GetWindow(this);
                     window.TextInput += HandleTextComposition;
@@ -176,9 +211,8 @@ namespace Foutloos
             if (!exerciseFinished)
             {
                 if (e.Text == exerciseNextWordLeft.First().ToString())
-                {
+                { //Users input is correct
 
-                    //Users input is correct
                     ExerciseWord_TextBlock.Text = "";
                     ExerciseWord_TextBlock.Inlines.Add(new Run(exerciseNextWordCorrect) { Foreground = Brushes.LightGray });
 
@@ -200,6 +234,8 @@ namespace Foutloos
         }
         private void nextWord(bool TypedCorrectInTime)
         {
+            
+
             //puts timerbased flow back to read-only
             canType = false;
             TimeleftBar.Value = 0;
@@ -211,10 +247,10 @@ namespace Foutloos
             //Update progressbar
             ProgressBar.Value++;
 
-            
 
             if (TypedCorrectInTime)
             {
+                ImageBehavior.SetAnimatedSource(CarPicture, CrashingImage);
                 correctCounter++;
                 streakCounter++;
                 if (topStreak < streakCounter)
@@ -244,6 +280,7 @@ namespace Foutloos
                 exerciseNextWordCorrect = "";
                 exerciseNextWordLeft = exerciseNextWord;
                 ExerciseWord_TextBlock.Text = exerciseNextWord;
+                
             }
             else
             {
