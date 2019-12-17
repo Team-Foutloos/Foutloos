@@ -27,7 +27,6 @@ namespace Foutloos
         List<DataRow> expertExercises = new List<DataRow>();
         List<DataRow> allExercises = new List<DataRow>();
         List<DataRow> finished = new List<DataRow>();
-        DispatcherTimer timer = new DispatcherTimer();
         List<DataRow> GO = new List<DataRow>();
         Connection c = new Connection();
         private Border selectedBorderButton;
