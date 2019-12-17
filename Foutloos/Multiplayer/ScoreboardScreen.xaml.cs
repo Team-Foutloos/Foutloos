@@ -133,6 +133,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            countdownStoryboard.Stop(this);
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }
