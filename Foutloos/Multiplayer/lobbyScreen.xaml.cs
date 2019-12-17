@@ -141,11 +141,7 @@ namespace Foutloos.Multiplayer
         private void createRoom()
         {
             //If the user is already in a room because the game wasn't closed properly this wil remove him from that game in order to make joining a new one possible
-            if(c.ID($"SELECT COUNT(*) FROM RoomPlayer WHERE userID = {ConfigurationManager.AppSettings.Get("userID")}") > 0)
-            {
-                int roomID = int.Parse(c.PullData($"SELECT roomID FROM RoomPlayer WHERE userID = {ConfigurationManager.AppSettings.Get("userID")}").Rows[0][0].ToString());
-                c.leaveRoom(roomID);
-            }
+            c.leaveRoom();
 
             //First get a unique roomID
             roomID = 1;
@@ -193,7 +189,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            c.leaveRoom(roomID);
+            c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
             databaseListener.Abort();
         }
