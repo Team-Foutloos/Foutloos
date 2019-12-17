@@ -33,7 +33,7 @@ namespace Foutloos.Multiplayer
         {
             InitializeComponent();
 
-            textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
+           textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
 
             
 
@@ -58,12 +58,12 @@ namespace Foutloos.Multiplayer
 
             Connection c = new Connection();
             DataTable dt = new DataTable();
-            dt = c.PullData($"SELECT username FROM Usertable WHERE userID IN (SELECT userID FROM RoomPlayer WHERE roomID = {roomID})");
+            dt = c.PullData($"SELECT username, playerScore FROM Usertable U LEFT JOIN RoomPlayer RP ON U.userID = RP.userID WHERE U.userID IN (SELECT userID FROM RoomPlayer WHERE roomID = {roomID})");
 
             foreach(DataRow s in dt.Rows)
             {
                 ListViewItem lvi = new ListViewItem();
-                lvi.Content = $"{s.Field<string>(0)} (0 pt)";
+                lvi.Content = $"{s.Field<string>(0)} ({s.Field<int>(1)} pt)";
                 lvi.Focusable = false;
                 namesList.Items.Add(lvi);
             }

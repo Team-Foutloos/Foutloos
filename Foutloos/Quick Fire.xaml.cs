@@ -10,16 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WpfAnimatedGif;
 
 namespace Foutloos
 {
     public partial class Quick_Fire : Page
     {
         //Exercise text
-        private string exerciseText = "Alpha Bravo Charlie Delta Echo Foxtrot Golf Hotel India Juliett Kilo Lima Mike November Oscar Papa Quebec Romeo Sierra Tango Uniform Victor Whiskey Xray Yankee Zulu";
+        private string exerciseText = "alpha bravo charlie delta echo foxtrot golf hotel india juliett kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whiskey x-ray yankee zulu";
         //Exercise words left
         private Queue<String> exerciseQueueTextLeft = new Queue<string>();
         //Next word used for text to speech
@@ -45,14 +47,40 @@ namespace Foutloos
         int redValue = 0;
         int streakCounter = 0;
         int topStreak = 0;
+        int correctCounter = 0;
 
         //TODO: add difficulty screen
-        int difficulty = 2;
+        int difficultyReading;
+        int difficultyTyping;
+        //TODO: more time for longer words
+        int wordlength;
+
+        //animation stuff
+        TranslateTransform trans;
+        BitmapImage DrivingImage;
+        BitmapImage CrashingImage;
+        
+        
 
         public Quick_Fire()
         {
             InitializeComponent();
+            try
+            {   // load gifs to change CarPicture later
+                DrivingImage = new BitmapImage();
+                DrivingImage.BeginInit();
+                DrivingImage.UriSource = new Uri(@"/assets/Car.gif", UriKind.RelativeOrAbsolute);
+                DrivingImage.EndInit();
 
+                CrashingImage = new BitmapImage();
+                CrashingImage.BeginInit();
+                CrashingImage.UriSource = new Uri(@"/assets/testimage.gif", UriKind.RelativeOrAbsolute);
+                CrashingImage.EndInit();
+            } catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("gif loading failed");
+            }
+            
             //Save every word of exercise in a queue
             string[] e = exerciseText.Split(' ');
             foreach (string s in e)
@@ -82,6 +110,9 @@ namespace Foutloos
 
             }
             ProgressBar.Maximum = counter;
+
+            
+            wordlength = e[0].Length;
         }
 
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
@@ -97,7 +128,7 @@ namespace Foutloos
                 //typing flow
                 if (TimeleftBar.Value > 0)
                 {
-                    TimeleftBar.Value -= 12 * difficulty;
+                    TimeleftBar.Value -= 60 * difficultyTyping / (1 + wordlength / 1);
 
                     if (TimeleftBar.Value > 90)
                     {
@@ -112,6 +143,8 @@ namespace Foutloos
                 }
                 else
                 {
+                    if (TimeleftBar.Value != 0)
+                        TimeleftBar.Value = 0;
                     canType = false;
 
                     //TODO: mistakes++
@@ -125,10 +158,23 @@ namespace Foutloos
                 if (TimeleftBar.Foreground != Brushes.Gray)
                     TimeleftBar.Foreground = Brushes.Gray;
                 if (TimeleftBar.Value < 180)
-                    TimeleftBar.Value += 18 * difficulty;
+                    TimeleftBar.Value += 60 * difficultyReading / (4 + wordlength/8 );
                 else
                 {
+                    if (TimeleftBar.Value != 180)
+                        TimeleftBar.Value = 180;
                     canType = true;
+
+                    //animates image
+                    ImageBehavior.SetAnimatedSource(CarPicture, DrivingImage);
+                    Vector offset = VisualTreeHelper.GetOffset(CarPicture);
+                    var left = offset.X;
+                    trans = new TranslateTransform();
+                    CarPicture.RenderTransform = trans;
+                    DoubleAnimation anim1 = new DoubleAnimation(0,230-left,TimeSpan.FromSeconds(1));
+                    trans.BeginAnimation(TranslateTransform.XProperty, anim1);
+                    
+                    
                     //adds typing function from user
                     var window = Window.GetWindow(this);
                     window.TextInput += HandleTextComposition;
@@ -165,9 +211,8 @@ namespace Foutloos
             if (!exerciseFinished)
             {
                 if (e.Text == exerciseNextWordLeft.First().ToString())
-                {
+                { //Users input is correct
 
-                    //Users input is correct
                     ExerciseWord_TextBlock.Text = "";
                     ExerciseWord_TextBlock.Inlines.Add(new Run(exerciseNextWordCorrect) { Foreground = Brushes.LightGray });
 
@@ -189,6 +234,8 @@ namespace Foutloos
         }
         private void nextWord(bool TypedCorrectInTime)
         {
+            
+
             //puts timerbased flow back to read-only
             canType = false;
             TimeleftBar.Value = 0;
@@ -200,42 +247,40 @@ namespace Foutloos
             //Update progressbar
             ProgressBar.Value++;
 
-            //Update word counter
-            exerciseWordAmountFinished++;
-            ExerciseWordCounter_Label.Content = $"{exerciseWordAmountFinished}/{exerciseWordAmount}";
 
             if (TypedCorrectInTime)
             {
-                if (streak) //Check if the streak is active at the end of a word
-                {   //Update streakcounter when streak is active
-                    streakCounter++;
-                    if (topStreak < streakCounter)
-                        topStreak = streakCounter;
+                ImageBehavior.SetAnimatedSource(CarPicture, CrashingImage);
+                correctCounter++;
+                streakCounter++;
+                if (topStreak < streakCounter)
+                    topStreak = streakCounter;
 
-                    StreakCounter_Label.Content = streakCounter;
-                }
-                else   //Set streak to active when it's not
-                    streak = true;
-
-
+                StreakCounter_Label.Content = streakCounter;
             }
             else //if you failed typing the word
             {
                 //reset streak
-                streak = false;
-                streakCounter = 1;
+                streakCounter = 0;
                 StreakCounter_Label.Content = streakCounter;
 
             }
 
+            //GENERAL CODE FOR NEXT WORD
+            
+            //Update word counter
+            exerciseWordAmountFinished++;
+            ExerciseWordCounter_Label.Content = $"{correctCounter}/{exerciseWordAmountFinished}";
 
             //Check if there are any words left in the exercise
             if (exerciseQueueTextLeft.Count > 0)
             {
                 exerciseNextWord = exerciseQueueTextLeft.Dequeue();
+                wordlength = exerciseNextWord.Length;
                 exerciseNextWordCorrect = "";
                 exerciseNextWordLeft = exerciseNextWord;
                 ExerciseWord_TextBlock.Text = exerciseNextWord;
+                
             }
             else
             {
@@ -245,6 +290,34 @@ namespace Foutloos
             }
         }
 
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 1;
+        }
 
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 2;
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 4;
+        }
+
+        private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 1;
+        }
+
+        private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 2;
+        }
+
+        private void RadioButton_Checked_5(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 4;
+        }
     }
 }

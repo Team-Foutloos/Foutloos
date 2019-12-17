@@ -9,7 +9,9 @@
         WindowState="Maximized"
    WindowStartupLocation="CenterScreen"
         MinWidth="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
-        MinHeight="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Left="0" Top="0">
+        MinHeight="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Left="0" Top="0"
+        Closing="Window_Closing"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
