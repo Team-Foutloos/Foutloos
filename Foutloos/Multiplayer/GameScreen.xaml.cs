@@ -33,7 +33,7 @@ namespace Foutloos.Multiplayer
         {
             InitializeComponent();
 
-            textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
+           textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
 
             
 

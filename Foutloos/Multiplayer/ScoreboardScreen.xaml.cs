@@ -41,7 +41,7 @@ namespace Foutloos.Multiplayer
 
         private void initializeScoreBoard()
         {
-            DataTable playerScoresTotal = c.PullData($"SELECT r.userID, U.username, time FROM roomplayer r JOIN Usertable U ON U.userID = r.userID LEFT JOIN RoomResult rr ON r.roomID = rr.roomID WHERE r.roomID = {roomID} AND rr.roomExerciseID = {exerciseID} GROUP BY U.userID ORDER BY rr.time ASC");
+            DataTable playerScoresTotal = c.PullData($"SELECT username, t.userID, time FROM roomresult t JOIN Usertable U ON t.userID = u.userID WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
 
 
 
@@ -114,8 +114,8 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            countdownStoryboard.Stop(this);
-            c.leaveRoom(roomID);
+
+            c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }
 
