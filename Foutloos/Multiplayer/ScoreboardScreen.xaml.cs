@@ -16,6 +16,7 @@ namespace Foutloos.Multiplayer
         private int exerciseID;
         private Connection c;
         private DataTable players;
+        private Storyboard countdownStoryboard;
 
 
         public ScoreboardScreen(int roomID, int exerciseID)
@@ -103,7 +104,7 @@ namespace Foutloos.Multiplayer
             Storyboard.SetTargetName(countdownAnimation, target.Name);
             Storyboard.SetTargetProperty(countdownAnimation, new PropertyPath(TextBlock.TextProperty));
 
-            var countdownStoryboard = new Storyboard();
+            countdownStoryboard = new Storyboard();
             countdownStoryboard.Children.Add(countdownAnimation);
             countdownStoryboard.Completed += CountdownTimer_Completed;
             countdownStoryboard.Begin(this);
@@ -118,7 +119,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            countdownStoryboard.Stop(this);
             c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
         }

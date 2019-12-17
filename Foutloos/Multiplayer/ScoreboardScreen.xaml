@@ -128,21 +128,7 @@
                         <RowDefinition Height="21*"/>
                         <RowDefinition Height="53*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="Overall scoreboard" FontSize="40"/>
-                    <Grid Name="ranking_grid" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="107" Grid.RowSpan="2" Width="654">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Visibility="Collapsed" FontSize="40" Grid.Row="0" Grid.Column="0" Text="Player1"/>
-                        <TextBlock Visibility="Collapsed"  FontSize="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="Player1"/>
-                        <TextBlock Visibility="Collapsed"  FontSize="40" Grid.Row="1" Grid.Column="0" Text="Player1"/>
-                        <TextBlock Visibility="Collapsed"  FontSize="40" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="Player1"/>
-                    </Grid>
+                    <TextBlock Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="You're currently" FontSize="40"/>
                 </Grid>
             </Grid>
         </Viewbox>
