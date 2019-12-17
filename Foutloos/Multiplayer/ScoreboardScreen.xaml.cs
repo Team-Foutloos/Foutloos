@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,7 @@ namespace Foutloos.Multiplayer
             this.roomID = roomID;
             this.exerciseID = exerciseID;
             c = new Connection();
-            if(exerciseID < 9)
+            if (exerciseID < 9)
             {
                 StartCountdown(CountdownDisplay);
             }
@@ -34,24 +35,39 @@ namespace Foutloos.Multiplayer
             {
                 nextExerciseTextBlock.Text = "Game is finished!";
             }
-            
+
             initializeScoreBoard();
 
         }
 
         private void initializeScoreBoard()
         {
-            DataTable playerScoresTotal = c.PullData($"SELECT username, t.userID, time FROM roomresult t JOIN Usertable U ON t.userID = u.userID WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
 
+            //Get the datatables.
+            DataTable playerScoresTotal = c.PullData($"SELECT playerscore, username, t.userID, time FROM roomresult t JOIN Usertable U ON t.userID = u.userID JOIN roomplayer p ON p.userID = u.userID WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
 
+            //Add the score to the player
+            if (playerScoresTotal.Rows[0]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
+            {
+                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 5 WHERE userID = {int.Parse(playerScoresTotal.Rows[0]["userID"].ToString())}");
+            }
+            else if (playerScoresTotal.Rows[1]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
+            {
+                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 3 WHERE userID = {int.Parse(playerScoresTotal.Rows[0]["userID"].ToString())}");
+            }
+            else if (playerScoresTotal.Rows[2]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
+            {
+                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 1 WHERE userID = {int.Parse(playerScoresTotal.Rows[0]["userID"].ToString())}");
+            }
+
+            DataTable playerStanding = c.PullData($"SELECT playerscore, userID from roomplayer WHERE roomID = {roomID}");
 
 
             //Check how many players are in the room
             for (int i = 0; i < playerScoresTotal.Rows.Count; i++)
             {
-                DataTable playerScores = c.PullData($"SELECT time FROM RoomResult WHERE roomID = {roomID} AND userID = {playerScoresTotal.Rows[i]["userID"].ToString()} AND roomExerciseID = {exerciseID}");
                 //Show the UI place
-                Grid medalGrid = (Grid) scoreboardThisRound_grid.Children[i];
+                Grid medalGrid = (Grid)scoreboardThisRound_grid.Children[i];
                 TextBlock playerName = (TextBlock)medalGrid.Children[0];
                 playerName.Text = playerScoresTotal.Rows[i]["username"].ToString();
                 medalGrid.Visibility = Visibility.Visible;
@@ -63,26 +79,26 @@ namespace Foutloos.Multiplayer
 
 
                 //Set the score under the positions
-                TextBlock playerPositionResult = (TextBlock)scoreTexts.Children[i*3];
-                TextBlock playerNameResult = (TextBlock)scoreTexts.Children[i*3+1];
-                TextBlock playerTimeResult = (TextBlock)scoreTexts.Children[i*3+2];
+                TextBlock playerPositionResult = (TextBlock)scoreTexts.Children[i * 3];
+                TextBlock playerNameResult = (TextBlock)scoreTexts.Children[i * 3 + 1];
+                TextBlock playerTimeResult = (TextBlock)scoreTexts.Children[i * 3 + 2];
 
-                playerTimeResult.Text = TimeSpan.FromMilliseconds((int.Parse(playerScores.Rows[0]["time"].ToString())) * 10 ).ToString("ss':'fff");
+                playerTimeResult.Text = TimeSpan.FromMilliseconds((int.Parse(playerScoresTotal.Rows[i]["time"].ToString())) * 10).ToString("ss':'fff");
 
                 playerPositionResult.Visibility = Visibility.Visible;
                 playerNameResult.Visibility = Visibility.Visible;
                 playerTimeResult.Visibility = Visibility.Visible;
 
                 playerNameResult.Text = playerScoresTotal.Rows[i]["username"].ToString();
-
-                //Set the standing for the player text
-                playercurrent.Text = playercurrent.Text + playerScoresTotal.Rows[i]["username"].ToString();
-
-
             }
 
 
+            for (int i = 0; i < playerStanding.Rows.Count; i++)
+            {
+                playercurrent.Text = playercurrent.Text.ToString() + i + 1;
+            }
         }
+        
 
 
         private void StartCountdown(FrameworkElement target)
@@ -114,7 +130,6 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }
