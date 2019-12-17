@@ -19,7 +19,7 @@ namespace Foutloos
     public partial class Quick_Fire : Page
     {
         //Exercise text
-        private string exerciseText = "a bier a day keeps the hoofdpijn away";
+        private string exerciseText = "alpha bravo charlie delta echo foxtrot hotel india juliett kilo mike november oscar papa quebec romeo sierra ";
         //Exercise words left
         private Queue<String> exerciseQueueTextLeft = new Queue<string>();
         //Next word used for text to speech
@@ -45,6 +45,7 @@ namespace Foutloos
         int redValue = 0;
         int streakCounter = 0;
         int topStreak = 0;
+        int correctCounter = 0;
 
         //TODO: add difficulty screen
         int difficultyReading;
@@ -210,35 +211,30 @@ namespace Foutloos
             //Update progressbar
             ProgressBar.Value++;
 
-            //Update word counter
-            exerciseWordAmountFinished++;
-            ExerciseWordCounter_Label.Content = $"{exerciseWordAmountFinished}/{exerciseWordAmount}";
+            
 
             if (TypedCorrectInTime)
             {
-                if (streak) //Check if the streak is active at the end of a word
-                {   //Update streakcounter when streak is active
-                    streakCounter++;
-                    if (topStreak < streakCounter)
-                        topStreak = streakCounter;
+                correctCounter++;
+                streakCounter++;
+                if (topStreak < streakCounter)
+                    topStreak = streakCounter;
 
-                    StreakCounter_Label.Content = streakCounter;
-                }
-                else   //Set streak to active when it's not
-                    streak = true;
-
-
+                StreakCounter_Label.Content = streakCounter;
             }
             else //if you failed typing the word
             {
                 //reset streak
-                streak = false;
                 streakCounter = 0;
                 StreakCounter_Label.Content = streakCounter;
 
             }
 
             //GENERAL CODE FOR NEXT WORD
+            
+            //Update word counter
+            exerciseWordAmountFinished++;
+            ExerciseWordCounter_Label.Content = $"{correctCounter}/{exerciseWordAmountFinished}";
 
             //Check if there are any words left in the exercise
             if (exerciseQueueTextLeft.Count > 0)
