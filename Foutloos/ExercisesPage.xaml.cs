@@ -60,19 +60,8 @@ namespace Foutloos
                 //Adds the packages for all the packages available in the account.
                 foreach (int i in packages)
                 {                    
-                    dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");
-
-                    exercises.Add(amateurExercises);
-                    exercises.Add(normalExercises);
-                    exercises.Add(expertExercises);
-                    exercises.Add(allExercises);
-                    exercises.Add(finished);
-                    exercises.Add(GO);
-                    exercises.Add(C);
-                    exercises.Add(SC);
-                    exercises.Add(JKR);
-
-
+                    dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");                                      
+                    
 
                     if (i == 2)
                     {
@@ -102,7 +91,8 @@ namespace Foutloos
                     foreach (DataRow row in dt.Rows)
                     {
                         
-                        string difficulty = row["difficulty"].ToString();                        
+                        string difficulty = row["difficulty"].ToString();
+                        string package = row["packageID"].ToString();
 
                         exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
                         exercises[3].Add(row);
@@ -166,9 +156,10 @@ namespace Foutloos
                 string ID = row["exerciseID"].ToString();
                 string text = row["text"].ToString();
                 string difficulty = row["difficulty"].ToString();
-                string package = row["packageID"].ToString();
+                
 
                 exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
+               
                 exercises[3].Add(row);                
                 amount++;
 
@@ -227,10 +218,10 @@ namespace Foutloos
             calculate(1, "Grid_Normal", exercises[1].Count, 1);
             calculate(2, "Grid_Expert", exercises[2].Count, 1);
             calculate(3, "Grid_Finished", amount, 1);
-            calculate(4, "Grid_GO", exercises[5].Count, 2);
-            calculate(5, "Grid_C", exercises[6].Count, 3);
-            calculate(6, "Grid_SC", exercises[7].Count, 4);
-            calculate(7, "Grid_JKR", exercises[8].Count, 5);
+            calculate(3, "Grid_GO", exercises[5].Count, 2);
+            calculate(3, "Grid_C", exercises[6].Count, 3);
+            calculate(3, "Grid_SC", exercises[7].Count, 4);
+            calculate(3, "Grid_JKR", exercises[8].Count, 5);
                        
 
 
@@ -330,8 +321,8 @@ namespace Foutloos
                     else
                     {
                         completedIcon.Visibility = Visibility.Hidden;
-                    }                    
-                    
+                    }
+
                     Grid.SetColumn(borderButton, j + 1);
 
                     //Add the mouseEnter and mouseLeave event to the borderButton;
@@ -353,7 +344,7 @@ namespace Foutloos
                         Grid_All.Children.Add(borderButton);
                         borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
 
-                       
+
                     }
                     if (gridName == "Grid_Amateur")
                     {
@@ -378,23 +369,7 @@ namespace Foutloos
                             i++;
                             exnum++;
                         }
-                    }
-                    if (gridName == "Grid_GO")
-                    {
-                        Grid_GO.Children.Add(borderButton);
-                    }
-                    if (gridName == "Grid_C")
-                    {
-                        Grid_C.Children.Add(borderButton);
-                    }
-                    if (gridName == "Grid_SC")
-                    {
-                        Grid_C.Children.Add(borderButton);
-                    }
-                    if (gridName == "Grid_JKR")
-                    {
-                        Grid_JKR.Children.Add(borderButton);
-                    }
+                    }                    
                     else
                     {
                         //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
@@ -410,8 +385,87 @@ namespace Foutloos
                         x += 2;
                         j = 0;
                     }
-                }             
+                }
+                //if (packageID == 2)
+                //{
+                //    foreach (var exercise in exercises[5])
+                //    {
+                //        //Save the difficulty so that you can use it easily later
+                //        int dif = (int)Int64.Parse(exercise["difficulty"].ToString());
 
+
+                //        //Create the main button.
+                //        BorderButton button = new BorderButton(dif);
+                //        Border borderButton = button.getButton();
+                //        Grid borderGrid = (Grid)borderButton.Child;
+                //        Image completedIcon = (Image)borderGrid.Children[2];
+                //        TextBlock l1 = (TextBlock)borderGrid.Children[0];
+
+                //        int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+
+
+                //        DataTable finished = new DataTable();
+                //        finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
+
+                //        if (finished.Rows.Count > 0)
+                //        {
+                //            completedIcon.Visibility = Visibility.Visible;
+                //            scroll++;
+                //        }
+                //        else
+                //        {
+                //            completedIcon.Visibility = Visibility.Hidden;
+                //        }
+
+                //        Grid.SetColumn(borderButton, j + 1);
+
+                //        //Add the mouseEnter and mouseLeave event to the borderButton;
+                //        borderButton.MouseEnter += BorderButton_MouseEnter;
+                //        borderButton.MouseLeave += BorderButton_MouseLeave;
+
+
+                //        //Add the right color to the borders according to the level
+                //        borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
+
+                //        //iets met stackpanel
+                //        Grid.SetRow(borderButton, x);
+                //        borderButton.Name = $"E{i}";
+                //        l1.Text = $"Excercise: {exnum}";
+
+                //        if (gridName == "Grid_GO")
+                //        {
+                //            Grid_GO.Children.Add(borderButton);
+                //        }
+                //        if (gridName == "Grid_C")
+                //        {
+                //            Grid_C.Children.Add(borderButton);
+                //        }
+                //        if (gridName == "Grid_SC")
+                //        {
+                //            Grid_C.Children.Add(borderButton);
+                //        }
+                //        if (gridName == "Grid_JKR")
+                //        {
+                //            Grid_JKR.Children.Add(borderButton);
+                //        }
+                //        else
+                //        {
+                //            //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
+                //            j += 2;
+                //            i++;
+                //            exnum++;
+                //        }
+
+                //        //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
+                //        //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
+                //        if (i % 4 == 0 && i != 0)
+                //        {
+                //            x += 2;
+                //            j = 0;
+                //        }
+                //    }
+
+                //}
             }
             
 
