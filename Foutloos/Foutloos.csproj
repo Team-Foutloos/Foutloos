@@ -108,8 +108,17 @@
     <Compile Include="Multiplayer\lobbyScreen.xaml.cs">
       <DependentUpon>lobbyScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Multiplayer\ScoreboardScreen.xaml.cs">
+      <DependentUpon>ScoreboardScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Multiplayer\ServerBrowser.xaml.cs">
+      <DependentUpon>ServerBrowser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Multiplayer\tokenScreen.xaml.cs">
       <DependentUpon>tokenScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Quick Fire.xaml.cs">
+      <DependentUpon>Quick Fire.xaml</DependentUpon>
     </Compile>
     <Compile Include="RandomExcersice.xaml.cs">
       <DependentUpon>RandomExcersice.xaml</DependentUpon>
@@ -214,7 +223,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Multiplayer\ScoreboardScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Multiplayer\ServerBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Multiplayer\tokenScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Quick Fire.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

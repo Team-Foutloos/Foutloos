@@ -79,7 +79,7 @@ namespace Foutloos
             }
             else
             {
-                Application.Current.MainWindow.Content = new Exercise("”Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program Boston's This sëntence is typed in an amazing program", true, 0);
+                Application.Current.MainWindow.Content = new Quick_Fire();    
             }
 
         }
@@ -241,6 +241,7 @@ namespace Foutloos
         private void MultiPlayerBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+
                 Application.Current.MainWindow.Content = new Multiplayer.tokenScreen();
             else
             {

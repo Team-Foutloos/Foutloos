@@ -72,6 +72,8 @@ namespace Foutloos.Multiplayer
             //Collapse the button Start so the player can't see it, only the owner can, and show the motivating text
             share_textblock.Text = "Tell him to hurry up please, we cannot wait to see you beat him.";
             token_textblock.Text = "Waiting for the host to start!";
+
+            //Change this
             startMatch_button.Visibility = Visibility.Collapsed;
             
         }
@@ -82,7 +84,19 @@ namespace Foutloos.Multiplayer
             while (true)
             {
                 players = c.PullData($"SELECT username FROM usertable u JOIN roomplayer r ON u.userID = r.userID WHERE r.roomID = {roomID} ");
-                
+
+                DataTable hasStarted = (c.PullData($"SELECT hasStarted FROM room WHERE roomID = {roomID}"));
+                if ((bool)hasStarted.Rows[0]["hasStarted"])
+                {
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+
+                        Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+                        databaseListener.Abort();
+                    });
+                }
+               
 
                 for (int i = 0; i < players.Rows.Count; i++)
                 {
@@ -126,38 +140,70 @@ namespace Foutloos.Multiplayer
 
         private void createRoom()
         {
+            //If the user is already in a room because the game wasn't closed properly this wil remove him from that game in order to make joining a new one possible
+            if(c.ID($"SELECT COUNT(*) FROM RoomPlayer WHERE userID = {ConfigurationManager.AppSettings.Get("userID")}") > 0)
+            {
+                int roomID = int.Parse(c.PullData($"SELECT roomID FROM RoomPlayer WHERE userID = {ConfigurationManager.AppSettings.Get("userID")}").Rows[0][0].ToString());
+                c.leaveRoom(roomID);
+            }
+
             //First get a unique roomID
             roomID = 1;
             roomID = (c.ID("SELECT Max(roomID) FROM room")) + 1;
 
             //Then create a new room in the room table
-            c.insertInto($"INSERT INTO room (roomID, roomToken) VALUES ('{roomID}','{createTokenString()}')");
+            c.insertInto($"INSERT INTO room (roomID, roomToken, hasStarted) VALUES ('{roomID}','{createTokenString()}',0)");
 
             //Add the token to the token_textblock
             token_textblock.Text = token_textblock.Text + tokenString;
-            
+
+
+            //Add the exercises to the database
+            createExercises();
         }
 
-        private void leaveRoom()
+        private void createExercises()
         {
-            c.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
+            //Get all the words from dictionary so you can put them in exercises later
+            DataTable words = new DataTable();
+            Random rand = new Random();
+            words = c.PullData($"SELECT * FROM Dictionary");
 
-            //Check if the room is empy, if it is, delete the room.
-            c.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
-            
+            //Create 10 exercises and add them in a for loop
+            for (int i = 0; i < 10; i++)
+            {
+                string exercise = "";
+
+                for (int j = 0; j < 8; j++)
+                {
+                    exercise += words.Rows[rand.Next(0, words.Rows.Count)]["list"].ToString();
+                    exercise += " ";
+                }
+                exercise.Remove(exercise.Length-1);
+
+                c.insertInto($"INSERT INTO roomExercise VALUES ({i},{roomID},'{exercise}')");
+
+
+
+            }
         }
+
 
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            leaveRoom();
+            c.leaveRoom(roomID);
             Application.Current.MainWindow.Content = new tokenScreen();
+            databaseListener.Abort();
         }
 
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Content = new GameScreen(roomID);
+            //Start the game
+            c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
+            Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+            databaseListener.Abort();
         }
     }
 }

@@ -73,28 +73,34 @@
                     </Border>
                 </Grid>
 
-                <!-- All exercises button, its not actually a button but a textblock wrapped inside of a border, the click and hover events are given to this button in the class -->
-                <local:ThemedButton x:Name="allExercisesBtn" DynamicTextRegular="See all exercises" Grid.Row="3" Grid.Column="1" Margin="349.333,1,350.333,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="AllExercisesBtn_PreviewMouseDown" Grid.RowSpan="1" />
+                <Grid Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="302.333,0,302.333,69" Grid.Row="3" Grid.Column="1" Height="234">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!-- All exercises button, its not actually a button but a textblock wrapped inside of a border, the click and hover events are given to this button in the class -->
+                    <local:ThemedButton x:Name="allExercisesBtn" DynamicTextRegular="See all exercises" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="50" Width="247" PreviewMouseDown="AllExercisesBtn_PreviewMouseDown" Grid.RowSpan="1" />
 
-                <Grid Visibility="Visible" Grid.ColumnSpan="1" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="0.333,278.667,0.333,12" Grid.RowSpan="2">
-                    <local:ThemedButton x:Name="multiPlayerBtn" DynamicTextRegular="Play Multiplayer" Grid.Row="3" Grid.Column="1" Margin="349.333,99,350.333,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="MultiPlayerBtn_PreviewMouseDown"/>
-                    <Image Grid.Column="1" Source="assets/new.png" HorizontalAlignment="Left" Height="62" Margin="319.333,73,0,0" Grid.Row="3" VerticalAlignment="Top" Width="62"/>
+                    <Grid Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+                        <local:ThemedButton x:Name="multiPlayerBtn" DynamicTextRegular="Play Multiplayer" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="MultiPlayerBtn_PreviewMouseDown"/>
+                        <Image Source="assets/new.png" HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="62" Margin="-30,-20,0,0"/>
+                    </Grid>
+                    <!-- In this grid all of the buttons that you see in the bottom are located, they arent actually buttons, but textblocks wrapped inside of borders.-->
+                    <Grid Name="ButtonRowAccount" Grid.Row="2" Height="41" Width="342" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                        <local:ThemedButton x:Name="LoginBtn" DynamicTextRegular="Login" PreviewMouseDown="LoginBtn_PreviewMouseDown" Margin="0,0,194,0" />
+
+                        <Label Content="or" HorizontalAlignment="Center" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
+
+                        <local:ThemedButton x:Name="RegisterBtn" DynamicTextRegular="Register" PreviewMouseDown="RegisterBtn_PreviewMouseDown" Margin="194,0,0,0" />
+
+
+                    </Grid>
+                    <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed" HorizontalAlignment="Center" Height="50" Grid.Row="2" VerticalAlignment="Bottom" Width="250" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress" PreviewMouseDown="seeProgressBtn_PreviewMouseDown"/>
+
+
                 </Grid>
-                <!-- In this grid all of the buttons that you see in the bottom are located, they arent actually buttons, but textblocks wrapped inside of borders.-->
-                <Grid Name="ButtonRowAccount" Grid.Column="1" Grid.Row="3" Margin="300.333,0,304.333,60" Height="41" Width="342" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-
-                    <local:ThemedButton x:Name="LoginBtn" DynamicTextRegular="Login" PreviewMouseDown="LoginBtn_PreviewMouseDown" Margin="0,0,194,0" />
-
-                    <Label Content="or" HorizontalAlignment="Center" VerticalAlignment="Top" Height="39" Width="35" FontSize="20"/>
-
-                    <local:ThemedButton x:Name="RegisterBtn" DynamicTextRegular="Register" PreviewMouseDown="RegisterBtn_PreviewMouseDown" Margin="194,0,0,0" />
-
-
-                </Grid>
-                <local:ThemedButton x:Name="seeProgressBtn" Visibility="Collapsed"  Grid.Column="1" HorizontalAlignment="Center" Height="75" Margin="0,0,0,60" Grid.Row="3" VerticalAlignment="Bottom" Width="289" RenderTransformOrigin="0.5,0.5" DynamicTextRegular="See your progress" PreviewMouseDown="seeProgressBtn_PreviewMouseDown"/>
-
-
-
             </Grid>
         </Viewbox>
     </Grid>

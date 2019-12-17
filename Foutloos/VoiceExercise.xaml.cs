@@ -276,7 +276,7 @@ namespace Foutloos
                             int resultID = 1;
                             resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
                             //The query to insert the result into the result table
-                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, dateOfCreation, speech) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID}, '{DateTime.Now}', 1)";
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, speech) VALUES ({resultID}, {mistakesNumber}, {second}, {avgWPM}, {avgCPM}, {userID}, {exerciseID}, 1)";
                             //Executing the query
                             if (c.insertInto(CmdString))
                             {

@@ -76,6 +76,9 @@ namespace Foutloos
             //Set users focus on the users inputbox
             UserInput_TextBox.Focus();
 
+            //Set language of keyboard for exercise
+            //int lang = InputLanguage.InstalledInputLanguages.IndexOf(InputLanguage.CurrentInputLanguage);
+
             //Show exercise text on the page
             this.exerciseText = text;
             exerciseStringLeft = text;
@@ -491,9 +494,23 @@ namespace Foutloos
                                     //Move special character instruction bubble
                                     Point location = UserInput_TextBox.GetRectFromCharacterIndex(UserInput_TextBox.CaretIndex).TopLeft;
                                     SpecialChar.Margin = new Thickness(location.X + 150, location.Y, 0, 0);
+                                    
+                                    //Check for spellcheck special characters
+                                    char nextChar = exerciseStringLeft.First();
+                                    if (nextChar == 8217)
+                                    {
+                                        nextChar = (char)39;
+                                    }
+                                    else if (nextChar == 8220 || nextChar == 8221)
+                                    {
+                                        nextChar = (char)34;
+                                    }
+                                    else if (nextChar == 8211)
+                                    {
+                                        nextChar = (char)45;
+                                    }
 
-                                    //Check for special characters
-                                    if (exerciseStringLeft.First() > 220 && specialCharacters)
+                                    if (nextChar > 220 && specialCharacters)
                                     {
                                         SpecialChar.Visibility = Visibility.Visible;
                                         SpecialChar.ChangeText(exerciseStringLeft.First());
@@ -569,6 +586,10 @@ namespace Foutloos
                 else if (nextChar == 8220 || nextChar == 8221)
                 {
                     nextChar = (char)34;
+                }
+                else if (nextChar == 8211)
+                {
+                    nextChar = (char)45;
                 }
                 string nextString = e.Text;
                 //Change users input based on the next character
@@ -677,6 +698,10 @@ namespace Foutloos
                         {
                             first = (char)34;
                         }
+                        else if(first == 8211)
+                        {
+                            first = (char)45;
+                        }
                         if (first > 220 && specialCharacters)
                         {
                             SpecialChar.Visibility = Visibility.Visible;
@@ -740,7 +765,7 @@ namespace Foutloos
                             int resultID = 1;
                             resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
                             //The query to insert the result into the result table
-                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, dateOfCreation, speech) VALUES ({resultID}, {mistakes}, {seconds}, {wordspm}, {charspm}, {userID}, {exerciseID}, '{DateTime.Now}', 0)";
+                            string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, speech) VALUES ({resultID}, {mistakes}, {seconds}, {wordspm}, {charspm}, {userID}, {exerciseID}, 0)";
                             //Executing the query
                             if (c.insertInto(CmdString))
                             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -41,15 +42,20 @@ namespace Foutloos
         public List<int> getPackages(string query)
         {
             List<int> packages = new List<int>();
+            SqlConnection conn = new SqlConnection(connectionstring);
+            conn.Open();
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionstring))
+
+                
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    conn.Open();
-                    packages.Add((Int32)cmd.ExecuteScalar());
-                    conn.Close();
+                    while (reader.Read())
+                    {
+                        packages.Add(reader.GetInt32(0));
+                    }
                 }
 
 
@@ -58,6 +64,7 @@ namespace Foutloos
             {
 
             }
+            conn.Close();
 
             return packages;
 
@@ -166,6 +173,14 @@ namespace Foutloos
             }
 
             return null;
+        }
+
+        public void leaveRoom(int roomID)
+        {
+            this.insertInto($"DELETE FROM roomplayer WHERE userID = {ConfigurationManager.AppSettings["userID"]}");
+            this.insertInto($"DELETE FROM roomExercise WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
+            //Check if the room is empy, if it is, delete the room.
+            this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
         }
 
     }

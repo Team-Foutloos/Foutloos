@@ -158,23 +158,27 @@ namespace Foutloos
             {
                 if (license == 2)
                 {
-                    l.Append("George Orwell Pack" + "\n");
+                    l.Append("George Orwell Pack \n");
                 }
                 if (license == 3)
                 {
-                    l.Append("Special Character Pack" + "\n");
+                    l.Append("C# Pack \n");
                 }
                 if (license == 4)
                 {
-                    l.Append("Stephen King Pack" + "\n");
+                    l.Append("Special Characters \n");
                 }
                 if (license == 5)
                 {
-                    l.Append("J.K. Rowling Pack" + "\n");
+                    l.Append("J.K. Rowling Pack \n");
                 }
                 if (license == 6)
                 {
-                    l.Append("Star Wars Pack" + "\n");
+                    l.Append("Star Wars Pack \n");
+                }
+                if (license == 7)
+                {
+                    l.Append("Auto generating Pack");
                 }
 
             }
