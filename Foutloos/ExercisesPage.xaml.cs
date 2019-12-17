@@ -26,6 +26,9 @@ namespace Foutloos
         List<DataRow> allExercises = new List<DataRow>();
         List<DataRow> finished = new List<DataRow>();
         List<DataRow> GO = new List<DataRow>();
+        List<DataRow> C = new List<DataRow>();
+        List<DataRow> SC = new List<DataRow>();
+        List<DataRow> JKR = new List<DataRow>();
         Connection c = new Connection();
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
@@ -37,7 +40,7 @@ namespace Foutloos
             Modals.loadingModal loadingIndicator = new Modals.loadingModal();
             InitializeComponent();
             loadingIndicator.Show();
-            AddButton();
+            AddButton(1);
             loadingIndicator.Close();
         }
 
@@ -65,14 +68,31 @@ namespace Foutloos
                     exercises.Add(allExercises);
                     exercises.Add(finished);
                     exercises.Add(GO);
+                    exercises.Add(C);
+                    exercises.Add(SC);
+                    exercises.Add(JKR);
 
 
 
                     if (i == 2)
                     {
-                        
-                        //GeorgeOrwell.Visibility = Visibility.Visible;
-                        
+                        Grid_GO.Visibility = Visibility.Visible;
+                        Tab_GO.Visibility = Visibility.Visible;
+                    }
+                    if (i == 3)
+                    {
+                        Grid_C.Visibility = Visibility.Visible;
+                        Tab_C.Visibility = Visibility.Visible;
+                    }
+                    if (i == 4)
+                    {
+                        Grid_SC.Visibility = Visibility.Visible;
+                        Tab_SC.Visibility = Visibility.Visible;
+                    }
+                    if (i == 5)
+                    {
+                        Grid_JKR.Visibility = Visibility.Visible;
+                        Tab_JKR.Visibility = Visibility.Visible;
                     }
                     if (i == 7)
                     {
@@ -82,11 +102,30 @@ namespace Foutloos
                     foreach (DataRow row in dt.Rows)
                     {
                         
-                        string difficulty = row["difficulty"].ToString();
+                        string difficulty = row["difficulty"].ToString();                        
 
                         exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
                         exercises[3].Add(row);
-                        amount++;
+
+                        if (i == 2)
+                        {
+                            exercises[5].Add(row);
+                        }
+                        if (i == 3)
+                        {
+                            exercises[6].Add(row);
+                        }
+                        if (i == 4)
+                        {
+                            exercises[7].Add(row);
+                        }
+                        if (i == 5)
+                        {
+                            exercises[8].Add(row);
+                        }
+
+                        amount++;                    
+                                               
 
                     }
                 }
@@ -96,16 +135,14 @@ namespace Foutloos
             {
 
             }
-        }
+        }               
 
-       
-
-        private void AddButton()
+        private void AddButton(int p)
         {
             DataTable dt = new DataTable();
 
             //standard package that always gets added.
-            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
+            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {p}");
 
             //Create all the lists of exercises and add them to the main list (exercises)
             //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
@@ -117,6 +154,9 @@ namespace Foutloos
             exercises.Add(allExercises);
             exercises.Add(finished);
             exercises.Add(GO);
+            exercises.Add(C);
+            exercises.Add(SC);
+            exercises.Add(JKR);
 
 
             amount = 0;
@@ -129,7 +169,7 @@ namespace Foutloos
                 string package = row["packageID"].ToString();
 
                 exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
-                exercises[3].Add(row);
+                exercises[3].Add(row);                
                 amount++;
 
             }
@@ -163,6 +203,21 @@ namespace Foutloos
             Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
+            //The standard left and top margin are added for grid C#.
+            Grid_C.ShowGridLines = true;
+            Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid Special Characters.
+            Grid_SC.ShowGridLines = true;
+            Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
+            //The standard left and top margin are added for grid JKR.
+            Grid_JKR.ShowGridLines = true;
+            Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+
 
 
             AddDLC();
@@ -172,8 +227,11 @@ namespace Foutloos
             calculate(1, "Grid_Normal", exercises[1].Count, 1);
             calculate(2, "Grid_Expert", exercises[2].Count, 1);
             calculate(3, "Grid_Finished", amount, 1);
-            calculate(4, "Grid_GO", exercises[4].Count, 2);
-           
+            calculate(4, "Grid_GO", exercises[5].Count, 2);
+            calculate(5, "Grid_C", exercises[6].Count, 3);
+            calculate(6, "Grid_SC", exercises[7].Count, 4);
+            calculate(7, "Grid_JKR", exercises[8].Count, 5);
+                       
 
 
         }
@@ -221,6 +279,21 @@ namespace Foutloos
                     Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
                     Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
                 }
+                if (gridName == "Grid_C")
+                {
+                    Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_SC")
+                {
+                    Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
+                if (gridName == "Grid_JKR")
+                {
+                    Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                    Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                }
 
 
 
@@ -257,11 +330,8 @@ namespace Foutloos
                     else
                     {
                         completedIcon.Visibility = Visibility.Hidden;
-                    }
-
-
-
-
+                    }                    
+                    
                     Grid.SetColumn(borderButton, j + 1);
 
                     //Add the mouseEnter and mouseLeave event to the borderButton;
@@ -282,6 +352,8 @@ namespace Foutloos
                     {
                         Grid_All.Children.Add(borderButton);
                         borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
+
+                       
                     }
                     if (gridName == "Grid_Amateur")
                     {
@@ -311,6 +383,18 @@ namespace Foutloos
                     {
                         Grid_GO.Children.Add(borderButton);
                     }
+                    if (gridName == "Grid_C")
+                    {
+                        Grid_C.Children.Add(borderButton);
+                    }
+                    if (gridName == "Grid_SC")
+                    {
+                        Grid_C.Children.Add(borderButton);
+                    }
+                    if (gridName == "Grid_JKR")
+                    {
+                        Grid_JKR.Children.Add(borderButton);
+                    }
                     else
                     {
                         //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
@@ -326,7 +410,7 @@ namespace Foutloos
                         x += 2;
                         j = 0;
                     }
-                }              
+                }             
 
             }
             
@@ -361,8 +445,26 @@ namespace Foutloos
                 }
                 if (gridName == "Grid_GO")
                 {
-                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+                    Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_C")
+                {
+                    Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_SC")
+                {
+                    Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+
+                }
+                if (gridName == "Grid_JKR")
+                {
+                    Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                    Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
             }
@@ -374,6 +476,12 @@ namespace Foutloos
                     Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
 
                 }
+            }
+
+            if (packageID == 2)
+            {
+
+
             }
         }
 
