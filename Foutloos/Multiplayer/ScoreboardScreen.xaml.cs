@@ -66,30 +66,52 @@ namespace Foutloos.Multiplayer
             //Check how many players are in the room
             for (int i = 0; i < playerScoresTotal.Rows.Count; i++)
             {
+
                 //Show the UI place
                 Grid medalGrid = (Grid)scoreboardThisRound_grid.Children[i];
                 TextBlock playerName = (TextBlock)medalGrid.Children[0];
                 playerName.Text = playerScoresTotal.Rows[i]["username"].ToString();
                 medalGrid.Visibility = Visibility.Visible;
 
-                Grid scoreGrid = (Grid)scoreboardThisRound_grid.Children[4];
-
-                Border scoreBorder = (Border)scoreGrid.Children[0];
-                Grid scoreTexts = (Grid)scoreBorder.Child;
+                Grid playerGrid = new Grid { Width = 500, HorizontalAlignment = HorizontalAlignment.Center, };
 
 
-                //Set the score under the positions
-                TextBlock playerPositionResult = (TextBlock)scoreTexts.Children[i * 3];
-                TextBlock playerNameResult = (TextBlock)scoreTexts.Children[i * 3 + 1];
-                TextBlock playerTimeResult = (TextBlock)scoreTexts.Children[i * 3 + 2];
+                //Create all the column definitions
+                ColumnDefinition column_stand = new ColumnDefinition();
+                ColumnDefinition column_name = new ColumnDefinition();
+                ColumnDefinition column_time = new ColumnDefinition();
+                ColumnDefinition column_score = new ColumnDefinition();
+                
+                //Add the column to the grid
+                playerGrid.ColumnDefinitions.Add(column_stand);
+                playerGrid.ColumnDefinitions.Add(column_name);
+                playerGrid.ColumnDefinitions.Add(column_time);
+                playerGrid.ColumnDefinitions.Add(column_score);
 
-                playerTimeResult.Text = TimeSpan.FromMilliseconds((int.Parse(playerScoresTotal.Rows[i]["time"].ToString())) * 10).ToString("ss':'fff");
 
-                playerPositionResult.Visibility = Visibility.Visible;
-                playerNameResult.Visibility = Visibility.Visible;
-                playerTimeResult.Visibility = Visibility.Visible;
+                TextBlock pos = new TextBlock { Text = (i + 1).ToString(), FontSize = 20, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center };
+                TextBlock name = new TextBlock { Text = playerScoresTotal.Rows[i]["username"].ToString(), FontSize = 20, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center };
+                TextBlock time = new TextBlock { Text = TimeSpan.FromMilliseconds((int.Parse(playerScoresTotal.Rows[i]["time"].ToString())) * 10).ToString("ss':'fff").ToString(), FontSize = 20, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center };
+                TextBlock totalScore = new TextBlock { Text = playerScoresTotal.Rows[i]["playerscore"].ToString(), FontSize = 20, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center };
+                //Position
+                playerGrid.Children.Add(pos);
+                //Name
+                playerGrid.Children.Add(name);
+                //Time
+                playerGrid.Children.Add(time);
+                //TotalScore
+                playerGrid.Children.Add(totalScore);
 
-                playerNameResult.Text = playerScoresTotal.Rows[i]["username"].ToString();
+                Grid.SetColumn(pos, 0);
+                Grid.SetColumn(name, 1);
+                Grid.SetColumn(time, 2);
+                Grid.SetColumn(totalScore, 3);
+
+
+
+
+                player_listBox.Items.Add(playerGrid);
+
             }
 
 
@@ -130,6 +152,10 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!countdownStoryboard.GetIsPaused())
+            {
+                countdownStoryboard.Pause(this);
+            }
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }

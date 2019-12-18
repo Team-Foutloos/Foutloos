@@ -173,9 +173,10 @@ namespace Foutloos.Multiplayer
                 for (int j = 0; j < 8; j++)
                 {
                     exercise += words.Rows[rand.Next(0, words.Rows.Count)]["list"].ToString();
+
+                    if (j != 7)
                     exercise += " ";
                 }
-                exercise.Remove(exercise.Length-1);
 
                 c.insertInto($"INSERT INTO roomExercise VALUES ({i},{roomID},'{exercise}')");
 
