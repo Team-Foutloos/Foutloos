@@ -18,6 +18,7 @@ namespace Foutloos
         private string tekst;
         private int exerciseID;
         private int amount = 0;
+        private int nameID = 0;
 
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
         List<DataRow> amateurExercises = new List<DataRow>();
@@ -218,10 +219,10 @@ namespace Foutloos
             calculate(1, "Grid_Normal", exercises[1].Count, 1);
             calculate(2, "Grid_Expert", exercises[2].Count, 1);
             calculate(3, "Grid_Finished", amount, 1);
-            calculate(3, "Grid_GO", exercises[5].Count, 2);
-            calculate(3, "Grid_C", exercises[6].Count, 3);
-            calculate(3, "Grid_SC", exercises[7].Count, 4);
-            calculate(3, "Grid_JKR", exercises[8].Count, 5);
+            calculate(5, "Grid_GO", exercises[5].Count, 2);
+            calculate(6, "Grid_C", exercises[6].Count, 3);
+            calculate(7, "Grid_SC", exercises[7].Count, 4);
+            calculate(8, "Grid_JKR", exercises[8].Count, 5);
                        
 
 
@@ -290,8 +291,6 @@ namespace Foutloos
 
             }
 
-            if (packageID == 1)
-            {
 
                 //The button gets added as frequently as needed. 
                 foreach (var exercise in exercises[difficulty])
@@ -338,7 +337,6 @@ namespace Foutloos
                     borderButton.Name = $"E{i}";
                     l1.Text = $"Excercise: {exnum}";
 
-
                     if (gridName == "Grid_All")
                     {
                         Grid_All.Children.Add(borderButton);
@@ -358,7 +356,23 @@ namespace Foutloos
                     {
                         Grid_Expert.Children.Add(borderButton);
                     }
-                    if (gridName == "Grid_Finished")
+                    if (gridName == "Grid_GO")
+                    {
+                    Grid_GO.Children.Add(borderButton);
+                    }
+                    if (gridName == "Grid_C")
+                    {
+                    Grid_C.Children.Add(borderButton);
+                }
+                if (gridName == "Grid_SC")
+                {
+                    Grid_SC.Children.Add(borderButton);
+                }
+                if (gridName == "Grid_JKR")
+                {
+                    Grid_JKR.Children.Add(borderButton);
+                }
+                if (gridName == "Grid_Finished")
                     {
                         if (finished.Rows.Count > 0)
                         {
@@ -385,7 +399,7 @@ namespace Foutloos
                         x += 2;
                         j = 0;
                     }
-                }
+
                 //if (packageID == 2)
                 //{
                 //    foreach (var exercise in exercises[5])
