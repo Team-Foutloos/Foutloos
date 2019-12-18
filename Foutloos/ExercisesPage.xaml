@@ -122,18 +122,33 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="Finished">
+                <TabItem Header="Finished" Visibility="Collapsed">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_Finished" ShowGridLines="False" Background="White">
 
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem Header="George Orwell">
+                <TabItem x:Name="Tab_GO" Header="George Orwell" Visibility="Collapsed">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_GO" ShowGridLines="False" Background="White">
 
                         </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem x:Name="Tab_C" Header="C#" Visibility="Collapsed">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="Grid_C" ShowGridLines="False" Background="White"/>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem x:Name="Tab_SC" Header="Special Characters" Visibility="Collapsed">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="Grid_SC" ShowGridLines="False" Background="White"/>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem x:Name="Tab_JKR" Header="J.K. Rowling" Visibility="Collapsed">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="Grid_JKR" ShowGridLines="False" Background="White"/>
                     </ScrollViewer>
                 </TabItem>
 
@@ -176,7 +191,7 @@
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
-                
+
             </TabControl>
         </Grid>
     </Viewbox>

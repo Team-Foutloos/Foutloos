@@ -41,7 +41,7 @@ namespace Foutloos.Multiplayer
             while (true)
             {
 
-                data = c.PullData("SELECT roomToken, count(userID) count from room r JOIN roomplayer p ON r.roomID = p.roomID GROUP BY roomtoken");
+                data = c.PullData("SELECT roomToken, count(userID) count from room r JOIN roomplayer p ON r.roomID = p.roomID where r.hasStarted = 0 GROUP BY roomtoken");
                 this.Dispatcher.Invoke(() =>
                 {
 
