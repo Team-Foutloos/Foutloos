@@ -36,6 +36,8 @@ namespace Foutloos
         DispatcherTimer timedExcer = new DispatcherTimer();
         //Bool to check if the countdown must be enabeld
         private bool enabletimedExcer = false;
+        private int replayTimeValue;
+
         //Variable for the amount seconds that needs to be countdown
         private int counter = 0;
         //Variable for the total amount of seconds that have elapsed
@@ -1176,16 +1178,20 @@ namespace Foutloos
             }
         }
 
+
+        //sets the how long the generated excersise last
         public void SetCountdown(int amount)
         {
+            replayTimeValue = amount;
             counter = amount;
             enabletimedExcer = true;
         }
 
+        //Countdown Event for the generated excersise
         private void Countdown_Tick(object sender, EventArgs e)
         {
             counter--;
-            if (counter == 0)
+            if (counter <= 0)
             {
 
                 //stops all timers
@@ -1230,35 +1236,35 @@ namespace Foutloos
                 if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
                 {
                     //Make a new connectionclass
-                    //Connection c = new Connection();
+                    Connection c = new Connection();
 
                     //Getting the necessary IDs from the database
-                    //int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
-                    //int resultID = 1;
-                    //resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
-                    ////The query to insert the result into the result table
-                    //string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, speech) VALUES ({resultID}, {mistakes}, {seconds}, {wordspm}, {charspm}, {userID}, {exerciseID}, 0)";
-                    ////Executing the query
-                    //if (c.insertInto(CmdString))
-                    //{
-                    //    //If the result has been added to the database, the Errors can be saved too
-                    //    //For each keyValuePair in the dictionary the key will be added with the matching value
-                    //    foreach (KeyValuePair<char, int> mistake in userMistakes)
-                    //    {
-                    //        //Getting the id for the new error
-                    //        int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
-                    //        //Setting the query for adding the errors
-                    //        string insertMistakes = $"INSERT INTO Error (errorID, letter, count, resultID) VALUES ({errorID}, '{mistake.Key}', {mistake.Value}, {resultID})";
-                    //        //Inserting the error with the query above
-                    //        c.insertInto(insertMistakes);
-                    //    }
-                    //}
+                    int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
+                    int resultID = 1;
+                    resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
+                    //The query to insert the result into the result table
+                    string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, speech) VALUES ({resultID}, {mistakes}, {seconds}, {wordspm}, {charspm}, {userID}, {exerciseID}, 0)";
+                    //Executing the query
+                    if (c.insertInto(CmdString))
+                    {
+                        //If the result has been added to the database, the Errors can be saved too
+                        //For each keyValuePair in the dictionary the key will be added with the matching value
+                        foreach (KeyValuePair<char, int> mistake in userMistakes)
+                        {
+                            //Getting the id for the new error
+                            int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
+                            //Setting the query for adding the errors
+                            string insertMistakes = $"INSERT INTO Error (errorID, letter, count, resultID) VALUES ({errorID}, '{mistake.Key}', {mistake.Value}, {resultID})";
+                            //Inserting the error with the query above
+                            c.insertInto(insertMistakes);
+                        }
+                    }
 
                 }
 
 
 
-                Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList, userMistakes, " ", exerciseID, specialCharacters);
+                Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList, userMistakes, exerciseText, exerciseID, enabletimedExcer, replayTimeValue);
                 if (rootVisual != null && adornerLayer != null)
                 {
                     CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
