@@ -54,7 +54,7 @@ namespace Foutloos
         {
 
             //standard package that always gets added.
-            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
+            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID in (select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}') OR Exercise.packageID=1");
 
             //Create all the lists of exercises and add them to the main list (exercises)
             //use a 2D list to save spacing in the grids
@@ -108,47 +108,47 @@ namespace Foutloos
 
             }
             //The standard left and top margin are added for grid All.
-            Grid_All.ShowGridLines = true;
+            Grid_All.ShowGridLines = false;
             Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Amateur.
-            Grid_Amateur.ShowGridLines = true;
+            Grid_Amateur.ShowGridLines = false;
             Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Normal.
-            Grid_Normal.ShowGridLines = true;
+            Grid_Normal.ShowGridLines = false;
             Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Expert.
-            Grid_Expert.ShowGridLines = true;
+            Grid_Expert.ShowGridLines = false;
             Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_Finished.ShowGridLines = true;
+            Grid_Finished.ShowGridLines = false;
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_GO.ShowGridLines = true;
+            Grid_GO.ShowGridLines = false;
             Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid C#.
-            Grid_C.ShowGridLines = true;
+            Grid_C.ShowGridLines = false;
             Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Special Characters.
-            Grid_SC.ShowGridLines = true;
+            Grid_SC.ShowGridLines = false;
             Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid JKR.
-            Grid_JKR.ShowGridLines = true;
+            Grid_JKR.ShowGridLines = false;
             Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
@@ -157,14 +157,14 @@ namespace Foutloos
             addDLC();
 
             calculateGrids(Grid_All, amount);
-            calculateGrids(Grid_Amateur, exercises[0].Count);
-            calculateGrids(Grid_Normal, exercises[1].Count);
-            calculateGrids(Grid_Expert, exercises[2].Count);
+            calculateGrids(Grid_Amateur, c.getPackageCount(1, 1));
+            calculateGrids(Grid_Normal, c.getPackageCount(1, 2));
+            calculateGrids(Grid_Expert, c.getPackageCount(1, 3));
             calculateGrids(Grid_Finished, amount);
-            calculateGrids(Grid_GO, exercises[5].Count);
-            calculateGrids(Grid_C, exercises[6].Count);
-            calculateGrids(Grid_SC, exercises[7].Count);
-            calculateGrids(Grid_JKR, exercises[8].Count);
+            calculateGrids(Grid_GO, c.getPackageCount(2));
+            calculateGrids(Grid_C, c.getPackageCount(3));
+            calculateGrids(Grid_SC, c.getPackageCount(4));
+            calculateGrids(Grid_JKR, c.getPackageCount(5));
 
             addButton();
         }
@@ -181,8 +181,7 @@ namespace Foutloos
 
                 //Adds the packages for all the packages available in the account.
                 foreach (int i in packages)
-                {
-                    dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");
+                {                  
 
 
                     if (i == 2)
@@ -213,12 +212,6 @@ namespace Foutloos
                     foreach (DataRow row in dt.Rows)
                     {
 
-                        string difficulty = row["difficulty"].ToString();
-                        string package = row["packageID"].ToString();
-
-                        exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
-                        exercises[3].Add(row);
-
                         if (i == 2)
                         {
                             exercises[5].Add(row);
@@ -234,11 +227,8 @@ namespace Foutloos
                         if (i == 5)
                         {
                             exercises[8].Add(row);
-                        }
-
-                        amount++;
-
-
+                        }                    
+                        
                     }
                 }
 
@@ -314,7 +304,7 @@ namespace Foutloos
             foreach (DataRow exercise in dt.Rows)
             {
                 int marginID;
-
+                Console.WriteLine(exercise["packageID"]);
                 //Save the difficulty so that you can use it easily later
                 int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
 
@@ -334,8 +324,8 @@ namespace Foutloos
                 }
                 else
                 {
-                    grid_list[int.Parse(exercise["packageID"].ToString())+3].Children.Add(borderButton);
-                    marginID = int.Parse(exercise["packageID"].ToString()) + 3;
+                    grid_list[int.Parse(exercise["packageID"].ToString())+1].Children.Add(borderButton);
+                    marginID = int.Parse(exercise["packageID"].ToString()) + 1;
                 }
 
 

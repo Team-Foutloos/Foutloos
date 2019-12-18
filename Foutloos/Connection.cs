@@ -153,6 +153,58 @@ namespace Foutloos
             return id;
         }
 
+        public int getPackageCount(int packageID, int difficulty)
+        {
+            int id = 0;
+            string query = $"SELECT count(exerciseID) FROM exercise WHERE packageID = {packageID} AND difficulty = {difficulty}";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+                    id = (Int32)cmd.ExecuteScalar();
+                    conn.Close();
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                //System.Windows.Forms.MessageBox.Show($"No connection");
+            }
+
+
+            return id;
+        }
+
+        public int getPackageCount(int packageID)
+        {
+            int id = 0;
+            string query = $"SELECT count(exerciseID) FROM exercise WHERE packageID = {packageID}";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+                    id = (Int32)cmd.ExecuteScalar();
+                    conn.Close();
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                //System.Windows.Forms.MessageBox.Show($"No connection");
+            }
+
+
+            return id;
+        }
+
         public string getPackageName(string query)
         {
             string packageName;
