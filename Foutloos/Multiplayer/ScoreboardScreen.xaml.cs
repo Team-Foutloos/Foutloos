@@ -18,6 +18,7 @@ namespace Foutloos.Multiplayer
         private Connection c;
         private DataTable players;
         private Storyboard countdownStoryboard;
+        private bool alreadyLeft = false;
 
 
         public ScoreboardScreen(int roomID, int exerciseID)
@@ -149,16 +150,14 @@ namespace Foutloos.Multiplayer
         private void CountdownTimer_Completed(object sender, EventArgs e)
         {
             //Start the next exercise
+            if (!alreadyLeft)
             Application.Current.MainWindow.Content = new GameScreen(roomID, this.exerciseID + 1);
         }
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (countdownStoryboard != null)
-            {
-                countdownStoryboard.Stop(this);
-            }
+            alreadyLeft = true;
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }
