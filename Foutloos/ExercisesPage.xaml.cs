@@ -500,19 +500,20 @@ namespace Foutloos
 
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            int limit = 75;
             string errorMsg;
             if(radioWord.IsChecked == true)
             {
                 if (IsDigitsOnly(txtWords.Text) && txtWords.Text != "" && txtWords.Text != null)
                 {
                     int amount = int.Parse(txtWords.Text);
-                    if(amount < 250)
+                    if(amount <= limit)
                     {
                         startupRandomText(amount, false);
                     }
                     else
                     {
-                        errorMsg = "The amount of words can't be more then 250 words";
+                        errorMsg = $"The amount of words can't be more then {limit} words";
                         lblError.Content = errorMsg;
                     }
                 }
@@ -539,7 +540,7 @@ namespace Foutloos
                         startupRandomText(300, true);
                         break;
                 }
-            }               
+            }
         }
 
         private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -605,10 +606,10 @@ namespace Foutloos
                 Random rand = new Random();
 
                 //fills the exerciseText with a set amount of text
-                for (int i = 0; i < 500; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    if (i != 499)
+                    if (i != 19)
                     {
                         exerciseText += " ";
                     }

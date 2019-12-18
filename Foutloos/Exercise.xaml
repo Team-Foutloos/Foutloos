@@ -18,7 +18,7 @@
             <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
 
             <!-- Exercise textblock -->
-            <TextBlock Padding="2" Background="white" FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" Name="Exercise_TextBlock"/>
+            <TextBlock Name="Exercise_TextBlock" Padding="2" Background="white" FontSize="20" Margin="183,90,183,360" TextWrapping="Wrap" VerticalAlignment="Top" Height="180" Width="1000" />
             <ProgressBar x:Name="ProgressBar" Foreground="DeepSkyBlue" HorizontalAlignment="Center" Height="13" Margin="211,270,211,0" VerticalAlignment="Top" Width="1000"/>
 
             <!-- User input textbox -->

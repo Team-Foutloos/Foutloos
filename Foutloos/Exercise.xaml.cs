@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace Foutloos
 {
     public partial class Exercise : Page
     {
+        Connection c = new Connection();
         //Exercise text
         private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
         //String used to determine which characters are left in the exercise
@@ -69,6 +71,8 @@ namespace Foutloos
         //Boolean for spellchecking special characters
         bool specialCharacters;
         int exerciseID;
+
+        bool firstTime = true;
 
         public Exercise(string text, bool sc, int exerciseID)
         {
@@ -1155,6 +1159,8 @@ namespace Foutloos
         //Home button functionality
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            timedExcer.Stop();
+            timer.Stop();
             //If the exercise started or isnt finished, the user needs to be sure.
             if (!exerciseFinished && exerciseStarted)
             {
@@ -1190,9 +1196,12 @@ namespace Foutloos
         //Countdown Event for the generated excersise
         private void Countdown_Tick(object sender, EventArgs e)
         {
+          
+            
             counter--;
             if (counter <= 0)
             {
+                
 
                 //stops all timers
                 timedExcer.Stop();
@@ -1235,9 +1244,7 @@ namespace Foutloos
                 //This will add the results to the resultstable
                 if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
                 {
-                    //Make a new connectionclass
-                    Connection c = new Connection();
-
+                   
                     //Getting the necessary IDs from the database
                     int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
                     int resultID = 1;
@@ -1270,6 +1277,37 @@ namespace Foutloos
                     CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
                     adornerLayer.Add(darkenAdorner);
                     results.ShowDialog();
+                }
+            }
+
+            //value that will determine when extra text is needed
+
+            int kicker = 15;
+            if (ProgressBar.Value % kicker ==0)
+                firstTime = true;
+            //adds more text if the kickers is reached
+            if (ProgressBar.Value % kicker==14 && firstTime.Equals(true))
+            {
+                firstTime = false;
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < 20; i++)
+                {
+                    Exercise_TextBlock.Text += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != 19)
+                    {
+                        Exercise_TextBlock.Text += " ";
+                        exerciseText += " ";
+                    }
                 }
             }
         }
