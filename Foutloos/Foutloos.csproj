@@ -352,5 +352,8 @@
     <Resource Include="assets\Car.gif" />
     <Resource Include="assets\Wall.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\ExplodingCar.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

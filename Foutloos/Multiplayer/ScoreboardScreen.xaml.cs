@@ -49,18 +49,18 @@ namespace Foutloos.Multiplayer
             //Add the score to the player
             if (playerScoresTotal.Rows[0]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
             {
-                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 5 WHERE userID = {int.Parse(playerScoresTotal.Rows[0]["userID"].ToString())}");
+                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 5 WHERE userID = {int.Parse(ConfigurationManager.AppSettings["userID"].ToString())}");
             }
             else if (playerScoresTotal.Rows[1]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
             {
-                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 3 WHERE userID = {int.Parse(playerScoresTotal.Rows[0]["userID"].ToString())}");
+                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 3 WHERE userID = {int.Parse(ConfigurationManager.AppSettings["userID"].ToString())}");
             }
             else if (playerScoresTotal.Rows[2]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
             {
-                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 1 WHERE userID = {int.Parse(playerScoresTotal.Rows[0]["userID"].ToString())}");
+                c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 1 WHERE userID = {int.Parse(ConfigurationManager.AppSettings["userID"].ToString())}");
             }
 
-            DataTable playerStanding = c.PullData($"SELECT playerscore, userID from roomplayer WHERE roomID = {roomID}");
+            DataTable playerStanding = c.PullData($"SELECT playerscore, userID from roomplayer WHERE roomID = {roomID} ORDER BY playerscore DESC");
 
 
             //Check how many players are in the room
@@ -95,7 +95,10 @@ namespace Foutloos.Multiplayer
 
             for (int i = 0; i < playerStanding.Rows.Count; i++)
             {
-                playercurrent.Text = playercurrent.Text.ToString() + i + 1;
+                if (playerStanding.Rows[i]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
+                {
+                    playercurrent.Text = playercurrent.Text.ToString() + (i + 1);
+                }
             }
         }
         
@@ -130,6 +133,7 @@ namespace Foutloos.Multiplayer
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            countdownStoryboard.Stop(this);
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }

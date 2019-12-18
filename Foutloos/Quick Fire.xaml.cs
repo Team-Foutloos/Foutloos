@@ -59,6 +59,7 @@ namespace Foutloos
         TranslateTransform trans;
         BitmapImage DrivingImage;
         BitmapImage CrashingImage;
+        BitmapImage SafeImage;
         
         
 
@@ -74,8 +75,13 @@ namespace Foutloos
 
                 CrashingImage = new BitmapImage();
                 CrashingImage.BeginInit();
-                CrashingImage.UriSource = new Uri(@"/assets/testimage.gif", UriKind.RelativeOrAbsolute);
+                CrashingImage.UriSource = new Uri(@"/assets/ExplodingCar.gif", UriKind.RelativeOrAbsolute);
                 CrashingImage.EndInit();
+
+                SafeImage = new BitmapImage();
+                SafeImage.BeginInit();
+                SafeImage.UriSource = new Uri(@"/assets/testimage.gif", UriKind.RelativeOrAbsolute);
+                SafeImage.EndInit();
             } catch (Exception)
             {
                 System.Windows.Forms.MessageBox.Show("gif loading failed");
@@ -128,7 +134,7 @@ namespace Foutloos
                 //typing flow
                 if (TimeleftBar.Value > 0)
                 {
-                    TimeleftBar.Value -= 60 * difficultyTyping / (1 + wordlength / 1);
+                    TimeleftBar.Value -= 60 * difficultyTyping / (1 + wordlength / 1);//if changed also change the animation speed
 
                     if (TimeleftBar.Value > 90)
                     {
@@ -165,13 +171,18 @@ namespace Foutloos
                         TimeleftBar.Value = 180;
                     canType = true;
 
+                    //calculate animation speed, the + 0.2 is the first and the final 100'th millisecond
+                    double animationspeed = 0.2 + 0.1 * Math.Ceiling( (double)(180 / (60 * difficultyTyping / (1 + wordlength / 1))) );
+
                     //animates image
                     ImageBehavior.SetAnimatedSource(CarPicture, DrivingImage);
+                    ImageBehavior.SetRepeatBehavior(CarPicture, RepeatBehavior.Forever);
+
                     Vector offset = VisualTreeHelper.GetOffset(CarPicture);
                     var left = offset.X;
                     trans = new TranslateTransform();
                     CarPicture.RenderTransform = trans;
-                    DoubleAnimation anim1 = new DoubleAnimation(0,230-left,TimeSpan.FromSeconds(1));
+                    DoubleAnimation anim1 = new DoubleAnimation(0,230-left,TimeSpan.FromSeconds(animationspeed));
                     trans.BeginAnimation(TranslateTransform.XProperty, anim1);
                     
                     
@@ -250,7 +261,8 @@ namespace Foutloos
 
             if (TypedCorrectInTime)
             {
-                ImageBehavior.SetAnimatedSource(CarPicture, CrashingImage);
+                ImageBehavior.SetAnimatedSource(CarPicture, SafeImage);
+                ImageBehavior.SetRepeatBehavior(CarPicture, RepeatBehavior.Forever);
                 correctCounter++;
                 streakCounter++;
                 if (topStreak < streakCounter)
@@ -263,7 +275,8 @@ namespace Foutloos
                 //reset streak
                 streakCounter = 0;
                 StreakCounter_Label.Content = streakCounter;
-
+                ImageBehavior.SetAnimatedSource(CarPicture, CrashingImage);
+                ImageBehavior.SetRepeatBehavior(CarPicture, new RepeatBehavior(1));
             }
 
             //GENERAL CODE FOR NEXT WORD
