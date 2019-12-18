@@ -37,6 +37,7 @@ namespace Foutloos
 
         //Imma test something
         private List<Grid> grid_list = new List<Grid>();
+        private List<List<int>> grid_Margin = new List<List<int>>();
 
 
 
@@ -56,17 +57,28 @@ namespace Foutloos
             dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = 1");
 
             //Create all the lists of exercises and add them to the main list (exercises)
+            //use a 2D list to save spacing in the grids
+            
             //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
+            
 
             grid_list.Add(Grid_Amateur);
             grid_list.Add(Grid_Normal);
             grid_list.Add(Grid_Expert);
-            grid_list.Add(Grid_All);
-            grid_list.Add(Grid_Finished);
             grid_list.Add(Grid_GO);
             grid_list.Add(Grid_C);
             grid_list.Add(Grid_SC);
             grid_list.Add(Grid_JKR);
+            grid_list.Add(Grid_All);
+            grid_list.Add(Grid_Finished);
+
+
+
+            for (int i = 0; i < grid_list.Count+2; i++)
+            {
+                grid_Margin.Add(new List<int>() { 1, 0, 0 });
+            }
+                       
 
 
             exercises.Add(amateurExercises);
@@ -256,75 +268,110 @@ namespace Foutloos
             }
         }
 
+        private Border getButton(int dif, int buttonName, DataTable finished, int scroll, int exnum)
+        {
+            //Create the main button.
+            BorderButton button = new BorderButton(dif);
+            Border borderButton = button.getButton();
+            Grid borderGrid = (Grid)borderButton.Child;
+            Image completedIcon = (Image)borderGrid.Children[2];
+            TextBlock l1 = (TextBlock)borderGrid.Children[0];
+            borderButton.Name = $"E{buttonName}";
+
+            //Add the mouseEnter and mouseLeave event to the borderButton;
+            borderButton.MouseEnter += BorderButton_MouseEnter;
+            borderButton.MouseLeave += BorderButton_MouseLeave;
+
+            //iets met stackpanel
+            l1.Text = $"Excercise: {exnum}";
+
+
+
+            if (finished.Rows.Count > 0)
+            {
+                completedIcon.Visibility = Visibility.Visible;
+                scroll++;
+            }
+            else
+            {
+                completedIcon.Visibility = Visibility.Hidden;
+            }
+
+            borderButton.PreviewMouseDown += B1_Click;
+
+            return borderButton;
+        }
+
+
         private void addButton()
         {
             int buttonName = 0;
             int exnum = 1;
-            int x = 1;
-            int y = 0;
-            int i = 0;
             int scroll = 0;
 
 
             //The button gets added as frequently as needed. 
             foreach (DataRow exercise in dt.Rows)
             {
+                int marginID;
+
                 //Save the difficulty so that you can use it easily later
                 int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
 
-                //Create the main button.
-                BorderButton button = new BorderButton(dif);
-                Border borderButton = button.getButton();
-                Grid borderGrid = (Grid)borderButton.Child;
-                Image completedIcon = (Image)borderGrid.Children[2];
-                TextBlock l1 = (TextBlock)borderGrid.Children[0];
-                borderButton.Name = $"E{buttonName}";
-                DataTable finished = new DataTable();
-                Grid.SetColumn(borderButton, y + 1);
-
-                //Add the mouseEnter and mouseLeave event to the borderButton;
-                borderButton.MouseEnter += BorderButton_MouseEnter;
-                borderButton.MouseLeave += BorderButton_MouseLeave;
-
-                //Border copyBorderButton = new Border();
-                //copyBorderButton = borderButton;
-
-                //Add the right color to the borders according to the level
-                borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
-
-                //iets met stackpanel
-                Grid.SetRow(borderButton, x);                
-                l1.Text = $"Excercise: {exnum}";
-
+                
 
                 int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-                finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
+                DataTable finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
 
+                Border borderButton = getButton(dif, buttonName, finished, scroll, exnum);
+                Border borderButtonAll = getButton(dif, buttonName, finished, scroll, exnum);
 
-                if (finished.Rows.Count > 0)
+                //Get the pack of the exercise
+                if ((int.Parse(exercise["packageID"].ToString()) == 1))
                 {
-                    completedIcon.Visibility = Visibility.Visible;
-                    scroll++;
+                    grid_list[int.Parse(exercise["difficulty"].ToString())-1].Children.Add(borderButton);
+                    marginID = int.Parse(exercise["difficulty"].ToString()) - 1;
                 }
                 else
                 {
-                    completedIcon.Visibility = Visibility.Hidden;
+                    grid_list[int.Parse(exercise["packageID"].ToString())+3].Children.Add(borderButton);
+                    marginID = int.Parse(exercise["packageID"].ToString()) + 3;
                 }
 
 
+                Grid.SetRow(borderButton, grid_Margin[marginID][0]);
+                Grid.SetColumn(borderButton, grid_Margin[marginID][2] + 1);
 
-                Grid_All.Children.Add(borderButton);
 
-                y += 2;
-                i++;
+                Grid.SetRow(borderButtonAll, grid_Margin[grid_Margin.Count - 2][0]);
+                Grid.SetColumn(borderButtonAll, grid_Margin[grid_Margin.Count - 2][2] + 1);
+
+
+                Grid_All.Children.Add(borderButtonAll);
+
+
+                grid_Margin[marginID][2] += 2;
+                grid_Margin[marginID][1]++;
+
+                //Do it for all the exercises as well
+                grid_Margin[grid_Margin.Count - 2][2] += 2;
+                grid_Margin[grid_Margin.Count - 2][1]++;
+
                 exnum++;
 
                 buttonName++;
 
-                if (i % 4 == 0 && i != 0)
+                if (grid_Margin[grid_Margin.Count - 2][1] % 4 == 0 && grid_Margin[grid_Margin.Count - 2][1] != 0)
                 {
-                    x += 2;
-                    y = 0;
+                    grid_Margin[grid_Margin.Count - 2][0] += 2;
+                    grid_Margin[grid_Margin.Count - 2][2] = 0;
+                }
+
+
+                if (grid_Margin[marginID][1] % 4 == 0 && grid_Margin[marginID][1] != 0)
+                {
+                    grid_Margin[marginID][0] += 2;
+                    grid_Margin[marginID][2] = 0;
                 }
 
             }
@@ -351,7 +398,7 @@ namespace Foutloos
 
 
         //This checks which buttons has been clicked.
-        private void B1_Click(object sender, RoutedEventArgs e, int difficulty)
+        private void B1_Click(object sender, RoutedEventArgs e)
         {
 
             Border b = (Border)sender;
