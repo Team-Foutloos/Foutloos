@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,6 +19,7 @@ namespace Foutloos.Multiplayer
         private Connection c;
         private DataTable players;
         private Storyboard countdownStoryboard;
+        private bool alreadyLeft = false;
 
 
         public ScoreboardScreen(int roomID, int exerciseID)
@@ -44,7 +46,7 @@ namespace Foutloos.Multiplayer
         {
 
             //Get the datatables.
-            DataTable playerScoresTotal = c.PullData($"SELECT playerscore, username, t.userID, time FROM roomresult t JOIN Usertable U ON t.userID = u.userID JOIN roomplayer p ON p.userID = u.userID WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
+            DataTable playerScoresTotal = c.PullData($"SELECT t.userID FROM roomresult t WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
 
             //Add the score to the player
             if (playerScoresTotal.Rows[0]["userID"].ToString().Equals(ConfigurationManager.AppSettings["userID"].ToString()))
@@ -60,6 +62,11 @@ namespace Foutloos.Multiplayer
                 c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 1 WHERE userID = {int.Parse(ConfigurationManager.AppSettings["userID"].ToString())}");
             }
 
+            Thread.Sleep(400);
+             //Get the datatables.
+            playerScoresTotal = c.PullData($"SELECT playerscore, username, t.userID, time FROM roomresult t JOIN Usertable U ON t.userID = u.userID JOIN roomplayer p ON p.userID = u.userID WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
+
+            
             DataTable playerStanding = c.PullData($"SELECT playerscore, userID from roomplayer WHERE roomID = {roomID} ORDER BY playerscore DESC");
 
 
@@ -149,16 +156,14 @@ namespace Foutloos.Multiplayer
         private void CountdownTimer_Completed(object sender, EventArgs e)
         {
             //Start the next exercise
+            if (!alreadyLeft)
             Application.Current.MainWindow.Content = new GameScreen(roomID, this.exerciseID + 1);
         }
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!countdownStoryboard.GetIsPaused())
-            {
-                countdownStoryboard.Pause(this);
-            }
+            alreadyLeft = true;
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
         }

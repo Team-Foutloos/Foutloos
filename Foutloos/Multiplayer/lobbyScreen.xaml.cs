@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,6 +30,7 @@ namespace Foutloos.Multiplayer
         private string tokenString;
         private int roomID;
         private Thread databaseListener;
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.lobby_music);
 
 
         //When a creator joins the lobby
@@ -48,7 +50,6 @@ namespace Foutloos.Multiplayer
             databaseListener = new Thread(new ThreadStart(backgroundListener));
             databaseListener.IsBackground = true;
             databaseListener.Start();
-
             
         }
 
@@ -93,6 +94,7 @@ namespace Foutloos.Multiplayer
                     {
 
                         Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+                        player.Stop();
                         databaseListener.Abort();
                     });
                 }
@@ -114,6 +116,9 @@ namespace Foutloos.Multiplayer
         //Let the user join a room
         private void joinRoom()
         {
+            //Start the music
+            player.Play();
+
             //First get the roomID
             if (roomID == 0)
             {
@@ -192,6 +197,7 @@ namespace Foutloos.Multiplayer
         {
             c.leaveRoom();
             Application.Current.MainWindow.Content = new tokenScreen();
+            player.Stop();
             databaseListener.Abort();
         }
 
@@ -200,6 +206,7 @@ namespace Foutloos.Multiplayer
             //Start the game
             c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
             Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+            player.Stop();
             databaseListener.Abort();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace Foutloos
 {
     public partial class Exercise : Page
     {
+        Connection c = new Connection();
         //Exercise text
         private string exerciseText = "Die latijnse tekst komt me echt de neus uit.";
         //String used to determine which characters are left in the exercise
@@ -32,8 +34,18 @@ namespace Foutloos
         private Thickness userInput_WithKeyboard = new Thickness(183, 452, 183, 0);
         //Timer for displaying elapsed time and calculating the WPM/CPM
         DispatcherTimer timer = new DispatcherTimer();
+        //A countdown timer for generated exercises
+        DispatcherTimer timedExcer = new DispatcherTimer();
+        //Bool to check if the countdown must be enabeld
+        private bool enabletimedExcer = false;
+        private int replayTimeValue;
+
+        //Variable for the amount seconds that needs to be countdown
+        private int counter = 0;
         //Variable for the total amount of seconds that have elapsed
         private int seconds = 0;
+        //Boolean used to determine if the exercise countdown is running
+        private bool counterStarted = false;
         //Boolean used to determine if the timer is running
         private bool timerStarted = false;
         //Int to keep track of characters per minute
@@ -59,6 +71,8 @@ namespace Foutloos
         //Boolean for spellchecking special characters
         bool specialCharacters;
         int exerciseID;
+
+        bool firstTime = true;
 
         public Exercise(string text, bool sc, int exerciseID)
         {
@@ -106,6 +120,10 @@ namespace Foutloos
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
 
+            //Configuring the countdown and adding an event
+            timedExcer.Interval = TimeSpan.FromSeconds(1);
+            timedExcer.Tick += Countdown_Tick;
+
             //Change text to speech toggle te be turned off by default
             ToggleSpeech.Toggled = false;
             ToggleSpeech.Dot.Margin = new Thickness(-39, 0, 0, 0);
@@ -150,6 +168,16 @@ namespace Foutloos
                     countdown.ShowDialog();
                     adornerLayer.Remove(darkenAdorner);
                     overlayTextBox.Visibility = Visibility.Hidden;
+
+                    //Activates the countdown timer for gerenerated exercises
+                    if (enabletimedExcer)
+                    {
+                        if (!counterStarted)
+                        {
+                            timedExcer.Start();
+                            counterStarted = true;
+                        }
+                    }
                 }
                 //Turn the exercisStarted to true, so that when the user returns from the modal, the exersice starts.
                 exerciseStarted = true;
@@ -1131,6 +1159,8 @@ namespace Foutloos
         //Home button functionality
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            timedExcer.Stop();
+            timer.Stop();
             //If the exercise started or isnt finished, the user needs to be sure.
             if (!exerciseFinished && exerciseStarted)
             {
@@ -1151,6 +1181,134 @@ namespace Foutloos
             else
             {
                 Application.Current.MainWindow.Content = new HomeScreen();
+            }
+        }
+
+
+        //sets the how long the generated excersise last
+        public void SetCountdown(int amount)
+        {
+            replayTimeValue = amount;
+            counter = amount;
+            enabletimedExcer = true;
+        }
+
+        //Countdown Event for the generated excersise
+        private void Countdown_Tick(object sender, EventArgs e)
+        {
+          
+            
+            counter--;
+            if (counter <= 0)
+            {
+                
+
+                //stops all timers
+                timedExcer.Stop();
+                timer.Stop();
+
+                //Update words per minute
+                wpm++;
+
+                //Change exercise text when exercise is finished
+                exerciseFinished = true;
+                Exercise_TextBlock.Text = "";
+                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGreen });
+                SpecialChar.Visibility = Visibility.Hidden;
+
+                //Hide text to speech element
+                TextToSpeech.Visibility = Visibility.Hidden;
+
+                //Change progressbar when the exercise is finished
+                ProgressBar.Foreground = Brushes.Green;
+
+                //Show the results
+                UIElement rootVisual = this.Content as UIElement;
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                int wordspm;
+                int charspm;
+                double accuracy = ((((double)exerciseText.Length - (double)mistakes) / (double)exerciseText.Length) * 100);
+
+                //If the seconds is higher then 0, divide by seconds.
+                if (seconds > 0)
+                {
+                    wordspm = (wpm * 60) / seconds;
+                    charspm = (cpm * 60) / seconds;
+                }
+                else
+                {
+                    wordspm = (wpm * 60);
+                    charspm = (cpm * 60);
+                }
+
+                //This will add the results to the resultstable
+                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["username"]))
+                {
+                   
+                    //Getting the necessary IDs from the database
+                    int userID = c.ID($"SELECT userID FROM Usertable WHERE username='{ConfigurationManager.AppSettings["username"]}'");
+                    int resultID = 1;
+                    resultID = (c.ID("SELECT Max(resultID) FROM Result")) + 1;
+                    //The query to insert the result into the result table
+                    string CmdString = $"INSERT INTO Result (resultID, mistakes, time, wpm, cpm, userID, exerciseID, speech) VALUES ({resultID}, {mistakes}, {seconds}, {wordspm}, {charspm}, {userID}, {exerciseID}, 0)";
+                    //Executing the query
+                    if (c.insertInto(CmdString))
+                    {
+                        //If the result has been added to the database, the Errors can be saved too
+                        //For each keyValuePair in the dictionary the key will be added with the matching value
+                        foreach (KeyValuePair<char, int> mistake in userMistakes)
+                        {
+                            //Getting the id for the new error
+                            int errorID = (c.ID("SELECT Max(errorID) FROM Error")) + 1;
+                            //Setting the query for adding the errors
+                            string insertMistakes = $"INSERT INTO Error (errorID, letter, count, resultID) VALUES ({errorID}, '{mistake.Key}', {mistake.Value}, {resultID})";
+                            //Inserting the error with the query above
+                            c.insertInto(insertMistakes);
+                        }
+                    }
+
+                }
+
+
+
+                Modals.ResultsAfterExercise results = new Modals.ResultsAfterExercise(wordspm, charspm, seconds, mistakes, accuracy, cpmTimeList, wpmTimeList, userMistakes, exerciseText, exerciseID, enabletimedExcer, replayTimeValue);
+                if (rootVisual != null && adornerLayer != null)
+                {
+                    CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual, 200);
+                    adornerLayer.Add(darkenAdorner);
+                    results.ShowDialog();
+                }
+            }
+
+            //value that will determine when extra text is needed
+
+            int kicker = 15;
+            if (ProgressBar.Value % kicker ==0)
+                firstTime = true;
+            //adds more text if the kickers is reached
+            if (ProgressBar.Value % kicker==14 && firstTime.Equals(true))
+            {
+                firstTime = false;
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < 20; i++)
+                {
+                    Exercise_TextBlock.Text += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    exerciseStringLeft += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != 19)
+                    {
+                        Exercise_TextBlock.Text += " ";
+                        exerciseStringLeft += " ";
+                    }
+                }
             }
         }
 
