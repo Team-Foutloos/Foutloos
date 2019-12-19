@@ -201,8 +201,8 @@ namespace Foutloos
                     }
                     if (i == 3)
                     {
-                        Tab_Finished.Visibility = Visibility.Visible;
-                        Grid_Finished.Visibility = Visibility.Visible;
+                        Tab_C.Visibility = Visibility.Visible;
+                        Grid_C.Visibility = Visibility.Visible;
                         
                         calculateGrids(Grid_C, c.getPackageCount(3));
                     }
