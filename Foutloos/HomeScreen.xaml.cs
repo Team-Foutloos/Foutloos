@@ -56,7 +56,7 @@ namespace Foutloos
             }
             else
             {
-                packages = c.PullData("SELECT TOP 4 description FROM Package WHERE PackageID != 1 ORDER BY NEWID()");
+                packages = c.PullData("SELECT TOP 4 description, packageID FROM Package WHERE PackageID != 1 ORDER BY NEWID()");
             }
 
 
