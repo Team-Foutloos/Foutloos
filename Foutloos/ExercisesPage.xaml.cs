@@ -184,30 +184,40 @@ namespace Foutloos
 
                     if (i == 2)
                     {
+                        Tab_Finished.Visibility = Visibility.Visible;
+                        Grid_Finished.Visibility = Visibility.Visible;
                         Grid_GO.Visibility = Visibility.Visible;
-                        Tab_GO.Visibility = Visibility.Visible;
+                        Tab_GO.Visibility = Visibility.Visible;                        
                         calculateGrids(Grid_GO, c.getPackageCount(2));
                     }
                     if (i == 3)
                     {
+                        Tab_Finished.Visibility = Visibility.Visible;
+                        Grid_Finished.Visibility = Visibility.Visible;
                         Grid_C.Visibility = Visibility.Visible;
                         Tab_C.Visibility = Visibility.Visible;
                         calculateGrids(Grid_C, c.getPackageCount(3));
                     }
                     if (i == 4)
                     {
+                        Tab_Finished.Visibility = Visibility.Visible;
+                        Grid_Finished.Visibility = Visibility.Visible;
                         Grid_SC.Visibility = Visibility.Visible;
                         Tab_SC.Visibility = Visibility.Visible;
                         calculateGrids(Grid_SC, c.getPackageCount(4));
                     }
                     if (i == 5)
                     {
+                        Tab_Finished.Visibility = Visibility.Visible;
+                        Grid_Finished.Visibility = Visibility.Visible;
                         Grid_JKR.Visibility = Visibility.Visible;
                         Tab_JKR.Visibility = Visibility.Visible;
                         calculateGrids(Grid_JKR, c.getPackageCount(5));
                     }
                     if (i == 7)
                     {
+                        Tab_Finished.Visibility = Visibility.Visible;
+                        Grid_Finished.Visibility = Visibility.Visible;
                         Generated.Visibility = Visibility.Visible;
                     }                 
                     
