@@ -105,7 +105,7 @@ namespace Foutloos
 
             //Save amount of words of an exercise in a variable and set corresponding label
             exerciseWordAmount = e.Length;
-            ExerciseWordCounter_Label.Content = $"{exerciseWordAmountFinished}/{exerciseWordAmount}";
+            ExerciseWordCounter_Label.Content = $"0/0";
 
             //Set progressbar maximum value
             int counter = 0;
@@ -123,6 +123,11 @@ namespace Foutloos
 
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            timer.Stop();
+           
+            //close active thread
+
+
             //Home button functionality
             Application.Current.MainWindow.Content = new HomeScreen();
         }
@@ -149,13 +154,12 @@ namespace Foutloos
                 }
                 else
                 {
-                    if (TimeleftBar.Value != 0)
-                        TimeleftBar.Value = 0;
-                    canType = false;
+                        if (TimeleftBar.Value != 0)
+                            TimeleftBar.Value = 0;
+                        canType = false;
 
-                    //TODO: mistakes++
-                    nextWord(false);
-
+                        //TODO: mistakes++
+                        nextWord(false);
                 }
             }
             else
@@ -171,19 +175,7 @@ namespace Foutloos
                         TimeleftBar.Value = 180;
                     canType = true;
 
-                    //calculate animation speed, the + 0.2 is the first and the final 100'th millisecond
-                    double animationspeed = 0.2 + 0.1 * Math.Ceiling( (double)(180 / (60 * difficultyTyping / (1 + wordlength / 1))) );
-
-                    //animates image
-                    ImageBehavior.SetAnimatedSource(CarPicture, DrivingImage);
-                    ImageBehavior.SetRepeatBehavior(CarPicture, RepeatBehavior.Forever);
-
-                    Vector offset = VisualTreeHelper.GetOffset(CarPicture);
-                    var left = offset.X;
-                    trans = new TranslateTransform();
-                    CarPicture.RenderTransform = trans;
-                    DoubleAnimation anim1 = new DoubleAnimation(0,230-left,TimeSpan.FromSeconds(animationspeed));
-                    trans.BeginAnimation(TranslateTransform.XProperty, anim1);
+                    moveCar();
                     
                     
                     //adds typing function from user
@@ -207,8 +199,11 @@ namespace Foutloos
         {
             //Adding the Composition handler to get the users input at all times.
             var window = Window.GetWindow(this);
+            System.Windows.Forms.MessageBox.Show("Test");
             window.TextInput += HandleTextComposition;
         }
+
+       
 
         private void HandleTextComposition(object sender, TextCompositionEventArgs e)
         {
@@ -216,6 +211,7 @@ namespace Foutloos
             if (!timer.IsEnabled)
             {
                 timer.Start();
+                moveCar();
             }
 
             //Check for input when exercise is not finished
@@ -246,7 +242,6 @@ namespace Foutloos
         private void nextWord(bool TypedCorrectInTime)
         {
             
-
             //puts timerbased flow back to read-only
             canType = false;
             TimeleftBar.Value = 0;
@@ -301,6 +296,23 @@ namespace Foutloos
                 exerciseFinished = true;
                 ProgressBar.Foreground = Brushes.Green;
             }
+        }
+
+        private void moveCar()
+        {
+            //calculate animation speed, the + 0.2 is the first and the final 100'th millisecond
+            double animationspeed = 0.2 + 0.1 * Math.Ceiling((double)(180 / (60 * difficultyTyping / (1 + wordlength / 1))));
+
+            //animates image
+            ImageBehavior.SetAnimatedSource(CarPicture, DrivingImage);
+            ImageBehavior.SetRepeatBehavior(CarPicture, RepeatBehavior.Forever);
+
+            Vector offset = VisualTreeHelper.GetOffset(CarPicture);
+            var left = offset.X;
+            trans = new TranslateTransform();
+            CarPicture.RenderTransform = trans;
+            DoubleAnimation anim1 = new DoubleAnimation(0, 230 - left, TimeSpan.FromSeconds(animationspeed));
+            trans.BeginAnimation(TranslateTransform.XProperty, anim1);
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
