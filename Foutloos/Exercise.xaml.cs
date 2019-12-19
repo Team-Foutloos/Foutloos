@@ -1227,6 +1227,8 @@ namespace Foutloos
                         exerciseStringLeft += " ";
                     }
                 }
+
+                ProgressBar.Value = +exerciseStringLeft.Length;
             }
         }
         //Countdown Event for the generated excersise
