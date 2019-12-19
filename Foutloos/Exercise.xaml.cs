@@ -1302,11 +1302,11 @@ namespace Foutloos
                 for (int i = 0; i < 20; i++)
                 {
                     Exercise_TextBlock.Text += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    exerciseStringLeft += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
                     if (i != 19)
                     {
                         Exercise_TextBlock.Text += " ";
-                        exerciseText += " ";
+                        exerciseStringLeft += " ";
                     }
                 }
             }
