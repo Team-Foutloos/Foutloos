@@ -59,18 +59,12 @@
                 <!-- In this block code all the recommended exercises are shown -->
                 <Label Content="Start Typing Now!" FontSize="30" VerticalAlignment="Top" Height="54" Grid.Row="2" Width="246" Grid.Column="1" HorizontalAlignment="Center" Margin="350.333,58.667,350.333,0"/>
                 <Grid Name="BoxGrid" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="186.333,115.667,171.333,55" Height="120" Width="589">
-                    <Border Background="LightGreen" CornerRadius="5" BorderThickness="3" BorderBrush="Green" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="122" Name="BoxBorder1">
-                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="Green" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box1"/>
-                    </Border>
-                    <Border Background="Aqua" CornerRadius="5" BorderThickness="3" BorderBrush="DeepSkyBlue" HorizontalAlignment="Left" Margin="148,0,0,0" VerticalAlignment="Top" Height="120" Width="122" Name="BoxBorder2">
-                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="DeepSkyBlue" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box2"/>
-                    </Border>
-                    <Border Background="LightSalmon" CornerRadius="5" BorderThickness="3" BorderBrush="IndianRed"  HorizontalAlignment="Left" Height="120" Margin="304,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder3">
-                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="IndianRed" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box3"/>
-                    </Border>
-                    <Border Background="LightPink" CornerRadius="5" BorderThickness="3" BorderBrush="HotPink"  HorizontalAlignment="Left" Height="120" Margin="467,0,0,0" VerticalAlignment="Top" Width="122" Name="BoxBorder4">
-                        <TextBlock FontWeight="SemiBold" FontSize="30" Foreground="HotPink" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="Box4"/>
-                    </Border>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                 </Grid>
 
                 <Grid Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="302.333,0,302.333,69" Grid.Row="3" Grid.Column="1" Height="234">

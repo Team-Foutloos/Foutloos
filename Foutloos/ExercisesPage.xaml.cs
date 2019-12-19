@@ -201,8 +201,8 @@ namespace Foutloos
                     }
                     if (i == 3)
                     {
-                        Tab_Finished.Visibility = Visibility.Visible;
-                        Grid_Finished.Visibility = Visibility.Visible;
+                        Tab_C.Visibility = Visibility.Visible;
+                        Grid_C.Visibility = Visibility.Visible;
                         
                         calculateGrids(Grid_C, c.getPackageCount(3));
                     }
@@ -277,7 +277,7 @@ namespace Foutloos
             }
         }
 
-        private Border getButton(int dif, int buttonName, DataTable finished, int scroll, int exnum)
+        private Border getButton(int dif, int buttonName, DataTable finished, int scroll, int exnum, string name)
         {
             //Create the main button.
             BorderButton button = new BorderButton(dif);
@@ -292,7 +292,7 @@ namespace Foutloos
             borderButton.MouseLeave += BorderButton_MouseLeave;
 
             //iets met stackpanel
-            l1.Text = $"Excercise: {exnum}";
+            l1.Text = $"{name}: {exnum}";
 
 
 
@@ -326,14 +326,32 @@ namespace Foutloos
                 Console.WriteLine(exercise["packageID"]);
                 //Save the difficulty so that you can use it easily later
                 int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
-
-                
+                string name = exercise["source"].ToString();
 
                 int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
                 DataTable finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
 
-                Border borderButton = getButton(dif, buttonName, finished, scroll, exnum);
-                Border borderButtonAll = getButton(dif, buttonName, finished, scroll, exnum);
+                Border borderButton = getButton(dif, buttonName, finished, scroll, exnum, name);
+                Border borderButtonAll = getButton(dif, buttonName, finished, scroll, exnum, name);
+
+
+                if (finished.Rows.Count > 0)
+                {
+                    Border finishedButton = getButton(dif, buttonName, finished, scroll, exnum, name);
+                    Grid_Finished.Children.Add(finishedButton);
+                    Grid.SetRow(finishedButton, grid_Margin[grid_Margin.Count - 1][0]);
+                    Grid.SetColumn(finishedButton, grid_Margin[grid_Margin.Count - 1][2] + 1);
+
+                    grid_Margin[grid_Margin.Count - 1][2] += 2;
+                    grid_Margin[grid_Margin.Count - 1][1]++;
+
+                    if (grid_Margin[grid_Margin.Count - 1][1] % 4 == 0 && grid_Margin[grid_Margin.Count - 1][1] != 0)
+                    {
+                        grid_Margin[grid_Margin.Count - 1][0] += 2;
+                        grid_Margin[grid_Margin.Count - 1][2] = 0;
+                    }
+
+                }
 
                 //Get the pack of the exercise
                 if ((int.Parse(exercise["packageID"].ToString()) == 1))

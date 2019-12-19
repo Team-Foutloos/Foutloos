@@ -176,7 +176,7 @@ namespace Foutloos.Multiplayer
             words = c.PullData($"SELECT * FROM Dictionary");
 
             //Create 10 exercises and add them in a for loop
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 2; i++)
             {
                 string exercise = "";
 
