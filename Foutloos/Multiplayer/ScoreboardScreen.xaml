@@ -81,44 +81,87 @@
                         <Border Background="White">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="80*"/>
+                                    <ColumnDefinition Width="80*"/>
+                                    <ColumnDefinition Width="20*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
-                                    <RowDefinition Name="firstPlayer_row"/>
-                                    <RowDefinition Name="secondPlayer_row"/>
-                                    <RowDefinition Name="thirdPlayer_row"/>
-                                    <RowDefinition Name="fourthPlayer_row"/>
+                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="Name" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Time" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="3" Grid.Row="0" Text="Overall Score" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                
+                                
+                                <ListBox Grid.Row="1" Grid.Column="0" Name="player_listBox" HorizontalAlignment="Center" BorderThickness="0" Grid.ColumnSpan="4" MaxHeight="400">
+                                    <ListBox.Resources>
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
 
-                                <!-- Position Indicators-->
+                                                            <MultiTrigger>
+
+                                                                <MultiTrigger.Conditions>
+                                                                    <Condition Property="Control.IsMouseOver"
+                                            Value="False" />
+                                                                    <Condition Property="Control.IsMouseOver"
+                                            Value="True" />
+                                                                </MultiTrigger.Conditions>
+                                                                <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="DeepSkyBlue" />
+                                                            </MultiTrigger>
+
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.Resources>
+                                </ListBox>
+
+
+
+                                <!-- Position Indicators
                                 <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="1" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                                 <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="1" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="1" Text="0.01" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Grid.Row="1" Text="0.01" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="1" Text="score" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
 
                                 <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="2" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                                 <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="2" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="2" Text="0.01" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Grid.Row="2" Text="0.01" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="1" Text="score" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
 
 
                                 <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="3" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                                 <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="3" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="3" Text="0.30" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Grid.Row="3" Text="0.30" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="1" Text="score" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
 
                                 <TextBlock Visibility="Collapsed" Grid.Column="0" Grid.Row="4" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                                 <TextBlock Visibility="Collapsed" Grid.Column="1" Grid.Row="4" Text="ThijsNotkamp" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="4" Text="0.50" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="2" Grid.Row="4" Text="0.50" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                                <TextBlock Visibility="Collapsed" Grid.Column="3" Grid.Row="1" Text="score" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
 
 
-
-                                <!-- First the names -->
-                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
-                                <TextBlock Grid.Column="1" Grid.Row="0" Text="Name" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
-                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Time" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
-
-
+                            </Grid>
+                        -->
                             </Grid>
                         </Border>
                     </Grid>

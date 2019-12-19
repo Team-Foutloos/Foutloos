@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Foutloos
 {
@@ -18,7 +19,9 @@ namespace Foutloos
         private string tekst;
         private int exerciseID;
         private int amount = 0;
+        private int counter = 0;
 
+        DataTable dt = new DataTable();
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
         List<DataRow> amateurExercises = new List<DataRow>();
         List<DataRow> normalExercises = new List<DataRow>();
@@ -32,110 +35,52 @@ namespace Foutloos
         Connection c = new Connection();
         private Border selectedBorderButton;
         private double selectedOpacity = .3;
-        private double backgroundOpacity = .5;
-        Thread myThread;
+        private double backgroundOpacity = .5;        
+
+        //Imma test something
+        private List<Grid> grid_list = new List<Grid>();
+        private List<List<int>> grid_Margin = new List<List<int>>();
+
+
 
         public ExercisesPage()
         {
             Modals.loadingModal loadingIndicator = new Modals.loadingModal();
             InitializeComponent();
             loadingIndicator.Show();
-            AddButton(1);
+            addGrids();
             loadingIndicator.Close();
-        }
+        }       
 
-
-
-        private void AddDLC()
+        private void addGrids()
         {
-
-            try
-            {
-                List<int> packages = new List<int>();
-                DataTable dt = new DataTable();
-
-                //checks how many and which packages are connected to the logged in account.          
-                packages = c.getPackages($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
-
-                //Adds the packages for all the packages available in the account.
-                foreach (int i in packages)
-                {                    
-                    dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {i}");                                      
-                    
-
-                    if (i == 2)
-                    {
-                        Grid_GO.Visibility = Visibility.Visible;
-                        Tab_GO.Visibility = Visibility.Visible;
-                    }
-                    if (i == 3)
-                    {
-                        Grid_C.Visibility = Visibility.Visible;
-                        Tab_C.Visibility = Visibility.Visible;
-                    }
-                    if (i == 4)
-                    {
-                        Grid_SC.Visibility = Visibility.Visible;
-                        Tab_SC.Visibility = Visibility.Visible;
-                    }
-                    if (i == 5)
-                    {
-                        Grid_JKR.Visibility = Visibility.Visible;
-                        Tab_JKR.Visibility = Visibility.Visible;
-                    }
-                    if (i == 7)
-                    {
-                        Generated.Visibility = Visibility.Visible;
-                    }
-                                                         
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        
-                        string difficulty = row["difficulty"].ToString();
-                        string package = row["packageID"].ToString();
-
-                        exercises[((int)Int64.Parse(difficulty)) - 1].Add(row);
-                        exercises[3].Add(row);
-
-                        if (i == 2)
-                        {
-                            exercises[5].Add(row);
-                        }
-                        if (i == 3)
-                        {
-                            exercises[6].Add(row);
-                        }
-                        if (i == 4)
-                        {
-                            exercises[7].Add(row);
-                        }
-                        if (i == 5)
-                        {
-                            exercises[8].Add(row);
-                        }
-
-                        amount++;                    
-                                               
-
-                    }
-                }
-
-            }
-            catch (Exception e)
-            {
-
-            }
-        }               
-
-        private void AddButton(int p)
-        {
-            DataTable dt = new DataTable();
 
             //standard package that always gets added.
-            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID = {p}");
+            dt = c.PullData($"SELECT * FROM Exercise LEFT JOIN Package ON Exercise.exerciseID = Package.packageID WHERE Exercise.packageID in (select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}') OR Exercise.packageID=1");
 
             //Create all the lists of exercises and add them to the main list (exercises)
+            //use a 2D list to save spacing in the grids
+            
             //In this list a certain order is used, amateurExercises gets index 0, normal 1, expert 2 and all 3, 
+            
+
+            grid_list.Add(Grid_Amateur);
+            grid_list.Add(Grid_Normal);
+            grid_list.Add(Grid_Expert);
+            grid_list.Add(Grid_GO);
+            grid_list.Add(Grid_C);
+            grid_list.Add(Grid_SC);
+            grid_list.Add(Grid_JKR);
+            grid_list.Add(Grid_All);
+            grid_list.Add(Grid_Finished);
+
+
+
+            for (int i = 0; i < grid_list.Count+2; i++)
+            {
+                grid_Margin.Add(new List<int>() { 1, 0, 0 });
+            }
+                       
 
 
             exercises.Add(amateurExercises);
@@ -170,373 +115,259 @@ namespace Foutloos
             Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Amateur.
-            Grid_Amateur.ShowGridLines = true;
+            Grid_Amateur.ShowGridLines = false;
             Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Normal.
-            Grid_Normal.ShowGridLines = true;
+            Grid_Normal.ShowGridLines = false;
             Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Expert.
-            Grid_Expert.ShowGridLines = true;
+            Grid_Expert.ShowGridLines = false;
             Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_Finished.ShowGridLines = true;
+            Grid_Finished.ShowGridLines = false;
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_GO.ShowGridLines = true;
+            Grid_GO.ShowGridLines = false;
             Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid C#.
-            Grid_C.ShowGridLines = true;
+            Grid_C.ShowGridLines = false;
             Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Special Characters.
-            Grid_SC.ShowGridLines = true;
+            Grid_SC.ShowGridLines = false;
             Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid JKR.
-            Grid_JKR.ShowGridLines = true;
+            Grid_JKR.ShowGridLines = false;
             Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
 
 
-            AddDLC();
+            addDLC();
 
-            calculate(3, "Grid_All", amount, 1);
-            calculate(0, "Grid_Amateur", exercises[0].Count, 1);
-            calculate(1, "Grid_Normal", exercises[1].Count, 1);
-            calculate(2, "Grid_Expert", exercises[2].Count, 1);
-            calculate(3, "Grid_Finished", amount, 1);
-            calculate(3, "Grid_GO", exercises[5].Count, 2);
-            calculate(3, "Grid_C", exercises[6].Count, 3);
-            calculate(3, "Grid_SC", exercises[7].Count, 4);
-            calculate(3, "Grid_JKR", exercises[8].Count, 5);
-                       
+            calculateGrids(Grid_All, amount);
+            calculateGrids(Grid_Amateur, c.getPackageCount(1, 1));
+            calculateGrids(Grid_Normal, c.getPackageCount(1, 2));
+            calculateGrids(Grid_Expert, c.getPackageCount(1, 3));
+            calculateGrids(Grid_Finished, amount);
+            calculateGrids(Grid_GO, c.getPackageCount(2));
+            calculateGrids(Grid_C, c.getPackageCount(3));
+            calculateGrids(Grid_SC, c.getPackageCount(4));
+            calculateGrids(Grid_JKR, c.getPackageCount(5));
 
-
+            addButton();
         }
 
-        private void calculate(int difficulty, string gridName, int amount, int packageID)
+        private void addDLC()
         {
 
-            int exnum = 1;
-            int x = 1;
-            int j = 0;
-            int i = 0;
-            int scroll = 0;
+            try
+            {
+                List<int> packages = new List<int>();                
 
+                //checks how many and which packages are connected to the logged in account.          
+                packages = c.getPackages($"select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = '{ConfigurationManager.AppSettings["username"]}'");
+
+                //Adds the packages for all the packages available in the account.
+                foreach (int i in packages)
+                {                  
+
+
+                    if (i == 2)
+                    {
+                        Grid_GO.Visibility = Visibility.Visible;
+                        Tab_GO.Visibility = Visibility.Visible;
+                    }
+                    if (i == 3)
+                    {
+                        Grid_C.Visibility = Visibility.Visible;
+                        Tab_C.Visibility = Visibility.Visible;
+                    }
+                    if (i == 4)
+                    {
+                        Grid_SC.Visibility = Visibility.Visible;
+                        Tab_SC.Visibility = Visibility.Visible;
+                    }
+                    if (i == 5)
+                    {
+                        Grid_JKR.Visibility = Visibility.Visible;
+                        Tab_JKR.Visibility = Visibility.Visible;
+                    }
+                    if (i == 7)
+                    {
+                        Generated.Visibility = Visibility.Visible;
+                    }
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+
+                        if (i == 2)
+                        {
+                            exercises[5].Add(row);
+                        }
+                        if (i == 3)
+                        {
+                            exercises[6].Add(row);
+                        }
+                        if (i == 4)
+                        {
+                            exercises[7].Add(row);
+                        }
+                        if (i == 5)
+                        {
+                            exercises[8].Add(row);
+                        }                    
+                        
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+        }       
+
+        private void calculateGrids(Grid exercise_grid, int amount)
+        {          
 
             // The amount of columns is always the same.Therefore this piece of code adds them.
             for (int h = 0; h < 4; h++)
             {
-                if (gridName == "Grid_All")
-                {
-                    Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_All.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }                
-                if (gridName == "Grid_Amateur")
-                {
-                    Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Amateur.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_Normal")
-                {
-                    Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Normal.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_Expert")
-                {
-                    Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_Finished")
-                {
-                    Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_GO")
-                {
-                    Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_GO.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_C")
-                {
-                    Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_C.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_SC")
-                {
-                    Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_SC.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-                if (gridName == "Grid_JKR")
-                {
-                    Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
-                    Grid_JKR.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                }
-
-
-
-            }
-
-            if (packageID == 1)
-            {
-
-                //The button gets added as frequently as needed. 
-                foreach (var exercise in exercises[difficulty])
-                {
-                    //Save the difficulty so that you can use it easily later
-                    int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
-
-
-                    //Create the main button.
-                    BorderButton button = new BorderButton(dif);
-                    Border borderButton = button.getButton();
-                    Grid borderGrid = (Grid)borderButton.Child;
-                    Image completedIcon = (Image)borderGrid.Children[2];
-                    TextBlock l1 = (TextBlock)borderGrid.Children[0];
-
-                    int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-
-
-                    DataTable finished = new DataTable();
-                    finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
-
-                    if (finished.Rows.Count > 0)
-                    {
-                        completedIcon.Visibility = Visibility.Visible;
-                        scroll++;
-                    }
-                    else
-                    {
-                        completedIcon.Visibility = Visibility.Hidden;
-                    }
-
-                    Grid.SetColumn(borderButton, j + 1);
-
-                    //Add the mouseEnter and mouseLeave event to the borderButton;
-                    borderButton.MouseEnter += BorderButton_MouseEnter;
-                    borderButton.MouseLeave += BorderButton_MouseLeave;
-
-
-                    //Add the right color to the borders according to the level
-                    borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
-
-                    //iets met stackpanel
-                    Grid.SetRow(borderButton, x);
-                    borderButton.Name = $"E{i}";
-                    l1.Text = $"Excercise: {exnum}";
-
-
-                    if (gridName == "Grid_All")
-                    {
-                        Grid_All.Children.Add(borderButton);
-                        borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 3);
-
-
-                    }
-                    if (gridName == "Grid_Amateur")
-                    {
-                        Grid_Amateur.Children.Add(borderButton);
-                    }
-                    if (gridName == "Grid_Normal")
-                    {
-                        Grid_Normal.Children.Add(borderButton);
-                    }
-                    if (gridName == "Grid_Expert")
-                    {
-                        Grid_Expert.Children.Add(borderButton);
-                    }
-                    if (gridName == "Grid_Finished")
-                    {
-                        if (finished.Rows.Count > 0)
-                        {
-                            Grid_Finished.Children.Add(borderButton);
-                            borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, 4);
-                            //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
-                            j += 2;
-                            i++;
-                            exnum++;
-                        }
-                    }                    
-                    else
-                    {
-                        //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
-                        j += 2;
-                        i++;
-                        exnum++;
-                    }
-
-                    //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
-                    //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
-                    if (i % 4 == 0 && i != 0)
-                    {
-                        x += 2;
-                        j = 0;
-                    }
-                }
-                //if (packageID == 2)
-                //{
-                //    foreach (var exercise in exercises[5])
-                //    {
-                //        //Save the difficulty so that you can use it easily later
-                //        int dif = (int)Int64.Parse(exercise["difficulty"].ToString());
-
-
-                //        //Create the main button.
-                //        BorderButton button = new BorderButton(dif);
-                //        Border borderButton = button.getButton();
-                //        Grid borderGrid = (Grid)borderButton.Child;
-                //        Image completedIcon = (Image)borderGrid.Children[2];
-                //        TextBlock l1 = (TextBlock)borderGrid.Children[0];
-
-                //        int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-
-
-                //        DataTable finished = new DataTable();
-                //        finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
-
-                //        if (finished.Rows.Count > 0)
-                //        {
-                //            completedIcon.Visibility = Visibility.Visible;
-                //            scroll++;
-                //        }
-                //        else
-                //        {
-                //            completedIcon.Visibility = Visibility.Hidden;
-                //        }
-
-                //        Grid.SetColumn(borderButton, j + 1);
-
-                //        //Add the mouseEnter and mouseLeave event to the borderButton;
-                //        borderButton.MouseEnter += BorderButton_MouseEnter;
-                //        borderButton.MouseLeave += BorderButton_MouseLeave;
-
-
-                //        //Add the right color to the borders according to the level
-                //        borderButton.PreviewMouseDown += (sender, e) => B1_Click(sender, e, dif);
-
-                //        //iets met stackpanel
-                //        Grid.SetRow(borderButton, x);
-                //        borderButton.Name = $"E{i}";
-                //        l1.Text = $"Excercise: {exnum}";
-
-                //        if (gridName == "Grid_GO")
-                //        {
-                //            Grid_GO.Children.Add(borderButton);
-                //        }
-                //        if (gridName == "Grid_C")
-                //        {
-                //            Grid_C.Children.Add(borderButton);
-                //        }
-                //        if (gridName == "Grid_SC")
-                //        {
-                //            Grid_C.Children.Add(borderButton);
-                //        }
-                //        if (gridName == "Grid_JKR")
-                //        {
-                //            Grid_JKR.Children.Add(borderButton);
-                //        }
-                //        else
-                //        {
-                //            //The position is always 1,1, 3,1, 5,1 etc. Therefore There is always 2 added for j.
-                //            j += 2;
-                //            i++;
-                //            exnum++;
-                //        }
-
-                //        //The moment that the amount of buttons placed with modulo 4 is equal to zero. X gets 2 added to it so that it continues on the next line.
-                //        //j becomes zero again so that it start again at y positition 1. There is a check that it is not equal to 0 otherwise it already swaps y position before filling the x positions.
-                //        if (i % 4 == 0 && i != 0)
-                //        {
-                //            x += 2;
-                //            j = 0;
-                //        }
-                //    }
-
-                //}
-            }
+                exercise_grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(252) });
+                exercise_grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+            }        
             
-
+            
             //Control if the amount of buttons / 4 is equal to 1, 2, 3 etc. This is to indicate how many times more rows have to get added to the software.
             for (int row = 0; row < Math.Ceiling((double)amount / 4); row++)
             {
-                if (gridName == "Grid_All")
-                {
-                    Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_All.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-
-                if (gridName == "Grid_Amateur")
-                {
-                    Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Amateur.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_Normal")
-                {
-                    Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Normal.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_Expert")
-                {
-                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Expert.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_GO")
-                {
-                    Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_GO.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_C")
-                {
-                    Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_C.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_SC")
-                {
-                    Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_SC.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
-                if (gridName == "Grid_JKR")
-                {
-                    Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_JKR.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
+                exercise_grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
+                exercise_grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             }
-            for (int row = 0; row < Math.Ceiling((double)scroll / 4); row++)
+        }
+
+        private Border getButton(int dif, int buttonName, DataTable finished, int scroll, int exnum)
+        {
+            //Create the main button.
+            BorderButton button = new BorderButton(dif);
+            Border borderButton = button.getButton();
+            Grid borderGrid = (Grid)borderButton.Child;
+            Image completedIcon = (Image)borderGrid.Children[2];
+            TextBlock l1 = (TextBlock)borderGrid.Children[0];
+            borderButton.Name = $"E{buttonName}";
+
+            //Add the mouseEnter and mouseLeave event to the borderButton;
+            borderButton.MouseEnter += BorderButton_MouseEnter;
+            borderButton.MouseLeave += BorderButton_MouseLeave;
+
+            //iets met stackpanel
+            l1.Text = $"Excercise: {exnum}";
+
+
+
+            if (finished.Rows.Count > 0)
             {
-                if (gridName == "Grid_Finished")
-                {
-                    Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(200) });
-                    Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
-
-                }
+                completedIcon.Visibility = Visibility.Visible;
+                scroll++;
             }
-
-            if (packageID == 2)
+            else
             {
+                completedIcon.Visibility = Visibility.Hidden;
+            }
 
+            borderButton.PreviewMouseDown += B1_Click;
+
+            return borderButton;
+        }
+
+
+        private void addButton()
+        {
+            int buttonName = 0;
+            int exnum = 1;
+            int scroll = 0;
+
+
+            //The button gets added as frequently as needed. 
+            foreach (DataRow exercise in dt.Rows)
+            {
+                int marginID;
+                Console.WriteLine(exercise["packageID"]);
+                //Save the difficulty so that you can use it easily later
+                int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
+
+                
+
+                int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+                DataTable finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
+
+                Border borderButton = getButton(dif, buttonName, finished, scroll, exnum);
+                Border borderButtonAll = getButton(dif, buttonName, finished, scroll, exnum);
+
+                //Get the pack of the exercise
+                if ((int.Parse(exercise["packageID"].ToString()) == 1))
+                {
+                    grid_list[int.Parse(exercise["difficulty"].ToString())-1].Children.Add(borderButton);
+                    marginID = int.Parse(exercise["difficulty"].ToString()) - 1;
+                }
+                else
+                {
+                    grid_list[int.Parse(exercise["packageID"].ToString())+1].Children.Add(borderButton);
+                    marginID = int.Parse(exercise["packageID"].ToString()) + 1;
+                }
+
+
+                Grid.SetRow(borderButton, grid_Margin[marginID][0]);
+                Grid.SetColumn(borderButton, grid_Margin[marginID][2] + 1);
+
+
+                Grid.SetRow(borderButtonAll, grid_Margin[grid_Margin.Count - 2][0]);
+                Grid.SetColumn(borderButtonAll, grid_Margin[grid_Margin.Count - 2][2] + 1);
+
+
+                Grid_All.Children.Add(borderButtonAll);
+
+
+                grid_Margin[marginID][2] += 2;
+                grid_Margin[marginID][1]++;
+
+                //Do it for all the exercises as well
+                grid_Margin[grid_Margin.Count - 2][2] += 2;
+                grid_Margin[grid_Margin.Count - 2][1]++;
+
+                exnum++;
+
+                buttonName++;
+
+                if (grid_Margin[grid_Margin.Count - 2][1] % 4 == 0 && grid_Margin[grid_Margin.Count - 2][1] != 0)
+                {
+                    grid_Margin[grid_Margin.Count - 2][0] += 2;
+                    grid_Margin[grid_Margin.Count - 2][2] = 0;
+                }
+
+
+                if (grid_Margin[marginID][1] % 4 == 0 && grid_Margin[marginID][1] != 0)
+                {
+                    grid_Margin[marginID][0] += 2;
+                    grid_Margin[marginID][2] = 0;
+                }
 
             }
+
         }
 
         //If the mouse leaves the exercise
@@ -559,11 +390,11 @@ namespace Foutloos
 
 
         //This checks which buttons has been clicked.
-        private void B1_Click(object sender, RoutedEventArgs e, int difficulty)
+        private void B1_Click(object sender, RoutedEventArgs e)
         {
 
             Border b = (Border)sender;
-            for (int i = 0; i < exercises[difficulty].Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 if (b.Name.Equals($"E{i}"))
                 {
@@ -577,7 +408,7 @@ namespace Foutloos
                     selectedBorderButton = b;
                     exerciseDetails_grid.Visibility = Visibility.Visible;
                     Console.WriteLine(i);
-                    DataRow exercise = exercises[difficulty][i];
+                    DataRow exercise = dt.Rows[i];
                     this.Exercise.Text = $"Exercise {i + 1}";
 
                     //Gets all the data from the database relating to the exercises.
@@ -624,6 +455,11 @@ namespace Foutloos
 
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -655,19 +491,20 @@ namespace Foutloos
 
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            int limit = 75;
             string errorMsg;
             if(radioWord.IsChecked == true)
             {
                 if (IsDigitsOnly(txtWords.Text) && txtWords.Text != "" && txtWords.Text != null)
                 {
                     int amount = int.Parse(txtWords.Text);
-                    if(amount < 250)
+                    if(amount <= limit)
                     {
-                        startupRandomText(amount);
+                        startupRandomText(amount, false);
                     }
                     else
                     {
-                        errorMsg = "The amount of words can't be more then 250 words";
+                        errorMsg = $"The amount of words can't be more then {limit} words";
                         lblError.Content = errorMsg;
                     }
                 }
@@ -679,9 +516,22 @@ namespace Foutloos
             }
             else if(radioTime.IsChecked == true)
             {
-               
+                switch (cmbTime.SelectedIndex)
+                {
+                    case 0:
+                        startupRandomText(30, true);
+                        break;
+                    case 1:
+                        startupRandomText(60, true);
+                        break;
+                    case 2:
+                        startupRandomText(180, true);
+                        break;
+                    case 3:
+                        startupRandomText(300, true);
+                        break;
+                }
             }
-                
         }
 
         private void StartExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -726,31 +576,67 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
 
-        private void startupRandomText(int value)
+        private void startupRandomText(int value, bool timerMode)
         {
             Connection c = new Connection();
 
-            string exerciseText = "";
-
-            DataTable mostMistakes = new DataTable();
-            DataTable dt0 = new DataTable();
-
-            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                $"GROUP BY letter ORDER BY SUM(count) DESC");
-
-            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-            Random rand = new Random();
-
-            for (int i = 0; i < value; i++)
+            if (timerMode)
             {
-                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                if (i != value-1)
+                //The text for the exercise
+                string exerciseText = "";
+
+                //creates new data tabels
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < 20; i++)
                 {
-                    exerciseText += " ";
+                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != 19)
+                    {
+                        exerciseText += " ";
+                    }
                 }
+                Exercise exercise = new Exercise(exerciseText, false, 999);
+                exercise.SetCountdown(value);
+                Application.Current.MainWindow.Content = exercise;
+                
             }
-            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+            else
+            {
+                //The text for the exercise
+                string exerciseText = "";
+
+                //creates new data tabels
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < value; i++)
+                {
+                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != value - 1)
+                    {
+                        exerciseText += " ";
+                    }
+                }
+                Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
+            }
         }
 
         //For the randomly generated exercise
@@ -783,19 +669,18 @@ namespace Foutloos
             Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
 
+        //Enables and Disables inputs specific to the radiobutton it serves 
         private void a(object sender, RoutedEventArgs e)
         {
             if(radioWord.IsChecked == true)
             {
                 txtWords.IsEnabled = true;
                 cmbTime.IsEnabled = false;
-                Console.WriteLine("a");
             }
             else if (radioTime.IsChecked == true)
             {
                 cmbTime.IsEnabled = true;
                 txtWords.IsEnabled = false;
-                Console.WriteLine("b");
             }
         }
     }

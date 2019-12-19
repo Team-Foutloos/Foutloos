@@ -152,7 +152,7 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem Name="Generated" Header="Generated" Visibility="Collapsed">
+                <TabItem Name="Generated" Header="Generated" Visibility="Collapsed" >
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,-1,0,1">
                         <Grid Background="White">
                             <Grid Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="400" Margin="0,0,0,100" >
@@ -175,12 +175,11 @@
                                                  />
                                     <Label Content="Amount:" FontSize="22" HorizontalAlignment="Left" 
                                            VerticalAlignment="Top" Margin="25,40,0,0" />
-                                    <ComboBox x:Name="cmbTime" HorizontalAlignment="Left" IsEnabled="False" Margin="160,45,0,0" VerticalAlignment="Top" Width="150">
-                                        <ComboBoxItem Content="30 sec" Tag="30" IsSelected="True"/>
-                                        <ComboBoxItem Content="1 min" Tag="60"/>
-                                        <ComboBoxItem Content="3 min" Tag="180"/>
-                                        <ComboBoxItem Content="5 min" Tag="300"/>
-                                        <ComboBoxItem Content="10 min" Tag="600"/>
+                                    <ComboBox Name="cmbTime" HorizontalAlignment="Left" IsEnabled="False" Margin="160,45,0,0" VerticalAlignment="Top" Width="150">
+                                        <ComboBoxItem Content="30 sec" IsSelected="True"/>
+                                        <ComboBoxItem Content="1 min" />
+                                        <ComboBoxItem Content="3 min" />
+                                        <ComboBoxItem Content="5 min" />
                                     </ComboBox>
                                 </Grid>
                                 <Label x:Name="lblError" FontSize="22" Width="auto" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20" Foreground="Red" />

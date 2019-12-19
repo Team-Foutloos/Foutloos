@@ -17,6 +17,7 @@ namespace Foutloos.Modals
         private int wpm;
         private int cpm;
         private TimeSpan time;
+        private int countAmount;
         private int mistakes;
         private double accuracy;
         private List<int> cpmTimeList;
@@ -25,6 +26,7 @@ namespace Foutloos.Modals
         private Dictionary<char, int> mistakeLetters;
         private int exerciseID;
         private bool specialChars;
+        private bool generated;
         private bool isSpoken;
 
         public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText, int exerciseID)
@@ -84,6 +86,38 @@ namespace Foutloos.Modals
             FillLineChart();
             FillColumnChart();
         }
+
+        //
+        public ResultsAfterExercise(int wpm, int cpm, int time, int mistakes, double accuracy, List<int> cpmTimeList, List<int> wpmTimeList, Dictionary<char, int> mistakeLetter, string exerciseText, int exerciseID, bool generated, int countAmount)
+        {
+            InitializeComponent();
+            UIChange();
+
+            this.wpm = wpm;
+            this.cpm = cpm;
+            this.mistakes = mistakes;
+            this.time = TimeSpan.FromSeconds(time);
+            this.countAmount = countAmount;
+            this.accuracy = accuracy;
+            this.cpmTimeList = cpmTimeList;
+            this.wpmTimeList = wpmTimeList;
+            this.mistakeLetters = mistakeLetter;
+            this.exerciseText = exerciseText;
+            this.exerciseID = exerciseID;
+            this.generated = generated;
+            this.isSpoken = false;
+
+            wordspm_label.Content = wordspm_label.Content.ToString() + wpm;
+            charspm_label.Content = charspm_label.Content.ToString() + cpm;
+            time_label.Content = time_label.Content.ToString() + this.time.ToString("mm':'ss");
+            error_label.Content = error_label.Content.ToString() + mistakes;
+            accuracy_label.Content = accuracy_label.Content.ToString() + Math.Round(accuracy, 2) + "%";
+            stringExercise.Text = exerciseText;
+
+            FillLineChart();
+            FillColumnChart();
+        }
+
 
 
         private void UIChange()
@@ -190,6 +224,12 @@ namespace Foutloos.Modals
         {
             if (this.isSpoken)
                 Application.Current.MainWindow.Content = new VoiceExercise(exerciseText, exerciseID);
+            else if (this.generated)
+            {
+                Exercise exercise = new Exercise(exerciseText, specialChars, exerciseID);
+                exercise.SetCountdown(countAmount);
+                Application.Current.MainWindow.Content = exercise;
+            }
             else
                 Application.Current.MainWindow.Content = new Exercise(exerciseText, specialChars, exerciseID);
             this.Close();
