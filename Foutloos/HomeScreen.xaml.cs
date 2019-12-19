@@ -48,7 +48,7 @@ namespace Foutloos
             {
                 //Setting a standard text to each TextBlock
                 //Here will the random exercises from the database come.
-                BorderButton button = new BorderButton(3);
+                BorderButton button = new BorderButton();
                 Border borderButton = button.getButton();
                 Grid borderGrid = (Grid)borderButton.Child;
                 Image completedIcon = (Image)borderGrid.Children[2];
