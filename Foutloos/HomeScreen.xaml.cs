@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
@@ -14,6 +16,8 @@ namespace Foutloos
     /// </summary>
     public partial class HomeScreen : Page
     {
+        Connection c = new Connection();
+
         public HomeScreen()
         {
             InitializeComponent();
@@ -21,22 +25,52 @@ namespace Foutloos
             //Update the UI.
             this.loginUIchange();
 
+            //Add a listener to all the 'Buttons' (All exercises, login and register)
+
+        }
+
+        public void createExercisesGrid()
+        {
+            BoxGrid.Children.Clear();
+            DataTable packages;
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")))
+            {
+                packages = c.PullData($"SELECT TOP 4 description FROM Package P LEFT JOIN License L ON P.packageID = L.packageID WHERE L.userID = {ConfigurationManager.AppSettings.Get("userID")} AND L.used = 1");
+            }
+            else
+            {
+                packages = c.PullData("SELECT TOP 4 description FROM Package ORDER BY NEWID()");
+            }
+
+
             //Going thru all the TextBlocs in the grid to add the hover events.
-            foreach (Border x in BoxGrid.Children)
+            for (int i = 0; i < packages.Rows.Count; i++)
             {
                 //Setting a standard text to each TextBlock
                 //Here will the random exercises from the database come.
-                TextBlock textBlock = ((TextBlock)x.Child);
-                textBlock.Text += "\nTest tekst";
-                textBlock.Text = $"{BoxGrid.Children.IndexOf(x) + 1}";
+                BorderButton button = new BorderButton(3);
+                Border borderButton = button.getButton();
+                Grid borderGrid = (Grid)borderButton.Child;
+                Image completedIcon = (Image)borderGrid.Children[2];
+                TextBlock l1 = (TextBlock)borderGrid.Children[0];
+                borderButton.Name = $"Button{i}";
+                borderButton.Margin = new Thickness(5);
+                l1.FontWeight = FontWeights.Bold;
+                l1.Foreground = Brushes.White;
+                l1.Text = packages.Rows[i]["description"].ToString();
 
+                /*borderButton.MouseEnter += OnBoxEnter;
+                borderButton.MouseLeave += OnBoxLeave;
+                borderButton.MouseDown += Exercise;*/
                 //Adding the events
-                x.MouseEnter += OnBoxEnter;
-                x.MouseLeave += OnBoxLeave;
-                x.MouseDown += Exercise;
-            }
-            //Add a listener to all the 'Buttons' (All exercises, login and register)
+                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")))
+                {
+                    completedIcon.Visibility = Visibility.Hidden;
+                }
 
+                Grid.SetColumn(button.getButton(), i);
+                BoxGrid.Children.Add(button.getButton());
+            }
         }
 
         //Change things when a user logs in.
@@ -49,12 +83,14 @@ namespace Foutloos
                 Title.Content = $"Welcome {ConfigurationManager.AppSettings["username"]}";
                 ButtonRowAccount.Visibility = Visibility.Collapsed;
                 seeProgressBtn.Visibility = Visibility.Visible;
+                createExercisesGrid();
             }
             else
             {
                 settingsBtn.DynamicTextIcon = "Settings";
                 setButtonIcon("settingsWhite.png");
                 seeProgressBtn.Visibility = Visibility.Collapsed;
+                createExercisesGrid();
             }
         }
 
@@ -73,14 +109,7 @@ namespace Foutloos
         private void Exercise(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement clickedElement = e.Source as FrameworkElement;
-            if (clickedElement == BoxBorder1 || clickedElement == Box1)
-            {
-                Application.Current.MainWindow.Content = new VoiceExercise("This sentence is typed in an amazing program", 0);
-            }
-            else
-            {
-                Application.Current.MainWindow.Content = new Quick_Fire();    
-            }
+            
 
         }
 
@@ -115,8 +144,8 @@ namespace Foutloos
                 }
 
                 //Adding extra information to the exercise box (Here will the level and the discription be shown)
-                TextBlock textBlock = ((TextBlock)hoveredBox.Child);
-                textBlock.Text += " - This exercise is amazing!!!!!!1!";
+                TextBlock textBlock = (TextBlock)((Grid)hoveredBox.Child).Children[0];
+                textBlock.Text += " Whoa";
 
                 //The margin of the current TextBlock will be set to 0 with an animation
                 marginAnimation.From = hoveredBox.Margin;
@@ -125,7 +154,7 @@ namespace Foutloos
                 hoveredBox.BeginAnimation(MarginProperty, marginAnimation);
 
                 //The width of the TextBlock will be set to the same width of the GridBox with an animation
-                animation.From = hoveredBox.Width;
+                animation.From = BoxGrid.ColumnDefinitions[0].Width.Value;
                 animation.To = BoxGrid.Width;
                 animation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
                 hoveredBox.BeginAnimation(WidthProperty, animation);
@@ -152,7 +181,7 @@ namespace Foutloos
 
             //Setting the hovered TextBlock back to its origional value with an animation
             animation.From = hoveredBox.Width;
-            animation.To = 122;
+            animation.To = BoxGrid.ColumnDefinitions[0].Width.Value;
             animation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
             hoveredBox.BeginAnimation(WidthProperty, animation);
 
@@ -164,8 +193,8 @@ namespace Foutloos
             hoveredBox.BeginAnimation(MarginProperty, marginAnimation);
 
             //Set the text of the ExerciseBox back to its origional value
-            TextBlock textBlock = ((TextBlock)hoveredBox.Child);
-            textBlock.Text = $"{BoxGrid.Children.IndexOf(hoveredBox) + 1}";
+            TextBlock textBlock = (TextBlock)((Grid)hoveredBox.Child).Children[0];
+            textBlock.Text = $" Werkt nog nie";
 
             //Make all other TextBlock visible again.
             foreach (Border x in BoxGrid.Children)
