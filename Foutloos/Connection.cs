@@ -121,7 +121,7 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show($"No connection or wrong query{e}");
+                //System.Windows.Forms.MessageBox.Show($"No connection or wrong query{e}");
                 return false;
             }
 
