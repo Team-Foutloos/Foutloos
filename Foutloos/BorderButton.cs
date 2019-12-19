@@ -20,7 +20,14 @@ namespace Foutloos
             //Get the completed logo
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
-            logo.UriSource = new Uri(@"/assets/tick.png", UriKind.RelativeOrAbsolute);
+            if(dif == 3)
+            {
+                logo.UriSource = new Uri(@"/assets/lockIcon.png", UriKind.RelativeOrAbsolute);
+            }
+            else
+            {
+                logo.UriSource = new Uri(@"/assets/tick.png", UriKind.RelativeOrAbsolute);
+            }
             logo.EndInit();
 
             Image completedIcon = new Image();
@@ -35,10 +42,12 @@ namespace Foutloos
             var easyColor = Color.FromRgb(51, 204, 51);
             var mediumColor = Color.FromRgb(255, 153, 0);
             var hardColor = Color.FromRgb(204, 0, 0);
+            
             //Put all of the colors in a list so they can be easily picked out later.
             availableColors.Add(easyColor);
             availableColors.Add(mediumColor);
             availableColors.Add(hardColor);
+            availableColors.Add(allColor);
 
 
             //Set all the properties for the label.
@@ -75,6 +84,9 @@ namespace Foutloos
                     break;
                 case 2:
                     level.Text = "Expert";
+                    break;
+                case 3:
+                    level.Text = "";
                     break;
             }
         }

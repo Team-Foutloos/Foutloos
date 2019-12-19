@@ -357,6 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\lobby_music.mp3" />
+    <Resource Include="assets\lockIcon.png" />
     <None Include="Properties\lobby_music.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
