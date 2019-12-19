@@ -205,10 +205,10 @@ namespace Foutloos
             return id;
         }
 
-        public int getFinishedCount(int userID)
+        public int getPackageCountFinished(int userID)
         {
             int id = 0;
-            string query = $"select distinct(exerciseID) from Result where userID = {userID}";
+            string query = $"select count(distinct exerciseID) from Result where userID = {userID};";
 
             try
             {

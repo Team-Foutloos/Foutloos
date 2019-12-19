@@ -69,16 +69,27 @@ namespace Foutloos.Multiplayer
             
             DataTable playerStanding = c.PullData($"SELECT playerscore, userID from roomplayer WHERE roomID = {roomID} ORDER BY playerscore DESC");
 
-
-            //Check how many players are in the room
-            for (int i = 0; i < playerScoresTotal.Rows.Count; i++)
+            for (int i = 0; i < 3; i++)
             {
-
                 //Show the UI place
                 Grid medalGrid = (Grid)scoreboardThisRound_grid.Children[i];
                 TextBlock playerName = (TextBlock)medalGrid.Children[0];
-                playerName.Text = playerScoresTotal.Rows[i]["username"].ToString();
-                medalGrid.Visibility = Visibility.Visible;
+
+                try
+                {
+                    playerName.Text = playerScoresTotal.Rows[i]["username"].ToString();
+                    medalGrid.Visibility = Visibility.Visible;
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+
+            //Check how many players are in the room
+            for (int i = 0; i < playerScoresTotal.Rows.Count; i++)
+            { 
 
                 Grid playerGrid = new Grid { Width = 500, HorizontalAlignment = HorizontalAlignment.Center, };
 
