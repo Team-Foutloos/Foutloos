@@ -98,15 +98,20 @@ namespace Foutloos.Multiplayer
                         databaseListener.Abort();
                     });
                 }
-               
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    player_listBox.Items.Clear();
+                });
 
                 for (int i = 0; i < players.Rows.Count; i++)
                 {
                     this.Dispatcher.Invoke(() =>
                     {
-                        TextBlock playerName = (TextBlock)players_grid.Children[i];
+                        TextBlock playerName = new TextBlock() { FontSize=20 };
                         playerName.Text = players.Rows[i]["username"].ToString();
-                        playerName.Visibility = Visibility.Visible;
+
+                        player_listBox.Items.Add(playerName);
                     });
                 }
                 Thread.Sleep(1000);
@@ -117,7 +122,7 @@ namespace Foutloos.Multiplayer
         private void joinRoom()
         {
             //Start the music
-            player.Play();
+            player.PlayLooping();
 
             //First get the roomID
             if (roomID == 0)
