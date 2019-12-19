@@ -123,10 +123,14 @@ namespace Foutloos
 
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            timer.Stop();
-           
-            //close active thread
+            if (canType)
+            {
+                var window = Window.GetWindow(this);
+                window.TextInput -= HandleTextComposition;
+            }
 
+            //close active thread
+            timer.Stop();
 
             //Home button functionality
             Application.Current.MainWindow.Content = new HomeScreen();
@@ -199,7 +203,6 @@ namespace Foutloos
         {
             //Adding the Composition handler to get the users input at all times.
             var window = Window.GetWindow(this);
-            System.Windows.Forms.MessageBox.Show("Test");
             window.TextInput += HandleTextComposition;
         }
 
