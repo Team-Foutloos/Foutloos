@@ -1,4 +1,4 @@
-﻿<Page x:Class="Foutloos.Multiplayer.ScoreboardScreen"
+﻿<Page x:Class="Foutloos.Multiplayer.endScreen"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,10 @@
       xmlns:local="clr-namespace:Foutloos.Multiplayer"
       xmlns:Foutloos="clr-namespace:Foutloos"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ScoreboardScreen">
+     Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+      Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+      Title="GameScreen">
+
     <Grid>
         <Grid.Background>
             <ImageBrush Opacity=".2" ImageSource="../assets/background.png" Stretch="UniformToFill" TileMode="Tile"
@@ -25,7 +27,7 @@
             </EventTrigger>
         </Grid.Triggers>
 
-        <Viewbox StretchDirection="Both" Stretch="Uniform">
+        <Viewbox Stretch="Uniform" StretchDirection="Both">
             <Grid HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="880" RenderTransformOrigin="0.5,0.5" Width="1420">
                 <Foutloos:ThemedIconButton Width="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Height="70" DynamicTextIcon="Leave" DynamicIcon="../assets/homeIconWhite.png" PreviewMouseDown="ThemedIconButton_PreviewMouseDown" />
                 <Grid Name="ExerciseTitle_grid" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Height="300">
@@ -34,9 +36,7 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="auto" MinHeight="164.667"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="exerciseTextBlock" Grid.Row="0" Text="Exercise x/x" TextAlignment="Center" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="-100,-1,-95,0.333" Width="585"/>
-                    <TextBlock x:Name="nextExerciseTextBlock" FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333"/>
-                    <TextBlock FontWeight="SemiBold" Grid.Row="2" Foreground="DeepSkyBlue" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="CountdownDisplay" FontSize="60" Height="80"/>
+                    <TextBlock x:Name="exerciseTextBlock" Grid.Row="0" Text="Game Finished" TextAlignment="Center" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="-100,-1,-95,0.333" Width="585"/>
                 </Grid>
                 <Grid Name="scoreboardThisRound_grid" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.RowDefinitions>
@@ -98,8 +98,8 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
                                 <TextBlock Grid.Column="1" Grid.Row="0" Text="Name" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
-                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Time" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
-                                <TextBlock Grid.Column="3" Grid.Row="0" Text="Overall Score" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="2" Grid.Row="0" Text="Total Time" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
+                                <TextBlock Grid.Column="3" Grid.Row="0" Text="Total Score" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20"/>
 
 
                                 <ListBox Grid.Row="1" Grid.Column="0" Name="player_listBox" HorizontalAlignment="Center" BorderThickness="0" Grid.ColumnSpan="4" MaxHeight="400">
@@ -149,7 +149,7 @@
                         <RowDefinition Height="21*"/>
                         <RowDefinition Height="53*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Name="playercurrent" Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="You're currently on position: " FontSize="40"/>
+                    <TextBlock Name="playercurrent" Foreground="DeepSkyBlue" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="SemiBold" Text="You have finished on position: " FontSize="40"/>
                 </Grid>
             </Grid>
         </Viewbox>
