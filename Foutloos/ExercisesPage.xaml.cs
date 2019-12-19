@@ -130,7 +130,7 @@ namespace Foutloos
             Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_Finished.ShowGridLines = false;
+            Grid_Finished.ShowGridLines = true;
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
@@ -170,6 +170,15 @@ namespace Foutloos
         private void addDLC()
         {
 
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("Username")))
+            {
+                Tab_Finished.Visibility = Visibility.Visible;
+                Grid_Finished.Visibility = Visibility.Visible;
+                int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+                calculateGrids(Grid_Finished, c.getPackageCountFinished(Name));
+            }
+
+
             try
             {
                 List<int> packages = new List<int>();                
@@ -184,40 +193,36 @@ namespace Foutloos
 
                     if (i == 2)
                     {
-                        Tab_Finished.Visibility = Visibility.Visible;
-                        Grid_Finished.Visibility = Visibility.Visible;
+                        
                         Grid_GO.Visibility = Visibility.Visible;
-                        Tab_GO.Visibility = Visibility.Visible;                        
+                        Tab_GO.Visibility = Visibility.Visible;
+
                         calculateGrids(Grid_GO, c.getPackageCount(2));
                     }
                     if (i == 3)
                     {
                         Tab_Finished.Visibility = Visibility.Visible;
                         Grid_Finished.Visibility = Visibility.Visible;
-                        Grid_C.Visibility = Visibility.Visible;
-                        Tab_C.Visibility = Visibility.Visible;
+                        
                         calculateGrids(Grid_C, c.getPackageCount(3));
                     }
                     if (i == 4)
                     {
-                        Tab_Finished.Visibility = Visibility.Visible;
-                        Grid_Finished.Visibility = Visibility.Visible;
+                       
                         Grid_SC.Visibility = Visibility.Visible;
                         Tab_SC.Visibility = Visibility.Visible;
                         calculateGrids(Grid_SC, c.getPackageCount(4));
                     }
                     if (i == 5)
                     {
-                        Tab_Finished.Visibility = Visibility.Visible;
-                        Grid_Finished.Visibility = Visibility.Visible;
+                        
                         Grid_JKR.Visibility = Visibility.Visible;
                         Tab_JKR.Visibility = Visibility.Visible;
                         calculateGrids(Grid_JKR, c.getPackageCount(5));
                     }
                     if (i == 7)
                     {
-                        Tab_Finished.Visibility = Visibility.Visible;
-                        Grid_Finished.Visibility = Visibility.Visible;
+                        
                         Generated.Visibility = Visibility.Visible;
                     }                 
                     
@@ -250,8 +255,7 @@ namespace Foutloos
             {
 
             }
-            int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
-            calculateGrids(Grid_Finished, c.getPackageCountFinished(Name));
+            
         }       
 
         private void calculateGrids(Grid exercise_grid, int amount)
