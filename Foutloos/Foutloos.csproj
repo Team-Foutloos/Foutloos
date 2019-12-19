@@ -355,5 +355,9 @@
   <ItemGroup>
     <Resource Include="assets\ExplodingCar.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\lobby_music.mp3" />
+    <None Include="Properties\lobby_music.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

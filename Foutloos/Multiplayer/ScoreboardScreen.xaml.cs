@@ -62,7 +62,7 @@ namespace Foutloos.Multiplayer
                 c.insertInto($"UPDATE roomplayer SET playerscore = playerscore + 1 WHERE userID = {int.Parse(ConfigurationManager.AppSettings["userID"].ToString())}");
             }
 
-            Thread.Sleep(200);
+            Thread.Sleep(400);
              //Get the datatables.
             playerScoresTotal = c.PullData($"SELECT playerscore, username, t.userID, time FROM roomresult t JOIN Usertable U ON t.userID = u.userID JOIN roomplayer p ON p.userID = u.userID WHERE t.roomExerciseID={exerciseID} AND t.roomID={roomID} ORDER BY time ASC");
 

@@ -163,11 +163,7 @@ namespace Foutloos
             calculateGrids(Grid_Normal, c.getPackageCount(1, 2));
             calculateGrids(Grid_Expert, c.getPackageCount(1, 3));
             calculateGrids(Grid_Finished, amount);
-            calculateGrids(Grid_GO, c.getPackageCount(2));
-            calculateGrids(Grid_C, c.getPackageCount(3));
-            calculateGrids(Grid_SC, c.getPackageCount(4));
-            calculateGrids(Grid_JKR, c.getPackageCount(5));
-
+            
             addButton();
         }
 
@@ -190,27 +186,32 @@ namespace Foutloos
                     {
                         Grid_GO.Visibility = Visibility.Visible;
                         Tab_GO.Visibility = Visibility.Visible;
+                        calculateGrids(Grid_GO, c.getPackageCount(2));
                     }
                     if (i == 3)
                     {
                         Grid_C.Visibility = Visibility.Visible;
                         Tab_C.Visibility = Visibility.Visible;
+                        calculateGrids(Grid_C, c.getPackageCount(3));
                     }
                     if (i == 4)
                     {
                         Grid_SC.Visibility = Visibility.Visible;
                         Tab_SC.Visibility = Visibility.Visible;
+                        calculateGrids(Grid_SC, c.getPackageCount(4));
                     }
                     if (i == 5)
                     {
                         Grid_JKR.Visibility = Visibility.Visible;
                         Tab_JKR.Visibility = Visibility.Visible;
+                        calculateGrids(Grid_JKR, c.getPackageCount(5));
                     }
                     if (i == 7)
                     {
                         Generated.Visibility = Visibility.Visible;
-                    }
-
+                    }                 
+                    
+                    
                     foreach (DataRow row in dt.Rows)
                     {
 
