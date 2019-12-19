@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Windows;
@@ -35,11 +36,29 @@ namespace Foutloos
             DataTable packages;
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")))
             {
-                packages = c.PullData($"SELECT TOP 4 description FROM Package P LEFT JOIN License L ON P.packageID = L.packageID WHERE L.userID = {ConfigurationManager.AppSettings.Get("userID")} AND L.used = 1");
+                
+                packages = c.PullData($"SELECT TOP 4 description, packageID FROM Package P LEFT JOIN License L ON P.packageID = L.packageID WHERE L.userID = {ConfigurationManager.AppSettings.Get("userID")} AND L.used = 1");
+                packages.Columns.Add("owned", typeof(int));
+                foreach(DataRow dr in packages.Rows)
+                {
+                    dr["owned"] = 1;
+                }
+                if (packages.Rows.Count < 4)
+                {
+                    int toBePulled = 4 - packages.Rows.Count;
+                    DataTable randPackages = c.PullData($"SELECT TOP {toBePulled} description, packageID FROM Package WHERE PackageID != 1 ORDER BY NEWID()");
+                    randPackages.Columns.Add("owned", typeof(int));
+                    foreach (DataRow dr in randPackages.Rows)
+                    {
+                        dr["owned"] = 0;
+                        packages.Rows.Add(dr.ItemArray);
+
+                    }
+                }
             }
             else
             {
-                packages = c.PullData("SELECT TOP 4 description FROM Package ORDER BY NEWID()");
+                packages = c.PullData("SELECT TOP 4 description FROM Package WHERE PackageID != 1 ORDER BY NEWID()");
             }
 
 
@@ -51,9 +70,9 @@ namespace Foutloos
                 BorderButton button = new BorderButton();
                 Border borderButton = button.getButton();
                 Grid borderGrid = (Grid)borderButton.Child;
-                Image completedIcon = (Image)borderGrid.Children[2];
+                Image completedIcon = (Image)borderGrid.Children[1];
                 TextBlock l1 = (TextBlock)borderGrid.Children[0];
-                borderButton.Name = $"Button{i}";
+                borderButton.Name = $"B{packages.Rows[0]["packageID"]}";
                 borderButton.Margin = new Thickness(5);
                 l1.FontWeight = FontWeights.Bold;
                 l1.Foreground = Brushes.White;
@@ -63,14 +82,23 @@ namespace Foutloos
                 borderButton.MouseLeave += OnBoxLeave;
                 borderButton.MouseDown += Exercise;*/
                 //Adding the events
-                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")))
+                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")) && (int)packages.Rows[i]["owned"] == 1)
                 {
                     completedIcon.Visibility = Visibility.Hidden;
+                    borderButton.MouseDown += BorderButton_MouseDown;
                 }
 
                 Grid.SetColumn(button.getButton(), i);
                 BoxGrid.Children.Add(button.getButton());
             }
+        }
+
+        //When a user clicks on the box, the exercise starts.
+        private void BorderButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.MessageBox.Show(((Border)sender).Name);
+            
+            
         }
 
         //Change things when a user logs in.
@@ -105,13 +133,6 @@ namespace Foutloos
         bool disableResize = false;
 
 
-        //When a user clicks on the box, the exercise starts.
-        private void Exercise(object sender, MouseButtonEventArgs e)
-        {
-            FrameworkElement clickedElement = e.Source as FrameworkElement;
-            
-
-        }
 
         //When the mouse enters an Exercise box this happens
         private void OnBoxEnter(object sender, EventArgs e)

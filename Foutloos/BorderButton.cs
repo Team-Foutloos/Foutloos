@@ -90,7 +90,6 @@ namespace Foutloos
         {
             TextBlock l1 = new TextBlock();
             Grid borderButtonGrid = new Grid() { Margin = new Thickness(10) };
-            TextBlock level = new TextBlock();
 
             //Get the completed logo
             BitmapImage logo = new BitmapImage();
@@ -103,19 +102,10 @@ namespace Foutloos
             completedIcon.Width = 40;
             completedIcon.Opacity = .4;
 
-            var availableColors = new List<Color>();
 
             //Set all the button colors
-            var allColor = Color.FromRgb(0, 102, 255);
-            var easyColor = Color.FromRgb(51, 204, 51);
-            var mediumColor = Color.FromRgb(255, 153, 0);
-            var hardColor = Color.FromRgb(204, 0, 0);
-
-            //Put all of the colors in a list so they can be easily picked out later.
-            availableColors.Add(easyColor);
-            availableColors.Add(mediumColor);
-            availableColors.Add(hardColor);
-            availableColors.Add(allColor);
+            var color = Color.FromRgb(51, 204, 51);
+            
 
 
             //Set all the properties for the label.
@@ -123,17 +113,14 @@ namespace Foutloos
 
             //Set the properties for the children of the grid of the borderbutotn.
             borderButtonGrid.Children.Add(l1);
-            borderButtonGrid.Children.Add(level);
             borderButtonGrid.Children.Add(completedIcon);
 
 
             borderButton.CornerRadius = new CornerRadius(10);
-            borderButton.BorderBrush = new SolidColorBrush(availableColors[0]) { Opacity = 1 };
+            borderButton.BorderBrush = new SolidColorBrush(color) { Opacity = 1 };
             borderButton.BorderThickness = new Thickness(5);
-            borderButton.Background = new SolidColorBrush(availableColors[0]) { Opacity = .5 };
-            level.FontSize = 15;
-            level.HorizontalAlignment = HorizontalAlignment.Left;
-            level.VerticalAlignment = VerticalAlignment.Bottom;
+            borderButton.Background = new SolidColorBrush(color) { Opacity = .7 };
+           
             l1.HorizontalAlignment = HorizontalAlignment.Center;
             l1.VerticalAlignment = VerticalAlignment.Center;
             completedIcon.HorizontalAlignment = HorizontalAlignment.Right;
