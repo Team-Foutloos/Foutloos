@@ -35,7 +35,7 @@
                         <RowDefinition Height="auto" MinHeight="164.667"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="exerciseTextBlock" Grid.Row="0" Text="Exercise x/x" TextAlignment="Center" FontSize="70" FontWeight="Bold" HorizontalAlignment="Center" Margin="-100,-1,-95,0.333" Width="585"/>
-                    <TextBlock x:Name="nextExerciseTextBlock" FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333" Width="296"/>
+                    <TextBlock x:Name="nextExerciseTextBlock" FontWeight="SemiBold" Grid.Row="1" Foreground="DeepSkyBlue" Text="Next exercise in:" FontSize="40" HorizontalAlignment="Center" Margin="47,1.667,47,0.333"/>
                     <TextBlock FontWeight="SemiBold" Grid.Row="2" Foreground="DeepSkyBlue" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="CountdownDisplay" FontSize="60" Height="80"/>
                 </Grid>
                 <Grid Name="scoreboardThisRound_grid" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -56,7 +56,9 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Grid.Row="0" Name="silver_textBlock" Text="ThijsNotkamp" VerticalAlignment="Bottom"/>
-                        <Rectangle Grid.Row="1" Fill="Gold" HorizontalAlignment="Left" Width="150" Height="125" VerticalAlignment="Bottom" />
+                        <Border Grid.Row="1" Background="Gold" HorizontalAlignment="Left" Width="150" Height="125" VerticalAlignment="Bottom">
+                            <Label Content="🥇" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,5,0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
@@ -64,7 +66,9 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Grid.Row="0" Name="winner_textBlock" Text="ThijsNotkamp" VerticalAlignment="Bottom"/>
-                        <Rectangle Grid.Row="1" Fill="Silver" HorizontalAlignment="Left" Width="150" Height="100" VerticalAlignment="Bottom" />
+                        <Border Grid.Row="1" Background="Silver" HorizontalAlignment="Left" Width="150" Height="100" VerticalAlignment="Bottom">
+                            <Label Content="🥈" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="2" Margin="0,0,5,0" Visibility="Collapsed">
                         <Grid.RowDefinitions>
@@ -72,7 +76,9 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Grid.Row="0" Name="bronse_textBlock" Text="ThijsNotkamp" VerticalAlignment="Bottom"/>
-                        <Rectangle Grid.Row="1" Fill="#cd7f32" HorizontalAlignment="Left" Width="150" Height="75" VerticalAlignment="Bottom" />
+                        <Border Grid.Row="1" Background="#cd7f32" HorizontalAlignment="Left" Width="150" Height="75" VerticalAlignment="Bottom">
+                            <Label Content="🥉" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="3" Visibility="Collapsed" VerticalAlignment="Bottom">
                         <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="SemiBold" Name="loser_textBlock" Text="ThijsNotkamp"/>
