@@ -1200,11 +1200,11 @@ namespace Foutloos
         {
             //value that will determine when extra text is needed
 
-            int kicker = 15;
+            int kicker = 100;
             if (ProgressBar.Value % kicker == 0)
                 firstTime = true;
             //adds more text if the kickers is reached
-            if (ProgressBar.Value % kicker == 14 && firstTime.Equals(true))
+            if (ProgressBar.Value % kicker == 80 && firstTime.Equals(true))
             {
                 firstTime = false;
                 DataTable mostMistakes = new DataTable();
@@ -1217,18 +1217,26 @@ namespace Foutloos
                 Random rand = new Random();
 
                 //fills the exerciseText with a set amount of text
-                for (int i = 0; i < 20; i++)
+                exerciseStringLeft += " ";
+                for (int i = 0; i < 15; i++)
                 {
-                    Exercise_TextBlock.Text += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
                     exerciseStringLeft += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    if (i != 19)
+                    if (i != 14)
                     {
-                        Exercise_TextBlock.Text += " ";
                         exerciseStringLeft += " ";
                     }
                 }
 
-                ProgressBar.Value = +exerciseStringLeft.Length;
+                //Visualize correct input
+                Exercise_TextBlock.Text = "";
+                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
+                Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
+
+                //Update variables
+                userInputCorrect += exerciseStringLeft.First().ToString();
+                exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
+
+                ProgressBar.Maximum += exerciseStringLeft.Count();
             }
         }
         //Countdown Event for the generated excersise
