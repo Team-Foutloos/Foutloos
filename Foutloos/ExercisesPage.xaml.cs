@@ -162,7 +162,7 @@ namespace Foutloos
             calculateGrids(Grid_Amateur, c.getPackageCount(1, 1));
             calculateGrids(Grid_Normal, c.getPackageCount(1, 2));
             calculateGrids(Grid_Expert, c.getPackageCount(1, 3));
-            calculateGrids(Grid_Finished, amount);
+            
             
             addButton();
         }
@@ -240,6 +240,8 @@ namespace Foutloos
             {
 
             }
+            int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
+            calculateGrids(Grid_Finished, c.getPackageCountFinished(Name));
         }       
 
         private void calculateGrids(Grid exercise_grid, int amount)
