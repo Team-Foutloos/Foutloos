@@ -36,6 +36,7 @@ namespace Foutloos
         DispatcherTimer timer = new DispatcherTimer();
         //A countdown timer for generated exercises
         DispatcherTimer timedExcer = new DispatcherTimer();
+        DispatcherTimer timedcheck = new DispatcherTimer();
         //Bool to check if the countdown must be enabeld
         private bool enabletimedExcer = false;
         private int replayTimeValue;
@@ -122,7 +123,9 @@ namespace Foutloos
 
             //Configuring the countdown and adding an event
             timedExcer.Interval = TimeSpan.FromSeconds(1);
+            timedcheck.Interval = TimeSpan.FromMilliseconds(100);
             timedExcer.Tick += Countdown_Tick;
+            timedcheck.Tick += Check_Tick;
 
             //Change text to speech toggle te be turned off by default
             ToggleSpeech.Toggled = false;
@@ -150,7 +153,6 @@ namespace Foutloos
             TextToSpeech.Visibility = Visibility.Visible;
             TextToSpeech.Content = "";
         }
-
         private void UserInput_TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //If the exercise is not started yet, show the countdown and start the exercise.
@@ -175,6 +177,7 @@ namespace Foutloos
                         if (!counterStarted)
                         {
                             timedExcer.Start();
+                            timedcheck.Start();
                             counterStarted = true;
                         }
                     }
@@ -1193,6 +1196,39 @@ namespace Foutloos
             enabletimedExcer = true;
         }
 
+        private void Check_Tick(object sender, EventArgs e)
+        {
+            //value that will determine when extra text is needed
+
+            int kicker = 15;
+            if (ProgressBar.Value % kicker == 0)
+                firstTime = true;
+            //adds more text if the kickers is reached
+            if (ProgressBar.Value % kicker == 14 && firstTime.Equals(true))
+            {
+                firstTime = false;
+                DataTable mostMistakes = new DataTable();
+                DataTable dt0 = new DataTable();
+                //Pulls a list of words based on the letters you did wrong the most
+                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
+                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
+                    $"GROUP BY letter ORDER BY SUM(count) DESC");
+                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                Random rand = new Random();
+
+                //fills the exerciseText with a set amount of text
+                for (int i = 0; i < 20; i++)
+                {
+                    Exercise_TextBlock.Text += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    exerciseStringLeft += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
+                    if (i != 19)
+                    {
+                        Exercise_TextBlock.Text += " ";
+                        exerciseStringLeft += " ";
+                    }
+                }
+            }
+        }
         //Countdown Event for the generated excersise
         private void Countdown_Tick(object sender, EventArgs e)
         {
@@ -1205,6 +1241,7 @@ namespace Foutloos
 
                 //stops all timers
                 timedExcer.Stop();
+                timedcheck.Stop();
                 timer.Stop();
 
                 //Update words per minute
@@ -1280,36 +1317,6 @@ namespace Foutloos
                 }
             }
 
-            //value that will determine when extra text is needed
-
-            int kicker = 15;
-            if (ProgressBar.Value % kicker ==0)
-                firstTime = true;
-            //adds more text if the kickers is reached
-            if (ProgressBar.Value % kicker==14 && firstTime.Equals(true))
-            {
-                firstTime = false;
-                DataTable mostMistakes = new DataTable();
-                DataTable dt0 = new DataTable();
-                //Pulls a list of words based on the letters you did wrong the most
-                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                    $"GROUP BY letter ORDER BY SUM(count) DESC");
-                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-                Random rand = new Random();
-
-                //fills the exerciseText with a set amount of text
-                for (int i = 0; i < 20; i++)
-                {
-                    Exercise_TextBlock.Text += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    exerciseStringLeft += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    if (i != 19)
-                    {
-                        Exercise_TextBlock.Text += " ";
-                        exerciseStringLeft += " ";
-                    }
-                }
-            }
         }
 
         //Timer functionality
