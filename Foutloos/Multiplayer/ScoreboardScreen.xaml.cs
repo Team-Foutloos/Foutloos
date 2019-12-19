@@ -20,22 +20,29 @@ namespace Foutloos.Multiplayer
         private DataTable players;
         private Storyboard countdownStoryboard;
         private bool alreadyLeft = false;
-
+        int amountOfExercises;
 
         public ScoreboardScreen(int roomID, int exerciseID)
         {
             InitializeComponent();
-            exerciseTextBlock.Text = $"Exercise {exerciseID + 1} / 10";
             this.roomID = roomID;
             this.exerciseID = exerciseID;
             c = new Connection();
-            if (exerciseID < 9)
+
+            amountOfExercises = c.ID($"SELECT COUNT(roomExerciseID) FROM roomexercise WHERE roomID={this.roomID}");
+
+
+            exerciseTextBlock.Text = $"Exercise {exerciseID + 1} / {amountOfExercises}";
+
+            if (exerciseID == amountOfExercises-1)
             {
+                exerciseTextBlock.Text = "Match finished";
+                nextExerciseTextBlock.Text = "Going to the final scoreboard in: ";
                 StartCountdown(CountdownDisplay);
             }
             else
             {
-                nextExerciseTextBlock.Text = "Game is finished!";
+                StartCountdown(CountdownDisplay);
             }
 
             initializeScoreBoard();
@@ -69,7 +76,7 @@ namespace Foutloos.Multiplayer
             
             DataTable playerStanding = c.PullData($"SELECT playerscore, userID from roomplayer WHERE roomID = {roomID} ORDER BY playerscore DESC");
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 //Show the UI place
                 Grid medalGrid = (Grid)scoreboardThisRound_grid.Children[i];
@@ -166,10 +173,21 @@ namespace Foutloos.Multiplayer
 
         private void CountdownTimer_Completed(object sender, EventArgs e)
         {
-            //Start the next exercise
+
+            //Start the next exercise, or go to the final results
             if (!alreadyLeft)
-            Application.Current.MainWindow.Content = new GameScreen(roomID, this.exerciseID + 1);
+            {
+                if (exerciseID < amountOfExercises-1)
+                {
+                    Application.Current.MainWindow.Content = new GameScreen(roomID, this.exerciseID + 1);
+                }
+                else
+                {
+                    Application.Current.MainWindow.Content = new endScreen(roomID);
+                }
+            }
         }
+
 
         //When the user clicks the leave button.
         private void ThemedIconButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
