@@ -70,7 +70,7 @@ namespace Foutloos
                 Grid borderGrid = (Grid)borderButton.Child;
                 Image completedIcon = (Image)borderGrid.Children[1];
                 TextBlock l1 = (TextBlock)borderGrid.Children[0];
-                borderButton.Name = $"B{packages.Rows[0]["packageID"]}";
+                borderButton.Name = $"B{packages.Rows[i]["packageID"]}";
                 borderButton.Margin = new Thickness(5);
                 l1.TextWrapping = TextWrapping.Wrap;
                 l1.FontSize = 17;
