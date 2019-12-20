@@ -1227,15 +1227,6 @@ namespace Foutloos
                     }
                 }
 
-                //Visualize correct input
-                Exercise_TextBlock.Text = "";
-                Exercise_TextBlock.Inlines.Add(new Run(userInputCorrect) { Foreground = Brushes.LightGray });
-                Exercise_TextBlock.Inlines.Add(new Run(exerciseStringLeft.First().ToString()) { Foreground = Brushes.LightGreen });
-
-                //Update variables
-                userInputCorrect += exerciseStringLeft.First().ToString();
-                exerciseStringLeft = exerciseStringLeft.Remove(0, 1);
-
                 ProgressBar.Maximum += exerciseStringLeft.Count();
             }
         }
