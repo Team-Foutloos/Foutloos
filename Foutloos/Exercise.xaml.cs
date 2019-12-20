@@ -1228,6 +1228,8 @@ namespace Foutloos
                 }
 
                 ProgressBar.Maximum += exerciseStringLeft.Count();
+                Scroller.ScrollToVerticalOffset(exerciseStringLeft.Length);
+
             }
         }
         //Countdown Event for the generated excersise

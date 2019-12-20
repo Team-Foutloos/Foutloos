@@ -18,7 +18,7 @@
             <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
 
             <!-- Exercise textblock -->
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="180" VerticalAlignment="Top" Margin="183,90,183,360" Width="1000">
+            <ScrollViewer Name="Scroller" VerticalScrollBarVisibility="Auto" Height="180" VerticalAlignment="Top" Margin="183,90,183,360" Width="1000">
                 <TextBlock Name="Exercise_TextBlock" Background="white" FontSize="20" TextWrapping="Wrap"/>
             </ScrollViewer>
             <ProgressBar x:Name="ProgressBar" Foreground="DeepSkyBlue" HorizontalAlignment="Center" Height="13" Margin="211,270,211,0" VerticalAlignment="Top" Width="1000"/>
