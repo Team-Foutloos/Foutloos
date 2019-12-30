@@ -46,13 +46,13 @@ namespace Foutloos
             }
         }
 
-        private void BtnLogIn_Click(object sender, RoutedEventArgs e)
+        private void BtnLogIn_Click(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new Modals.ModalLogin());
             userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
             Application.Current.MainWindow.Content = new SettingsPage();
         }
-        private void BtnRegister_Click(object sender, RoutedEventArgs e)
+        private void BtnRegister_Click(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new Modals.ModalRegister());
             Application.Current.MainWindow.Content = new SettingsPage();
@@ -72,7 +72,7 @@ namespace Foutloos
         }
 
         //The logout button
-        private void BtnLogOut_Click(object sender, RoutedEventArgs e)
+        private void BtnLogOut_Click(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new Modals.LogoutAreYouSure());
         }
@@ -87,7 +87,7 @@ namespace Foutloos
         Connection c = new Connection();
 
         //The save button to save user/email adress changes
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, MouseButtonEventArgs e)
         {
             string errorMessage = "";
 
@@ -114,12 +114,12 @@ namespace Foutloos
             }
         }
 
-        private void BtnChangePassword_Click(object sender, RoutedEventArgs e)
+        private void BtnChangePassword_Click(object sender, MouseButtonEventArgs e)
         {
             ShowModal(new Modals.ChangePassword(userID));
         }
 
-        private void License_Click(object sender, RoutedEventArgs e)
+        private void License_Click(object sender, MouseButtonEventArgs e)
         {
             License license = new License();
 
