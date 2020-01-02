@@ -17,7 +17,7 @@ namespace Foutloos.Modals
         private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             ConfigurationManager.AppSettings["username"] = "";
-            Application.Current.MainWindow.Content = new SettingsPage();
+            Application.Current.MainWindow.Content = new HomeScreen();
             this.Close();
         }
 
