@@ -529,7 +529,7 @@ namespace Foutloos
             return true;
         }
 
-        //The functionality for the start generated excersie button
+        //The functionality for the start generated excersize button
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             int limit = 75;
@@ -728,6 +728,45 @@ namespace Foutloos
                 cmbTime.IsEnabled = true;
                 txtWords.IsEnabled = false;
             }
+        }
+
+        //starts quickfiremode
+        int difficultyTyping = 2;
+        int difficultyReading = 2;
+        
+        private void Retry_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.Content = new Quick_Fire(difficultyTyping, difficultyReading);
+        }
+
+            private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 1;
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 2;
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+            difficultyTyping = 4;
+        }
+
+        private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 1;
+        }
+
+        private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 2;
+        }
+
+        private void RadioButton_Checked_5(object sender, RoutedEventArgs e)
+        {
+            difficultyReading = 4;
         }
     }
 }

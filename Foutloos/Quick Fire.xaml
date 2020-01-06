@@ -24,6 +24,7 @@
 
                 <!-- Home Button -->
                 <local:ThemedIconButton HorizontalAlignment="Left" Margin="40,71,0,0" VerticalAlignment="Top" Height="53" Width="130" DynamicIcon="assets/homeIconWhite.png" DynamicTextIcon="Home" PreviewMouseDown="FoutloosButton_MouseDown"/>
+                <local:ThemedButton DynamicTextRegular="Retry" Margin="200,71,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="53" Width="130" PreviewMouseDown="Retry_PreviewMouseDown" />
 
                 <!-- Content of page -->
                 <Image x:Name="Wall" Source="assets/Wall.png" Margin="200,310,1191,482" />
@@ -39,12 +40,12 @@
                 <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
                 <!-- Time left progress bar -->
                 <ProgressBar x:Name="TimeleftBar" Minimum="0" Maximum="180" Value="180" HorizontalAlignment="Left" Height="8" Margin="640,270,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.5,0.5"/>
-                <RadioButton GroupName="Typing" Content="Steady" IsChecked="True" HorizontalAlignment="Left" Margin="357,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
-                <RadioButton GroupName="Typing" Content="Speedy" HorizontalAlignment="Left" Margin="357,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
-                <RadioButton GroupName="Typing" Content="Turbo" HorizontalAlignment="Left" Margin="357,638,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2"/>
-                <RadioButton GroupName="Interval" Content="Reader" IsChecked="True" HorizontalAlignment="Left" Margin="476,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_3"/>
-                <RadioButton GroupName="Interval" Content="Typer" HorizontalAlignment="Left" Margin="476,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_4"/>
-                <RadioButton GroupName="Interval" Content="Master" HorizontalAlignment="Left" Margin="476,641,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_5"/>
+                <RadioButton GroupName="Typing" Name="Typing1" Content="Steady" IsChecked="True" HorizontalAlignment="Left" Margin="357,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+                <RadioButton GroupName="Typing" Name="Typing2" Content="Speedy" HorizontalAlignment="Left" Margin="357,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
+                <RadioButton GroupName="Typing" Name="Typing3" Content="Turbo" HorizontalAlignment="Left" Margin="357,638,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2"/>
+                <RadioButton GroupName="Interval" Name="Interval1" Content="Reader" IsChecked="True" HorizontalAlignment="Left" Margin="476,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_3"/>
+                <RadioButton GroupName="Interval" Name="Interval2" Content="Typer" HorizontalAlignment="Left" Margin="476,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_4"/>
+                <RadioButton GroupName="Interval" Name="Interval3" Content="Master" HorizontalAlignment="Left" Margin="476,641,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_5"/>
                 <TextBlock HorizontalAlignment="Left" Margin="357,568,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="101"><Run Text="Typing "/><Run Text="Time"/></TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="476,568,0,0" TextWrapping="Wrap" Text="Reading Time" VerticalAlignment="Top" Height="25" Width="101"/>
                 <TextBlock HorizontalAlignment="Left" Margin="410,530,0,0" TextWrapping="Wrap" Text="Difficulty" FontSize="16" VerticalAlignment="Top" Height="21" Width="87"/>

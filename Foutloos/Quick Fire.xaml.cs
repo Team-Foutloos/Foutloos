@@ -22,20 +22,7 @@ namespace Foutloos
     {
         //Exercise text
         private string exerciseText = "alpha bravo charlie delta echo foxtrot golf hotel india juliett kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whiskey x-ray yankee zulu";
-        /* "Hydrogen Helium Lithium Beryllium Boron Carbon Nitrogen Oxygen Fluorine Neon" +
-         " Sodium Magnesium Aluminum Silicon Phosphorus Sulfur Chlorine Argon Potassium Calcium" +
-         " Scandium Titanium Vanadium Chromium Manganese Iron Cobalt Nickel Copper Zinc Gallium" +
-         " Germanium Arsenic Selenium Bromine Krypton Rubidium Strontium Yttrium Zirconium Niobium" +
-         " Molybdenum Technetium Ruthenium Rhodium Palladium Silver Cadmium Indium Tin Antimony" +
-         " Tellurium Iodine Xenon Cesium Barium Lanthanum Cerium Praseodymium Neodymium Promethium" +
-         " Samarium Europium Gadolinium Terbium Dysprosium Holmium Erbium Thulium Ytterbium Lutetium" +
-         " Hafnium Tantalum Tungsten Rhenium Osmium Iridium Platinum Gold Mercury Thallium Lead Bismuth" +
-         " Polonium Astatine Radon Francium Radium Actinium Thorium Protactinium Uranium Neptunium Plutonium" +
-         " Americium Curium Berkelium Californium Einsteinium Fermium Mendelevium Nobelium Lawrencium" +
-         " Rutherfordium Dubnium Seaborgium Bohrium Hassium Meitnerium Darmstadtium Roentgenium" +
-         " Copernicium Nihonium Flerovium Moscovium Livermorium Tennessine Oganesson";*/
-
-        //
+        
         //Exercise words left
         private Queue<String> exerciseQueueTextLeft = new Queue<string>();
         //Next word used for text to speech
@@ -77,7 +64,7 @@ namespace Foutloos
         
         
 
-        public Quick_Fire()
+        public Quick_Fire(int difficultyTyping, int difficultyReading)
         {
             InitializeComponent();
             try
@@ -133,6 +120,32 @@ namespace Foutloos
 
             
             wordlength = e[0].Length;
+
+            //difficulty selected on previous page
+            switch (difficultyTyping)
+            {
+                case 2:
+                    Typing2.IsChecked = true;
+                    break;
+                case 4:
+                    Typing3.IsChecked = true; 
+                    break;
+                default:
+                    Typing1.IsChecked = true;
+                    break;
+            }
+            switch (difficultyReading)
+            {
+                case 2:
+                    Interval2.IsChecked = true;
+                    break;
+                case 4:
+                    Interval3.IsChecked = true;
+                    break;
+                default:
+                    Interval1.IsChecked = true;
+                    break;
+            }
         }
 
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
@@ -360,6 +373,17 @@ namespace Foutloos
         private void RadioButton_Checked_5(object sender, RoutedEventArgs e)
         {
             difficultyReading = 4;
+        }
+
+        private void Retry_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (canType)
+            {
+                var window = Window.GetWindow(this);
+                window.TextInput -= HandleTextComposition;
+            }
+            timer.Stop();
+            Application.Current.MainWindow.Content = new Quick_Fire(difficultyTyping, difficultyReading);
         }
     }
 }
