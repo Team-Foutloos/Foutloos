@@ -95,6 +95,10 @@ namespace Foutloos
             {
                 errorMessage += "Username is too short";
             }
+            else if (c.getPackages($"SELECT * FROM usertable WHERE username='{txtUsername.Text}'").Count > 0)
+            {
+                errorMessage += "This username is already taken";
+            }
             else
             {
                 System.Console.WriteLine(userID);
@@ -109,7 +113,7 @@ namespace Foutloos
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("werkt niet");
+                    System.Windows.Forms.MessageBox.Show(errorMessage);
                 }
             }
         }
