@@ -26,10 +26,9 @@ namespace Foutloos
 
             if (!c.checkConnection())
             {
-                new Thread(() => {
-                    MessageBox.Show("A working internet connection is required.", "No working internet connection");
+                
+                    MessageBox.Show("A working internet connection is required.", "No working internet connection", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
                     Environment.Exit(0);
-                }).Start();
 
             }
 
