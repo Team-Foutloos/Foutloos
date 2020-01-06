@@ -24,7 +24,7 @@ namespace Foutloos
         {
             InitializeComponent();
 
-            if (c.checkConnection())
+            if (!c.checkConnection())
             {
                 new Thread(() => {
                     MessageBox.Show("A working internet connection is required.", "No working internet connection");

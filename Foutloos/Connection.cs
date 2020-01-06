@@ -32,7 +32,7 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show($"No connection{e}");
+                //System.Windows.Forms.MessageBox.Show($"No connection{e}");
             }
 
             return dataTable;
@@ -264,8 +264,14 @@ namespace Foutloos
         public bool checkConnection()
         {
             SqlConnection conn = new SqlConnection(connectionstring);
-
-            return conn.State == ConnectionState.Closed;
+            try
+            {
+                conn.Open();
+            }catch(Exception e)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
