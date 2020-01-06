@@ -52,8 +52,8 @@ namespace Foutloos
             DataTable packages;
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")))
             {
-                //SELECT TOP 4 description, packageID FROM Package P LEFT JOIN License L ON P.packageID = L.packageID WHERE L.userID = {ConfigurationManager.AppSettings.Get("userID")} AND L.used = 1
-                packages = c.PullData($"SELECT TOP 4 P.description, L.packageID FROM License L LEFT JOIN Package P ON L.packageID = P.packageID WHERE userID = {ConfigurationManager.AppSettings.Get("userID")} ORDER BY NEWID()");
+                //Get the owned packages from the database and if there are less than four it will add some locked packages. With the NOT IN all packages that cant quick start are filtered out
+                packages = c.PullData($"SELECT TOP 4 P.description, L.packageID FROM License L LEFT JOIN Package P ON L.packageID = P.packageID WHERE userID = {ConfigurationManager.AppSettings.Get("userID")} AND P.packageID NOT IN (1,7,8,9) ORDER BY NEWID()");
                 packages.Columns.Add("owned", typeof(int));
                 foreach (DataRow dr in packages.Rows)
                 {
