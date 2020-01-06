@@ -142,6 +142,11 @@ namespace Foutloos
                 seeProgressBtn.Visibility = Visibility.Collapsed;
                 createExercisesGrid();
             }
+
+            if (c.getPackages($"SELECT licenseID FROM license WHERE packageID = 8 AND userID = {ConfigurationManager.AppSettings.Get("userID")}").Count > 0)
+            {
+                MultiplayerGrid.Visibility = Visibility.Visible;
+            }
         }
 
         public void setButtonIcon(string name)

@@ -176,7 +176,7 @@ namespace Foutloos.Multiplayer
             words = c.PullData($"SELECT * FROM Dictionary");
 
             //Create 10 exercises and add them in a for loop
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 string exercise = "";
 
@@ -208,11 +208,19 @@ namespace Foutloos.Multiplayer
 
         private void StartMatch_button_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //Start the game
-            c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
-            Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
-            player.Stop();
-            databaseListener.Abort();
+            if (c.getPackages($"SELECT userID from roomplayer WHERE roomID = {roomID}").Count > 1)
+            {
+                //Start the game
+                c.insertInto($"UPDATE room SET hasStarted=1 WHERE roomID = {roomID}");
+                Application.Current.MainWindow.Content = new GameScreen(roomID, 0);
+                player.Stop();
+                databaseListener.Abort();
+
+            }
+            else
+            {
+                MessageBox.Show("A minumum of two players is required for multiplayer!", "Need more players");
+            }
         }
     }
 }

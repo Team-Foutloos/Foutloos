@@ -33,6 +33,7 @@ namespace Foutloos.Multiplayer
         {
             InitializeComponent();
 
+
             //Getting the text that the user has to type
             textToType = this.c.PullData($"SELECT sentence FROM RoomExercise WHERE roomID = {roomID} AND roomExerciseID = {exerciseID}").Rows[0][0].ToString();
 
@@ -55,10 +56,6 @@ namespace Foutloos.Multiplayer
                 }
             }
 
-            //Setting the timer and starting it
-            timer.Interval = TimeSpan.FromMilliseconds(1);
-            timer.Tick += Timer_Elapsed;
-            timer.Start();
 
             //Get all players and scores from the current room
             Connection c = new Connection();
@@ -72,6 +69,14 @@ namespace Foutloos.Multiplayer
                 lvi.Content = $"{s.Field<string>(0)} ({s.Field<int>(1)} pt)";
                 lvi.Focusable = false;
                 namesList.Items.Add(lvi);
+            }
+
+            if (exerciseID != 0)
+            {
+                //Setting the timer and starting it
+                timer.Interval = TimeSpan.FromMilliseconds(1);
+                timer.Tick += Timer_Elapsed;
+                timer.Start();
             }
 
         }
@@ -91,6 +96,28 @@ namespace Foutloos.Multiplayer
             //Adding the textcomposition event
             var window = Window.GetWindow(this);
             window.TextInput += Window_TextInput;
+
+            //Show countdown overlay if the exerciseID == 0
+            if (exerciseID == 0)
+            {
+                UIElement rootVisual = this.Content as UIElement;
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(rootVisual);
+                if (rootVisual != null && adornerLayer != null)
+                {
+                    CustomTools.DarkenAdorner darkenAdorner = new CustomTools.DarkenAdorner(rootVisual);
+                    adornerLayer.Add(darkenAdorner);
+
+                    //Dialog will be opened when the user wan't to exit the exercise when it's not finished
+                    Modals.Countdown countdown = new Modals.Countdown();
+                    countdown.ShowDialog();
+                    adornerLayer.Remove(darkenAdorner);
+
+                    //Setting the timer and starting it
+                    timer.Interval = TimeSpan.FromMilliseconds(1);
+                    timer.Tick += Timer_Elapsed;
+                    timer.Start();
+                }
+            }
         }
 
         private void Window_TextInput(object sender, TextCompositionEventArgs e)

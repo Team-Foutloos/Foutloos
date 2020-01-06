@@ -95,6 +95,14 @@ namespace Foutloos
             {
                 errorMessage += "Username is too short";
             }
+            if (txtUsername.Text.Length > 12)
+            {
+                errorMessage += "Username is too long";
+            }
+            else if (c.getPackages($"SELECT * FROM usertable WHERE username='{txtUsername.Text}'").Count > 0)
+            {
+                errorMessage += "This username is already taken";
+            }
             else
             {
                 System.Console.WriteLine(userID);
@@ -107,10 +115,10 @@ namespace Foutloos
                     Application.Current.MainWindow.Content = new SettingsPage();
 
                 }
-                else
-                {
-                    System.Windows.Forms.MessageBox.Show("werkt niet");
-                }
+            }
+            if (!(errorMessage.Equals("")))
+            {
+                System.Windows.Forms.MessageBox.Show(errorMessage);
             }
         }
 
