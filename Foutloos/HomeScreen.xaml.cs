@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -23,8 +24,22 @@ namespace Foutloos
         {
             InitializeComponent();
 
+            if (!c.checkConnection())
+            {
+                new Thread(() => {
+                    MessageBox.Show("A working internet connection is required.", "No working internet connection");
+                    Environment.Exit(0);
+                }).Start();
+
+            }
+
+
             //Update the UI.
             this.loginUIchange();
+
+           
+
+
 
             //Add a listener to all the 'Buttons' (All exercises, login and register)
 
@@ -32,6 +47,7 @@ namespace Foutloos
 
         public void createExercisesGrid()
         {
+
             BoxGrid.Children.Clear();
             DataTable packages;
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings.Get("username")))

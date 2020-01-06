@@ -35,13 +35,14 @@ namespace Foutloos
                 userID = c.ID($"SELECT userID FROM Usertable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
                 gridloggedIn.Visibility = Visibility.Visible;
                 gridloggedOut.Visibility = Visibility.Hidden;
-                btnLogOut.IsEnabled = true;
+                btnLogOut.Visibility = Visibility.Visible;
             }
             else
             {
                 Title.Content = $"Hello!";
                 gridloggedIn.Visibility = Visibility.Hidden;
                 gridloggedOut.Visibility = Visibility.Visible;
+                btnLogOut.Visibility = Visibility.Hidden;
             }
         }
 
@@ -172,11 +173,12 @@ namespace Foutloos
                 {
                     l.Append("J.K. Rowling Pack \n");
                 }
-                if (license == 6)
-                {
-                    l.Append("Star Wars Pack \n");
-                }
+                
                 if (license == 7)
+                {
+                    l.Append("Auto generating Pack \n");
+                }
+                if (license == 8)
                 {
                     l.Append("Auto generating Pack \n");
                 }
