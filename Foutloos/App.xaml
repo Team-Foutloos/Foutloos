@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Foutloos"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="orwell">pack://application:,,,/Fonts/#Orwell</FontFamily>
+        <FontFamily x:Key="harry">pack://application:,,,/Fonts/#Harry</FontFamily>
+        <FontFamily x:Key="code">pack://application:,,,/Fonts/#Code</FontFamily>
+        <FontFamily x:Key="NotoSansSymbols">pack://application:,,,/Fonts/#Noto Sans Symbols</FontFamily>
     </Application.Resources>
 </Application>

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Foutloos
@@ -290,6 +291,21 @@ namespace Foutloos
             Grid borderGrid = (Grid)borderButton.Child;
             Image completedIcon = (Image)borderGrid.Children[2];
             TextBlock l1 = (TextBlock)borderGrid.Children[0];
+
+            if (packageID - 1 == 1)
+            {
+                l1.FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Orwell");
+            }
+            if (packageID - 1 == 2)
+            {
+                l1.FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Code");
+            }
+            if (packageID - 1 == 4)
+            {
+                l1.FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Orwell");
+            }
+
+
             borderButton.Name = $"E{buttonName}";
 
             //Add the mouseEnter and mouseLeave event to the borderButton;
