@@ -92,7 +92,7 @@
                     <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="60,5,0,0"/>
                     <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="65,4,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28" Width="72"/>
                     <!--The password passwordbox-->
-                    <PasswordBox ToolTip="Between 8 and 20 characters." Name="password" MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1" PasswordChanged="Password_PasswordChanged" PreviewKeyDown="Password_TextChanged">
+                    <PasswordBox ToolTip="Bigger or equal to 8 characters" Name="password" MaxLength="50" HorizontalAlignment="Left" Height="23" Margin="1.667,9,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1">
                         <PasswordBox.Resources>
                             <Storyboard x:Key="TestStoryboard">
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
@@ -110,7 +110,7 @@
                     </PasswordBox>
                     <Label Content="Re enter password" FontSize="15" HorizontalAlignment="Left" Margin="5,2.333,0,0" VerticalAlignment="Top" Grid.Row="2" Height="28" Width="133"/>
                     <!--The password repeat passwordbox -->
-                    <PasswordBox ToolTip="Needs to match the password." Name="passwordRepeat"  MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="1.667,9.333,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1" PreviewKeyDown="Password_TextChanged">
+                    <PasswordBox ToolTip="Needs to match the password." Name="passwordRepeat"  MaxLength="50" HorizontalAlignment="Left" Height="23" Margin="1.667,9.333,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2" Grid.Column="1">
                         <PasswordBox.Resources>
                             <Storyboard x:Key="TestStoryboard">
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" RepeatBehavior="2x">
@@ -127,8 +127,7 @@
                         </PasswordBox.RenderTransform>
                     </PasswordBox>
                     <Label Name="usernameLength" Content="12" Grid.Column="1" HorizontalAlignment="Left" Margin="125.667,8,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <Label Name="passwordLength" Content="20" Grid.Column="2" HorizontalAlignment="Left" Margin="0.667,5,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-
+                   
                 </Grid>
 
                 <!-- The register and cancel button, they are not actually buttons but textblocks wrapped in a border to give more freedom to styling. -->
