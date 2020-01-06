@@ -34,7 +34,7 @@
                 <Label Name="StreakCounter_Label" Content="0" Width="100" Height="40" FontSize="20" Margin="1134,225,188,618"/>
                 <Label Content="Words hit:" Width="200" Height="40" FontSize="20" Margin="952,256,270,587"/>
                 <Label Name="ExerciseWordCounter_Label" Width="100" Height="40" FontSize="20" Margin="1134,256,188,587"/>
-
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="165" Margin="330,514,0,0" Stroke="Black" VerticalAlignment="Top" Width="247"/>
                 <!-- Logo -->
                 <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
                 <!-- Time left progress bar -->
@@ -45,9 +45,14 @@
                 <RadioButton GroupName="Interval" Content="Reader" IsChecked="True" HorizontalAlignment="Left" Margin="476,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_3"/>
                 <RadioButton GroupName="Interval" Content="Typer" HorizontalAlignment="Left" Margin="476,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_4"/>
                 <RadioButton GroupName="Interval" Content="Master" HorizontalAlignment="Left" Margin="476,641,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_5"/>
-                <TextBlock HorizontalAlignment="Left" Margin="357,568,0,0" TextWrapping="Wrap" Text="Typing Speed" VerticalAlignment="Top" Height="25" Width="101"/>
-                <TextBlock HorizontalAlignment="Left" Margin="476,568,0,0" TextWrapping="Wrap" Text="Interval Speed" VerticalAlignment="Top" Height="25" Width="101"/>
-                <TextBlock HorizontalAlignment="Left" Margin="682,598,0,0" TextWrapping="Wrap" Text="Difficulty" VerticalAlignment="Top"/>
+                <TextBlock HorizontalAlignment="Left" Margin="357,568,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="101"><Run Text="Typing "/><Run Text="Time"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="476,568,0,0" TextWrapping="Wrap" Text="Reading Time" VerticalAlignment="Top" Height="25" Width="101"/>
+                <TextBlock HorizontalAlignment="Left" Margin="410,530,0,0" TextWrapping="Wrap" Text="Difficulty" FontSize="16" VerticalAlignment="Top" Height="21" Width="87"/>
+                <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="165" Margin="582,514,0,0" Stroke="Black" VerticalAlignment="Top" Width="448"/>
+                <TextBlock HorizontalAlignment="Left" Text="-Type the word to stop the car before it crashes!" Height="36" Margin="598,530,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
+                <TextBlock HorizontalAlignment="Left" Text="-Mistakes are not allowed" Height="36" Margin="598,566,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
+                <TextBlock HorizontalAlignment="Left" Text="-You can't type during reading time, so read carefully before the car starts driving" Height="36" Margin="598,602,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
+
 
 
             </Grid>
