@@ -180,7 +180,7 @@ namespace Foutloos
                 }
                 if (license == 8)
                 {
-                    l.Append("Multiplayer Pack");
+                    l.Append("Multiplayer Pack \n");
                 }
                 if (license == 9)
                 {
