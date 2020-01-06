@@ -32,7 +32,7 @@ namespace Foutloos
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show($"No connection{e}");
+                //System.Windows.Forms.MessageBox.Show($"No connection{e}");
             }
 
             return dataTable;
@@ -259,6 +259,19 @@ namespace Foutloos
             this.insertInto($"DELETE FROM roomExercise WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
             //Check if the room is empy, if it is, delete the room.
             this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
+        }
+
+        public bool checkConnection()
+        {
+            SqlConnection conn = new SqlConnection(connectionstring);
+            try
+            {
+                conn.Open();
+            }catch(Exception e)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
