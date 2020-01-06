@@ -58,7 +58,7 @@
                         <local:ThemedButton x:Name="btnChangePassword" DynamicTextRegular="Change Password" PreviewMouseDown="BtnChangePassword_Click" HorizontalAlignment="left" Width="180" Height="32" FontSize="20" Margin="20,140,0,0"/>
                         <local:ThemedButton x:Name="btnSave" DynamicTextRegular="Save" PreviewMouseDown="BtnSave_Click" HorizontalAlignment="right" Width="90" Height="32" FontSize="20" Margin="0,140,20,0"/>
                         <local:ThemedButton x:Name="License" DynamicTextRegular="Add LicenseKey" PreviewMouseDown="License_Click" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="1050,16,0,154"/>
-                        <TextBox x:Name="licenseBox" HorizontalAlignment="Left" Height="23" Margin="800,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                        <TextBox x:Name="licenseBox" HorizontalAlignment="Left" Height="26" Margin="698,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
                     </Grid>
                 </Grid>
                 <Label x:Name="lblSettings" Content="Licenses" HorizontalAlignment="Left" Margin="335,380,0,0" VerticalAlignment="Top" Height="40" Width="250" FontSize="20" Foreground="#000000"/>
@@ -70,7 +70,7 @@
                     </Grid.ColumnDefinitions>
                     <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Grid.ColumnSpan="3" />
                     <local:ThemedButton x:Name="btnLogOut" DynamicTextRegular="Log Out" PreviewMouseDown="BtnLogOut_Click" FontSize="25"  HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Grid.Column="2" Margin="0,0,0,-117"/>
-                    </Grid>
+                </Grid>
 
             </Grid>
             <TextBlock x:Name="licensesContent" HorizontalAlignment="Left" Margin="345,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="266" Width="1225"/>
