@@ -19,7 +19,6 @@ namespace Foutloos
         private string tekst;
         private int exerciseID;
         private int amount = 0;
-        private int counter = 0;
 
         DataTable dt = new DataTable();
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
@@ -277,10 +276,10 @@ namespace Foutloos
             }
         }
 
-        private Border getButton(int dif, int buttonName, DataTable finished, int scroll, int exnum, string name)
+        private Border getButton(int dif, int buttonName, DataTable finished, int scroll, int exnum, string name, int packageID)
         {
             //Create the main button.
-            BorderButton button = new BorderButton(dif);
+            BorderButton button = new BorderButton(packageID, dif);
             Border borderButton = button.getButton();
             Grid borderGrid = (Grid)borderButton.Child;
             Image completedIcon = (Image)borderGrid.Children[2];
@@ -323,7 +322,6 @@ namespace Foutloos
             foreach (DataRow exercise in dt.Rows)
             {
                 int marginID;
-                Console.WriteLine(exercise["packageID"]);
                 //Save the difficulty so that you can use it easily later
                 int dif = (int)Int64.Parse(exercise["difficulty"].ToString()) - 1;
                 string name = exercise["source"].ToString();
@@ -331,13 +329,13 @@ namespace Foutloos
                 int Name = c.ID($"SELECT userID FROM userTable WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
                 DataTable finished = c.PullData($"SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID where Result.userID = {Name} AND Result.exerciseID = {exercise["exerciseID"]}");
 
-                Border borderButton = getButton(dif, buttonName, finished, scroll, exnum, name);
-                Border borderButtonAll = getButton(dif, buttonName, finished, scroll, exnum, name);
+                Border borderButton = getButton(dif, buttonName, finished, scroll, exnum, name, int.Parse(exercise["packageID"].ToString()));
+                Border borderButtonAll = getButton(dif, buttonName, finished, scroll, exnum, name, int.Parse(exercise["packageID"].ToString()));
 
 
                 if (finished.Rows.Count > 0)
                 {
-                    Border finishedButton = getButton(dif, buttonName, finished, scroll, exnum, name);
+                    Border finishedButton = getButton(dif, buttonName, finished, scroll, exnum, name, int.Parse(exercise["packageID"].ToString()));
                     Grid_Finished.Children.Add(finishedButton);
                     Grid.SetRow(finishedButton, grid_Margin[grid_Margin.Count - 1][0]);
                     Grid.SetColumn(finishedButton, grid_Margin[grid_Margin.Count - 1][2] + 1);
@@ -634,7 +632,14 @@ namespace Foutloos
                 mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
                     $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
                     $"GROUP BY letter ORDER BY SUM(count) DESC");
-                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                if (mostMistakes.Rows[0]["letter"].ToString().Equals(" "))
+                {
+                    dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[1]["letter"]}%'");
+                }
+                else
+                {
+                    dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
+                }
                 Random rand = new Random();
 
                 //fills the exerciseText with a set amount of text

@@ -76,7 +76,7 @@
                     <!-- All exercises button, its not actually a button but a textblock wrapped inside of a border, the click and hover events are given to this button in the class -->
                     <local:ThemedButton x:Name="allExercisesBtn" DynamicTextRegular="See all exercises" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="50" Width="247" PreviewMouseDown="AllExercisesBtn_PreviewMouseDown" Grid.RowSpan="1" />
 
-                    <Grid Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1">
+                    <Grid Visibility="Hidden" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Name="MultiplayerGrid">
                         <local:ThemedButton x:Name="multiPlayerBtn" DynamicTextRegular="Play Multiplayer" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="247" PreviewMouseDown="MultiPlayerBtn_PreviewMouseDown"/>
                         <Image Source="assets/new.png" HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="62" Margin="-30,-20,0,0"/>
                     </Grid>

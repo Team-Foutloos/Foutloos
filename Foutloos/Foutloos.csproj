@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Foutloos.ico</ApplicationIcon>
+    <ApplicationIcon>LogoFoutloosPNG%28Light%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -364,6 +364,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\lobby_music.mp3" />
+    <Resource Include="LogoFoutloosPNG%28Light%29.ico" />
     <Resource Include="assets\lockIcon.png" />
     <None Include="Properties\lobby_music.wav" />
   </ItemGroup>

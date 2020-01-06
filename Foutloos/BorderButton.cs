@@ -11,8 +11,11 @@ namespace Foutloos
     {
         Border borderButton = new Border();
 
-        public BorderButton(int dif)
+        public BorderButton(int packageID, int dif)
         {
+            //The starting packageID in the DB is 1, so there needs to be a reduction of 1 so the packageID compares to the colorlist
+            packageID--;
+
             TextBlock l1 = new TextBlock();
             Grid borderButtonGrid = new Grid() { Margin = new Thickness(10) };
             TextBlock level = new TextBlock();
@@ -27,21 +30,26 @@ namespace Foutloos
             Image completedIcon = new Image();
             completedIcon.Source = logo;
             completedIcon.Width = 40;
-            completedIcon.Opacity = .4;
+            completedIcon.Opacity = 1;
 
             var availableColors = new List<Color>();
 
             //Set all the button colors
-            var allColor = Color.FromRgb(0, 102, 255);
-            var easyColor = Color.FromRgb(51, 204, 51);
-            var mediumColor = Color.FromRgb(255, 153, 0);
-            var hardColor = Color.FromRgb(204, 0, 0);
-            
+            var standardColor = Color.FromRgb(52, 155, 235);
+            var georgeOrwell = Color.FromRgb(227, 156, 25);
+            var csharp = Color.FromRgb(148, 146, 143);
+            var specialChar = Color.FromRgb(200, 43, 240);
+            var jkRowling = Color.FromRgb(103, 217, 33);
+            var starWars = Color.FromRgb(237, 207, 36);
+
+
             //Put all of the colors in a list so they can be easily picked out later.
-            availableColors.Add(easyColor);
-            availableColors.Add(mediumColor);
-            availableColors.Add(hardColor);
-            availableColors.Add(allColor);
+            availableColors.Add(standardColor);
+            availableColors.Add(georgeOrwell);
+            availableColors.Add(csharp);
+            availableColors.Add(specialChar);
+            availableColors.Add(jkRowling);
+            availableColors.Add(starWars);
 
 
             //Set all the properties for the label.
@@ -54,9 +62,9 @@ namespace Foutloos
 
 
             borderButton.CornerRadius = new CornerRadius(10);
-            borderButton.BorderBrush = new SolidColorBrush(availableColors[dif]) { Opacity = 1 };
+            borderButton.BorderBrush = new SolidColorBrush(availableColors[packageID]) { Opacity = 1 };
             borderButton.BorderThickness = new Thickness(5);
-            borderButton.Background = new SolidColorBrush(availableColors[dif]) { Opacity = .5 };
+            borderButton.Background = new SolidColorBrush(availableColors[packageID]) { Opacity = .5 };
             level.FontSize = 15;
             level.HorizontalAlignment = HorizontalAlignment.Left;
             level.VerticalAlignment = VerticalAlignment.Bottom;
