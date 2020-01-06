@@ -19,8 +19,7 @@ namespace Foutloos
         private string tekst;
         private int exerciseID;
         private int amount = 0;
-        private int counter = 0;
-
+        
         DataTable dt = new DataTable();
         private List<List<DataRow>> exercises = new List<List<DataRow>>();
         List<DataRow> amateurExercises = new List<DataRow>();
@@ -224,9 +223,15 @@ namespace Foutloos
                     {
                         
                         Generated.Visibility = Visibility.Visible;
-                    }                 
-                    
-                    
+                    }
+                    if (i == 9)
+                    {
+
+                        Tab_QuickFire.Visibility = Visibility.Visible;
+
+                    }
+
+
                     foreach (DataRow row in dt.Rows)
                     {
 

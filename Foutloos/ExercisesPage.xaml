@@ -151,6 +151,11 @@
                         <Grid x:Name="Grid_JKR" ShowGridLines="False" Background="White"/>
                     </ScrollViewer>
                 </TabItem>
+                <TabItem x:Name="Tab_QuickFire" Header="Quick Fire" Visibility="Collapsed">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid x:Name="Grid_QuickFire" ShowGridLines="False" Background="White"/>
+                    </ScrollViewer>
+                </TabItem>
 
                 <TabItem Name="Generated" Header="Generated" Visibility="Collapsed" >
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,-1,0,1">

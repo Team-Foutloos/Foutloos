@@ -70,7 +70,7 @@
                     <TextBox x:Name="username" ToolTip="Enter your username." MaxLength="12" HorizontalAlignment="Left" Height="23" Margin="83,17,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
                     <Label Content="Username" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="77" Margin="1,13,0,0"/>
                     <Label Content="Password" FontSize="15" HorizontalAlignment="Left" Margin="6,4.667,0,0" VerticalAlignment="Top" Grid.Row="1" Height="28"/>
-                    <PasswordBox x:Name="password" ToolTip="Enter your password." MaxLength="20" HorizontalAlignment="Left" Height="23" Margin="83,9.667,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <PasswordBox x:Name="password" ToolTip="Enter your password." MaxLength="50" HorizontalAlignment="Left" Height="23" Margin="83,9.667,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.ColumnSpan="2"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="1" Margin="10,-14,0,0" Stroke="Black" VerticalAlignment="Top" Width="193" Grid.ColumnSpan="2"/>
 
                 </Grid>
