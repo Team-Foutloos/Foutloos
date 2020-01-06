@@ -180,6 +180,10 @@ namespace Foutloos
                 {
                     l.Append("Auto generating Pack");
                 }
+                if (license == 8)
+                {
+                    l.Append("Multiplayer Pack");
+                }
 
             }
 
