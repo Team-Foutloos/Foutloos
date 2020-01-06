@@ -20,6 +20,7 @@ namespace Foutloos
             //Get the completed logo
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
+            
             logo.UriSource = new Uri(@"/assets/tick.png", UriKind.RelativeOrAbsolute);
             logo.EndInit();
 
@@ -35,10 +36,12 @@ namespace Foutloos
             var easyColor = Color.FromRgb(51, 204, 51);
             var mediumColor = Color.FromRgb(255, 153, 0);
             var hardColor = Color.FromRgb(204, 0, 0);
+            
             //Put all of the colors in a list so they can be easily picked out later.
             availableColors.Add(easyColor);
             availableColors.Add(mediumColor);
             availableColors.Add(hardColor);
+            availableColors.Add(allColor);
 
 
             //Set all the properties for the label.
@@ -76,7 +79,53 @@ namespace Foutloos
                 case 2:
                     level.Text = "Expert";
                     break;
+                case 3:
+                    level.Text = "";
+                    break;
             }
+        }
+
+        //Homescreen
+        public BorderButton()
+        {
+            TextBlock l1 = new TextBlock();
+            Grid borderButtonGrid = new Grid() { Margin = new Thickness(10) };
+
+            //Get the completed logo
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(@"/assets/lockIcon.png", UriKind.RelativeOrAbsolute);
+            logo.EndInit();
+
+            Image completedIcon = new Image();
+            completedIcon.Source = logo;
+            completedIcon.Width = 40;
+            completedIcon.Opacity = .4;
+
+
+            //Set all the button colors
+            var color = Color.FromRgb(255, 153, 0);
+            
+
+
+            //Set all the properties for the label.
+            borderButton.Child = borderButtonGrid;
+
+            //Set the properties for the children of the grid of the borderbutotn.
+            borderButtonGrid.Children.Add(l1);
+            borderButtonGrid.Children.Add(completedIcon);
+
+
+            borderButton.CornerRadius = new CornerRadius(10);
+            borderButton.BorderBrush = new SolidColorBrush(color) { Opacity = 1 };
+            borderButton.BorderThickness = new Thickness(5);
+            borderButton.Background = new SolidColorBrush(color) { Opacity = .7 };
+           
+            l1.HorizontalAlignment = HorizontalAlignment.Center;
+            l1.VerticalAlignment = VerticalAlignment.Center;
+            completedIcon.HorizontalAlignment = HorizontalAlignment.Right;
+            completedIcon.VerticalAlignment = VerticalAlignment.Bottom;
+
         }
 
         public Border getButton()

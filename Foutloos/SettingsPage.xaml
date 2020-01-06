@@ -46,18 +46,18 @@
                 <Grid x:Name="gridGeneral" Width="1250" Height="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,170,0,0">
                     <Grid Name="gridloggedOut" Background="White" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
-                        <Button x:Name="btnLogIn" Content="Log in" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80" Click="BtnLogIn_Click"/>
+                        <local:ThemedButton x:Name="btnLogIn" DynamicTextRegular="Login" PreviewMouseDown="BtnLogIn_Click" HorizontalAlignment="Left" Width="120" Height="40" FontSize="20" Margin="326,70,0,80"/>
                         <Label Content="or" HorizontalAlignment="Left" Margin="451,70,0,80" Width="auto" Height="40" FontSize="20"/>
-                        <Button x:Name="btnRegister" Content="Create an account" HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80" Click="BtnRegister_Click"/>
+                        <local:ThemedButton x:Name="btnRegister" DynamicTextRegular="Create an account" PreviewMouseDown="BtnRegister_Click"  HorizontalAlignment="Left" Width="220" Height="40" FontSize="20" Margin="486,70,0,80"/>
                         <Label Content="to see acount details" HorizontalAlignment="Left" Margin="711,70,0,80" Width="auto" Height="40" FontSize="20" />
                     </Grid>
                     <Grid Name="gridloggedIn" Background="White" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1250" Height="200" Margin="0,0,0,-100">
                         <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Margin="0,0,0,0" />
                         <Label x:Name="lblUsername" Content="Username:" FontSize="20" HorizontalAlignment="Left" Margin="25,35,0,0" VerticalAlignment="Top"/>
                         <TextBox x:Name="txtUsername" HorizontalAlignment="Left" FontSize="20" Width="450" Margin="175,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
-                        <Button x:Name="btnChangePassword" Content="Change Password" HorizontalAlignment="left" Width="180" Height="32" FontSize="20" Margin="20,140,0,0" Click="BtnChangePassword_Click"/>
-                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="right" Width="90" Height="32" FontSize="20" Margin="0,140,20,0" Click="BtnSave_Click" />
-                        <Button x:Name="License" Content="Add LicenseKey" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="1050,16,0,154" Click="License_Click"/>
+                        <local:ThemedButton x:Name="btnChangePassword" DynamicTextRegular="Change Password" PreviewMouseDown="BtnChangePassword_Click" HorizontalAlignment="left" Width="180" Height="32" FontSize="20" Margin="20,140,0,0"/>
+                        <local:ThemedButton x:Name="btnSave" DynamicTextRegular="Save" PreviewMouseDown="BtnSave_Click" HorizontalAlignment="right" Width="90" Height="32" FontSize="20" Margin="0,140,20,0"/>
+                        <local:ThemedButton x:Name="License" DynamicTextRegular="Add LicenseKey" PreviewMouseDown="License_Click" HorizontalAlignment="left" Width="180" Height="30" FontSize="20" Margin="1050,16,0,154"/>
                         <TextBox x:Name="licenseBox" HorizontalAlignment="Left" Height="23" Margin="800,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
                     </Grid>
                 </Grid>
@@ -69,8 +69,8 @@
                         <ColumnDefinition Width="13*"/>
                     </Grid.ColumnDefinitions>
                     <Border BorderBrush="Black" Width="auto" Height="auto" BorderThickness="2" Grid.ColumnSpan="3" />
-                    <Button x:Name="btnLogOut" IsEnabled="False" Content="LogOut" FontSize="25"  HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Click="BtnLogOut_Click" Grid.Column="2" Margin="0,0,0,-117"/>
-                </Grid>
+                    <local:ThemedButton x:Name="btnLogOut" DynamicTextRegular="Log Out" PreviewMouseDown="BtnLogOut_Click" FontSize="25"  HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="180" Height="90" Grid.Column="2" Margin="0,0,0,-117"/>
+                    </Grid>
 
             </Grid>
             <TextBlock x:Name="licensesContent" HorizontalAlignment="Left" Margin="345,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="266" Width="1225"/>
