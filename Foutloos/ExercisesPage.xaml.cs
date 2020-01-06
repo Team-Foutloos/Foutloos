@@ -538,14 +538,19 @@ namespace Foutloos
                 if (IsDigitsOnly(txtWords.Text) && txtWords.Text != "" && txtWords.Text != null)
                 {
                     int amount = int.Parse(txtWords.Text);
-                    if(amount <= limit)
+                    if(amount <= 0)
                     {
-                        startupRandomText(amount, false);
+                        errorMsg = $"The amount of words can't be negatif or zero";
+                        lblError.Content = errorMsg;
                     }
-                    else
+                    else if(amount > limit)
                     {
                         errorMsg = $"The amount of words can't be more then {limit} words";
                         lblError.Content = errorMsg;
+                    }
+                    else if(amount <= limit)
+                    {
+                        startupRandomText(amount, false);
                     }
                 }
                 else {
