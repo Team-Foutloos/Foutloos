@@ -217,6 +217,10 @@ namespace Foutloos.Multiplayer
                 databaseListener.Abort();
 
             }
+            else
+            {
+                MessageBox.Show("A minumum of two players is required for multiplayer!", "Need more players");
+            }
         }
     }
 }
