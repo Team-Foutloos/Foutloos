@@ -21,18 +21,6 @@ namespace Foutloos.Modals
         }
 
 
-        private void Password_TextChanged(object sender, KeyEventArgs e)
-        {
-            PasswordBox passwordBox = (PasswordBox)sender;
-            if (passwordBox.Password.Length == 20 && e.Key != Key.Escape)
-            {
-
-                Storyboard myStoryboard = (Storyboard)passwordBox.Resources["TestStoryboard"];
-                Storyboard.SetTarget(myStoryboard.Children.ElementAt(0) as DoubleAnimationUsingKeyFrames, passwordBox);
-                myStoryboard.Begin();
-            }
-        }
-
         private void Username_TextChanged_1(object sender, KeyEventArgs e)
         {
             TextBox box = (TextBox)sender;
@@ -62,10 +50,6 @@ namespace Foutloos.Modals
             usernameLength.Content = 12 - username.Text.Length;
         }
 
-        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            passwordLength.Content = 20 - password.Password.Length;
-        }
 
         //Use this function to shake the entire window
         private void shakeTheBox()
@@ -120,6 +104,11 @@ namespace Foutloos.Modals
             else if (password.Password.Length > 8 && !(password.Password.Equals(passwordRepeat.Password)))
             {
                 errorMessage += "Passwords do not match";
+                shakeTheBox();
+            }
+            else if (c.getPackages($"SELECT * FROM usertable WHERE username='{username.Text}'").Count > 0)
+            {
+                errorMessage += "This username is already taken";
                 shakeTheBox();
             }
             else
