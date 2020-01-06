@@ -178,7 +178,11 @@ namespace Foutloos
                 }
                 if (license == 7)
                 {
-                    l.Append("Auto generating Pack");
+                    l.Append("Auto generating Pack \n");
+                }
+                if (license == 9)
+                {
+                    l.Append("Quick Fire Pack");
                 }
 
             }

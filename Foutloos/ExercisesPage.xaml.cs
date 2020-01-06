@@ -224,9 +224,15 @@ namespace Foutloos
                     {
                         
                         Generated.Visibility = Visibility.Visible;
-                    }                 
-                    
-                    
+                    }
+                    if (i == 9)
+                    {
+
+                        Tab_QuickFire.Visibility = Visibility.Visible;
+
+                    }
+
+
                     foreach (DataRow row in dt.Rows)
                     {
 
