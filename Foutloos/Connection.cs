@@ -261,5 +261,12 @@ namespace Foutloos
             this.insertInto($"DELETE FROM room WHERE roomID NOT IN (SELECT roomID FROM roomplayer)");
         }
 
+        public bool checkConnection()
+        {
+            SqlConnection conn = new SqlConnection(connectionstring);
+
+            return conn.State == ConnectionState.Closed;
+        }
+
     }
 }
