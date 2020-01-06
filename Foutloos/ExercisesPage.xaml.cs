@@ -130,7 +130,7 @@ namespace Foutloos
             Grid_Expert.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
             //The standard left and top margin are added for grid Finished.
-            Grid_Finished.ShowGridLines = true;
+            Grid_Finished.ShowGridLines = false;
             Grid_Finished.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
             Grid_Finished.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
 
@@ -518,7 +518,7 @@ namespace Foutloos
         }
 
 
-        //Cecked als er geen letters in txtAmount zit.
+        //Cecks if there are letters in the textbox.
         bool IsDigitsOnly(string str)
         {
             foreach (char c in str)
@@ -530,6 +530,7 @@ namespace Foutloos
             return true;
         }
 
+        //The functionality for the start generated excersie button
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             int limit = 75;
@@ -572,6 +573,11 @@ namespace Foutloos
                         startupRandomText(300, true);
                         break;
                 }
+            }
+            else
+            {
+                errorMsg = "Please select one of the options above";
+                lblError.Content = errorMsg;
             }
         }
 
