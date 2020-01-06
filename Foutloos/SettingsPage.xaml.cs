@@ -173,13 +173,10 @@ namespace Foutloos
                 {
                     l.Append("J.K. Rowling Pack \n");
                 }
-                if (license == 6)
-                {
-                    l.Append("Star Wars Pack \n");
-                }
+                
                 if (license == 7)
                 {
-                    l.Append("Auto generating Pack");
+                    l.Append("Auto generating Pack \n");
                 }
                 if (license == 8)
                 {
