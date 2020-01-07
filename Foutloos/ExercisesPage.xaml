@@ -167,8 +167,6 @@
                             <TextBlock HorizontalAlignment="Left" Text="-Mistakes are not allowed" Height="36" Margin="114,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
                             <TextBlock HorizontalAlignment="Left" Text="-You can't type during reading time, so read carefully before the car starts driving" Height="36" Margin="114,359,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="757"/>
 
-
-
                             <!-- Code for Difficulty -->
                             <RadioButton GroupName="Typing" Content="Steady" IsChecked="True" HorizontalAlignment="Left" Margin="985,224,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="108" Height="31"/>
                             <RadioButton GroupName="Typing" Content="Speedy" HorizontalAlignment="Left" Margin="985,255,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1" Height="31" Width="133"/>
