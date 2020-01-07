@@ -40,6 +40,8 @@
                 <Image x:Name="image" HorizontalAlignment="Left" Height="131" Margin="1213,68,0,0" VerticalAlignment="Top" Width="131" Source="assets/LogoFoutloosPNG.png"/>
                 <!-- Time left progress bar -->
                 <ProgressBar x:Name="TimeleftBar" Minimum="0" Maximum="180" Value="180" HorizontalAlignment="Left" Height="8" Margin="640,270,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.5,0.5"/>
+                
+                <!-- Difficulty -->
                 <RadioButton GroupName="Typing" Name="Typing1" Content="Steady" IsChecked="True" HorizontalAlignment="Left" Margin="357,598,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
                 <RadioButton GroupName="Typing" Name="Typing2" Content="Speedy" HorizontalAlignment="Left" Margin="357,618,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
                 <RadioButton GroupName="Typing" Name="Typing3" Content="Turbo" HorizontalAlignment="Left" Margin="357,638,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2"/>
@@ -50,6 +52,8 @@
                 <TextBlock HorizontalAlignment="Left" Margin="476,568,0,0" TextWrapping="Wrap" Text="Reading Time" VerticalAlignment="Top" Height="25" Width="101"/>
                 <TextBlock HorizontalAlignment="Left" Margin="410,530,0,0" TextWrapping="Wrap" Text="Difficulty" FontSize="16" VerticalAlignment="Top" Height="21" Width="87"/>
                 <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="165" Margin="582,514,0,0" Stroke="Black" VerticalAlignment="Top" Width="448"/>
+                
+                <!-- Instructions -->
                 <TextBlock HorizontalAlignment="Left" Text="-Type the word to stop the car before it crashes!" Height="36" Margin="598,530,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
                 <TextBlock HorizontalAlignment="Left" Text="-Mistakes are not allowed" Height="36" Margin="598,566,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
                 <TextBlock HorizontalAlignment="Left" Text="-You can't type during reading time, so read carefully before the car starts driving" Height="36" Margin="598,602,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>

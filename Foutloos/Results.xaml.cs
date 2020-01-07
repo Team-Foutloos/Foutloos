@@ -41,9 +41,8 @@ namespace Foutloos
 
 
         private void FillUserStats()
-        {
-            DataTable dt0 = new DataTable();
-
+        {// fill Stats from tab control
+            DataTable dt0 = new DataTable(); //Query to get user averages and counts
             dt0 = c.PullData($"SELECT COUNT(*), AVG(wpm), AVG(cpm), SUM(mistakes), COUNT(DISTINCT(exerciseID)) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
 
             ExercisesCompleted.Text = dt0.Rows[0][0].ToString();
@@ -51,7 +50,7 @@ namespace Foutloos
             AverageCPM.Text = dt0.Rows[0][2].ToString();
             TotalMistakes.Text = dt0.Rows[0][3].ToString();
 
-            DataTable dt1 = new DataTable();
+            DataTable dt1 = new DataTable();//Query for total exercises
             dt1 = c.PullData($"SELECT COUNT(*) FROM Exercise");
 
             //Query to get the total amount of exercises the user has with additional packages
@@ -61,17 +60,17 @@ namespace Foutloos
             //Displaying the amount of different exercises done by the user against the max amount the user can do (the amount the user has in extra packages plus the 15 of the standard package)
             UniqueExerciseComp.Text = dt0.Rows[0][4].ToString() + "/" + ((int)getExercisesCount.Rows[0][0] + 15).ToString();
 
-            DataTable dt2 = new DataTable();
+            DataTable dt2 = new DataTable();//Query for speech exercises
             dt2 = c.PullData($"SELECT COUNT(*) FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
                 $"WHERE speech = 1 AND username = '{ConfigurationManager.AppSettings["username"]}'");
             TextSpeechRatio.Text = $"{Convert.ToInt32(ExercisesCompleted.Text) - Convert.ToInt32(dt2.Rows[0][0])}/{dt2.Rows[0][0].ToString()}";
 
-            DataTable dt3 = new DataTable();
+            DataTable dt3 = new DataTable();//Query for grouped difficulty
             dt3 = c.PullData($"SELECT difficulty, COUNT(difficulty) FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
                 $"JOIN Exercise E ON E.exerciseID = R.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}'" +
                 $" GROUP BY difficulty ORDER BY COUNT(difficulty) DESC");
             switch (dt3.Rows[0][0].ToString())
-            {
+            {//rename based on difficulty
                 case "1":
                     FavoriteDifficulty.Text = "Amateur";
                     break;
@@ -89,15 +88,15 @@ namespace Foutloos
 
         }
         private void FillPieChart()
-        {
-            DataTable dt = new DataTable();
+        { //Fill Piechart in Stats (tabcontrol)
+            DataTable dt = new DataTable(); // Query gets letter and amount
             dt = c.PullData($"SELECT letter, SUM(count) FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
                 $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' " +
                 $"GROUP BY letter ORDER BY SUM(count) DESC");
             List<KeyValuePair<string, int>> mistakes = new List<KeyValuePair<string, int>>();
 
             for (int i = 0; i < 8 && i < dt.Rows.Count; i++)
-            {
+            {//adds up to eight most made mistakes
                 if (dt.Rows[i][0].ToString() != " ")
                 {
                     mistakes.Add(new KeyValuePair<string, int>(dt.Rows[i][0].ToString(), Convert.ToInt32(dt.Rows[i][1])));
@@ -108,19 +107,18 @@ namespace Foutloos
                 }
 
             }
-
+            //fills Piechart with data key-valuepair array
             PieChart.DataContext = mistakes;
         }
         private void FillListBox()
-        {
-            DataTable dt = new DataTable();
+        {//Listbox in Exercise List (Tabcontrol)
             exerciselist = new List<UserExerciseResult>();
 
+            DataTable dt = new DataTable(); //query to get rows for each made exercise with the accompanying stats
             dt = c.PullData($"SELECT R.exerciseID, mistakes, wpm, cpm, time, difficulty, speech " +
                 $"FROM Result R RIGHT JOIN Usertable U ON R.userID = U.userID " +
                 $"JOIN Exercise E ON R.exerciseID = E.exerciseID WHERE username = '{ConfigurationManager.AppSettings["username"]}'");
 
-            //Fill Listbox
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 //Convert datarow into object
@@ -129,11 +127,9 @@ namespace Foutloos
                 result.Mistakes = Convert.ToInt32(dt.Rows[i]["mistakes"]);
                 result.WPM = Convert.ToInt32(dt.Rows[i]["wpm"]);
                 result.CPM = Convert.ToInt32(dt.Rows[i]["cpm"]);
-                //result.Mistakes = Convert.ToInt32(dt.Rows[i]["time"]);
                 result.Difficulty = dt.Rows[i]["difficulty"].ToString();
-                //change number into text
                 switch (result.Difficulty)
-                {
+                {//change number into text
                     case "1":
                         result.Difficulty = "Amateur";
                         break;
@@ -148,9 +144,8 @@ namespace Foutloos
                         break;
                 }
                 result.Type = dt.Rows[i]["speech"].ToString();
-                //change number into text
                 switch (result.Type)
-                {
+                {//change number into text
                     case "0":
                         result.Type = "Text";
                         break;
@@ -165,9 +160,9 @@ namespace Foutloos
                 exerciselist.Add(result);
             }
             ReverseExerciseList = new List<UserExerciseResult>();
-            //Reverse list for recent exercise top
+            
             for (int i = (exerciselist.Count() - 1); i >= 0; i--)
-            {
+            {//Reverse list to place the most recent exercise at the top
                 ReverseExerciseList.Add((UserExerciseResult)exerciselist[i]);
             }
             //ExerciseList in the xaml-part will use this list as ItemSource when binding
@@ -176,7 +171,7 @@ namespace Foutloos
 
 
         private void FillColumnCharts(string Name, int WPM, int CPM, int Mistakes)
-        {
+        { // Fills the Columncharts in ExerciseList (Tabcontrol)
             ColumnChartTitle.Text = Name;
             //WPM column
             List<KeyValuePair<string, int>> valueList = new List<KeyValuePair<string, int>>();
@@ -193,37 +188,38 @@ namespace Foutloos
         }
 
         private void FillLineChart()
-        {
+        { //Fills Linechart in Timeline (Tabcontrol)
             wpm_line = new List<KeyValuePair<int, int>>();
             cpm_line = new List<KeyValuePair<int, int>>();
             mistake_line = new List<KeyValuePair<int, int>>();
             int counter = 1;
             foreach (UserExerciseResult result in exerciselist)
-            {
+            { // fills all arrays with the data to make a dot in linechart
                 wpm_line.Add(new KeyValuePair<int, int>(counter, result.WPM));
                 cpm_line.Add(new KeyValuePair<int, int>(counter, result.CPM));
                 mistake_line.Add(new KeyValuePair<int, int>(counter, result.Mistakes));
                 counter++;
             }
+            //Fill linechart with data from the arrays
             LineWPM.DataContext = wpm_line;
             LineCPM.DataContext = cpm_line;
             LineMistakes.DataContext = mistake_line;
         }
 
         private void ExerciseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        { // updates charts with new selected item
             var item = (ListBox)sender;
             var currentExercise = (UserExerciseResult)item.SelectedItem;
             FillColumnCharts(currentExercise.Name, currentExercise.WPM, currentExercise.CPM, currentExercise.Mistakes);
         }
 
         private void GoHome_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+        { //Homebutton
             Application.Current.MainWindow.Content = new HomeScreen();
         }
 
         private void WPM_Click(object sender, RoutedEventArgs e)
-        {
+        {// removes/adds WPM line in Linechart
             if (WPMButton.Content.Equals("Hide WPM"))
             {
                 LineWPM.DataContext = null;
@@ -237,7 +233,7 @@ namespace Foutloos
         }
 
         private void CPM_Click(object sender, RoutedEventArgs e)
-        {
+        {// removes/adds CPM line in Linechart
             if (CPMButton.Content.Equals("Hide CPM"))
             {
                 LineCPM.DataContext = null;
@@ -251,7 +247,7 @@ namespace Foutloos
         }
 
         private void Mistakes_Click(object sender, RoutedEventArgs e)
-        {
+        {// removes/adds mistake line in Linechart
             if (MistakesButton.Content.Equals("Hide Mistakes"))
             {
                 LineMistakes.DataContext = null;

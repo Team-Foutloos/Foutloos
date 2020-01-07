@@ -121,7 +121,7 @@ namespace Foutloos
             
             wordlength = e[0].Length;
 
-            //difficulty selected on previous page
+            //difficulties selected on previous page
             switch (difficultyTyping)
             {
                 case 2:
@@ -151,7 +151,7 @@ namespace Foutloos
         private void FoutloosButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (canType)
-            {
+            {//remove Delegate for typing
                 var window = Window.GetWindow(this);
                 window.TextInput -= HandleTextComposition;
             }
@@ -169,11 +169,11 @@ namespace Foutloos
             {
                 //typing flow
                 if (TimeleftBar.Value > 0)
-                {
+                { 
                     TimeleftBar.Value -= 60 * difficultyTyping / (1 + wordlength / 1);//if changed also change the animation speed
 
                     if (TimeleftBar.Value > 90)
-                    {
+                    {//color of the Timebar based on how many time left
                         greenValue = 255;
                         redValue = (int)Math.Floor(255 - (TimeleftBar.Value / TimeleftBar.Maximum * 255 * 2));
                     }
@@ -185,11 +185,10 @@ namespace Foutloos
                 }
                 else
                 {
-                        if (TimeleftBar.Value != 0)
+                        if (TimeleftBar.Value != 0)//make sure the value isn't negative
                             TimeleftBar.Value = 0;
-                        canType = false;
+                        canType = false; 
 
-                        //TODO: mistakes++
                         nextWord(false);
                 }
             }
@@ -202,7 +201,7 @@ namespace Foutloos
                     TimeleftBar.Value += 60 * difficultyReading / (4 + wordlength/8 );
                 else
                 {
-                    if (TimeleftBar.Value != 180)
+                    if (TimeleftBar.Value != 180) // value cannot be higher than maximum of TimeleftBar
                         TimeleftBar.Value = 180;
                     canType = true;
 
@@ -345,6 +344,7 @@ namespace Foutloos
             trans.BeginAnimation(TranslateTransform.XProperty, anim1);
         }
 
+        //Radio buttons set difficulty
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             difficultyTyping = 1;
@@ -376,9 +376,9 @@ namespace Foutloos
         }
 
         private void Retry_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
+        { // reloads page 
             if (canType)
-            {
+            { // remove delegate
                 var window = Window.GetWindow(this);
                 window.TextInput -= HandleTextComposition;
             }
