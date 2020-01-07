@@ -95,7 +95,7 @@ namespace Foutloos
             {
                 errorMessage += "Username is too short";
             }
-            if (txtUsername.Text.Length > 12)
+            else if (txtUsername.Text.Length > 12)
             {
                 errorMessage += "Username is too long";
             }
