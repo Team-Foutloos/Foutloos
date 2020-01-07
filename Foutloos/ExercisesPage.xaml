@@ -151,8 +151,7 @@
                         <Grid x:Name="Grid_JKR" ShowGridLines="False" Background="White"/>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem x:Name="Tab_QuickFire" Header="Quick Fire" Visibility="Visible">
-                    <!--TODO: collapsed maken-->
+                <TabItem x:Name="Tab_QuickFire" Header="Quick Fire" Visibility="Collapsed">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid x:Name="Grid_QuickFire" ShowGridLines="False" Background="White">
                             <Grid.Resources>
@@ -160,12 +159,13 @@
                                     <Setter Property="Foreground" Value="Black" />
                                 </Style>
                             </Grid.Resources>
-
+                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="405" Margin="967,98,0,0" Stroke="Black" VerticalAlignment="Top" Width="206"/>
+                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="405" Margin="967,98,0,0" Stroke="Black" VerticalAlignment="Top" Width="206"/>
                             <!-- Code for Instructions -->
-                            <TextBlock HorizontalAlignment="Left" Margin="114,132,0,0" TextWrapping="Wrap" Text="Instructions" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Text="-Type the word to stop the car before it crashes into the wall!" Height="36" Margin="114,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="578"/>
-                            <TextBlock HorizontalAlignment="Left" Text="-Mistakes are not allowed" Height="36" Margin="114,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
-                            <TextBlock HorizontalAlignment="Left" Text="-You can't type during reading time, so read carefully before the car starts driving" Height="36" Margin="114,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="757"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="114,193,0,0" TextWrapping="Wrap" Text="Instructions" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Text="-Type the word to stop the car before it crashes into the wall!" Height="36" Margin="114,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="578"/>
+                            <TextBlock HorizontalAlignment="Left" Text="-Mistakes are not allowed" Height="36" Margin="114,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405"/>
+                            <TextBlock HorizontalAlignment="Left" Text="-You can't type during reading time, so read carefully before the car starts driving" Height="36" Margin="114,359,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="757"/>
 
 
 
@@ -179,7 +179,8 @@
                             <TextBlock HorizontalAlignment="Left" Margin="985,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="133"><Run Text="Typing "/><Run Text="Time"/></TextBlock>
                             <TextBlock HorizontalAlignment="Left" Margin="985,341,0,0" TextWrapping="Wrap" Text="Reading Time" VerticalAlignment="Top" Height="40" Width="142"/>
                             <TextBlock HorizontalAlignment="Left" Margin="985,119,0,0" TextWrapping="Wrap" Text="Difficulty" FontSize="20" VerticalAlignment="Top" Height="40" Width="128"/>
-                            <local:ThemedButton DynamicTextRegular="Start" HorizontalAlignment="Left" Margin="985,538,0,0" VerticalAlignment="Top" Width="169" Height="54" PreviewMouseDown="Retry_PreviewMouseDown" />
+                            <local:ThemedButton DynamicTextRegular="Start" HorizontalAlignment="Left" Margin="585,535,0,0" VerticalAlignment="Top" Width="169" Height="54" PreviewMouseDown="Retry_PreviewMouseDown" />
+
                         </Grid>
                     </ScrollViewer>
                 </TabItem>
