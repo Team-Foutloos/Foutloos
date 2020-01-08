@@ -743,7 +743,7 @@ namespace Foutloos
         }
 
         //Enables and Disables inputs specific to the radiobutton it serves 
-        private void a(object sender, RoutedEventArgs e)
+        private void RadioSwitch(object sender, RoutedEventArgs e)
         {
             if(radioWord.IsChecked == true)
             {
