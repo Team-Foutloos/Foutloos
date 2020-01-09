@@ -547,6 +547,8 @@ namespace Foutloos
         //The functionality for the start generated excersize button
         private void StartGeneratedExercise_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            //Class that generates text based on the users flaws
+            WordGenerator Generator = new WordGenerator();
             int limit = 75;
             string errorMsg;
             if(radioWord.IsChecked == true)
@@ -566,7 +568,8 @@ namespace Foutloos
                     }
                     else if(amount <= limit)
                     {
-                        startupRandomText(amount, false);
+                        string generated = Generator.startupRandomText(amount, false);
+                        Application.Current.MainWindow.Content =  new Exercise(generated, false, 999);
                     }
                 }
                 else {
@@ -577,19 +580,25 @@ namespace Foutloos
             }
             else if(radioTime.IsChecked == true)
             {
+                string generated = Generator.startupRandomText();
+                Exercise exercise = new Exercise(generated, false, 999);
                 switch (cmbTime.SelectedIndex)
                 {
                     case 0:
-                        startupRandomText(30, true);
+                        exercise.SetCountdown(30);
+                        Application.Current.MainWindow.Content = exercise;
                         break;
                     case 1:
-                        startupRandomText(60, true);
+                        exercise.SetCountdown(60);
+                        Application.Current.MainWindow.Content = exercise;
                         break;
                     case 2:
-                        startupRandomText(180, true);
+                        exercise.SetCountdown(180);
+                        Application.Current.MainWindow.Content = exercise;
                         break;
                     case 3:
-                        startupRandomText(300, true);
+                        exercise.SetCountdown(300);
+                        Application.Current.MainWindow.Content = exercise;
                         break;
                 }
             }
@@ -611,135 +620,6 @@ namespace Foutloos
                 Application.Current.MainWindow.Content = new VoiceExercise(tekst, exerciseID);
 
             }
-        }
-
-        //Randomly generate a text based on the users flaws
-        private void startupRandomText()
-        {
-
-            Connection c = new Connection();
-
-            string exerciseText = "";
-
-            DataTable mostMistakes = new DataTable();
-            DataTable dt0 = new DataTable();
-
-            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                $"GROUP BY letter ORDER BY SUM(count) DESC");
-
-            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-            Random rand = new Random();
-
-            for (int i = 0; i < 20; i++)
-            {
-                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                if (i != 19)
-                {
-                    exerciseText += " ";
-                }
-            }
-            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
-        }
-
-        private void startupRandomText(int value, bool timerMode)
-        {
-            Connection c = new Connection();
-
-            if (timerMode)
-            {
-                //The text for the exercise
-                string exerciseText = "";
-
-                //creates new data tabels
-                DataTable mostMistakes = new DataTable();
-                DataTable dt0 = new DataTable();
-
-                //Pulls a list of words based on the letters you did wrong the most
-                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                    $"GROUP BY letter ORDER BY SUM(count) DESC");
-                if (mostMistakes.Rows[0]["letter"].ToString().Equals(" "))
-                {
-                    dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[1]["letter"]}%'");
-                }
-                else
-                {
-                    dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-                }
-                Random rand = new Random();
-
-                //fills the exerciseText with a set amount of text
-                for (int i = 0; i < 20; i++)
-                {
-                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    if (i != 19)
-                    {
-                        exerciseText += " ";
-                    }
-                }
-                Exercise exercise = new Exercise(exerciseText, false, 999);
-                exercise.SetCountdown(value);
-                Application.Current.MainWindow.Content = exercise;
-                
-            }
-            else
-            {
-                //The text for the exercise
-                string exerciseText = "";
-
-                //creates new data tabels
-                DataTable mostMistakes = new DataTable();
-                DataTable dt0 = new DataTable();
-
-                //Pulls a list of words based on the letters you did wrong the most
-                mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                    $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                    $"GROUP BY letter ORDER BY SUM(count) DESC");
-                dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-                Random rand = new Random();
-
-                //fills the exerciseText with a set amount of text
-                for (int i = 0; i < value; i++)
-                {
-                    exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                    if (i != value - 1)
-                    {
-                        exerciseText += " ";
-                    }
-                }
-                Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
-            }
-        }
-
-        //For the randomly generated exercise
-        private void ThemedButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-
-            Connection c = new Connection();
-
-            string exerciseText = "";
-
-            DataTable mostMistakes = new DataTable();
-            DataTable dt0 = new DataTable();
-
-            mostMistakes = c.PullData("SELECT TOP 1 letter FROM Result R RIGHT JOIN Usertable U On R.userID = U.userID " +
-                $"JOIN Error E ON R.resultID = E.resultID WHERE username = '{ConfigurationManager.AppSettings["username"]}' AND letter NOT LIKE '% %' " +
-                $"GROUP BY letter ORDER BY SUM(count) DESC");
-
-            dt0 = c.PullData($"SELECT * FROM dictionary WHERE list LIKE '%{mostMistakes.Rows[0]["letter"]}%'");
-            Random rand = new Random();
-
-            for (int i = 0; i < 20; i++)
-            {
-                exerciseText += dt0.Rows[rand.Next(0, dt0.Rows.Count)]["list"].ToString();
-                if (i != 19)
-                {
-                    exerciseText += " ";
-                }
-            }
-            Application.Current.MainWindow.Content = new Exercise(exerciseText, false, 999);
         }
 
         //Enables and Disables inputs specific to the radiobutton it serves 
