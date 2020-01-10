@@ -37,7 +37,9 @@ namespace Foutloos.Multiplayer
         private void initScoreBoard()
         {
             //Get the datatables.
-            DataTable playerScoresTotal = c.PullData($"SELECT playerscore, SUM(time) AS time, username, t.userID FROM roomresult t JOIN Usertable U ON t.userID = u.userID JOIN roomplayer p ON p.userID = u.userID WHERE t.roomID={roomID} GROUP BY username, playerscore, t.userID ORDER BY playerscore DESC");
+            DataTable playerScoresTotal = c.PullData($"SELECT playerscore, SUM(time) AS time, username, t.userID FROM +" +
+                                                    $"roomresult t JOIN Usertable U ON t.userID = u.userID JOIN roomplayer p ON p.userID = u.userID +" +
+                                                    $" WHERE t.roomID={roomID} GROUP BY username, playerscore, t.userID ORDER BY playerscore DESC");
 
             for (int i = 0; i < 4; i++)
             {
