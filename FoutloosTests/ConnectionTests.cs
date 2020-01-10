@@ -5,76 +5,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace Foutloos.Tests
 {
     [TestClass()]
     public class ConnectionTests
     {
+        Connection c = new Connection();
+
         [TestMethod()]
         public void PullDataTest()
         {
-            Assert.Fail();
+            DataTable dt = new DataTable();
+            dt = c.PullData("SELECT * from Result join exercise on result.exerciseID = exercise.exerciseID");
+
+            Assert.IsNotNull(dt.Rows.Count);
         }
 
         [TestMethod()]
         public void getPackagesTest()
         {
-            Assert.Fail();
+            List<int> package = new List<int>();
+            package = c.getPackages("select packageID from Usertable join License on Usertable.userID = license.userID where Usertable.username = 'allpackages'");
+            Assert.AreEqual(7, package.Count());
         }
 
         [TestMethod()]
         public void getPasswordTest()
         {
-            Assert.Fail();
-        }
+            string password = c.getPassword(31);
+            Assert.AreEqual("cn/PFDmYfai/tRJQEw==", password);
 
-        [TestMethod()]
-        public void insertIntoTest()
-        {
-            Assert.Fail();
-        }
+        }        
 
         [TestMethod()]
         public void IDTest()
         {
-            Assert.Fail();
+            int id = c.ID("SELECT userID FROM userTable WHERE username = 'allpackages'");
+            Assert.AreEqual(31, id);
         }
 
         [TestMethod()]
         public void getPackageCountTest()
         {
-            Assert.Fail();
+            int id = c.getPackageCount(1, 1);
+            Assert.AreEqual(6, id);
         }
 
-        [TestMethod()]
-        public void getPackageCountTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void getPackageCountFinishedTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void getPackageNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void leaveRoomTest()
-        {
-            Assert.Fail();
-        }
-
+        
         [TestMethod()]
         public void checkConnectionTest()
         {
-            Assert.Fail();
+            Assert.IsTrue(c.checkConnection());
         }
     }
 }

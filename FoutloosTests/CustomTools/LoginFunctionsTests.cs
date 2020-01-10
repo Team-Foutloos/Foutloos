@@ -17,11 +17,6 @@ namespace Foutloos.CustomTools.Tests
         {
             Assert.IsTrue(LoginFunctions.login("allpackages", "Foutloos!"));
         }
-
-        [TestMethod()]
-        public void loginTest()
-        {
-            Assert.Fail();
-        }
+                
     }
 }
