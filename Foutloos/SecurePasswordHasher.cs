@@ -40,12 +40,6 @@ namespace Foutloos
             return Hash(password, 10000);
         }
 
-        //Checks if the hash is supported.
-        public static bool IsHashSupported(string hashString)
-        {
-            return hashString.Contains("$MYHASH$V1$");
-        }
-
         //Checks a password against a hash.
         public static bool Verify(string password, string hashedPassword)
         {
