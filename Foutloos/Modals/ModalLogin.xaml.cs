@@ -61,46 +61,13 @@ namespace Foutloos.Modals
             {
                 error = "Please enter a password.";
             }
+            else if (!(CustomTools.LoginFunctions.login(username.Text, password.Password))){
+                shakeTheBox();
+                error = "Username or Password incorrect!";
+            }
             else
             {
-                string hashedPassword = SecurePasswordHasher.Hash(password.Password);
-                //query that is being executed and being shows in a Table in the application.
-                string connectionstring = "Data Source=127.0.0.1,1433; User Id=sa;Password=Foutloos!; Initial Catalog=foutloos_db;";
-                string CmdString = $"SELECT * FROM Usertable WHERE username = @username";
-                using (SqlConnection con = new SqlConnection(connectionstring))
-                {
-                    try
-                    {
-                        con.Open();
-                        SqlCommand insCmd = new SqlCommand(CmdString, con);
-
-                        //Set the max timeout of the sql command to 5.
-                        insCmd.CommandTimeout = 5;
-                        // use sqlParameters to prevent sql injection!
-                        insCmd.Parameters.AddWithValue("@username", username.Text);
-                        insCmd.Parameters.AddWithValue("@password", hashedPassword);
-                        using (SqlDataReader reader = insCmd.ExecuteReader())
-                        {
-                            if (reader.Read() && SecurePasswordHasher.Verify(password.Password, (string)reader["password"]))
-                            {
-                                ConfigurationManager.AppSettings["username"] = (string)reader["username"];
-                                ConfigurationManager.AppSettings["userID"] = (string)reader["userID"].ToString();
-
-                                loadingScreen();
-                            }
-                            else
-                            {
-                                shakeTheBox();
-                                error = "Username or Password incorrect!";
-                            }
-                        }
-                    }
-                    catch (Exception f)
-                    {
-                        error = "Your computer is not connected to the internet.";
-                    }
-                    con.Close();
-                }
+                loadingScreen();
             }
             errorMessage.Content = error;
         }
@@ -109,5 +76,7 @@ namespace Foutloos.Modals
         {
             this.Close();
         }
+
+     
     }
 }
